@@ -1,8 +1,10 @@
 package main
 
 import (
+	"context"
 	"github.com/defany/govk/api"
 	"github.com/defany/govk/api/messages/model"
+	heargo "github.com/defany/govk/hear"
 	"github.com/defany/govk/updates"
 	govk "github.com/defany/govk/vk"
 	"log"
@@ -33,6 +35,16 @@ func vkInit() {
 
 		log.Println(res)
 	})
+
+	handler := heargo.NewHandler(func(ctx context.Context, messagesNew model.MessagesNew) {
+
+	})
+
+	handler.WithPreValidator(func(ctx context.Context, event model.MessagesNew) {
+
+	})
+
+	handler.WithMatchRules(heargo.WithMatchWord("123"), heargo.WithWordsIn("hello", "hi", "hey"))
 }
 
 func main() {
