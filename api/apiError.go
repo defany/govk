@@ -44,7 +44,7 @@ const (
 
 	// Too many requests per second
 	//
-	// Decrease the request frequency or use the execute method.
+	// Decrease the requests frequency or use the execute method.
 	// More details on frequency limits here:
 	// https://vk.com/dev/api_requests
 	ErrTooMany ErrorType = 6
@@ -57,9 +57,9 @@ const (
 	// https://vk.com/dev/permissions
 	ErrPermission ErrorType = 7
 
-	// Invalid request
+	// Invalid requests
 	//
-	// Check the request syntax and used parameters list (it can be found on
+	// Check the requests syntax and used parameters list (it can be found on
 	// a method description page).
 	ErrRequest ErrorType = 8
 
@@ -108,7 +108,7 @@ const (
 	// Validation required
 	//
 	// Make sure that you don't use a token received with
-	// http://vk.com/dev/auth_mobile for a request from the server.
+	// http://vk.com/dev/auth_mobile for a requests from the server.
 	// It's restricted.
 	//
 	// https://vk.com/dev/need_validation
@@ -132,7 +132,7 @@ const (
 
 	// Confirmation required
 	//
-	// In some cases VK requires to request action confirmation from the user
+	// In some cases VK requires to requests action confirmation from the user
 	// (for Standalone apps only).
 	//
 	// Following parameter is transmitted with the error message as well:
@@ -143,7 +143,7 @@ const (
 	// The app should display the default confirmation window
 	// with text from confirmation_text and two buttons: "Continue" and
 	// "Cancel".
-	// If user confirms the action repeat the request with an extra parameter:
+	// If user confirms the action repeat the requests with an extra parameter:
 	//
 	// 	confirm = 1.
 	//
@@ -193,7 +193,7 @@ const (
 	//
 	// Find the app in the administrated list in settings:
 	// http://vk.com/apps?act=settings
-	// And set the correct API_ID in the request.
+	// And set the correct API_ID in the requests.
 	ErrParamAPIID   ErrorType = 101
 	ErrLimits       ErrorType = 103 // Out of limits
 	ErrNotFound     ErrorType = 104 // Not found
@@ -311,7 +311,7 @@ const (
 	// Donut is disabled.
 	ErrDonutDisabled ErrorType = 225
 
-	// Reaction can not be applied to the object.
+	// Reaction can not be applied to the model.
 	ErrLikesReactionCanNotBeApplied ErrorType = 232
 
 	// Access to poll denied.
@@ -351,14 +351,14 @@ const (
 	ErrNotEnoughMoney ErrorType = 504
 
 	// Permission denied. You have no access to operations specified with
-	// given object(s).
+	// given model(s).
 	ErrAdsPermission ErrorType = 600
 
 	// Permission denied. You have requested too many actions this day. Try
 	// later.
 	ErrWeightedFlood ErrorType = 601
 
-	// Some part of the request has not been completed.
+	// Some part of the requests has not been completed.
 	ErrAdsPartialSuccess ErrorType = 602
 
 	// Some ads error occurred.
@@ -442,7 +442,7 @@ const (
 	// Object deleted.
 	ErrAdsObjectDeleted ErrorType = 629
 
-	// Lookalike request with same source already in progress.
+	// Lookalike requests with same source already in progress.
 	ErrAdsLookalikeRequestAlreadyInProgress ErrorType = 630
 
 	// Max count of lookalike requests per day reached.
@@ -454,10 +454,10 @@ const (
 	// Given audience is too large.
 	ErrAdsAudienceTooLarge ErrorType = 633
 
-	// Lookalike request audience save already in progress.
+	// Lookalike requests audience save already in progress.
 	ErrAdsLookalikeAudienceSaveAlreadyInProgress ErrorType = 634
 
-	// Max count of lookalike request audience saves per day reached.
+	// Max count of lookalike requests audience saves per day reached.
 	ErrAdsLookalikeSavesLimit ErrorType = 635
 
 	// Max count of retargeting groups reached.
@@ -562,7 +562,7 @@ const (
 	// Contact not found.
 	ErrMessagesContactNotFound ErrorType = 936
 
-	// Message request already send.
+	// Message requests already send.
 	ErrMessagesMessageRequestAlreadySend ErrorType = 939
 
 	// Too many posts in messages.
@@ -814,7 +814,7 @@ const (
 	// Service is deactivated for user.
 	ErrServiceDeactivated ErrorType = 3611
 
-	// Can't set AliExpress tag to this type of object.
+	// Can't set AliExpress tag to this type of model.
 	ErrAliExpressTag ErrorType = 3800
 
 	// Invalid upload response.
@@ -862,7 +862,7 @@ type Error struct {
 	CaptchaSID string       `json:"captcha_sid"`
 	CaptchaImg string       `json:"captcha_img"`
 
-	// In some cases VK requires to request action confirmation from the user
+	// In some cases VK requires to requests action confirmation from the user
 	// (for Standalone apps only). Following error will be returned:
 	//
 	// Error code: 24
@@ -875,7 +875,7 @@ type Error struct {
 	//
 	// The app should display the default confirmation window with text from
 	// confirmation_text and two buttons: "Continue" and "Cancel". If user
-	// confirms the action repeat the request with an extra parameter:
+	// confirms the action repeat the requests with an extra parameter:
 	// confirm = 1.
 	//
 	// See https://vk.com/dev/need_confirmation
@@ -884,7 +884,7 @@ type Error struct {
 	// In some cases VK requires a user validation procedure. . As a result
 	// starting from API version 5.0 (for the older versions captcha_error
 	// will be requested) following error will be returned as a reply to any
-	// API request:
+	// API requests:
 	//
 	// Error code: 17
 	// Error text: Validation Required

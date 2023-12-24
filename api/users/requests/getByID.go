@@ -1,4 +1,4 @@
-package users
+package requests
 
 import (
 	"github.com/defany/govk/api"

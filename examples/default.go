@@ -2,6 +2,8 @@ package main
 
 import (
 	"github.com/defany/govk/api"
+	"github.com/defany/govk/api/messages/model"
+	"github.com/defany/govk/updates"
 	govk "github.com/defany/govk/vk"
 	"log"
 	"time"
@@ -15,16 +17,22 @@ func vkInit() {
 
 	vk.WithApiLimit(1)
 
-	res, err := vk.Api.Messages.Send(api.Params{
-		"peer_id":   222856843,
-		"random_id": time.Now().UnixMilli(),
-		"message":   "amogus",
+	updates.On(vk.Updates, "messages_new", func(msg model.MessagesNew) {
+		log.Println(msg.Message.ID)
 	})
-	if err != nil {
-		log.Fatalln(err)
-	}
 
-	log.Println(res)
+	updates.On(vk.Updates, "messages_event", func(msg model.MessagesEvent) {
+		res, err := vk.Api.Messages.Send(api.Params{
+			"peer_id":   msg.UserID,
+			"random_id": time.Now().UnixMilli(),
+			"message":   "amogus",
+		})
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		log.Println(res)
+	})
 }
 
 func main() {

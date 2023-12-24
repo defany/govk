@@ -1,4 +1,4 @@
-package messages
+package requests
 
 import "github.com/defany/govk/api"
 

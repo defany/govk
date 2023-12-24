@@ -17,13 +17,16 @@ type Request[Res any] struct {
 	api *API
 
 	retries uint
+
+	retryNumber uint
 }
 
 func NewRequest[Res any](api *API) *Request[Res] {
 	return &Request[Res]{
 		api: api,
 
-		retries: api.retries,
+		retries:     api.retries,
+		retryNumber: 0,
 	}
 }
 
@@ -33,17 +36,21 @@ func (r *Request[Res]) WithRetries(retries uint) *Request[Res] {
 	return r
 }
 
-// TODO: add retries
 func (r *Request[Res]) Execute(method string, params MethodParams) (Res, error) {
 	r.api.mu.Lock()
 	defer r.api.mu.Unlock()
 
-	r.api.waitIfNeeded()
-
 	req := fasthttp.AcquireRequest()
 	defer fasthttp.ReleaseRequest(req)
 
-	r.setHeaders(req)
+	token, ok := params.Params()[tokenParam].(string)
+	if !ok {
+		r.api.waitIfNeeded()
+
+		token = r.api.token()
+	}
+
+	r.setHeaders(req, token)
 
 	r.buildUrl(method, req)
 
@@ -51,10 +58,8 @@ func (r *Request[Res]) Execute(method string, params MethodParams) (Res, error) 
 		params.Params()[versionParam] = Version
 	}
 
-	if params != nil {
-		if err := r.buildBody(req, params.Params()); err != nil {
-			return r.response.Body, err
-		}
+	if err := r.buildBody(req, params.Params()); err != nil {
+		return r.response.Body, err
 	}
 
 	res := fasthttp.AcquireResponse()
@@ -87,14 +92,18 @@ func (r *Request[Res]) Execute(method string, params MethodParams) (Res, error) 
 	case r.response.Error.Is(ErrTooMany):
 		return r.response.Body, &r.response.Error
 	default:
+		if r.retryNumber > r.retries {
+			return r.Execute(method, params)
+		}
+
 		return r.response.Body, &r.response.Error
 	}
 }
 
-func (r *Request[Res]) setHeaders(req *fasthttp.Request) {
+func (r *Request[Res]) setHeaders(req *fasthttp.Request, token string) {
 	req.Header.SetMethod(fasthttp.MethodPost)
 
-	req.Header.Set(fasthttp.HeaderAuthorization, "Bearer "+r.api.token())
+	req.Header.Set(fasthttp.HeaderAuthorization, "Bearer "+token)
 
 	req.Header.Set("User-Agent", UserAgent)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
