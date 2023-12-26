@@ -3,6 +3,7 @@ module github.com/defany/govk
 go 1.21
 
 require (
+	github.com/buger/jsonparser v1.1.1
 	github.com/goccy/go-json v0.10.2
 	github.com/valyala/fasthttp v1.51.0
 )

@@ -1,4 +1,4 @@
-package model
+package usermodel
 
 import "github.com/defany/govk/api/types"
 

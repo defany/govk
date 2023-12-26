@@ -1,4 +1,4 @@
-package model
+package msgmodel
 
 import "github.com/defany/govk/api/types"
 

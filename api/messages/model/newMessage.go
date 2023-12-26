@@ -1,48 +1,11 @@
-package model
+package msgmodel
 
-import "github.com/defany/govk/api/types"
+import (
+	"github.com/buger/jsonparser"
+	"github.com/defany/govk/api/types"
+)
 
 // TODO: add missed params in message obj
-
-// MessageKeyboardButtonAction struct.
-type MessageKeyboardButtonAction struct {
-	// Type of button action
-	Type string `json:"type"`
-	// ID of the called application
-	// with the VK Mini Apps type (for the button with the "open_app" action)
-	AppID int `json:"app_id,omitempty"`
-	// ID of the community
-	// where the application is installed (for the button with the "open_app" action)
-	OwnerID int `json:"owner_id,omitempty"`
-	// Additional data along with the sent message (for the developer)
-	Payload string `json:"payload,omitempty"`
-	// Button text
-	Label string `json:"label,omitempty"`
-	// Contains VK Pay payment parameters (to see more, open https://dev.vk.com/ru/pay/getting-started)
-	// and the application ID
-	Hash string `json:"hash,omitempty"`
-	// The link that needs to be opened
-	// by clicking on the button
-	Link string `json:"link,omitempty"`
-}
-
-// MessageKeyboardButton struct.
-type MessageKeyboardButton struct {
-	// A structure describing the type of button action and its parameters
-	Action MessageKeyboardButtonAction `json:"action"`
-	// Button color
-	Color string `json:"color,omitempty"`
-}
-
-// MessageKeyboard struct.
-type MessageKeyboard struct {
-	// Keyboard buttons
-	Buttons [][]MessageKeyboardButton `json:"buttons"`
-	// Should the keyboard disappear after using it
-	OneTime types.ApiBool `json:"one_time,omitempty"`
-	// Should the keyboard be displayed inline the message
-	Inline types.ApiBool `json:"inline,omitempty"`
-}
 
 type Message struct {
 	// Only for messages from community. Contains user ID of community admin,
@@ -92,4 +55,15 @@ type Message struct {
 type MessagesNew struct {
 	Message    Message    `json:"message"`
 	ClientInfo ClientInfo `json:"client_info"`
+}
+
+func PayloadValue[V comparable](message Message, payload string) (V, error) {
+	var zero V
+
+	v, _, _, err := jsonparser.Get([]byte(message.Payload), payload)
+	if err != nil {
+		return zero, err
+	}
+
+	return V(any(v)), nil
 }

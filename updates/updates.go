@@ -21,6 +21,8 @@ func NewUpdates(api *api.API) *Updates {
 	}
 }
 
+// TODO: Add check for new updates
+
 func (u *Updates) Check() {
 
 }
@@ -29,7 +31,7 @@ func (u *Updates) Check() {
 //
 // With generics it can be helpful to work without interface{}, just pass it into function and see a magic.
 //
-// Try to use types only from updates package, but if you trust yourself you can provide your own types. For instance - types for user bots.
+// Try to use types only from <any>/model package, but if you trust yourself you can provide your own types. For instance - types for user bots.
 // Remember, that you can pass only struct as generic. No pointers, no something else.
 //
 // All event objects named as in vk, for example: messages_new -> MessagesNew
@@ -50,7 +52,7 @@ func On[T any](updates *Updates, event string, callback callback[T]) {
 	updates.callbacks[event] = func(data any) {
 		pd, ok := data.(T)
 		if !ok {
-			panic(fmt.Sprintf("failed to cast incoming type %s to %s", reflect.TypeOf(data), reflect.TypeOf(zero)))
+			panic(fmt.Sprintf("failed to cast incoming type %s to %s", reflect.TypeOf(data), typ))
 		}
 
 		callback(pd)

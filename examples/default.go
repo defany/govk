@@ -3,7 +3,8 @@ package main
 import (
 	"context"
 	"github.com/defany/govk/api"
-	"github.com/defany/govk/api/messages/model"
+	msgmodel "github.com/defany/govk/api/messages/model"
+	"github.com/defany/govk/api/messages/requests"
 	heargo "github.com/defany/govk/hear"
 	"github.com/defany/govk/updates"
 	govk "github.com/defany/govk/vk"
@@ -19,15 +20,41 @@ func vkInit() {
 
 	vk.WithApiLimit(1)
 
-	updates.On(vk.Updates, "messages_new", func(msg model.MessagesNew) {
+	kb := msgmodel.NewKeyboard()
+
+	kb.MakeInline()
+
+	kb.AddRow()
+	kb.AddTextButton("test", msgmodel.ButtonBlue)
+
+	params := requests.NewSendParams().WithMessage("Привет!")
+
+	params.WithPeerID(222856843, 620893364)
+	params.WithKeyboard(kb)
+
+	res, err := vk.Api.Messages.Send(params)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	log.Println(res)
+
+	updates.On(vk.Updates, "messages_new", func(msg msgmodel.MessagesNew) {
 		log.Println(msg.Message.ID)
 	})
 
-	updates.On(vk.Updates, "messages_event", func(msg model.MessagesEvent) {
+	updates.On(vk.Updates, "messages_event", func(msg msgmodel.MessagesEvent) {
+		kb := msgmodel.NewKeyboard()
+
+		kb.MakeInline()
+
+		kb.AddTextButton("test", msgmodel.ButtonBlue)
+
 		res, err := vk.Api.Messages.Send(api.Params{
 			"peer_id":   msg.UserID,
 			"random_id": time.Now().UnixMilli(),
 			"message":   "amogus",
+			"keyboard":  kb,
 		})
 		if err != nil {
 			log.Fatalln(err)
@@ -36,15 +63,17 @@ func vkInit() {
 		log.Println(res)
 	})
 
-	handler := heargo.NewHandler(func(ctx context.Context, messagesNew model.MessagesNew) {
+	handler := heargo.NewHandler(func(ctx context.Context, messagesNew msgmodel.MessagesNew) {
 
 	})
 
-	handler.WithPreValidator(func(ctx context.Context, event model.MessagesNew) {
-
-	})
-
+	// builtin match validators
 	handler.WithMatchRules(heargo.WithMatchWord("123"), heargo.WithWordsIn("hello", "hi", "hey"))
+
+	// your own match rule
+	handler.WithMatchRules(func(event msgmodel.MessagesNew) bool {
+		return event.Message.Text == "hey!"
+	})
 }
 
 func main() {

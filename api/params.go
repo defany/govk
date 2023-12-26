@@ -11,6 +11,11 @@ type MethodParams interface {
 	Params() Params
 }
 
+type ParamMarshaler struct {
+	Key       string
+	Marshaler func(v any) (any, error)
+}
+
 type BaseRequestParam struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`

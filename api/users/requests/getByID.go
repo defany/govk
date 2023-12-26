@@ -5,7 +5,7 @@ import (
 	"github.com/defany/govk/api/users/model"
 )
 
-type GetRes []model.User
+type GetRes []usermodel.User
 
 // TODO: add a builder
 
