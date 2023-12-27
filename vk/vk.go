@@ -1,4 +1,4 @@
-package vk
+package govk
 
 import (
 	"github.com/defany/govk/api"

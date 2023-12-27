@@ -7,7 +7,7 @@ import (
 	"github.com/defany/govk/api/messages/requests"
 	heargo "github.com/defany/govk/hear"
 	"github.com/defany/govk/updates"
-	govk "github.com/defany/govk/vk"
+	"github.com/defany/govk/vk"
 	"log"
 	"time"
 )
