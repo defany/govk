@@ -2,7 +2,6 @@ package govk
 
 import (
 	"github.com/defany/govk/api"
-	requests3 "github.com/defany/govk/api/groups/requests"
 	"github.com/defany/govk/api/messages/requests"
 	requests2 "github.com/defany/govk/api/users/requests"
 	"github.com/defany/govk/updates"
@@ -13,7 +12,6 @@ type apiParams struct {
 
 	Users    *requests2.Users
 	Messages *requests.Messages
-	Groups   *requests3.Groups
 }
 
 type VK struct {
@@ -34,7 +32,6 @@ func NewVK(tokens ...string) (*VK, error) {
 			api:      api,
 			Users:    requests2.NewUsers(api),
 			Messages: requests.NewMessages(api),
-			Groups:   requests3.NewGroups(api),
 		},
 		Updates: updates,
 	}, nil
