@@ -1,4 +1,4 @@
-package longpool
+package longpoll
 
 import (
 	gripDecoder "compress/gzip"
@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/defany/govk/api"
-	"github.com/defany/govk/longpool/model"
+	"github.com/defany/govk/longpoll/model"
 	"github.com/defany/govk/vk"
 	_ "github.com/defany/govk/vk"
 	"github.com/goccy/go-json"
@@ -159,7 +159,7 @@ func (lp *LongPoll) checkResponse(response model.Response) (err error) {
 	case 3:
 		err = lp.getLongPollParams(true)
 	default:
-		err = fmt.Errorf("longpool get error! Code: %d", response.Failed)
+		err = fmt.Errorf("longpoll get error! Code: %d", response.Failed)
 	}
 
 	return
