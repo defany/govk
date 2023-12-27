@@ -35,17 +35,17 @@ func NewLongPoll(vk *govk.VK, groupID int) (*LongPoll, error) {
 		Client:  &fasthttp.Client{},
 	}
 
-	err := lp.getLongPoolParams(true)
+	err := lp.getLongPollParams(true)
 
 	return lp, err
 }
 
-func (lp *LongPoll) getLongPoolParams(updateTS bool) error {
+func (lp *LongPoll) getLongPollParams(updateTS bool) error {
 	params := api.Params{
 		"group_id": lp.GroupID,
 	}
 
-	lpServer, err := lp.VK.Api.Groups.GetLongPoolServer(params)
+	lpServer, err := lp.VK.Api.Groups.GetLongPollServer(params)
 	if err != nil {
 		return err
 	}
@@ -155,9 +155,9 @@ func (lp *LongPoll) checkResponse(response model.Response) (err error) {
 	case 1:
 		lp.TS = response.Ts
 	case 2:
-		err = lp.getLongPoolParams(false)
+		err = lp.getLongPollParams(false)
 	case 3:
-		err = lp.getLongPoolParams(true)
+		err = lp.getLongPollParams(true)
 	default:
 		err = fmt.Errorf("longpool get error! Code: %d", response.Failed)
 	}
@@ -190,7 +190,7 @@ func (lp *LongPoll) run(ctx context.Context) error {
 				return err
 			}
 
-			// TODO: create longpool handler
+			// TODO: create longpoll handler
 
 			for _, f := range lp.funcFullResponseList {
 				f(resp)

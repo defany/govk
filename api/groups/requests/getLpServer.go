@@ -5,14 +5,14 @@ import (
 	"github.com/defany/govk/api/groups/model"
 )
 
-type GetRes model.LongPoolServer
+type GetRes model.LongPollServer
 
 // TODO: add a builder
 
-func (g *Groups) GetLongPoolServer(params ...api.MethodParams) (GetRes, error) {
+func (g *Groups) GetLongPollServer(params ...api.MethodParams) (GetRes, error) {
 	req := api.NewRequest[GetRes](g.api)
 
-	res, err := req.Execute(g.methodsGroup+"get", api.ParamsOrNil(params))
+	res, err := req.Execute(g.methodsGroup+"getLongPollServer", api.ParamsOrNil(params))
 	if err != nil {
 		return res, err
 	}
