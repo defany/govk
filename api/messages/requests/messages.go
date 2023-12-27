@@ -2,16 +2,16 @@ package requests
 
 import "github.com/defany/govk/api"
 
-const methodsGroup = "groups."
+const methodsGroup = "messages."
 
-type Groups struct {
+type Messages struct {
 	methodsGroup string
 
 	api *api.API
 }
 
-func NewGroups(api *api.API) *Groups {
-	return &Groups{
+func NewMessages(api *api.API) *Messages {
+	return &Messages{
 		methodsGroup: methodsGroup,
 		api:          api,
 	}
