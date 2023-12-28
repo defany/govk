@@ -1,30 +1,143 @@
 package updates
 
 import (
+	gripDecoder "compress/gzip"
+	"context"
+	"errors"
 	"fmt"
 	"github.com/defany/govk/api"
+	"github.com/defany/govk/updates/model"
+	govk "github.com/defany/govk/vk"
+	"github.com/goccy/go-json"
+	"github.com/valyala/fasthttp"
+	"io"
+	url2 "net/url"
 	"reflect"
+	"strconv"
 )
+
+type longPoll struct {
+	Key                  string
+	Server               string
+	TS                   string
+	Wait                 int
+	Client               *fasthttp.Client
+	cancel               context.CancelFunc
+	funcFullResponseList []func(model.Response)
+}
 
 type callback[T any] func(data T)
 
 type Updates struct {
-	callbacks map[string]func(data any)
-
-	api *api.API
+	callbacks map[string][]func(data any)
+	longPoll  *longPoll
+	api       *govk.ApiProvider
 }
 
-func NewUpdates(api *api.API) *Updates {
+func NewUpdates(api *govk.ApiProvider) *Updates {
 	return &Updates{
 		api:       api,
-		callbacks: make(map[string]func(data any)),
+		callbacks: make(map[string][]func(data any)),
+		longPoll: &longPoll{
+			Wait:   25,
+			Client: &fasthttp.Client{},
+		},
 	}
+}
+
+// Check handler.
+func (u *Updates) Check() error {
+	return u.CheckWithContext(context.Background())
+}
+
+// CheckWithContext handler.
+func (u *Updates) CheckWithContext(ctx context.Context) error {
+	return u.run(ctx)
 }
 
 // TODO: Add check for new updates
 
-func (u *Updates) Check() {
+func (u *Updates) run(ctx context.Context) error {
+	if err := u.getLongPollParams(true); err != nil {
+		return err
+	}
 
+	ctx, u.longPoll.cancel = context.WithCancel(ctx)
+
+	for {
+		select {
+		case _, ok := <-ctx.Done():
+			if !ok {
+				return nil
+			}
+		default:
+			resp, err := u.check()
+			if err != nil {
+				return err
+			}
+
+			// TODO: create longpoll handler
+
+			for _, f := range u.longPoll.funcFullResponseList {
+				f(resp)
+			}
+		}
+	}
+	return nil
+}
+
+func (u *Updates) check() (response model.Response, err error) {
+	uri, err := url2.Parse(u.longPoll.Server)
+	if err != nil {
+		return response, err
+	}
+	params := url2.Values{}
+
+	params.Add("act", "a_check")
+	params.Add("key", u.longPoll.Key)
+	params.Add("ts", u.longPoll.TS)
+	params.Add("wait", strconv.Itoa(u.longPoll.Wait))
+
+	uri.RawQuery = params.Encode()
+
+	req := fasthttp.AcquireRequest()
+
+	defer fasthttp.ReleaseRequest(req)
+
+	req.URI().Update(uri.String())
+	req.Header.SetMethodBytes([]byte(fasthttp.MethodGet))
+
+	res := fasthttp.AcquireResponse()
+
+	defer fasthttp.ReleaseResponse(res)
+
+	res.StreamBody = true
+
+	body := res.BodyStream()
+
+	reader, err := gripDecoder.NewReader(body)
+	if err != nil {
+		return response, err
+	}
+	defer reader.Close()
+
+	err = u.longPoll.Client.Do(req, res)
+	if err != nil {
+		return response, err
+	}
+	defer res.CloseBodyStream()
+
+	response, err = parseResponse(reader)
+	if err != nil {
+		return response, err
+	}
+
+	err = u.checkResponse(response)
+	if err != nil {
+		return response, err
+	}
+
+	return response, err
 }
 
 // On - function to helps you handle updates from VK
@@ -49,12 +162,117 @@ func On[T any](updates *Updates, event string, callback callback[T]) {
 		panic("something not a struct has been passed into vk updates handler, recheck your generic types in your `On` functions")
 	}
 
-	updates.callbacks[event] = func(data any) {
-		pd, ok := data.(T)
-		if !ok {
-			panic(fmt.Sprintf("failed to cast incoming type %s to %s", reflect.TypeOf(data), typ))
+	updates.callbacks[event] = append(updates.callbacks[event],
+		func(data any) {
+			pd, ok := data.(T)
+			if !ok {
+				panic(fmt.Sprintf("failed to cast incoming type %s to %s", reflect.TypeOf(data), typ))
+			}
+
+			callback(pd)
+		})
+}
+
+func (u *Updates) getLongPollParams(updateTS bool) error {
+	groupID, err := u.api.Groups.GetByID(nil)
+	if err != nil {
+		return err
+	}
+
+	params := api.Params{
+		"group_id": groupID,
+	}
+
+	lpServer, err := u.api.Groups.GetLongPollServer(params)
+	if err != nil {
+		return err
+	}
+
+	u.longPoll.Key = lpServer.Key
+	u.longPoll.Server = lpServer.Server
+
+	if updateTS {
+		u.longPoll.TS = lpServer.TS
+	}
+
+	return nil
+}
+
+func parseResponse(reader io.Reader) (response model.Response, err error) {
+	decoder := json.NewDecoder(reader)
+	for decoder.More() {
+		token, err := decoder.Token()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				break
+			}
+
+			return response, err
 		}
 
-		callback(pd)
+		t, ok := token.(string)
+		if !ok {
+			continue
+		}
+
+		switch t {
+		case LongpollResponseFailed:
+			raw, err := decoder.Token()
+			if err != nil {
+				return response, err
+			}
+
+			parsedRaw, ok := raw.(float64)
+			if !ok {
+				return response, ErrFailedToCastRawToFloat64
+			}
+			response.Failed = int(parsedRaw)
+		case LongpollResponseUpdates:
+			var updates []model.Update
+
+			err = decoder.Decode(&updates)
+			if err != nil {
+				return response, err
+			}
+
+			response.Updates = updates
+		case LongpollResponseTS:
+			// can be a number in the response with "failed" field: {"ts":8,"failed":1}
+			// or string, e.g. {"ts":"8","updates":[]}
+			rawTs, err := decoder.Token()
+			if err != nil {
+				return response, err
+			}
+
+			if ts, isNumber := rawTs.(float64); isNumber {
+				response.Ts = strconv.Itoa(int(ts))
+			} else {
+				response.Ts = rawTs.(string)
+			}
+		}
 	}
+
+	return response, err
+}
+
+func (u *Updates) checkResponse(response model.Response) (err error) {
+	switch response.Failed {
+	case LongpollUnknownStatus:
+		u.longPoll.TS = response.Ts
+	case LongpollHistoryMissedStatus:
+		u.longPoll.TS = response.Ts
+	case LongpollKeyExpiredStatus:
+		err = u.getLongPollParams(false)
+	case LongpollInfoMissedStatus:
+		err = u.getLongPollParams(true)
+	default:
+		err = fmt.Errorf("%w Code: %d", ErrLongpollFailed, response.Failed)
+	}
+
+	return
+}
+
+// FullResponse handler.
+func (lp *longPoll) FullResponse(f func(response model.Response)) {
+	lp.funcFullResponseList = append(lp.funcFullResponseList, f)
 }

@@ -8,8 +8,8 @@ import (
 	"github.com/defany/govk/updates"
 )
 
-type apiParams struct {
-	api *api.API
+type ApiProvider struct {
+	Api *api.API
 
 	Users    *requests2.Users
 	Messages *requests.Messages
@@ -17,7 +17,7 @@ type apiParams struct {
 }
 
 type VK struct {
-	Api     apiParams
+	Api     ApiProvider
 	Updates *updates.Updates
 }
 
@@ -27,11 +27,20 @@ func NewVK(tokens ...string) (*VK, error) {
 		return nil, err
 	}
 
-	updates := updates.NewUpdates(api)
+	var apiProvider *ApiProvider
+
+	apiProvider = &ApiProvider{
+		Api:      api,
+		Users:    requests2.NewUsers(api),
+		Messages: requests.NewMessages(api),
+		Groups:   requests3.NewGroups(api),
+	}
+
+	updates := updates.NewUpdates(apiProvider)
 
 	return &VK{
-		Api: apiParams{
-			api:      api,
+		Api: ApiProvider{
+			Api:      api,
 			Users:    requests2.NewUsers(api),
 			Messages: requests.NewMessages(api),
 			Groups:   requests3.NewGroups(api),
@@ -41,19 +50,19 @@ func NewVK(tokens ...string) (*VK, error) {
 }
 
 func (v *VK) WithApiVersion(version string) *VK {
-	v.Api.api.WithVersion(version)
+	v.Api.Api.WithVersion(version)
 
 	return v
 }
 
 func (v *VK) WithApiURL(url string) *VK {
-	v.Api.api.WithApiURL(url)
+	v.Api.Api.WithApiURL(url)
 
 	return v
 }
 
 func (v *VK) WithApiLimit(limit uint) *VK {
-	v.Api.api.WithLimit(limit)
+	v.Api.Api.WithLimit(limit)
 
 	return v
 }

@@ -2,7 +2,7 @@ package model
 
 import "github.com/goccy/go-json"
 
-type Updates struct {
+type Update struct {
 	Type    string          `json:"type"`
 	EventID string          `json:"event_id"`
 	Version string          `json:"v"`
@@ -11,7 +11,7 @@ type Updates struct {
 }
 
 type Response struct {
-	Ts      string    `json:"ts"`
-	Updates []Updates `json:"updates"`
-	Failed  int       `json:"failed"`
+	Ts      string   `json:"ts"`
+	Updates []Update `json:"updates"`
+	Failed  int      `json:"failed"`
 }
