@@ -43,20 +43,28 @@ func (r *Request[Res]) Execute(method string, params MethodParams) (Res, error) 
 	req := fasthttp.AcquireRequest()
 	defer fasthttp.ReleaseRequest(req)
 
-	token, ok := params.Params()[tokenParam].(string)
-	if !ok {
+	var token string
+	if params == nil {
+		params = Params{}
+		params.Params()[versionParam] = r.api.apiVersion
 		r.api.waitIfNeeded()
-
 		token = r.api.token()
-	}
+	} else {
+		t, ok := params.Params()[tokenParam].(string)
+		if !ok {
+			r.api.waitIfNeeded()
+			t = r.api.token()
+		}
 
+		token = t
+
+		if _, ok := params.Params()[versionParam]; !ok {
+			params.Params()[versionParam] = Version
+		}
+	}
 	r.setHeaders(req, token)
 
 	r.buildUrl(method, req)
-
-	if _, ok := params.Params()[versionParam]; !ok {
-		params.Params()[versionParam] = Version
-	}
 
 	if err := r.buildBody(req, params.Params()); err != nil {
 		return r.response.Body, err
@@ -95,7 +103,6 @@ func (r *Request[Res]) Execute(method string, params MethodParams) (Res, error) 
 		if r.retryNumber > r.retries {
 			return r.Execute(method, params)
 		}
-
 		return r.response.Body, &r.response.Error
 	}
 }

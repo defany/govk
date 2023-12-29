@@ -4,20 +4,13 @@ import (
 	"github.com/defany/govk/api"
 	requests3 "github.com/defany/govk/api/groups/requests"
 	"github.com/defany/govk/api/messages/requests"
+	apiModel "github.com/defany/govk/api/model"
 	requests2 "github.com/defany/govk/api/users/requests"
 	"github.com/defany/govk/updates"
 )
 
-type ApiProvider struct {
-	Api *api.API
-
-	Users    *requests2.Users
-	Messages *requests.Messages
-	Groups   *requests3.Groups
-}
-
 type VK struct {
-	Api     ApiProvider
+	Api     *apiModel.ApiProvider
 	Updates *updates.Updates
 }
 
@@ -27,9 +20,9 @@ func NewVK(tokens ...string) (*VK, error) {
 		return nil, err
 	}
 
-	var apiProvider *ApiProvider
+	var apiProvider *apiModel.ApiProvider
 
-	apiProvider = &ApiProvider{
+	apiProvider = &apiModel.ApiProvider{
 		Api:      api,
 		Users:    requests2.NewUsers(api),
 		Messages: requests.NewMessages(api),
@@ -39,12 +32,7 @@ func NewVK(tokens ...string) (*VK, error) {
 	updates := updates.NewUpdates(apiProvider)
 
 	return &VK{
-		Api: ApiProvider{
-			Api:      api,
-			Users:    requests2.NewUsers(api),
-			Messages: requests.NewMessages(api),
-			Groups:   requests3.NewGroups(api),
-		},
+		Api:     apiProvider,
 		Updates: updates,
 	}, nil
 }

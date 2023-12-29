@@ -12,3 +12,9 @@ type GroupsGroup struct {
 	Photo100   string        `json:"photo_100"`
 	Photo200   string        `json:"photo_200"`
 }
+
+type GetByIDResponse struct {
+	Groups []GroupsGroup `json:"groups"`
+	// TODO: add profiles type
+	Profiles any `json:"profiles"`
+}

@@ -5,7 +5,7 @@ import (
 	"github.com/defany/govk/api/groups/model"
 )
 
-type GetByIDRes []model.GroupsGroup
+type GetByIDRes model.GetByIDResponse
 
 // TODO: add a builder
 

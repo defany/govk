@@ -1,13 +1,12 @@
 package updates
 
 import (
-	gripDecoder "compress/gzip"
 	"context"
 	"errors"
 	"fmt"
 	"github.com/defany/govk/api"
+	apiModel "github.com/defany/govk/api/model"
 	"github.com/defany/govk/updates/model"
-	govk "github.com/defany/govk/vk"
 	"github.com/goccy/go-json"
 	"github.com/valyala/fasthttp"
 	"io"
@@ -17,13 +16,11 @@ import (
 )
 
 type longPoll struct {
-	Key                  string
-	Server               string
-	TS                   string
-	Wait                 int
-	Client               *fasthttp.Client
-	cancel               context.CancelFunc
-	funcFullResponseList []func(model.Response)
+	Key    string
+	Server string
+	TS     string
+	Wait   int
+	cancel context.CancelFunc
 }
 
 type callback[T any] func(data T)
@@ -31,17 +28,18 @@ type callback[T any] func(data T)
 type Updates struct {
 	callbacks map[string][]func(data any)
 	longPoll  *longPoll
-	api       *govk.ApiProvider
+	api       *apiModel.ApiProvider
+	client    *fasthttp.Client
 }
 
-func NewUpdates(api *govk.ApiProvider) *Updates {
+func NewUpdates(api *apiModel.ApiProvider) *Updates {
 	return &Updates{
 		api:       api,
 		callbacks: make(map[string][]func(data any)),
 		longPoll: &longPoll{
-			Wait:   25,
-			Client: &fasthttp.Client{},
+			Wait: 25,
 		},
+		client: &fasthttp.Client{},
 	}
 }
 
@@ -75,11 +73,12 @@ func (u *Updates) run(ctx context.Context) error {
 			if err != nil {
 				return err
 			}
-
-			// TODO: create longpoll handler
-
-			for _, f := range u.longPoll.funcFullResponseList {
-				f(resp)
+			if len(resp.Updates) > 0 {
+				if callbackFuncs, ok := u.callbacks[resp.Updates[0].Type]; ok {
+					for _, callback := range callbackFuncs {
+						callback(resp.Updates[0].Object)
+					}
+				}
 			}
 		}
 	}
@@ -104,28 +103,20 @@ func (u *Updates) check() (response model.Response, err error) {
 
 	defer fasthttp.ReleaseRequest(req)
 
-	req.URI().Update(uri.String())
+	req.SetRequestURI(uri.String())
 	req.Header.SetMethodBytes([]byte(fasthttp.MethodGet))
 
 	res := fasthttp.AcquireResponse()
-
 	defer fasthttp.ReleaseResponse(res)
 
 	res.StreamBody = true
 
-	body := res.BodyStream()
-
-	reader, err := gripDecoder.NewReader(body)
+	err = u.client.Do(req, res)
 	if err != nil {
 		return response, err
 	}
-	defer reader.Close()
 
-	err = u.longPoll.Client.Do(req, res)
-	if err != nil {
-		return response, err
-	}
-	defer res.CloseBodyStream()
+	reader := res.BodyStream()
 
 	response, err = parseResponse(reader)
 	if err != nil {
@@ -180,7 +171,7 @@ func (u *Updates) getLongPollParams(updateTS bool) error {
 	}
 
 	params := api.Params{
-		"group_id": groupID,
+		"group_id": groupID.Groups[0].ID,
 	}
 
 	lpServer, err := u.api.Groups.GetLongPollServer(params)
@@ -270,9 +261,4 @@ func (u *Updates) checkResponse(response model.Response) (err error) {
 	}
 
 	return
-}
-
-// FullResponse handler.
-func (lp *longPoll) FullResponse(f func(response model.Response)) {
-	lp.funcFullResponseList = append(lp.funcFullResponseList, f)
 }
