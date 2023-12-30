@@ -2,20 +2,15 @@ package govk
 
 import (
 	"github.com/defany/govk/api"
-	"github.com/defany/govk/api/messages/requests"
-	requests2 "github.com/defany/govk/api/users/requests"
+	groupsReqs "github.com/defany/govk/api/groups/requests"
+	messagesReqs "github.com/defany/govk/api/messages/requests"
+	apiModel "github.com/defany/govk/api/model"
+	usersReqs "github.com/defany/govk/api/users/requests"
 	"github.com/defany/govk/updates"
 )
 
-type apiParams struct {
-	api *api.API
-
-	Users    *requests2.Users
-	Messages *requests.Messages
-}
-
 type VK struct {
-	Api     apiParams
+	Api     *apiModel.ApiProvider
 	Updates *updates.Updates
 }
 
@@ -25,32 +20,17 @@ func NewVK(tokens ...string) (*VK, error) {
 		return nil, err
 	}
 
-	updates := updates.NewUpdates(api)
+	apiProvider := &apiModel.ApiProvider{
+		Api:      api,
+		Users:    usersReqs.NewUsers(api),
+		Messages: messagesReqs.NewMessages(api),
+		Groups:   groupsReqs.NewGroups(api),
+	}
+
+	updates := updates.NewUpdates(apiProvider)
 
 	return &VK{
-		Api: apiParams{
-			api:      api,
-			Users:    requests2.NewUsers(api),
-			Messages: requests.NewMessages(api),
-		},
+		Api:     apiProvider,
 		Updates: updates,
 	}, nil
-}
-
-func (v *VK) WithApiVersion(version string) *VK {
-	v.Api.api.WithVersion(version)
-
-	return v
-}
-
-func (v *VK) WithApiURL(url string) *VK {
-	v.Api.api.WithApiURL(url)
-
-	return v
-}
-
-func (v *VK) WithApiLimit(limit uint) *VK {
-	v.Api.api.WithLimit(limit)
-
-	return v
 }
