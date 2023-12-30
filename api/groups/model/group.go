@@ -2,7 +2,7 @@ package model
 
 import "github.com/defany/govk/api/types"
 
-type GroupsGroup struct {
+type Group struct {
 	ID         int           `json:"id"`
 	Name       string        `json:"name"`
 	ScreenName string        `json:"screen_name"`
@@ -11,10 +11,4 @@ type GroupsGroup struct {
 	Photo50    string        `json:"photo_50"`
 	Photo100   string        `json:"photo_100"`
 	Photo200   string        `json:"photo_200"`
-}
-
-type GetByIDResponse struct {
-	Groups []GroupsGroup `json:"groups"`
-	// TODO: add profiles type
-	Profiles any `json:"profiles"`
 }

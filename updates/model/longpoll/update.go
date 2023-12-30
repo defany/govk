@@ -9,9 +9,3 @@ type Update struct {
 	Object  json.RawMessage `json:"object"`
 	GroupID int64           `json:"group_id"`
 }
-
-type Response struct {
-	Ts      string   `json:"ts"`
-	Updates []Update `json:"updates"`
-	Failed  int      `json:"failed"`
-}

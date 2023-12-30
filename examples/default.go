@@ -18,7 +18,7 @@ func vkInit() {
 		log.Fatal("failed to initialize api client")
 	}
 
-	vk.WithApiLimit(1)
+	vk.Api.Api.WithLimit(1)
 
 	kb := msgmodel.NewKeyboard()
 
@@ -73,7 +73,7 @@ func vkInit() {
 		return event.Message.Text == "hey!"
 	})
 
-	err = vk.Updates.Check()
+	err = vk.Updates.Run()
 	if err != nil {
 		log.Println(err)
 	}

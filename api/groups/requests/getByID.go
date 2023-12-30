@@ -5,7 +5,11 @@ import (
 	"github.com/defany/govk/api/groups/model"
 )
 
-type GetByIDRes model.GetByIDResponse
+type GetByIDRes struct {
+	Groups []model.Group `json:"groups"`
+	// TODO: add profiles type
+	Profiles any `json:"profiles"`
+}
 
 // TODO: add a builder
 

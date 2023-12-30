@@ -2,10 +2,10 @@ package govk
 
 import (
 	"github.com/defany/govk/api"
-	requests3 "github.com/defany/govk/api/groups/requests"
-	"github.com/defany/govk/api/messages/requests"
+	groupsReqs "github.com/defany/govk/api/groups/requests"
+	messagesReqs "github.com/defany/govk/api/messages/requests"
 	apiModel "github.com/defany/govk/api/model"
-	requests2 "github.com/defany/govk/api/users/requests"
+	usersReqs "github.com/defany/govk/api/users/requests"
 	"github.com/defany/govk/updates"
 )
 
@@ -20,13 +20,11 @@ func NewVK(tokens ...string) (*VK, error) {
 		return nil, err
 	}
 
-	var apiProvider *apiModel.ApiProvider
-
-	apiProvider = &apiModel.ApiProvider{
+	apiProvider := &apiModel.ApiProvider{
 		Api:      api,
-		Users:    requests2.NewUsers(api),
-		Messages: requests.NewMessages(api),
-		Groups:   requests3.NewGroups(api),
+		Users:    usersReqs.NewUsers(api),
+		Messages: messagesReqs.NewMessages(api),
+		Groups:   groupsReqs.NewGroups(api),
 	}
 
 	updates := updates.NewUpdates(apiProvider)
@@ -35,22 +33,4 @@ func NewVK(tokens ...string) (*VK, error) {
 		Api:     apiProvider,
 		Updates: updates,
 	}, nil
-}
-
-func (v *VK) WithApiVersion(version string) *VK {
-	v.Api.Api.WithVersion(version)
-
-	return v
-}
-
-func (v *VK) WithApiURL(url string) *VK {
-	v.Api.Api.WithApiURL(url)
-
-	return v
-}
-
-func (v *VK) WithApiLimit(limit uint) *VK {
-	v.Api.Api.WithLimit(limit)
-
-	return v
 }

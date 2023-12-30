@@ -2,15 +2,15 @@ package model
 
 import (
 	"github.com/defany/govk/api"
-	requests3 "github.com/defany/govk/api/groups/requests"
-	"github.com/defany/govk/api/messages/requests"
-	requests2 "github.com/defany/govk/api/users/requests"
+	groupsReqs "github.com/defany/govk/api/groups/requests"
+	messagesReqs "github.com/defany/govk/api/messages/requests"
+	userReqs "github.com/defany/govk/api/users/requests"
 )
 
 type ApiProvider struct {
 	Api *api.API
 
-	Users    *requests2.Users
-	Messages *requests.Messages
-	Groups   *requests3.Groups
+	Users    *userReqs.Users
+	Messages *messagesReqs.Messages
+	Groups   *groupsReqs.Groups
 }

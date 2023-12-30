@@ -7,7 +7,7 @@ const (
 )
 
 const (
-	LongpollUnknownStatus       = 0
+	LongpollOkStatus            = 0
 	LongpollHistoryMissedStatus = 1
 	LongpollKeyExpiredStatus    = 2
 	LongpollInfoMissedStatus    = 3

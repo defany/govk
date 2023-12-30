@@ -2,15 +2,18 @@ package requests
 
 import (
 	"github.com/defany/govk/api"
-	"github.com/defany/govk/api/groups/model"
 )
 
-type GetRes model.GetLongPollServerResponse
+type GetLongPollServerRes struct {
+	Key    string `json:"key"`
+	Server string `json:"server"`
+	TS     string `json:"ts"`
+}
 
 // TODO: add a builder
 
-func (g *Groups) GetLongPollServer(params api.MethodParams) (GetRes, error) {
-	req := api.NewRequest[GetRes](g.api)
+func (g *Groups) GetLongPollServer(params api.MethodParams) (GetLongPollServerRes, error) {
+	req := api.NewRequest[GetLongPollServerRes](g.api)
 
 	res, err := req.Execute(g.methodsGroup+"getLongPollServer", params)
 	if err != nil {

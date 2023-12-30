@@ -6,21 +6,22 @@ import (
 	"fmt"
 	"github.com/defany/govk/api"
 	apiModel "github.com/defany/govk/api/model"
-	"github.com/defany/govk/updates/model"
+	"github.com/defany/govk/updates/model/longpoll"
 	"github.com/goccy/go-json"
 	"github.com/valyala/fasthttp"
 	"io"
-	url2 "net/url"
+	"net/url"
 	"reflect"
 	"strconv"
 )
 
 type longPoll struct {
-	Key    string
-	Server string
-	TS     string
-	Wait   int
-	cancel context.CancelFunc
+	Key     string
+	Server  string
+	TS      string
+	Wait    int
+	cancel  context.CancelFunc
+	isFixed bool
 }
 
 type callback[T any] func(data T)
@@ -43,20 +44,20 @@ func NewUpdates(api *apiModel.ApiProvider) *Updates {
 	}
 }
 
-// Check handler.
-func (u *Updates) Check() error {
-	return u.CheckWithContext(context.Background())
+// Run handler.
+func (u *Updates) Run() error {
+	return u.RunWithContext(context.Background())
 }
 
-// CheckWithContext handler.
-func (u *Updates) CheckWithContext(ctx context.Context) error {
+// RunWithContext handler.
+func (u *Updates) RunWithContext(ctx context.Context) error {
 	return u.run(ctx)
 }
 
 // TODO: Add check for new updates
 
 func (u *Updates) run(ctx context.Context) error {
-	if err := u.getLongPollParams(true); err != nil {
+	if err := u.refreshLongPollParams(true); err != nil {
 		return err
 	}
 
@@ -73,12 +74,18 @@ func (u *Updates) run(ctx context.Context) error {
 			if err != nil {
 				return err
 			}
-			if len(resp.Updates) > 0 {
-				if callbackFuncs, ok := u.callbacks[resp.Updates[0].Type]; ok {
-					for _, callback := range callbackFuncs {
-						callback(resp.Updates[0].Object)
-					}
-				}
+
+			if len(resp.Updates) < 1 {
+				continue
+			}
+
+			callbacks, ok := u.callbacks[resp.Updates[0].Type]
+			if !ok {
+				continue
+			}
+
+			for _, callback := range callbacks {
+				callback(resp.Updates[0].Object)
 			}
 		}
 	}
@@ -86,11 +93,11 @@ func (u *Updates) run(ctx context.Context) error {
 }
 
 func (u *Updates) check() (response model.Response, err error) {
-	uri, err := url2.Parse(u.longPoll.Server)
+	uri, err := url.Parse(u.longPoll.Server)
 	if err != nil {
 		return response, err
 	}
-	params := url2.Values{}
+	params := url.Values{}
 
 	params.Add("act", "a_check")
 	params.Add("key", u.longPoll.Key)
@@ -104,7 +111,7 @@ func (u *Updates) check() (response model.Response, err error) {
 	defer fasthttp.ReleaseRequest(req)
 
 	req.SetRequestURI(uri.String())
-	req.Header.SetMethodBytes([]byte(fasthttp.MethodGet))
+	req.Header.SetMethod(fasthttp.MethodGet)
 
 	res := fasthttp.AcquireResponse()
 	defer fasthttp.ReleaseResponse(res)
@@ -164,7 +171,7 @@ func On[T any](updates *Updates, event string, callback callback[T]) {
 		})
 }
 
-func (u *Updates) getLongPollParams(updateTS bool) error {
+func (u *Updates) refreshLongPollParams(isUpdateTs bool) error {
 	groupID, err := u.api.Groups.GetByID(nil)
 	if err != nil {
 		return err
@@ -180,9 +187,12 @@ func (u *Updates) getLongPollParams(updateTS bool) error {
 	}
 
 	u.longPoll.Key = lpServer.Key
-	u.longPoll.Server = lpServer.Server
 
-	if updateTS {
+	if !u.longPoll.isFixed {
+		u.longPoll.Server = lpServer.Server
+	}
+
+	if isUpdateTs {
 		u.longPoll.TS = lpServer.TS
 	}
 
@@ -200,7 +210,6 @@ func parseResponse(reader io.Reader) (response model.Response, err error) {
 
 			return response, err
 		}
-
 		t, ok := token.(string)
 		if !ok {
 			continue
@@ -215,7 +224,7 @@ func parseResponse(reader io.Reader) (response model.Response, err error) {
 
 			parsedRaw, ok := raw.(float64)
 			if !ok {
-				return response, ErrFailedToCastRawToFloat64
+				return response, fmt.Errorf("%w float64", ErrFailedRawCast)
 			}
 			response.Failed = int(parsedRaw)
 		case LongpollResponseUpdates:
@@ -248,17 +257,30 @@ func parseResponse(reader io.Reader) (response model.Response, err error) {
 
 func (u *Updates) checkResponse(response model.Response) (err error) {
 	switch response.Failed {
-	case LongpollUnknownStatus:
+	case LongpollOkStatus:
 		u.longPoll.TS = response.Ts
 	case LongpollHistoryMissedStatus:
 		u.longPoll.TS = response.Ts
 	case LongpollKeyExpiredStatus:
-		err = u.getLongPollParams(false)
+		err = u.refreshLongPollParams(false)
 	case LongpollInfoMissedStatus:
-		err = u.getLongPollParams(true)
+		err = u.refreshLongPollParams(true)
 	default:
 		err = fmt.Errorf("%w Code: %d", ErrLongpollFailed, response.Failed)
 	}
 
-	return
+	return nil
+}
+
+// WithFixedServerURL method should be used to fix the URL of the longpoll server.
+// Keep in mind, that this URL will be used all time
+func (u *Updates) WithFixedServerURL(serverUrl string) error {
+	url, err := url.ParseRequestURI(serverUrl)
+	if err != nil {
+		return err
+	}
+
+	u.longPoll.Server = url.String()
+	u.longPoll.isFixed = true
+	return nil
 }
