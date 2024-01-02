@@ -21,6 +21,12 @@ type Manager struct {
 	cache    TempCache[*Handler[msgmodel.MessagesNew]]
 }
 
+type EventManager struct {
+	vk       *govk.VK
+	commands []*Handler[msgmodel.MessagesEvent]
+	cache    TempCache[*Handler[msgmodel.MessagesEvent]]
+}
+
 func NewManager(vk *govk.VK) *Manager {
 	return &Manager{
 		vk:    vk,
@@ -28,8 +34,20 @@ func NewManager(vk *govk.VK) *Manager {
 	}
 }
 
+func NewEventManager(vk *govk.VK) *EventManager {
+	return &EventManager{
+		vk:    vk,
+		cache: cache.NewTemp[*Handler[msgmodel.MessagesEvent]](time.Second*60, true),
+	}
+}
+
 // WithTempCache is way to provide your own storage implementation
 func (h *Manager) WithTempCache(cache TempCache[*Handler[msgmodel.MessagesNew]]) {
+	h.cache = cache
+}
+
+// WithTempCache is way to provide your own storage implementation
+func (h *EventManager) WithTempCache(cache TempCache[*Handler[msgmodel.MessagesEvent]]) {
 	h.cache = cache
 }
 
@@ -67,6 +85,36 @@ func (h *Manager) Middleware(ctx context.Context, event msgmodel.MessagesNew) bo
 	return true
 }
 
+func (h *EventManager) Middleware(ctx context.Context, event msgmodel.MessagesEvent) bool {
+	var matchWord string
+
+	payload, err := jsonparser.GetString(event.Payload, "command")
+	if err != nil {
+		return true
+	}
+
+	matchWord = payload
+
+	handler, ok := h.fromCache(matchWord)
+	if ok {
+		handler.handler(ctx, event)
+
+		return false
+	}
+
+	for _, command := range h.commands {
+		if command.IsMatch(event) {
+			h.inCache(matchWord, command)
+
+			command.handler(ctx, event)
+
+			return false
+		}
+	}
+
+	return true
+}
+
 func (h *Manager) NewHandler(callback callback[msgmodel.MessagesNew]) *Handler[msgmodel.MessagesNew] {
 	handler := newHandler(callback)
 
@@ -75,12 +123,12 @@ func (h *Manager) NewHandler(callback callback[msgmodel.MessagesNew]) *Handler[m
 	return handler
 }
 
-func (h *Manager) processMessagesNewPayload(ctx context.Context, event msgmodel.MessagesNew) bool {
-	return false
-}
+func (h *EventManager) NewHandler(callback callback[msgmodel.MessagesEvent]) *Handler[msgmodel.MessagesEvent] {
+	handler := newHandler(callback)
 
-func (h *Manager) processMessagesNewText(ctx context.Context, event msgmodel.MessagesNew) bool {
-	return false
+	h.commands = append(h.commands, handler)
+
+	return handler
 }
 
 func (h *Manager) fromCache(matchWord string) (*Handler[msgmodel.MessagesNew], bool) {
@@ -88,5 +136,13 @@ func (h *Manager) fromCache(matchWord string) (*Handler[msgmodel.MessagesNew], b
 }
 
 func (h *Manager) inCache(matchWord string, handler *Handler[msgmodel.MessagesNew]) {
+	h.cache.Save(matchWord, handler)
+}
+
+func (h *EventManager) fromCache(matchWord string) (*Handler[msgmodel.MessagesEvent], bool) {
+	return h.cache.Get(matchWord)
+}
+
+func (h *EventManager) inCache(matchWord string, handler *Handler[msgmodel.MessagesEvent]) {
 	h.cache.Save(matchWord, handler)
 }
