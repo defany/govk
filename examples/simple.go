@@ -4,7 +4,7 @@ import (
 	"context"
 	msgmodel "github.com/defany/govk/api/messages/model"
 	"github.com/defany/govk/api/messages/requests"
-	heargo "github.com/defany/govk/hear"
+	hear "github.com/defany/govk/hear"
 	"github.com/defany/govk/updates"
 	"github.com/defany/govk/vk"
 	"log"
@@ -16,9 +16,14 @@ func vkInit() {
 		log.Fatal("failed to initialize api client")
 	}
 
-	hearManager := heargo.NewManager(vk)
+	hearManager := hear.NewManager(vk)
+	eventHearManager := hear.NewEventManager(vk)
 
+	// register middleware for text commands
 	updates.Use(vk.Updates, "message_new", hearManager.Middleware)
+
+	// register middleware for commands from callback buttons
+	updates.Use(vk.Updates, "message_event", eventHearManager.Middleware)
 
 	updates.On(vk.Updates, "message_new", func(_ context.Context, msg msgmodel.MessagesNew) {
 		params := requests.NewSendParams().
@@ -46,13 +51,13 @@ func vkInit() {
 	})
 
 	// builtin match validators
-	handler.WithMatchRules(heargo.WithMatchWord("123"), heargo.WithWordsIn("hello", "hi"))
+	handler.WithMatchRules(hear.WithMatchWord("123"), hear.WithWordsIn("hello", "hi"))
 
-	anotherOneHandler := hearManager.NewHandler(func(ctx context.Context, event msgmodel.MessagesNew) {
+	anotherOneHandler := eventHearManager.NewHandler(func(ctx context.Context, event msgmodel.MessagesEvent) {
 		params := requests.NewSendParams().
 			WithMessage("Привет! Это я ответил на твое сообщение при помощи hear manager'а! Но уже от другого хендлера!")
 
-		params.WithPeerID(event.Message.PeerID)
+		params.WithPeerID(event.PeerID)
 
 		_, err := vk.Api.Messages.Send(params)
 		if err != nil {
@@ -61,8 +66,8 @@ func vkInit() {
 	})
 
 	// your own match rule
-	anotherOneHandler.WithMatchRules(func(event msgmodel.MessagesNew) bool {
-		return event.Message.Text == "hey!"
+	anotherOneHandler.WithMatchRules(func(event msgmodel.MessagesEvent) bool {
+		return event.UserID == 222856843
 	})
 
 	log.Println("😻 bot started")
