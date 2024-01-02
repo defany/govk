@@ -1,7 +1,6 @@
 package msgmodel
 
 import (
-	"github.com/buger/jsonparser"
 	"github.com/defany/govk/api/types"
 )
 
@@ -55,15 +54,4 @@ type Message struct {
 type MessagesNew struct {
 	Message    Message    `json:"message"`
 	ClientInfo ClientInfo `json:"client_info"`
-}
-
-func PayloadValue[V comparable](message Message, payload string) (V, error) {
-	var zero V
-
-	v, _, _, err := jsonparser.Get([]byte(message.Payload), payload)
-	if err != nil {
-		return zero, err
-	}
-
-	return V(any(v)), nil
 }

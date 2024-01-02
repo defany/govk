@@ -1,10 +1,11 @@
-package heargo
+package hear
 
 import (
 	"context"
-	"github.com/defany/govk/api"
+	"github.com/buger/jsonparser"
 	msgmodel "github.com/defany/govk/api/messages/model"
 	"github.com/defany/govk/pkg/cache"
+	govk "github.com/defany/govk/vk"
 	"time"
 )
 
@@ -15,40 +16,63 @@ type TempCache[V any] interface {
 }
 
 type Manager struct {
-	api   *api.API
-	cache TempCache[Handler[msgmodel.MessagesNew]]
+	vk       *govk.VK
+	commands []*Handler[msgmodel.MessagesNew]
+	cache    TempCache[*Handler[msgmodel.MessagesNew]]
 }
 
-func NewManager(api *api.API) *Manager {
+func NewManager(vk *govk.VK) *Manager {
 	return &Manager{
-		api:   api,
-		cache: cache.NewTemp[Handler[msgmodel.MessagesNew]](time.Second * 60),
+		vk:    vk,
+		cache: cache.NewTemp[*Handler[msgmodel.MessagesNew]](time.Second*60, true),
 	}
 }
 
 // WithTempCache is way to provide your own storage implementation
-func (h *Manager) WithTempCache(cache TempCache[Handler[msgmodel.MessagesNew]]) {
+func (h *Manager) WithTempCache(cache TempCache[*Handler[msgmodel.MessagesNew]]) {
 	h.cache = cache
 }
 
-func (h *Manager) Use(ctx context.Context, event msgmodel.MessagesNew) bool {
+func (h *Manager) Middleware(ctx context.Context, event msgmodel.MessagesNew) bool {
 	var matchWord string
 
-	payload, err := msgmodel.PayloadValue[string](event.Message, "command")
+	payload, err := jsonparser.GetString([]byte(event.Message.Payload), "command")
 	if err == nil {
 		matchWord = payload
 	} else {
 		matchWord = event.Message.Text
 	}
 
+	if matchWord == "" {
+		return true
+	}
+
 	handler, ok := h.fromCache(matchWord)
 	if ok {
 		handler.handler(ctx, event)
 
-		return true
+		return false
+	}
+
+	for _, command := range h.commands {
+		if command.IsMatch(event) {
+			h.inCache(matchWord, command)
+
+			command.handler(ctx, event)
+
+			return false
+		}
 	}
 
 	return true
+}
+
+func (h *Manager) NewHandler(callback callback[msgmodel.MessagesNew]) *Handler[msgmodel.MessagesNew] {
+	handler := newHandler(callback)
+
+	h.commands = append(h.commands, handler)
+
+	return handler
 }
 
 func (h *Manager) processMessagesNewPayload(ctx context.Context, event msgmodel.MessagesNew) bool {
@@ -59,6 +83,10 @@ func (h *Manager) processMessagesNewText(ctx context.Context, event msgmodel.Mes
 	return false
 }
 
-func (h *Manager) fromCache(matchWord string) (Handler[msgmodel.MessagesNew], bool) {
+func (h *Manager) fromCache(matchWord string) (*Handler[msgmodel.MessagesNew], bool) {
 	return h.cache.Get(matchWord)
+}
+
+func (h *Manager) inCache(matchWord string, handler *Handler[msgmodel.MessagesNew]) {
+	h.cache.Save(matchWord, handler)
 }

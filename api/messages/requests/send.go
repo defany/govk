@@ -109,8 +109,10 @@ func (s SendParams) WithPeerID(peerID ...int) SendParams {
 }
 
 // WithMessage passes a text message to params
-func (s SendParams) WithMessage(message string) SendParams {
-	s[msgmodel.MessageParam] = message
+//
+// You can also pass the params like for fmt.Sprintf
+func (s SendParams) WithMessage(message string, args ...any) SendParams {
+	s[msgmodel.MessageParam] = fmt.Sprintf(message, args...)
 
 	return s
 }
