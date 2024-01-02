@@ -25,8 +25,7 @@ func NewRequest[Res any](api *API) *Request[Res] {
 	return &Request[Res]{
 		api: api,
 
-		retries:     api.retries,
-		retryNumber: 0,
+		retries: api.retries,
 	}
 }
 
@@ -46,22 +45,25 @@ func (r *Request[Res]) Execute(method string, params MethodParams) (Res, error) 
 	var token string
 	if params == nil {
 		params = Params{}
+
 		params.Params()[versionParam] = r.api.apiVersion
+
 		r.api.waitIfNeeded()
 		token = r.api.token()
 	} else {
 		t, ok := params.Params()[tokenParam].(string)
 		if !ok {
 			r.api.waitIfNeeded()
-			t = r.api.token()
+			token = r.api.token()
+		} else {
+			token = t
 		}
-
-		token = t
 
 		if _, ok := params.Params()[versionParam]; !ok {
 			params.Params()[versionParam] = Version
 		}
 	}
+
 	r.setHeaders(req, token)
 
 	r.buildUrl(method, req)

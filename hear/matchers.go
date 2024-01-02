@@ -1,4 +1,4 @@
-package heargo
+package hear
 
 import (
 	"github.com/buger/jsonparser"

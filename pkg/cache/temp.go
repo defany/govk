@@ -5,6 +5,8 @@ import (
 	"time"
 )
 
+const maxExtraLifeIncrease = 3
+
 type Temp[V any] struct {
 	stop bool
 
@@ -12,13 +14,20 @@ type Temp[V any] struct {
 
 	expirationTimes map[string]time.Time
 	values          map[string]V
+
+	// isActiveLonger
+	//
+	// This param means, that when key will be got from cache his expiration will be increased to make life longer
+	// but not bigger than maxExtraLifeIncrease X from save time
+	isActiveLonger bool
 }
 
-func NewTemp[V any](saveTime time.Duration) *Temp[V] {
+func NewTemp[V any](saveTime time.Duration, isActiveLonger bool) *Temp[V] {
 	temp := &Temp[V]{
 		saveTime:        saveTime,
 		expirationTimes: make(map[string]time.Time),
 		values:          make(map[string]V),
+		isActiveLonger:  isActiveLonger,
 	}
 
 	temp.startRefresh()
@@ -34,8 +43,17 @@ func (t *Temp[V]) Save(key string, value V) {
 
 func (t *Temp[V]) Get(key string) (V, bool) {
 	v, ok := t.values[key]
+	if !ok {
+		return v, false
+	}
 
-	return v, ok
+	if t.isActiveLonger {
+		if t.expirationTimes[key].UnixMilli()-time.Now().UnixMilli() < t.saveTime.Milliseconds()*maxExtraLifeIncrease {
+			t.expirationTimes[key] = t.expirationTimes[key].Add(t.saveTime)
+		}
+	}
+
+	return v, true
 }
 
 func (t *Temp[V]) Stop() {

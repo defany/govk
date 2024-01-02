@@ -1,4 +1,4 @@
-package heargo
+package hear
 
 import (
 	"context"
@@ -21,8 +21,7 @@ type Handler[Event HandlerEvent] struct {
 	matchRules []Matcher[Event]
 }
 
-// NewHandler for handling commands from user by payload or text word
-func NewHandler[Event HandlerEvent](handler callback[Event]) *Handler[Event] {
+func newHandler[Event HandlerEvent](handler callback[Event]) *Handler[Event] {
 	return &Handler[Event]{
 		handler: handler,
 	}
@@ -39,4 +38,14 @@ func (h *Handler[Event]) WithMatchRules(matchers ...Matcher[Event]) *Handler[Eve
 	h.matchRules = append(h.matchRules, matchers...)
 
 	return h
+}
+
+func (h *Handler[Event]) IsMatch(event Event) bool {
+	for _, matcher := range h.matchRules {
+		if ok := matcher(event); ok {
+			return true
+		}
+	}
+
+	return false
 }
