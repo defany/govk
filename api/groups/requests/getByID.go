@@ -3,12 +3,12 @@ package requests
 import (
 	"github.com/defany/govk/api"
 	"github.com/defany/govk/api/groups/model"
+	usermodel "github.com/defany/govk/api/users/model"
 )
 
 type GetByIDRes struct {
-	Groups []model.Group `json:"groups"`
-	// TODO: add profiles type
-	Profiles any `json:"profiles"`
+	Groups   []groupmodel.Group `json:"groups"`
+	Profiles []usermodel.User   `json:"profiles"`
 }
 
 // TODO: add a builder

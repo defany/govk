@@ -1,4 +1,4 @@
-package heargo
+package hear
 
 import (
 	"github.com/buger/jsonparser"
@@ -59,6 +59,18 @@ func WithEqualPayloadTo[Event HandlerEvent](payload string, commandName ...strin
 		}
 
 		return gotPayload == payload
+	}
+}
+
+// And is true if all the matchers are true
+func And[Event HandlerEvent](matchers ...Matcher[Event]) Matcher[Event] {
+	return func(event Event) bool {
+		for _, p := range matchers {
+			if !p(event) {
+				return false
+			}
+		}
+		return true
 	}
 }
 

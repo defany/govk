@@ -1,4 +1,4 @@
-package model
+package groupmodel
 
 import "github.com/defany/govk/api/types"
 

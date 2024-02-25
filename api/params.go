@@ -54,6 +54,12 @@ func (p Params) WithLanguage(v uint) Params {
 	return p
 }
 
+func (p Params) WithVersion(v string) Params {
+	p[versionParam] = v
+
+	return p
+}
+
 func fmtReflectValue(value reflect.Value, depth int) (string, error) {
 	switch f := value; value.Kind() {
 	case reflect.Invalid:

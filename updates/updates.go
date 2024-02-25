@@ -11,7 +11,6 @@ import (
 	"github.com/valyala/fasthttp"
 	"io"
 	"net/url"
-	"reflect"
 	"strconv"
 )
 
@@ -24,19 +23,23 @@ type longPoll struct {
 	isFixed bool
 }
 
-type callback[T any] func(data T)
+type callback[T any] func(ctx context.Context, data T)
+
+type middleware[T any] func(ctx context.Context, data T) bool
 
 type Updates struct {
-	callbacks map[string][]func(data any)
-	longPoll  *longPoll
-	api       *apiModel.ApiProvider
-	client    *fasthttp.Client
+	callbacks   map[string][]callback[json.RawMessage]
+	middlewares map[string][]middleware[json.RawMessage]
+	longPoll    *longPoll
+	api         *apiModel.ApiProvider
+	client      *fasthttp.Client
 }
 
 func NewUpdates(api *apiModel.ApiProvider) *Updates {
 	return &Updates{
-		api:       api,
-		callbacks: make(map[string][]func(data any)),
+		api:         api,
+		callbacks:   make(map[string][]callback[json.RawMessage]),
+		middlewares: make(map[string][]middleware[json.RawMessage]),
 		longPoll: &longPoll{
 			Wait: 25,
 		},
@@ -54,7 +57,18 @@ func (u *Updates) RunWithContext(ctx context.Context) error {
 	return u.run(ctx)
 }
 
-// TODO: Add check for new updates
+// WithFixedServerURL method should be used to fix the URL of the longpoll server.
+// Keep in mind, that this URL will be used all time
+func (u *Updates) WithFixedServerURL(serverUrl string) error {
+	url, err := url.ParseRequestURI(serverUrl)
+	if err != nil {
+		return err
+	}
+
+	u.longPoll.Server = url.String()
+	u.longPoll.isFixed = true
+	return nil
+}
 
 func (u *Updates) run(ctx context.Context) error {
 	if err := u.refreshLongPollParams(true); err != nil {
@@ -64,6 +78,7 @@ func (u *Updates) run(ctx context.Context) error {
 	ctx, u.longPoll.cancel = context.WithCancel(ctx)
 
 	for {
+	NEXT:
 		select {
 		case _, ok := <-ctx.Done():
 			if !ok {
@@ -79,17 +94,27 @@ func (u *Updates) run(ctx context.Context) error {
 				continue
 			}
 
-			callbacks, ok := u.callbacks[resp.Updates[0].Type]
+			upd := resp.Updates[0]
+
+			callbacks, ok := u.callbacks[upd.Type]
 			if !ok {
 				continue
 			}
 
+			middlewares, ok := u.middlewares[upd.Type]
+			if ok {
+				for _, midd := range middlewares {
+					if !midd(ctx, upd.Object) {
+						goto NEXT
+					}
+				}
+			}
+
 			for _, callback := range callbacks {
-				callback(resp.Updates[0].Object)
+				callback(ctx, upd.Object)
 			}
 		}
 	}
-	return nil
 }
 
 func (u *Updates) check() (response model.Response, err error) {
@@ -107,7 +132,6 @@ func (u *Updates) check() (response model.Response, err error) {
 	uri.RawQuery = params.Encode()
 
 	req := fasthttp.AcquireRequest()
-
 	defer fasthttp.ReleaseRequest(req)
 
 	req.SetRequestURI(uri.String())
@@ -138,41 +162,8 @@ func (u *Updates) check() (response model.Response, err error) {
 	return response, err
 }
 
-// On - function to helps you handle updates from VK
-//
-// With generics it can be helpful to work without interface{}, just pass it into function and see a magic.
-//
-// Try to use types only from <any>/model package, but if you trust yourself you can provide your own types. For instance - types for user bots.
-// Remember, that you can pass only struct as generic. No pointers, no something else.
-//
-// All event objects named as in vk, for example: messages_new -> MessagesNew
-//
-// Keep in mind, that this function will panic if something went wrong
-func On[T any](updates *Updates, event string, callback callback[T]) {
-	var zero T
-
-	typ := reflect.TypeOf(zero)
-	if typ.Kind() == reflect.Pointer {
-		panic("pointer has been passed into vk updates handler, recheck your generic types in your `On` functions")
-	}
-
-	if typ.Kind() != reflect.Struct {
-		panic("something not a struct has been passed into vk updates handler, recheck your generic types in your `On` functions")
-	}
-
-	updates.callbacks[event] = append(updates.callbacks[event],
-		func(data any) {
-			pd, ok := data.(T)
-			if !ok {
-				panic(fmt.Sprintf("failed to cast incoming type %s to %s", reflect.TypeOf(data), typ))
-			}
-
-			callback(pd)
-		})
-}
-
 func (u *Updates) refreshLongPollParams(isUpdateTs bool) error {
-	groupID, err := u.api.Groups.GetByID(nil)
+	groupID, err := u.api.Groups.GetByID()
 	if err != nil {
 		return err
 	}
@@ -269,18 +260,5 @@ func (u *Updates) checkResponse(response model.Response) (err error) {
 		err = fmt.Errorf("%w Code: %d", ErrLongpollFailed, response.Failed)
 	}
 
-	return nil
-}
-
-// WithFixedServerURL method should be used to fix the URL of the longpoll server.
-// Keep in mind, that this URL will be used all time
-func (u *Updates) WithFixedServerURL(serverUrl string) error {
-	url, err := url.ParseRequestURI(serverUrl)
-	if err != nil {
-		return err
-	}
-
-	u.longPoll.Server = url.String()
-	u.longPoll.isFixed = true
 	return nil
 }
