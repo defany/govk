@@ -13,7 +13,7 @@ type ObjectsFile struct {
 	Definitions map[string]Property
 }
 
-func GenerateObjects(objectsRaw []byte) {
+func GenerateObjects(testW *os.File, objectsRaw []byte) {
 	var file ObjectsFile
 
 	if err := json.Unmarshal(objectsRaw, &file); err != nil {
@@ -23,7 +23,7 @@ func GenerateObjects(objectsRaw []byte) {
 	nameGenners := make([]NameGennerWithoutTest, 0, len(file.Definitions))
 
 	for name, prop := range file.Definitions {
-		obj, _ := parseObjectNameGenner(name, prop, 0)
+		obj := parseObjectNameGenner(name, prop, 0)
 		if obj != nil {
 			nameGenners = append(nameGenners, obj)
 		}
@@ -32,29 +32,39 @@ func GenerateObjects(objectsRaw []byte) {
 	sort.SliceStable(nameGenners, func(i, j int) bool {
 		return nameGenners[i].GetName() < nameGenners[j].GetName()
 	})
+
+	if testW != nil {
+		if testW.Name() == "api/gen/tests/objects_test.go" {
+			writeStartFile(testW, "tests", "", "github.com/defany/govk/api/gen/models", "encoding/json")
+		} else {
+			writeStartFile(testW, "tests", "", "github.com/defany/govk/api/gen/models")
+		}
+	}
+
 	for _, genner := range nameGenners {
-		dir := "gen/" + getObjectName(genner.GetName()) + "/models"
+		dir := "api/gen/models"
 		err := os.MkdirAll(dir, 0777)
 		if err != nil {
 			panic(err.Error())
 		}
 
-		if _, err := os.Stat(dir + "/" + getFullObjectName(genner.GetName()) + ".go"); errors.Is(err, os.ErrNotExist) {
-			f, err := os.OpenFile(dir+"/"+getFullObjectName(genner.GetName())+".go", os.O_CREATE|os.O_APPEND, os.ModePerm)
+		if _, err := os.Stat(dir + "/" + getObjectName(genner.GetName()) + ".go"); errors.Is(err, os.ErrNotExist) {
+			f, err := os.OpenFile(dir+"/"+getObjectName(genner.GetName())+".go", os.O_CREATE|os.O_APPEND, os.ModePerm)
 			if err != nil {
 				panic(err.Error())
 			}
-			writeStartFile(f, getObjectName(genner.GetName()), "", genner.GetImports(), "encoding/json")
+			writeStartFile(f, "models", "", "encoding/json")
 			fmt.Fprint(f, "// suppress unused package warning\nvar _ *json.RawMessage\n\n")
 			fmt.Fprint(f, genner.Gen())
 		} else {
-			f, err := os.OpenFile(dir+"/"+getFullObjectName(genner.GetName())+".go", os.O_APPEND, os.ModePerm)
+			f, err := os.OpenFile(dir+"/"+getObjectName(genner.GetName())+".go", os.O_APPEND, os.ModePerm)
 			if err != nil {
 				panic(err.Error())
 			}
 
 			fmt.Fprint(f, genner.Gen())
 		}
+		fmt.Fprint(testW, genner.TestGen())
 	}
 }
 
@@ -66,6 +76,7 @@ type RefType struct {
 }
 
 type NestedGenner interface {
+	nestedTestGen(objName, refName string, firstArray *bool) (testGen, additionalGen string)
 	nestedGen(nestingLvl int, objName string) (nestedGen string, additionalGen string)
 }
 
@@ -74,14 +85,14 @@ type NameNestedGenner interface {
 	NestedGenner
 }
 
-func parseObjectNameGenner(name string, prop Property, arrayNestingLvl int) (NameGennerWithoutTest, []string) {
+func parseObjectNameGenner(name string, prop Property, arrayNestingLvl int) NameGennerWithoutTest {
 	if prop.Ref != nil {
-		t := parseSimpleType(getObjectName(name), name, prop, arrayNestingLvl)
+		t := parseSimpleType(name, prop, arrayNestingLvl)
 		SimpleReferences[getFullObjectName(t.Name)] = RefType{
 			ArrayNestingLevel: arrayNestingLvl,
 			Type:              t.Type,
 		}
-		return t, t.Imports
+		return t
 	}
 
 	if prop.Items != nil {
@@ -97,7 +108,7 @@ func parseObjectNameGenner(name string, prop Property, arrayNestingLvl int) (Nam
 			ArrayNestingLevel: arrayNestingLvl,
 			Type:              e.ValuesType,
 		}
-		return e, []string{}
+		return e
 	}
 
 	if prop.AllOf != nil {
@@ -116,18 +127,18 @@ func parseObjectNameGenner(name string, prop Property, arrayNestingLvl int) (Nam
 		return parsePatternProperties(name, prop, arrayNestingLvl)
 	}
 
-	t := parseSimpleType(getObjectName(name), name, prop, arrayNestingLvl)
+	t := parseSimpleType(name, prop, arrayNestingLvl)
 	SimpleReferences[getFullObjectName(t.Name)] = RefType{
 		ArrayNestingLevel: arrayNestingLvl,
 		Type:              t.Type,
 	}
-	return t, t.Imports
+	return t
 }
 
-func parseNameNestedGenner(objName string, name string, prop Property, arrayNestingLvl int) (NameNestedGenner, []string) {
+func parseNameNestedGenner(objName string, name string, prop Property, arrayNestingLvl int) NameNestedGenner {
 	if prop.Ref != nil {
-		t := parseSimpleType(objName, name, prop, arrayNestingLvl)
-		return t, t.Imports
+		t := parseSimpleType(name, prop, arrayNestingLvl)
+		return t
 	}
 
 	if prop.Items != nil {
@@ -138,7 +149,7 @@ func parseNameNestedGenner(objName string, name string, prop Property, arrayNest
 	}
 
 	if prop.Enum != nil {
-		return parseEnum(name, prop, arrayNestingLvl), []string{}
+		return parseEnum(name, prop, arrayNestingLvl)
 	}
 
 	if prop.AllOf != nil {
@@ -157,8 +168,8 @@ func parseNameNestedGenner(objName string, name string, prop Property, arrayNest
 		return parsePatternProperties(objName, prop, arrayNestingLvl)
 	}
 
-	t := parseSimpleType(objName, name, prop, arrayNestingLvl)
-	return t, t.Imports
+	t := parseSimpleType(name, prop, arrayNestingLvl)
+	return t
 }
 
 type Object struct {
@@ -180,7 +191,7 @@ func (o Object) GetImports() []string {
 	return removeDuplicateStr(o.Imports)
 }
 
-func parseObject(name string, prop Property, arrayNestingLvl int) (o Object, imp []string) {
+func parseObject(name string, prop Property, arrayNestingLvl int) (o Object) {
 	o.Name = name
 	o.ArrayNestingLevel = arrayNestingLvl
 
@@ -199,13 +210,9 @@ func parseObject(name string, prop Property, arrayNestingLvl int) (o Object, imp
 	o.Fields = make([]NameNestedGenner, 0, len(*prop.Properties))
 
 	for fieldName, fieldProp := range *prop.Properties {
-		gen, im := parseNameNestedGenner(getObjectName(name), fieldName, fieldProp, 0)
-		o.Fields = append(o.Fields, gen)
-		if len(im) > 0 {
-			o.Imports = append(o.Imports, im...)
-		}
+		o.Fields = append(o.Fields, parseNameNestedGenner(getObjectName(name), fieldName, fieldProp, 0))
 	}
-	return o, o.Imports
+	return o
 }
 
 func (o Object) Gen() (gen string) {
@@ -289,7 +296,6 @@ type AllOf struct {
 	Description       string
 	Fields            []NestedGenner
 	ArrayNestingLevel int
-	Imports           []string
 	// fields for nested AllOf
 	IsRequired bool
 }
@@ -298,11 +304,7 @@ func (ao AllOf) GetName() string {
 	return ao.Name
 }
 
-func (ao AllOf) GetImports() []string {
-	return removeDuplicateStr(ao.Imports)
-}
-
-func parseAllOf(name string, prop Property, arrayNestingLvl int) (ao AllOf, imp []string) {
+func parseAllOf(name string, prop Property, arrayNestingLvl int) (ao AllOf) {
 	ao.Name = name
 	ao.ArrayNestingLevel = arrayNestingLvl
 
@@ -323,21 +325,16 @@ func parseAllOf(name string, prop Property, arrayNestingLvl int) (ao AllOf, imp 
 	for _, allOfProp := range *prop.AllOf {
 		required := true
 		allOfProp.Required = &required
-		gen, im := parseNameNestedGenner(getObjectName(name), name, allOfProp, 0)
-		ao.Fields = append(ao.Fields, gen)
-		if len(im) > 0 {
-			ao.Imports = append(ao.Imports, im...)
-		}
+		ao.Fields = append(ao.Fields, parseNameNestedGenner("", "", allOfProp, 0))
 	}
 
-	return ao, ao.Imports
+	return ao
 }
 
 func (ao AllOf) Gen() (gen string) {
 	genName := getFullObjectName(ao.Name)
 
 	var fieldsGen string
-
 	for _, nestedGenner := range ao.Fields {
 		fGen, addGen := nestedGenner.nestedGen(1, genName)
 		fieldsGen += fGen
@@ -405,7 +402,6 @@ type OneOf struct {
 	ArrayNestingLevel int
 
 	// fields for nested OneOf
-	Imports    []string
 	IsRequired bool
 	isNested   bool
 }
@@ -414,11 +410,7 @@ func (of OneOf) GetName() string {
 	return of.Name
 }
 
-func (of OneOf) GetImports() []string {
-	return removeDuplicateStr(of.Imports)
-}
-
-func parseOneOf(name string, prop Property, arrayNestingLvl int) (of OneOf, imp []string) {
+func parseOneOf(name string, prop Property, arrayNestingLvl int) (of OneOf) {
 	of.Name = name
 	of.ArrayNestingLevel = arrayNestingLvl
 
@@ -437,14 +429,10 @@ func parseOneOf(name string, prop Property, arrayNestingLvl int) (of OneOf, imp 
 	of.Fields = make([]NestedGenner, 0, len(*prop.OneOf))
 
 	for _, oneOfProp := range *prop.OneOf {
-		gen, im := parseNameNestedGenner(getObjectName(name), name, oneOfProp, 0)
-		of.Fields = append(of.Fields, gen)
-		if len(im) > 0 {
-			of.Imports = append(of.Imports, im...)
-		}
+		of.Fields = append(of.Fields, parseNameNestedGenner("", "", oneOfProp, 0))
 	}
 
-	return of, of.Imports
+	return of
 }
 
 func (of OneOf) Gen() (gen string) {
@@ -464,7 +452,7 @@ func (of OneOf) Gen() (gen string) {
 	// write main object
 	gen += "//easyjson:skip\n"
 	gen += fmt.Sprintf("type %s struct{\n", genName)
-	gen += "\traw []byte\n"
+	gen += "\tRaws []byte\n"
 	gen += "}\n\n"
 
 	// write marshal/unmarshaler method
@@ -488,7 +476,7 @@ func (of OneOf) genMarshaler() (gen string) {
 
 	gen += fmt.Sprintf("func (o *%s) MarshalJSON() ([]byte, error) {\n", genName)
 
-	gen += fmt.Sprintf("\treturn o.raw, nil\n")
+	gen += fmt.Sprintf("\treturn o.Raws, nil\n")
 	gen += "}\n\n"
 
 	return
@@ -505,7 +493,7 @@ func (of OneOf) genUnmarshaler() (gen string) {
 
 	gen += fmt.Sprintf("func (o *%s) UnmarshalJSON(body []byte) (err error) {\n", genName)
 
-	gen += "\to.raw = body\n"
+	gen += "\to.Raws = body\n"
 	//gen += "\treturn json.Unmarshal(body, &o.raw)\n"
 	gen += "\treturn nil\n"
 
@@ -524,7 +512,7 @@ func (of OneOf) genRawGetter() (gen string) {
 	}
 
 	gen += fmt.Sprintf("func (o %s) Raw() []byte {\n", genName)
-	gen += fmt.Sprintf("\treturn o.raw\n")
+	gen += fmt.Sprintf("\treturn o.Raws\n")
 	gen += "}\n\n"
 
 	return
@@ -576,18 +564,13 @@ type SimpleType struct {
 
 	withoutJSON bool
 	isNesting   bool
-	Imports     []string
 }
 
 func (t SimpleType) GetName() string {
 	return t.Name
 }
 
-func (t SimpleType) GetImports() []string {
-	return removeDuplicateStr(t.Imports)
-}
-
-func parseSimpleType(objName string, name string, prop Property, arrayNestingLvl int) (t SimpleType) {
+func parseSimpleType(name string, prop Property, arrayNestingLvl int) (t SimpleType) {
 	t.Name = name
 	t.ArrayNestingLevel = arrayNestingLvl
 	t.Limits = prop.Limits
@@ -602,16 +585,9 @@ func parseSimpleType(objName string, name string, prop Property, arrayNestingLvl
 
 	if prop.Ref != nil {
 		if strings.Contains(getRefName(*prop.Ref), "_") {
-			els := strings.Split(getRefName(*prop.Ref), "_")
-			if objName == els[0] {
-				t.Type = getFullName(getRefName(*prop.Ref))
-				return
-			}
-			t.Type = getFullName(getRefName(*prop.Ref)) + "." + getFullName(getRefName(*prop.Ref))
-			t.Imports = append(t.Imports, getFullName(getRefName(*prop.Ref))+" github.com/defany/govk/gen/"+strings.Split(getRefName(*prop.Ref), "_")[0]+"/models")
+			t.Type = getFullName(getRefName(*prop.Ref))
 			return
 		}
-		t.Imports = append(t.Imports, getFullName(getRefName(*prop.Ref))+" github.com/defany/govk/gen/"+strings.Split(getRefName(*prop.Ref), "_")[0]+"/models")
 		t.Type = getRefName(*prop.Ref)
 		return
 	}
@@ -723,10 +699,6 @@ type Enum struct {
 
 func (e Enum) GetName() string {
 	return e.Name
-}
-
-func (e Enum) GetImports() []string {
-	return nil
 }
 
 func parseEnum(name string, prop Property, arrayNestingLvl int) (e Enum) {
@@ -856,7 +828,7 @@ func (e Enum) nestedGen(nestingLvl int, objName string) (nestedGen, additionalGe
 	return
 }
 
-func parsePatternProperties(name string, prop Property, arrayNestingLvl int) (t SimpleType, imp []string) {
+func parsePatternProperties(name string, prop Property, arrayNestingLvl int) (t SimpleType) {
 	t.Name = name
 	t.ArrayNestingLevel = arrayNestingLvl
 	t.Limits = prop.Limits
@@ -874,13 +846,548 @@ func parsePatternProperties(name string, prop Property, arrayNestingLvl int) (t 
 	}
 
 	ref := (*prop.PatternProperties)["^[0-9]+$"]["$ref"]
-	els := strings.Split(getRefName(ref), "_")
-	if name != els[0] {
-		t.Imports = append(t.Imports, getFullName(getRefName(ref))+" github.com/defany/govk/gen/"+strings.Split(getRefName(ref), "_")[0]+"/models")
-		t.Type = "map[string]" + getRefName(ref) + "." + getRefName(ref)
-		return t, t.Imports
-	}
 	t.Type = "map[string]" + getRefName(ref)
 
-	return t, t.Imports
+	return t
+}
+
+const testMethodName = "fillRandomly"
+
+func (o Object) TestGen() (testGen string) {
+	genName := getFullObjectName(o.Name)
+
+	sort.SliceStable(o.Fields, func(i, j int) bool {
+		return o.Fields[i].GetName() < o.Fields[j].GetName()
+	})
+
+	var fieldsGen, additionalGen string
+
+	firstArray := true
+	for _, nestedGenner := range o.Fields {
+		fGen, addGen := nestedGenner.nestedTestGen(genName, "(*o)", &firstArray)
+		fieldsGen += fGen
+		additionalGen += addGen
+	}
+
+	testGen += additionalGen
+
+	testGen += fmt.Sprintf("func %s%s(o *models.%s) {\n%s}\n\n", testMethodName, genName, genName, fieldsGen)
+
+	return
+}
+func (o Object) nestedTestGen(objName, refName string, firstArray *bool) (testGen, additionalGen string) {
+	genName := getFullObjectName(o.Name)
+
+	ref := refName + "." + genName
+	newObjName := objName + genName
+
+	if o.Name == "" {
+		newObjName = objName
+		ref = refName
+	}
+
+	sort.SliceStable(o.Fields, func(i, j int) bool {
+		return o.Fields[i].GetName() < o.Fields[j].GetName()
+	})
+
+	if !o.IsRequired && o.Name != "" {
+		var nestedGen string
+
+		for _, nestedGenner := range o.Fields {
+			nGen, _ := nestedGenner.nestedGen(2, objName+genName)
+			nestedGen += nGen
+		}
+
+		testGen += fmt.Sprintf("\t %s = new(struct {\n%s\t})\n", ref, nestedGen)
+	}
+
+	for _, nestedGenner := range o.Fields {
+		fGen, addGen := nestedGenner.nestedTestGen(newObjName, ref, firstArray)
+		testGen += fGen
+		additionalGen += addGen
+	}
+
+	return
+}
+func (ao AllOf) TestGen() (testGen string) {
+	genName := getFullObjectName(ao.Name)
+
+	var fieldsGen, additionalGen string
+
+	firstArray := true
+	for _, nestedGenner := range ao.Fields {
+		fGen, addGen := nestedGenner.nestedTestGen(genName, "(*o)", &firstArray)
+		fieldsGen += fGen
+		additionalGen += addGen
+	}
+
+	testGen += additionalGen
+
+	testGen += fmt.Sprintf("func %s%s(o *models.%s) {\n%s}\n\n", testMethodName, genName, genName, fieldsGen)
+
+	return
+}
+
+func (ao AllOf) nestedTestGen(objName, refName string, firstArray *bool) (testGen, additionalGen string) {
+	panic("here")
+}
+
+func (of OneOf) TestGen() (testGen string) {
+	var genName string
+
+	if of.isNested {
+		genName = of.Name
+	} else {
+		genName = getFullObjectName(of.Name)
+	}
+
+	testGen += fmt.Sprintf("func %s%s(o *models.%s) {\n", testMethodName, genName, genName)
+	testGen += fmt.Sprintf("\tvar rawJSON []byte\n")
+	testGen += fmt.Sprintf("\tswitch randIntn(%d) {\n", len(of.Fields))
+
+	for i, f := range of.Fields {
+		testGen += fmt.Sprintf("\tcase %d:\n", i)
+		t := f.(SimpleType)
+		fGenName := getFullObjectName(t.Type)
+
+		if t.ArrayNestingLevel == 0 {
+
+			if isGoType(t.Type) {
+				testGen += fmt.Sprintf("\t\tr := %s\n", getRandSetter(t.Type))
+				testGen += "\t\trawJSON, _ = json.Marshal(r)\n"
+				continue
+			}
+
+			testGen += fmt.Sprintf("\t\tr := new(models.%s)\n", fGenName)
+			testGen += fmt.Sprintf("\t\t%s%s(r)\n", testMethodName, fGenName)
+			testGen += "\t\trawJSON, _ = json.Marshal(*r)\n"
+			continue
+		}
+
+		testGen += "\t\tl0 := randIntn(maxArrayLength + 1)\n"
+
+		testGen += fmt.Sprintf("\t\tr := make(%smodels.%s, l0)\n", getArrayBrackets(t.ArrayNestingLevel), fGenName)
+
+		var tabs string
+		var endBrackets string
+
+		for j := 0; j < t.ArrayNestingLevel; j++ {
+			tabs = getTabs(j + 2)
+			testGen += fmt.Sprintf("%sfor i%d := 0; i%d < l%d; i%d++ {\n",
+				tabs, j, j, j, j)
+
+			if j+1 < t.ArrayNestingLevel {
+				testGen += fmt.Sprintf("\t\t%sl%d = randIntn(maxArrayLength + 1)\n", tabs, j+1)
+
+				testGen += fmt.Sprintf("\t\t%s(*r)[i%d] = make(%s%s, l%d)\n",
+					tabs, j, getArrayBrackets(t.ArrayNestingLevel-j-1), fGenName, j+1)
+			}
+
+			endBrackets = tabs + "}\n" + endBrackets
+		}
+
+		tabs += "\t"
+
+		brackets := ""
+		for j := 0; j < t.ArrayNestingLevel; j++ {
+			brackets += fmt.Sprintf("[i%d]", j)
+		}
+
+		testGen += fmt.Sprintf("%s%s%s(&(r%s))\n",
+			tabs, testMethodName, fGenName, brackets)
+
+		testGen += endBrackets
+
+		testGen += "\t\trawJSON, _ = json.Marshal(r)\n"
+	}
+
+	testGen += "\t}\n"
+
+	testGen += "\to.Raws = rawJSON\n"
+
+	testGen += "}\n\n"
+
+	return
+}
+func (of OneOf) nestedTestGen(objName, refName string, firstArray *bool) (testGen, additionalGen string) {
+
+	genName := getFullName(of.Name)
+
+	newStructType := objName + genName
+
+	mainOneOf := OneOf{
+		Name:              newStructType,
+		Description:       "",
+		Fields:            of.Fields,
+		ArrayNestingLevel: of.ArrayNestingLevel,
+		isNested:          true,
+	}
+
+	additionalGen += mainOneOf.TestGen()
+
+	ref := "&"
+
+	if !of.IsRequired {
+		testGen += fmt.Sprintf("\t%s.%s = new(%smodels.%s)\n",
+			refName, genName, getArrayBrackets(of.ArrayNestingLevel), newStructType)
+		ref = ""
+	}
+
+	if of.ArrayNestingLevel == 0 {
+		testGen += fmt.Sprintf("\t%s%s(%s%s.%s)\n", testMethodName, newStructType, ref, refName, genName)
+		return
+	}
+
+	equal := "="
+	if *firstArray {
+		equal = ":="
+		*firstArray = false
+	}
+
+	testGen += fmt.Sprintf("\tl0 %s randIntn(maxArrayLength + 1)\n", equal)
+
+	testGen += fmt.Sprintf("\t%s.%s = make(%smodels.%s, l0)\n", refName, genName, getArrayBrackets(of.ArrayNestingLevel), newStructType)
+
+	var tabs string
+	var endBrackets string
+
+	for i := 0; i < of.ArrayNestingLevel; i++ {
+		tabs = getTabs(i + 1)
+		testGen += fmt.Sprintf("%sfor i%d := 0; i%d < l%d; i%d++ {\n",
+			tabs, i, i, i, i)
+
+		if i+1 < of.ArrayNestingLevel {
+			testGen += fmt.Sprintf("\t%sl%d := randIntn(maxArrayLength + 1)\n", tabs, i+1)
+
+			testGen += fmt.Sprintf("\t%s(*o)[i%d] = make(%s%s, l%d)\n",
+				tabs, i, getArrayBrackets(of.ArrayNestingLevel-i-1), newStructType, i+1)
+		}
+
+		endBrackets = tabs + "}\n" + endBrackets
+	}
+
+	tabs += "\t"
+
+	testGen += fmt.Sprintf("%s%s.%s", tabs, refName, genName)
+	for i := 0; i < of.ArrayNestingLevel; i++ {
+		testGen += fmt.Sprintf("[i%d]", i)
+	}
+
+	testGen += fmt.Sprintf(".%s%s(&%s.%s)\n", testMethodName, newStructType, refName, genName)
+
+	testGen += endBrackets
+	testGen += "}\n\n"
+
+	return
+}
+func (t SimpleType) TestGen() (testGen string) {
+	var genName string
+
+	if t.isNesting {
+		genName = t.Name
+	} else {
+		genName = getFullObjectName(t.Name)
+	}
+
+	testGen += fmt.Sprintf("func %s%s(o *models.%s) {\n", testMethodName, genName, genName)
+
+	if t.ArrayNestingLevel == 0 {
+		if isGoType(t.Type) {
+			testGen += fmt.Sprintf("\t*o = models.%s(%s)\n}\n\n", genName, getRandSetter(t.Type))
+			return
+		}
+
+		testGen += fmt.Sprintf("\tr := models.%s(*o)\n", getFullObjectName(t.Type))
+		testGen += fmt.Sprintf("\t%s%s(&r)\n", testMethodName, getFullObjectName(t.Type))
+		if isGoType(genName) {
+			testGen += fmt.Sprintf("\t*o = %s(r)\n}\n\n", genName)
+		} else {
+			testGen += fmt.Sprintf("\t*o = models.%s(r)\n}\n\n", genName)
+		}
+		return
+	}
+
+	for i := 0; i < t.ArrayNestingLevel; i++ {
+		testGen += fmt.Sprintf("\tl%d := randIntn(maxArrayLength + 1)\n", i)
+	}
+
+	if isGoType(t.Type) {
+		testGen += fmt.Sprintf("\t*o = make(%s%s, l0)\n", getArrayBrackets(t.ArrayNestingLevel), getFullObjectName(t.Type))
+	} else {
+		testGen += fmt.Sprintf("\t*o = make(%smodels.%s, l0)\n", getArrayBrackets(t.ArrayNestingLevel), getFullObjectName(t.Type))
+	}
+
+	var tabs string
+	var endBrackets string
+
+	for i := 0; i < t.ArrayNestingLevel; i++ {
+		tabs = getTabs(i + 1)
+		testGen += fmt.Sprintf("%sfor i%d := 0; i%d < l%d; i%d++ {\n",
+			tabs, i, i, i, i)
+
+		if i+1 < t.ArrayNestingLevel {
+			testGen += fmt.Sprintf("%s(*o)[i%d] = make(%s%s, l%d)\n",
+				tabs, i, getArrayBrackets(t.ArrayNestingLevel-i), getFullObjectName(t.Type), i+1)
+		}
+
+		endBrackets += tabs + "}\n"
+	}
+
+	tabs += "\t"
+
+	brackets := ""
+	for i := 0; i < t.ArrayNestingLevel; i++ {
+		brackets += fmt.Sprintf("[i%d]", i)
+	}
+
+	if isGoType(t.Type) {
+		testGen += fmt.Sprintf("%s(*o)%s = %s\n", tabs, brackets, getRandSetter(t.Type))
+	} else {
+		testGen += fmt.Sprintf("%s%s%s(&(*o)%s)\n",
+			tabs, testMethodName, getFullObjectName(t.Type), brackets)
+	}
+
+	testGen += endBrackets
+	testGen += "}\n\n"
+	return
+}
+func (t SimpleType) nestedTestGen(objName, refName string, firstArray *bool) (testGen, additionalGen string) {
+	genName := getFullName(t.Name)
+	genType := getFullObjectName(t.Type)
+
+	if t.Name == "" {
+		genName = upFirstAny(getFullObjectName(t.Type))
+		if !t.IsRequired {
+			// OneOf style
+			if t.ArrayNestingLevel > 0 {
+				genName = strings.ReplaceAll(getArrayBrackets(t.ArrayNestingLevel), "[]", "Array") + genType
+			}
+		}
+	}
+
+	if genName == "2faRequired" {
+		genName = "TwoFaRequired"
+	}
+
+	pointer := ""
+	if !t.IsRequired {
+		pointer = "*"
+	}
+
+	ref := "&"
+	if !t.IsRequired {
+		if isGoType(genType) {
+			testGen += fmt.Sprintf("\t%s.%s = new(%s%s)\n",
+				refName, genName, getArrayBrackets(t.ArrayNestingLevel), genType)
+		} else {
+			testGen += fmt.Sprintf("\t%s.%s = new(%smodels.%s)\n",
+				refName, genName, getArrayBrackets(t.ArrayNestingLevel), genType)
+		}
+		ref = ""
+	}
+
+	if t.ArrayNestingLevel == 0 {
+		if isGoType(t.Type) {
+			testGen += fmt.Sprintf("\t%s%s.%s = %s\n", pointer, refName, genName, getRandSetter(t.Type))
+			return
+		}
+
+		// TODO: костыль
+		if t.Type == "map[string]base_bool_int" {
+			return
+		}
+
+		if getFullObjectName(t.Type) == objName {
+			testGen += "\t//"
+		} else {
+			testGen += "\t"
+		}
+
+		testGen += fmt.Sprintf("%s%s(%s%s.%s)\n", testMethodName, genType, ref, refName, genName)
+		return
+	}
+
+	equal := "="
+
+	if *firstArray {
+		equal = ":="
+		*firstArray = false
+	}
+	testGen += fmt.Sprintf("\tl0 %s randIntn(maxArrayLength + 1)\n", equal)
+
+	if isGoType(genType) {
+		testGen += fmt.Sprintf("\t%s%s.%s = make(%s%s, l0)\n", pointer, refName, genName, getArrayBrackets(t.ArrayNestingLevel), genType)
+	} else {
+		testGen += fmt.Sprintf("\t%s%s.%s = make(%smodels.%s, l0)\n", pointer, refName, genName, getArrayBrackets(t.ArrayNestingLevel), genType)
+	}
+
+	var tabs string
+	var endBrackets string
+
+	for i := 0; i < t.ArrayNestingLevel; i++ {
+		tabs = getTabs(i + 1)
+		testGen += fmt.Sprintf("%sfor i%d := 0; i%d < l%d; i%d++ {\n",
+			tabs, i, i, i, i)
+
+		if i+1 < t.ArrayNestingLevel {
+			testGen += fmt.Sprintf("\t%sl%d := randIntn(maxArrayLength + 1)\n", tabs, i+1)
+
+			if isGoType(genType) {
+				testGen += fmt.Sprintf("\t%s(%s%s.%s)[i%d] = make(%s%s, l%d)\n",
+					tabs, pointer, refName, genName, i, getArrayBrackets(t.ArrayNestingLevel-i-1), genType, i+1)
+			} else {
+				testGen += fmt.Sprintf("\t%s(%s%s.%s)[i%d] = make(%smodels.%s, l%d)\n",
+					tabs, pointer, refName, genName, i, getArrayBrackets(t.ArrayNestingLevel-i-1), genType, i+1)
+			}
+		}
+
+		endBrackets = tabs + "}\n" + endBrackets
+	}
+
+	tabs += "\t"
+
+	brackets := ""
+	for i := 0; i < t.ArrayNestingLevel; i++ {
+		brackets += fmt.Sprintf("[i%d]", i)
+	}
+
+	if isGoType(t.Type) {
+		name := fmt.Sprintf("*%s.%s", refName, genName)
+		if t.IsRequired {
+			name = fmt.Sprintf("%s.%s", refName, genName)
+		}
+		testGen += fmt.Sprintf("%s(%s)%s = %s\n", tabs, name, brackets, getRandSetter(t.Type))
+	} else {
+		if getFullObjectName(t.Type) == objName {
+			testGen += tabs + "//"
+		} else {
+			testGen += tabs
+		}
+		testGen += fmt.Sprintf("%s%s(&(%s%s.%s)%s)\n",
+			testMethodName, genType, pointer, refName, genName, brackets)
+	}
+
+	testGen += endBrackets
+
+	return
+}
+
+func (e Enum) TestGen() (testGen string) {
+	var genName string
+
+	if e.isNested {
+		genName = e.Name
+	} else {
+		genName = getFullObjectName(e.Name)
+	}
+
+	testGen += fmt.Sprintf("func %s%s(o *models.%s) {\n\tswitch randIntn(%d) {\n", testMethodName, genName, genName, len(e.EnumValues))
+
+	for i, v := range e.EnumValues {
+		var genV string
+		if e.ValuesType == "string" {
+			genV = fmt.Sprintf("%q", v)
+		} else {
+			genV = fmt.Sprintf("%v", v)
+		}
+		testGen += fmt.Sprintf("\tcase %d:\n\t\t*o = %s\n", i, genV)
+	}
+
+	testGen += "\t}\n}\n\n"
+
+	return
+}
+func (e Enum) nestedTestGen(objName, refName string, firstArray *bool) (testGen, additionalGen string) {
+	genName := getFullName(e.Name)
+
+	newStructType := objName + genName
+
+	mainEnum := Enum{
+		Name:        newStructType,
+		Description: "",
+		ValuesType:  e.ValuesType,
+		EnumValues:  e.EnumValues,
+		EnumNames:   e.EnumNames,
+		isNested:    true,
+	}
+
+	additionalGen += mainEnum.TestGen()
+
+	ref := "&"
+	if !e.IsRequired {
+		testGen += fmt.Sprintf("\t%s.%s = new(%smodels.%s)\n",
+			refName, genName, getArrayBrackets(e.ArrayNestingLevel), newStructType)
+		ref = ""
+	}
+
+	if e.ArrayNestingLevel == 0 {
+		testGen += fmt.Sprintf("\t%s%s(%s%s.%s)\n", testMethodName, newStructType, ref, refName, genName)
+		return
+	}
+
+	pointer := ""
+	if !e.IsRequired {
+		pointer = "*"
+	}
+
+	equal := "="
+	if *firstArray {
+		equal = ":="
+		*firstArray = false
+	}
+
+	testGen += fmt.Sprintf("\tl0 %s randIntn(maxArrayLength + 1)\n", equal)
+
+	testGen += fmt.Sprintf("\t%s%s.%s = make(%smodels.%s, l0)\n", pointer, refName, genName, getArrayBrackets(e.ArrayNestingLevel), newStructType)
+
+	var tabs string
+	var endBrackets string
+
+	for i := 0; i < e.ArrayNestingLevel; i++ {
+		tabs = getTabs(i + 1)
+		testGen += fmt.Sprintf("%sfor i%d := 0; i%d < l%d; i%d++ {\n",
+			tabs, i, i, i, i)
+
+		if i+1 < e.ArrayNestingLevel {
+			testGen += fmt.Sprintf("\t%sl%d = randIntn(maxArrayLength + 1)\n", tabs, i+1)
+
+			testGen += fmt.Sprintf("\t%s(*o)[i%d] = make(%s%s, l%d)\n",
+				tabs, i, getArrayBrackets(e.ArrayNestingLevel-i-1), newStructType, i+1)
+		}
+
+		endBrackets = tabs + "}\n" + endBrackets
+	}
+
+	tabs += "\t"
+
+	brackets := ""
+	for i := 0; i < e.ArrayNestingLevel; i++ {
+		brackets += fmt.Sprintf("[i%d]", i)
+	}
+
+	testGen += fmt.Sprintf("%s%s%s(&(%s%s.%s)%s)\n",
+		tabs, testMethodName, newStructType, pointer, refName, genName, brackets)
+
+	testGen += endBrackets
+
+	return
+}
+
+func getRandSetter(t string) (s string) {
+	switch t {
+	case "string":
+		s += "randString()"
+	case "int":
+		s += "randInt()"
+	case "float64":
+		s += "randFloat()"
+	case "bool":
+		s += "randBool()"
+	case "[]string":
+		s += "randStringArr("
+	case "[]int":
+		s += "randIntArr("
+	}
+
+	return
 }

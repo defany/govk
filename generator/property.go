@@ -113,14 +113,10 @@ type Fielder interface {
 type GennerWithoutTest interface {
 	Namer
 	Genner
-}
-
-type Importer interface {
-	GetImports() []string
+	TestGen() (testGen string)
 }
 
 type NameGennerWithoutTest interface {
 	Namer
 	GennerWithoutTest
-	Importer
 }

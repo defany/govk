@@ -4,6 +4,8 @@ import (
 	"context"
 	msgmodel "github.com/defany/govk/api/messages/model"
 	"github.com/defany/govk/api/messages/requests"
+	requests2 "github.com/defany/govk/gen/messages"
+
 	hear "github.com/defany/govk/hear"
 	"github.com/defany/govk/updates"
 	"github.com/defany/govk/vk"
@@ -39,7 +41,7 @@ func vkInit() {
 	})
 
 	updates.On(vk.Updates, "message_event", func(_ context.Context, msg msgmodel.MessagesEvent) {
-		params := requests.NewSendMessageEventAnswerParams().WithUserID(msg.UserID).WithPeerID(msg.PeerID).WithEventID(msg.EventID)
+		params := requests2.NewMessagesSendMessageEventAnswerRequest().WithUserId(msg.UserID).WithPeerId(msg.PeerID).WithEventId(msg.EventID)
 		_, err := vk.Api.Messages.SendMessageEventAnswer(params)
 		if err != nil {
 			log.Fatalln(err)

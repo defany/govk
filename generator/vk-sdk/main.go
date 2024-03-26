@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"github.com/defany/govk/generator"
 	"io"
@@ -52,9 +53,10 @@ func main() {
 	flag.Parse()
 
 	genErrors("error_codes.go")
-	genObjects()
-	genResponses()
-	genMethods("methods.go")
+	genObjects("objects_test.go")
+	genResponses("responses_test.go")
+	genMethods()
+	//genVK()
 }
 
 func genErrors(file string) {
@@ -69,14 +71,44 @@ func genErrors(file string) {
 	generator.GenerateErrors(e, getRawFromAddr(errorsFile))
 }
 
-func genObjects() {
-	generator.GenerateObjects(getRawFromAddr(objectsFile))
+func genObjects(file string) {
+	dir := "api/gen/tests"
+	err := os.MkdirAll(dir, 0777)
+	if err != nil {
+		panic(err.Error())
+	}
+	var f *os.File
+	if _, err := os.Stat("api/gen/tests/" + file); errors.Is(err, os.ErrNotExist) {
+		f, err = os.OpenFile("api/gen/tests/"+file, os.O_CREATE|os.O_APPEND, os.ModePerm)
+		if err != nil {
+			panic(err.Error())
+		}
+	}
+
+	generator.GenerateObjects(f, getRawFromAddr(objectsFile))
 }
 
-func genResponses() {
-	generator.GenerateObjects(getRawFromAddr(responsesFile))
+func genResponses(file string) {
+	dir := "api/gen/tests"
+	err := os.MkdirAll(dir, 0777)
+	if err != nil {
+		panic(err.Error())
+	}
+	var f *os.File
+	if _, err := os.Stat("api/gen/tests/" + file); errors.Is(err, os.ErrNotExist) {
+		f, err = os.OpenFile("api/gen/tests/"+file, os.O_CREATE|os.O_APPEND, os.ModePerm)
+		if err != nil {
+			panic(err.Error())
+		}
+	}
+
+	generator.GenerateObjects(f, getRawFromAddr(responsesFile))
 }
 
-func genMethods(file string) {
+func genMethods() {
 	generator.GenerateMethods(getRawFromAddr(methodsFile))
+}
+
+func genVK() {
+	generator.GenerateVK(getRawFromAddr(methodsFile))
 }

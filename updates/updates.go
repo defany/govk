@@ -8,10 +8,11 @@ import (
 	apiModel "github.com/defany/govk/api/model"
 	"github.com/defany/govk/updates/model/longpoll"
 	"github.com/goccy/go-json"
-	"github.com/valyala/fasthttp"
 	"io"
+	"net/http"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 type longPoll struct {
@@ -32,7 +33,7 @@ type Updates struct {
 	middlewares map[string][]middleware[json.RawMessage]
 	longPoll    *longPoll
 	api         *apiModel.ApiProvider
-	client      *fasthttp.Client
+	client      *http.Client
 }
 
 func NewUpdates(api *apiModel.ApiProvider) *Updates {
@@ -43,7 +44,7 @@ func NewUpdates(api *apiModel.ApiProvider) *Updates {
 		longPoll: &longPoll{
 			Wait: 25,
 		},
-		client: &fasthttp.Client{},
+		client: &http.Client{},
 	}
 }
 
@@ -131,23 +132,15 @@ func (u *Updates) check() (response model.Response, err error) {
 
 	uri.RawQuery = params.Encode()
 
-	req := fasthttp.AcquireRequest()
-	defer fasthttp.ReleaseRequest(req)
+	req, err := http.NewRequest(http.MethodGet, uri.String(), strings.NewReader(uri.RawQuery))
 
-	req.SetRequestURI(uri.String())
-	req.Header.SetMethod(fasthttp.MethodGet)
-
-	res := fasthttp.AcquireResponse()
-	defer fasthttp.ReleaseResponse(res)
-
-	res.StreamBody = true
-
-	err = u.client.Do(req, res)
+	res, err := u.client.Do(req)
 	if err != nil {
 		return response, err
 	}
 
-	reader := res.BodyStream()
+	defer res.Body.Close()
+	reader := res.Body
 
 	response, err = parseResponse(reader)
 	if err != nil {
@@ -163,28 +156,28 @@ func (u *Updates) check() (response model.Response, err error) {
 }
 
 func (u *Updates) refreshLongPollParams(isUpdateTs bool) error {
-	groupID, err := u.api.Groups.GetByID()
+	groupID, err := u.api.Groups.GroupsGetById()
 	if err != nil {
 		return err
 	}
 
 	params := api.Params{
-		"group_id": groupID.Groups[0].ID,
+		"group_id": groupID.Response[0].Id,
 	}
 
-	lpServer, err := u.api.Groups.GetLongPollServer(params)
+	lpServer, err := u.api.Groups.GroupsGetLongPollServer(params)
 	if err != nil {
 		return err
 	}
 
-	u.longPoll.Key = lpServer.Key
+	u.longPoll.Key = lpServer.Response.Key
 
 	if !u.longPoll.isFixed {
-		u.longPoll.Server = lpServer.Server
+		u.longPoll.Server = lpServer.Response.Server
 	}
 
 	if isUpdateTs {
-		u.longPoll.TS = lpServer.TS
+		u.longPoll.TS = lpServer.Response.Ts
 	}
 
 	return nil
