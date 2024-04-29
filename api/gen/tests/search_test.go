@@ -3,24 +3,25 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/search"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlySearchGetHintsRequest(r *requests.SearchGetHintsRequest) {
-	r.WithQ(randString())
-	r.WithOffset(randInt())
-	r.WithLimit(randInt())
-	lFilters := randIntn(maxArrayLength + 1)
-	r.WithFilters(randStringArr(lFilters))
-	lFields := randIntn(maxArrayLength + 1)
-	r.WithFields(randStringArr(lFields))
-	r.WithSearchGlobal(randBool())
+	r.WithQ(random.RandString())
+	r.WithOffset(random.RandInt())
+	r.WithLimit(random.RandInt())
+	lFilters := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithFilters(random.RandStringArr(lFilters))
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithFields(random.RandStringArr(lFields))
+	r.WithSearchGlobal(random.RandBool())
 }
 
 func TestVKSearchGetHintsSuccess(t *testing.T) {
@@ -30,7 +31,7 @@ func TestVKSearchGetHintsSuccess(t *testing.T) {
 	fillRandomlySearchGetHintsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "search.getHints", params.Params(), expectedJSON))
@@ -38,4 +39,3 @@ func TestVKSearchGetHintsSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

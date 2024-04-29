@@ -4,6 +4,7 @@ package requests
 
 import (
 	"github.com/defany/govk/api"
+	"github.com/defany/govk/api/gen/models"
 )
 
 type Account struct {
@@ -16,3 +17,767 @@ func NewAccount(api *api.API) *Account {
 	}
 }
 
+// AccountBan ...
+type AccountBanRequest api.Params
+
+func NewAccountBanRequest() AccountBanRequest {
+	params := make(AccountBanRequest, 2)
+	return params
+}
+
+func (a AccountBanRequest) WithOwnerId(a_owner_id int) AccountBanRequest {
+	a["owner_id"] = a_owner_id
+	return a
+}
+
+func (a AccountBanRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.ban
+func (a *Account) AccountBan(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](a.api)
+
+	res, err := req.Execute("account.ban", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountChangePassword Changes a user password after access is successfully restored with the [vk.com/dev/auth.restore|auth.restore] method.
+type AccountChangePasswordRequest api.Params
+
+func NewAccountChangePasswordRequest() AccountChangePasswordRequest {
+	params := make(AccountChangePasswordRequest, 5)
+	return params
+}
+
+func (a AccountChangePasswordRequest) WithRestoreSid(a_restore_sid string) AccountChangePasswordRequest {
+	a["restore_sid"] = a_restore_sid
+	return a
+}
+
+func (a AccountChangePasswordRequest) WithChangePasswordHash(a_change_password_hash string) AccountChangePasswordRequest {
+	a["change_password_hash"] = a_change_password_hash
+	return a
+}
+
+func (a AccountChangePasswordRequest) WithOldPassword(a_old_password string) AccountChangePasswordRequest {
+	a["old_password"] = a_old_password
+	return a
+}
+
+func (a AccountChangePasswordRequest) WithNewPassword(a_new_password string) AccountChangePasswordRequest {
+	a["new_password"] = a_new_password
+	return a
+}
+
+func (a AccountChangePasswordRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.changePassword
+func (a *Account) AccountChangePassword(params ...api.MethodParams) (resp models.AccountChangePasswordResponse, err error) {
+	req := api.NewRequest[models.AccountChangePasswordResponse](a.api)
+
+	res, err := req.Execute("account.changePassword", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountGetActiveOffers Returns a list of active ads (offers) which executed by the user will bring him/her respective number of votes to his balance in the application.
+type AccountGetActiveOffersRequest api.Params
+
+func NewAccountGetActiveOffersRequest() AccountGetActiveOffersRequest {
+	params := make(AccountGetActiveOffersRequest, 3)
+	return params
+}
+
+func (a AccountGetActiveOffersRequest) WithOffset(a_offset int) AccountGetActiveOffersRequest {
+	a["offset"] = a_offset
+	return a
+}
+
+func (a AccountGetActiveOffersRequest) WithCount(a_count int) AccountGetActiveOffersRequest {
+	a["count"] = a_count
+	return a
+}
+
+func (a AccountGetActiveOffersRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.getActiveOffers
+func (a *Account) AccountGetActiveOffers(params ...api.MethodParams) (resp models.AccountGetActiveOffersResponse, err error) {
+	req := api.NewRequest[models.AccountGetActiveOffersResponse](a.api)
+
+	res, err := req.Execute("account.getActiveOffers", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountGetAppPermissions Gets settings of the user in this application.
+type AccountGetAppPermissionsRequest api.Params
+
+func NewAccountGetAppPermissionsRequest() AccountGetAppPermissionsRequest {
+	params := make(AccountGetAppPermissionsRequest, 2)
+	return params
+}
+
+func (a AccountGetAppPermissionsRequest) WithUserId(a_user_id int) AccountGetAppPermissionsRequest {
+	a["user_id"] = a_user_id
+	return a
+}
+
+func (a AccountGetAppPermissionsRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.getAppPermissions
+func (a *Account) AccountGetAppPermissions(params ...api.MethodParams) (resp models.AccountGetAppPermissionsResponse, err error) {
+	req := api.NewRequest[models.AccountGetAppPermissionsResponse](a.api)
+
+	res, err := req.Execute("account.getAppPermissions", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountGetBanned Returns a user's blacklist.
+type AccountGetBannedRequest api.Params
+
+func NewAccountGetBannedRequest() AccountGetBannedRequest {
+	params := make(AccountGetBannedRequest, 3)
+	return params
+}
+
+func (a AccountGetBannedRequest) WithOffset(a_offset int) AccountGetBannedRequest {
+	a["offset"] = a_offset
+	return a
+}
+
+func (a AccountGetBannedRequest) WithCount(a_count int) AccountGetBannedRequest {
+	a["count"] = a_count
+	return a
+}
+
+func (a AccountGetBannedRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.getBanned
+func (a *Account) AccountGetBanned(params ...api.MethodParams) (resp models.AccountGetBannedResponse, err error) {
+	req := api.NewRequest[models.AccountGetBannedResponse](a.api)
+
+	res, err := req.Execute("account.getBanned", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountGetCounters Returns non-null values of user counters.
+type AccountGetCountersRequest api.Params
+
+func NewAccountGetCountersRequest() AccountGetCountersRequest {
+	params := make(AccountGetCountersRequest, 3)
+	return params
+}
+
+func (a AccountGetCountersRequest) WithFilter(a_filter []string) AccountGetCountersRequest {
+	a["filter"] = a_filter
+	return a
+}
+
+func (a AccountGetCountersRequest) WithUserId(a_user_id int) AccountGetCountersRequest {
+	a["user_id"] = a_user_id
+	return a
+}
+
+func (a AccountGetCountersRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.getCounters
+func (a *Account) AccountGetCounters(params ...api.MethodParams) (resp models.AccountGetCountersResponse, err error) {
+	req := api.NewRequest[models.AccountGetCountersResponse](a.api)
+
+	res, err := req.Execute("account.getCounters", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountGetInfo Returns current account info.
+type AccountGetInfoRequest api.Params
+
+func NewAccountGetInfoRequest() AccountGetInfoRequest {
+	params := make(AccountGetInfoRequest, 2)
+	return params
+}
+
+func (a AccountGetInfoRequest) WithFields(a_fields []string) AccountGetInfoRequest {
+	a["fields"] = a_fields
+	return a
+}
+
+func (a AccountGetInfoRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.getInfo
+func (a *Account) AccountGetInfo(params ...api.MethodParams) (resp models.AccountGetInfoResponse, err error) {
+	req := api.NewRequest[models.AccountGetInfoResponse](a.api)
+
+	res, err := req.Execute("account.getInfo", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountGetProfileInfo Returns the current account info.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.getProfileInfo
+func (a *Account) AccountGetProfileInfo(params ...api.MethodParams) (resp models.AccountGetProfileInfoResponse, err error) {
+	req := api.NewRequest[models.AccountGetProfileInfoResponse](a.api)
+
+	res, err := req.Execute("account.getProfileInfo", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountGetPushSettings Gets settings of push notifications.
+type AccountGetPushSettingsRequest api.Params
+
+func NewAccountGetPushSettingsRequest() AccountGetPushSettingsRequest {
+	params := make(AccountGetPushSettingsRequest, 2)
+	return params
+}
+
+func (a AccountGetPushSettingsRequest) WithDeviceId(a_device_id string) AccountGetPushSettingsRequest {
+	a["device_id"] = a_device_id
+	return a
+}
+
+func (a AccountGetPushSettingsRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.getPushSettings
+func (a *Account) AccountGetPushSettings(params ...api.MethodParams) (resp models.AccountGetPushSettingsResponse, err error) {
+	req := api.NewRequest[models.AccountGetPushSettingsResponse](a.api)
+
+	res, err := req.Execute("account.getPushSettings", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountRegisterDevice Subscribes an iOS/Android/Windows Phone-based device to receive push notifications
+type AccountRegisterDeviceRequest api.Params
+
+func NewAccountRegisterDeviceRequest() AccountRegisterDeviceRequest {
+	params := make(AccountRegisterDeviceRequest, 8)
+	return params
+}
+
+func (a AccountRegisterDeviceRequest) WithToken(a_token string) AccountRegisterDeviceRequest {
+	a["token"] = a_token
+	return a
+}
+
+func (a AccountRegisterDeviceRequest) WithDeviceModel(a_device_model string) AccountRegisterDeviceRequest {
+	a["device_model"] = a_device_model
+	return a
+}
+
+func (a AccountRegisterDeviceRequest) WithDeviceYear(a_device_year int) AccountRegisterDeviceRequest {
+	a["device_year"] = a_device_year
+	return a
+}
+
+func (a AccountRegisterDeviceRequest) WithDeviceId(a_device_id string) AccountRegisterDeviceRequest {
+	a["device_id"] = a_device_id
+	return a
+}
+
+func (a AccountRegisterDeviceRequest) WithSystemVersion(a_system_version string) AccountRegisterDeviceRequest {
+	a["system_version"] = a_system_version
+	return a
+}
+
+func (a AccountRegisterDeviceRequest) WithSettings(a_settings string) AccountRegisterDeviceRequest {
+	a["settings"] = a_settings
+	return a
+}
+
+func (a AccountRegisterDeviceRequest) WithSandbox(a_sandbox bool) AccountRegisterDeviceRequest {
+	a["sandbox"] = a_sandbox
+	return a
+}
+
+func (a AccountRegisterDeviceRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.registerDevice
+func (a *Account) AccountRegisterDevice(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](a.api)
+
+	res, err := req.Execute("account.registerDevice", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountSaveProfileInfo Edits current profile info.
+type AccountSaveProfileInfoRequest api.Params
+
+func NewAccountSaveProfileInfoRequest() AccountSaveProfileInfoRequest {
+	params := make(AccountSaveProfileInfoRequest, 15)
+	return params
+}
+
+func (a AccountSaveProfileInfoRequest) WithFirstName(a_first_name string) AccountSaveProfileInfoRequest {
+	a["first_name"] = a_first_name
+	return a
+}
+
+func (a AccountSaveProfileInfoRequest) WithLastName(a_last_name string) AccountSaveProfileInfoRequest {
+	a["last_name"] = a_last_name
+	return a
+}
+
+func (a AccountSaveProfileInfoRequest) WithMaidenName(a_maiden_name string) AccountSaveProfileInfoRequest {
+	a["maiden_name"] = a_maiden_name
+	return a
+}
+
+func (a AccountSaveProfileInfoRequest) WithScreenName(a_screen_name string) AccountSaveProfileInfoRequest {
+	a["screen_name"] = a_screen_name
+	return a
+}
+
+func (a AccountSaveProfileInfoRequest) WithCancelRequestId(a_cancel_request_id int) AccountSaveProfileInfoRequest {
+	a["cancel_request_id"] = a_cancel_request_id
+	return a
+}
+
+func (a AccountSaveProfileInfoRequest) WithSex(a_sex int) AccountSaveProfileInfoRequest {
+	a["sex"] = a_sex
+	return a
+}
+
+func (a AccountSaveProfileInfoRequest) WithRelation(a_relation int) AccountSaveProfileInfoRequest {
+	a["relation"] = a_relation
+	return a
+}
+
+func (a AccountSaveProfileInfoRequest) WithRelationPartnerId(a_relation_partner_id int) AccountSaveProfileInfoRequest {
+	a["relation_partner_id"] = a_relation_partner_id
+	return a
+}
+
+func (a AccountSaveProfileInfoRequest) WithBdate(a_bdate string) AccountSaveProfileInfoRequest {
+	a["bdate"] = a_bdate
+	return a
+}
+
+func (a AccountSaveProfileInfoRequest) WithBdateVisibility(a_bdate_visibility int) AccountSaveProfileInfoRequest {
+	a["bdate_visibility"] = a_bdate_visibility
+	return a
+}
+
+func (a AccountSaveProfileInfoRequest) WithHomeTown(a_home_town string) AccountSaveProfileInfoRequest {
+	a["home_town"] = a_home_town
+	return a
+}
+
+func (a AccountSaveProfileInfoRequest) WithCountryId(a_country_id int) AccountSaveProfileInfoRequest {
+	a["country_id"] = a_country_id
+	return a
+}
+
+func (a AccountSaveProfileInfoRequest) WithCityId(a_city_id int) AccountSaveProfileInfoRequest {
+	a["city_id"] = a_city_id
+	return a
+}
+
+func (a AccountSaveProfileInfoRequest) WithStatus(a_status string) AccountSaveProfileInfoRequest {
+	a["status"] = a_status
+	return a
+}
+
+func (a AccountSaveProfileInfoRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_InvalidAddress ]
+//
+// https://dev.vk.com/method/account.saveProfileInfo
+func (a *Account) AccountSaveProfileInfo(params ...api.MethodParams) (resp models.AccountSaveProfileInfoResponse, err error) {
+	req := api.NewRequest[models.AccountSaveProfileInfoResponse](a.api)
+
+	res, err := req.Execute("account.saveProfileInfo", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountSetInfo Allows to edit the current account info.
+type AccountSetInfoRequest api.Params
+
+func NewAccountSetInfoRequest() AccountSetInfoRequest {
+	params := make(AccountSetInfoRequest, 3)
+	return params
+}
+
+func (a AccountSetInfoRequest) WithName(a_name string) AccountSetInfoRequest {
+	a["name"] = a_name
+	return a
+}
+
+func (a AccountSetInfoRequest) WithValue(a_value string) AccountSetInfoRequest {
+	a["value"] = a_value
+	return a
+}
+
+func (a AccountSetInfoRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.setInfo
+func (a *Account) AccountSetInfo(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](a.api)
+
+	res, err := req.Execute("account.setInfo", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountSetOffline Marks a current user as offline.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.setOffline
+func (a *Account) AccountSetOffline(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](a.api)
+
+	res, err := req.Execute("account.setOffline", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountSetOnline Marks the current user as online for 15 minutes.
+type AccountSetOnlineRequest api.Params
+
+func NewAccountSetOnlineRequest() AccountSetOnlineRequest {
+	params := make(AccountSetOnlineRequest, 2)
+	return params
+}
+
+func (a AccountSetOnlineRequest) WithVoip(a_voip bool) AccountSetOnlineRequest {
+	a["voip"] = a_voip
+	return a
+}
+
+func (a AccountSetOnlineRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.setOnline
+func (a *Account) AccountSetOnline(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](a.api)
+
+	res, err := req.Execute("account.setOnline", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountSetPushSettings Change push settings.
+type AccountSetPushSettingsRequest api.Params
+
+func NewAccountSetPushSettingsRequest() AccountSetPushSettingsRequest {
+	params := make(AccountSetPushSettingsRequest, 5)
+	return params
+}
+
+func (a AccountSetPushSettingsRequest) WithDeviceId(a_device_id string) AccountSetPushSettingsRequest {
+	a["device_id"] = a_device_id
+	return a
+}
+
+func (a AccountSetPushSettingsRequest) WithSettings(a_settings string) AccountSetPushSettingsRequest {
+	a["settings"] = a_settings
+	return a
+}
+
+func (a AccountSetPushSettingsRequest) WithKey(a_key string) AccountSetPushSettingsRequest {
+	a["key"] = a_key
+	return a
+}
+
+func (a AccountSetPushSettingsRequest) WithValue(a_value []string) AccountSetPushSettingsRequest {
+	a["value"] = a_value
+	return a
+}
+
+func (a AccountSetPushSettingsRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.setPushSettings
+func (a *Account) AccountSetPushSettings(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](a.api)
+
+	res, err := req.Execute("account.setPushSettings", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountSetSilenceMode Mutes push notifications for the set period of time.
+type AccountSetSilenceModeRequest api.Params
+
+func NewAccountSetSilenceModeRequest() AccountSetSilenceModeRequest {
+	params := make(AccountSetSilenceModeRequest, 5)
+	return params
+}
+
+func (a AccountSetSilenceModeRequest) WithDeviceId(a_device_id string) AccountSetSilenceModeRequest {
+	a["device_id"] = a_device_id
+	return a
+}
+
+func (a AccountSetSilenceModeRequest) WithTime(a_time int) AccountSetSilenceModeRequest {
+	a["time"] = a_time
+	return a
+}
+
+func (a AccountSetSilenceModeRequest) WithPeerId(a_peer_id int) AccountSetSilenceModeRequest {
+	a["peer_id"] = a_peer_id
+	return a
+}
+
+func (a AccountSetSilenceModeRequest) WithSound(a_sound int) AccountSetSilenceModeRequest {
+	a["sound"] = a_sound
+	return a
+}
+
+func (a AccountSetSilenceModeRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.setSilenceMode
+func (a *Account) AccountSetSilenceMode(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](a.api)
+
+	res, err := req.Execute("account.setSilenceMode", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountUnban ...
+type AccountUnbanRequest api.Params
+
+func NewAccountUnbanRequest() AccountUnbanRequest {
+	params := make(AccountUnbanRequest, 2)
+	return params
+}
+
+func (a AccountUnbanRequest) WithOwnerId(a_owner_id int) AccountUnbanRequest {
+	a["owner_id"] = a_owner_id
+	return a
+}
+
+func (a AccountUnbanRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.unban
+func (a *Account) AccountUnban(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](a.api)
+
+	res, err := req.Execute("account.unban", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AccountUnregisterDevice Unsubscribes a device from push notifications.
+type AccountUnregisterDeviceRequest api.Params
+
+func NewAccountUnregisterDeviceRequest() AccountUnregisterDeviceRequest {
+	params := make(AccountUnregisterDeviceRequest, 3)
+	return params
+}
+
+func (a AccountUnregisterDeviceRequest) WithDeviceId(a_device_id string) AccountUnregisterDeviceRequest {
+	a["device_id"] = a_device_id
+	return a
+}
+
+func (a AccountUnregisterDeviceRequest) WithSandbox(a_sandbox bool) AccountUnregisterDeviceRequest {
+	a["sandbox"] = a_sandbox
+	return a
+}
+
+func (a AccountUnregisterDeviceRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/account.unregisterDevice
+func (a *Account) AccountUnregisterDevice(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](a.api)
+
+	res, err := req.Execute("account.unregisterDevice", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}

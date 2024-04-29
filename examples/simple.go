@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
+	requests2 "github.com/defany/govk/api/gen/messages"
 	msgmodel "github.com/defany/govk/api/messages/model"
 	"github.com/defany/govk/api/messages/requests"
-	requests2 "github.com/defany/govk/gen/messages"
 
 	hear "github.com/defany/govk/hear"
 	"github.com/defany/govk/updates"
@@ -13,7 +13,7 @@ import (
 )
 
 func vkInit() {
-	vk, err := govk.NewVK("vk1.a.kLGED5Km5A4nkwuufWB9JYkCkh4XYnM3ttbre3xOpTaFu027ma_qFKiLFMkksJJIzdxA1itQY_fERu5_FSTJNb3-IjY29KstAgj9t_iekEWaxOCz6IbHTc-JuWVHnbgU0DQjxK2_kCpkov_BSdCbMAGaYHUuuqnKYkDhtgc30npyvD39Hh-H1ZnogII6rEhLiZ7Ll1QgPxzUnW5wQ83oNw")
+	vk, err := govk.NewVK("test")
 	if err != nil {
 		log.Fatal("failed to initialize api client")
 	}
@@ -34,7 +34,7 @@ func vkInit() {
 		params.WithPeerID(msg.Message.FromID)
 		params.WithKeyboard(msgmodel.NewKeyboard().AddRow().AddCallbackButton("huy", "primary"))
 
-		_, err := vk.Api.Messages.Send(params)
+		_, err := vk.Api.Messages.MessagesSend(params)
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -42,7 +42,7 @@ func vkInit() {
 
 	updates.On(vk.Updates, "message_event", func(_ context.Context, msg msgmodel.MessagesEvent) {
 		params := requests2.NewMessagesSendMessageEventAnswerRequest().WithUserId(msg.UserID).WithPeerId(msg.PeerID).WithEventId(msg.EventID)
-		_, err := vk.Api.Messages.SendMessageEventAnswer(params)
+		_, err := vk.Api.Messages.MessagesSendMessageEventAnswer(params)
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -55,7 +55,7 @@ func vkInit() {
 
 		params.WithPeerID(event.Message.PeerID)
 
-		_, err := vk.Api.Messages.Send(params)
+		_, err := vk.Api.Messages.MessagesSend(params)
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -69,7 +69,7 @@ func vkInit() {
 
 		params.WithPeerID(event.Message.PeerID)
 
-		_, err := vk.Api.Messages.Send(params)
+		_, err := vk.Api.Messages.MessagesSend(params)
 		if err != nil {
 			log.Fatalln(err)
 		}

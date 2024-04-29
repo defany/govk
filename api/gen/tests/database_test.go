@@ -3,19 +3,20 @@
 package tests
 
 import (
-	"github.com/defany/govk/api/gen/models"
+	"encoding/json"
 	"github.com/defany/govk/api/gen/database"
+	"github.com/defany/govk/api/gen/models"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyDatabaseGetChairsRequest(r *requests.DatabaseGetChairsRequest) {
-	r.WithFacultyId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithFacultyId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKDatabaseGetChairsSuccess(t *testing.T) {
@@ -25,7 +26,7 @@ func TestVKDatabaseGetChairsSuccess(t *testing.T) {
 	fillRandomlyDatabaseGetChairsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "database.getChairs", params.Params(), expectedJSON))
@@ -35,12 +36,12 @@ func TestVKDatabaseGetChairsSuccess(t *testing.T) {
 }
 
 func fillRandomlyDatabaseGetCitiesRequest(r *requests.DatabaseGetCitiesRequest) {
-	r.WithCountryId(randInt())
-	r.WithRegionId(randInt())
-	r.WithQ(randString())
-	r.WithNeedAll(randBool())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithCountryId(random.RandInt())
+	r.WithRegionId(random.RandInt())
+	r.WithQ(random.RandString())
+	r.WithNeedAll(random.RandBool())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKDatabaseGetCitiesSuccess(t *testing.T) {
@@ -50,7 +51,7 @@ func TestVKDatabaseGetCitiesSuccess(t *testing.T) {
 	fillRandomlyDatabaseGetCitiesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "database.getCities", params.Params(), expectedJSON))
@@ -60,8 +61,8 @@ func TestVKDatabaseGetCitiesSuccess(t *testing.T) {
 }
 
 func fillRandomlyDatabaseGetCitiesByIdRequest(r *requests.DatabaseGetCitiesByIdRequest) {
-	lCityIds := randIntn(maxArrayLength + 1)
-	r.WithCityIds(randIntArr(lCityIds))
+	lCityIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithCityIds(random.RandIntArr(lCityIds))
 }
 
 func TestVKDatabaseGetCitiesByIdSuccess(t *testing.T) {
@@ -71,7 +72,7 @@ func TestVKDatabaseGetCitiesByIdSuccess(t *testing.T) {
 	fillRandomlyDatabaseGetCitiesByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "database.getCitiesById", params.Params(), expectedJSON))
@@ -81,10 +82,10 @@ func TestVKDatabaseGetCitiesByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyDatabaseGetCountriesRequest(r *requests.DatabaseGetCountriesRequest) {
-	r.WithNeedAll(randBool())
-	r.WithCode(randString())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithNeedAll(random.RandBool())
+	r.WithCode(random.RandString())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKDatabaseGetCountriesSuccess(t *testing.T) {
@@ -94,7 +95,7 @@ func TestVKDatabaseGetCountriesSuccess(t *testing.T) {
 	fillRandomlyDatabaseGetCountriesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "database.getCountries", params.Params(), expectedJSON))
@@ -104,8 +105,8 @@ func TestVKDatabaseGetCountriesSuccess(t *testing.T) {
 }
 
 func fillRandomlyDatabaseGetCountriesByIdRequest(r *requests.DatabaseGetCountriesByIdRequest) {
-	lCountryIds := randIntn(maxArrayLength + 1)
-	r.WithCountryIds(randIntArr(lCountryIds))
+	lCountryIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithCountryIds(random.RandIntArr(lCountryIds))
 }
 
 func TestVKDatabaseGetCountriesByIdSuccess(t *testing.T) {
@@ -115,7 +116,7 @@ func TestVKDatabaseGetCountriesByIdSuccess(t *testing.T) {
 	fillRandomlyDatabaseGetCountriesByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "database.getCountriesById", params.Params(), expectedJSON))
@@ -125,9 +126,9 @@ func TestVKDatabaseGetCountriesByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyDatabaseGetFacultiesRequest(r *requests.DatabaseGetFacultiesRequest) {
-	r.WithUniversityId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithUniversityId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKDatabaseGetFacultiesSuccess(t *testing.T) {
@@ -137,7 +138,7 @@ func TestVKDatabaseGetFacultiesSuccess(t *testing.T) {
 	fillRandomlyDatabaseGetFacultiesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "database.getFaculties", params.Params(), expectedJSON))
@@ -147,10 +148,10 @@ func TestVKDatabaseGetFacultiesSuccess(t *testing.T) {
 }
 
 func fillRandomlyDatabaseGetMetroStationsRequest(r *requests.DatabaseGetMetroStationsRequest) {
-	r.WithCityId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithExtended(randBool())
+	r.WithCityId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithExtended(random.RandBool())
 }
 
 func TestVKDatabaseGetMetroStationsSuccess(t *testing.T) {
@@ -160,7 +161,7 @@ func TestVKDatabaseGetMetroStationsSuccess(t *testing.T) {
 	fillRandomlyDatabaseGetMetroStationsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "database.getMetroStations", params.Params(), expectedJSON))
@@ -170,8 +171,8 @@ func TestVKDatabaseGetMetroStationsSuccess(t *testing.T) {
 }
 
 func fillRandomlyDatabaseGetMetroStationsByIdRequest(r *requests.DatabaseGetMetroStationsByIdRequest) {
-	lStationIds := randIntn(maxArrayLength + 1)
-	r.WithStationIds(randIntArr(lStationIds))
+	lStationIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithStationIds(random.RandIntArr(lStationIds))
 }
 
 func TestVKDatabaseGetMetroStationsByIdSuccess(t *testing.T) {
@@ -181,7 +182,7 @@ func TestVKDatabaseGetMetroStationsByIdSuccess(t *testing.T) {
 	fillRandomlyDatabaseGetMetroStationsByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "database.getMetroStationsById", params.Params(), expectedJSON))
@@ -191,10 +192,10 @@ func TestVKDatabaseGetMetroStationsByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyDatabaseGetRegionsRequest(r *requests.DatabaseGetRegionsRequest) {
-	r.WithCountryId(randInt())
-	r.WithQ(randString())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithCountryId(random.RandInt())
+	r.WithQ(random.RandString())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKDatabaseGetRegionsSuccess(t *testing.T) {
@@ -204,7 +205,7 @@ func TestVKDatabaseGetRegionsSuccess(t *testing.T) {
 	fillRandomlyDatabaseGetRegionsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "database.getRegions", params.Params(), expectedJSON))
@@ -214,7 +215,7 @@ func TestVKDatabaseGetRegionsSuccess(t *testing.T) {
 }
 
 func fillRandomlyDatabaseGetSchoolClassesRequest(r *requests.DatabaseGetSchoolClassesRequest) {
-	r.WithCountryId(randInt())
+	r.WithCountryId(random.RandInt())
 }
 
 func TestVKDatabaseGetSchoolClassesSuccess(t *testing.T) {
@@ -224,7 +225,7 @@ func TestVKDatabaseGetSchoolClassesSuccess(t *testing.T) {
 	fillRandomlyDatabaseGetSchoolClassesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "database.getSchoolClasses", params.Params(), expectedJSON))
@@ -234,10 +235,10 @@ func TestVKDatabaseGetSchoolClassesSuccess(t *testing.T) {
 }
 
 func fillRandomlyDatabaseGetSchoolsRequest(r *requests.DatabaseGetSchoolsRequest) {
-	r.WithQ(randString())
-	r.WithCityId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithQ(random.RandString())
+	r.WithCityId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKDatabaseGetSchoolsSuccess(t *testing.T) {
@@ -247,7 +248,7 @@ func TestVKDatabaseGetSchoolsSuccess(t *testing.T) {
 	fillRandomlyDatabaseGetSchoolsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "database.getSchools", params.Params(), expectedJSON))
@@ -257,11 +258,11 @@ func TestVKDatabaseGetSchoolsSuccess(t *testing.T) {
 }
 
 func fillRandomlyDatabaseGetUniversitiesRequest(r *requests.DatabaseGetUniversitiesRequest) {
-	r.WithQ(randString())
-	r.WithCountryId(randInt())
-	r.WithCityId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithQ(random.RandString())
+	r.WithCountryId(random.RandInt())
+	r.WithCityId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKDatabaseGetUniversitiesSuccess(t *testing.T) {
@@ -271,7 +272,7 @@ func TestVKDatabaseGetUniversitiesSuccess(t *testing.T) {
 	fillRandomlyDatabaseGetUniversitiesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "database.getUniversities", params.Params(), expectedJSON))
@@ -279,4 +280,3 @@ func TestVKDatabaseGetUniversitiesSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

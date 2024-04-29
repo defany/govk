@@ -3,19 +3,20 @@
 package tests
 
 import (
-	"github.com/defany/govk/api/gen/models"
+	"encoding/json"
 	"github.com/defany/govk/api/gen/messages"
+	"github.com/defany/govk/api/gen/models"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyMessagesAddChatUserRequest(r *requests.MessagesAddChatUserRequest) {
-	r.WithChatId(randInt())
-	r.WithUserId(randInt())
-	r.WithVisibleMessagesCount(randInt())
+	r.WithChatId(random.RandInt())
+	r.WithUserId(random.RandInt())
+	r.WithVisibleMessagesCount(random.RandInt())
 }
 
 func TestVKMessagesAddChatUserSuccess(t *testing.T) {
@@ -25,7 +26,7 @@ func TestVKMessagesAddChatUserSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.addChatUser", params.Params(), expectedJSON))
@@ -35,8 +36,8 @@ func TestVKMessagesAddChatUserSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesAllowMessagesFromGroupRequest(r *requests.MessagesAllowMessagesFromGroupRequest) {
-	r.WithGroupId(randInt())
-	r.WithKey(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithKey(random.RandString())
 }
 
 func TestVKMessagesAllowMessagesFromGroupSuccess(t *testing.T) {
@@ -46,7 +47,7 @@ func TestVKMessagesAllowMessagesFromGroupSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.allowMessagesFromGroup", params.Params(), expectedJSON))
@@ -56,10 +57,10 @@ func TestVKMessagesAllowMessagesFromGroupSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesCreateChatRequest(r *requests.MessagesCreateChatRequest) {
-	lUserIds := randIntn(maxArrayLength + 1)
-	r.WithUserIds(randIntArr(lUserIds))
-	r.WithTitle(randString())
-	r.WithGroupId(randInt())
+	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithUserIds(random.RandIntArr(lUserIds))
+	r.WithTitle(random.RandString())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesCreateChatSuccess(t *testing.T) {
@@ -69,7 +70,7 @@ func TestVKMessagesCreateChatSuccess(t *testing.T) {
 	fillRandomlyMessagesCreateChatResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.createChat", params.Params(), expectedJSON))
@@ -79,14 +80,14 @@ func TestVKMessagesCreateChatSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesDeleteRequest(r *requests.MessagesDeleteRequest) {
-	lMessageIds := randIntn(maxArrayLength + 1)
-	r.WithMessageIds(randIntArr(lMessageIds))
-	r.WithSpam(randBool())
-	r.WithGroupId(randInt())
-	r.WithDeleteForAll(randBool())
-	r.WithPeerId(randInt())
-	lCmids := randIntn(maxArrayLength + 1)
-	r.WithCmids(randIntArr(lCmids))
+	lMessageIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithMessageIds(random.RandIntArr(lMessageIds))
+	r.WithSpam(random.RandBool())
+	r.WithGroupId(random.RandInt())
+	r.WithDeleteForAll(random.RandBool())
+	r.WithPeerId(random.RandInt())
+	lCmids := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithCmids(random.RandIntArr(lCmids))
 }
 
 func TestVKMessagesDeleteSuccess(t *testing.T) {
@@ -96,7 +97,7 @@ func TestVKMessagesDeleteSuccess(t *testing.T) {
 	fillRandomlyMessagesDeleteResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.delete", params.Params(), expectedJSON))
@@ -106,8 +107,8 @@ func TestVKMessagesDeleteSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesDeleteChatPhotoRequest(r *requests.MessagesDeleteChatPhotoRequest) {
-	r.WithChatId(randInt())
-	r.WithGroupId(randInt())
+	r.WithChatId(random.RandInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesDeleteChatPhotoSuccess(t *testing.T) {
@@ -117,7 +118,7 @@ func TestVKMessagesDeleteChatPhotoSuccess(t *testing.T) {
 	fillRandomlyMessagesDeleteChatPhotoResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.deleteChatPhoto", params.Params(), expectedJSON))
@@ -127,9 +128,9 @@ func TestVKMessagesDeleteChatPhotoSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesDeleteConversationRequest(r *requests.MessagesDeleteConversationRequest) {
-	r.WithUserId(randInt())
-	r.WithPeerId(randInt())
-	r.WithGroupId(randInt())
+	r.WithUserId(random.RandInt())
+	r.WithPeerId(random.RandInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesDeleteConversationSuccess(t *testing.T) {
@@ -139,7 +140,7 @@ func TestVKMessagesDeleteConversationSuccess(t *testing.T) {
 	fillRandomlyMessagesDeleteConversationResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.deleteConversation", params.Params(), expectedJSON))
@@ -149,7 +150,7 @@ func TestVKMessagesDeleteConversationSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesDenyMessagesFromGroupRequest(r *requests.MessagesDenyMessagesFromGroupRequest) {
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesDenyMessagesFromGroupSuccess(t *testing.T) {
@@ -159,7 +160,7 @@ func TestVKMessagesDenyMessagesFromGroupSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.denyMessagesFromGroup", params.Params(), expectedJSON))
@@ -169,20 +170,20 @@ func TestVKMessagesDenyMessagesFromGroupSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesEditRequest(r *requests.MessagesEditRequest) {
-	r.WithPeerId(randInt())
-	r.WithMessage(randString())
-	r.WithLat(randFloat())
-	r.WithLong(randFloat())
-	r.WithAttachment(randString())
-	r.WithKeepForwardMessages(randBool())
-	r.WithKeepSnippets(randBool())
-	r.WithGroupId(randInt())
-	r.WithDontParseLinks(randBool())
-	r.WithDisableMentions(randBool())
-	r.WithMessageId(randInt())
-	r.WithConversationMessageId(randInt())
-	r.WithTemplate(randString())
-	r.WithKeyboard(randString())
+	r.WithPeerId(random.RandInt())
+	r.WithMessage(random.RandString())
+	r.WithLat(random.RandFloat())
+	r.WithLong(random.RandFloat())
+	r.WithAttachment(random.RandString())
+	r.WithKeepForwardMessages(random.RandBool())
+	r.WithKeepSnippets(random.RandBool())
+	r.WithGroupId(random.RandInt())
+	r.WithDontParseLinks(random.RandBool())
+	r.WithDisableMentions(random.RandBool())
+	r.WithMessageId(random.RandInt())
+	r.WithConversationMessageId(random.RandInt())
+	r.WithTemplate(random.RandString())
+	r.WithKeyboard(random.RandString())
 }
 
 func TestVKMessagesEditSuccess(t *testing.T) {
@@ -192,7 +193,7 @@ func TestVKMessagesEditSuccess(t *testing.T) {
 	fillRandomlyMessagesEditResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.edit", params.Params(), expectedJSON))
@@ -202,8 +203,8 @@ func TestVKMessagesEditSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesEditChatRequest(r *requests.MessagesEditChatRequest) {
-	r.WithChatId(randInt())
-	r.WithTitle(randString())
+	r.WithChatId(random.RandInt())
+	r.WithTitle(random.RandString())
 }
 
 func TestVKMessagesEditChatSuccess(t *testing.T) {
@@ -213,7 +214,7 @@ func TestVKMessagesEditChatSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.editChat", params.Params(), expectedJSON))
@@ -223,18 +224,18 @@ func TestVKMessagesEditChatSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesGetByConversationMessageIdRequest(r *requests.MessagesGetByConversationMessageIdRequest) {
-	r.WithPeerId(randInt())
-	lConversationMessageIds := randIntn(maxArrayLength + 1)
-	r.WithConversationMessageIds(randIntArr(lConversationMessageIds))
-	r.WithExtended(randBool())
+	r.WithPeerId(random.RandInt())
+	lConversationMessageIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithConversationMessageIds(random.RandIntArr(lConversationMessageIds))
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesGetByConversationMessageIdSuccess(t *testing.T) {
@@ -245,7 +246,7 @@ func TestVKMessagesGetByConversationMessageIdSuccess(t *testing.T) {
 	fillRandomlyMessagesGetByConversationMessageIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getByConversationMessageId", params.Params(), expectedJSON))
@@ -262,7 +263,7 @@ func TestVKMessagesGetByConversationMessageIdExtendedSuccess(t *testing.T) {
 	fillRandomlyMessagesGetByConversationMessageIdExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getByConversationMessageId", params.Params(), expectedJSON))
@@ -272,18 +273,18 @@ func TestVKMessagesGetByConversationMessageIdExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesGetByIdRequest(r *requests.MessagesGetByIdRequest) {
-	lMessageIds := randIntn(maxArrayLength + 1)
-	r.WithMessageIds(randIntArr(lMessageIds))
-	r.WithPreviewLength(randInt())
-	r.WithExtended(randBool())
+	lMessageIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithMessageIds(random.RandIntArr(lMessageIds))
+	r.WithPreviewLength(random.RandInt())
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesGetByIdSuccess(t *testing.T) {
@@ -294,7 +295,7 @@ func TestVKMessagesGetByIdSuccess(t *testing.T) {
 	fillRandomlyMessagesGetByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getById", params.Params(), expectedJSON))
@@ -311,7 +312,7 @@ func TestVKMessagesGetByIdExtendedSuccess(t *testing.T) {
 	fillRandomlyMessagesGetByIdExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getById", params.Params(), expectedJSON))
@@ -321,10 +322,10 @@ func TestVKMessagesGetByIdExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesGetChatPreviewRequest(r *requests.MessagesGetChatPreviewRequest) {
-	r.WithPeerId(randInt())
-	r.WithLink(randString())
+	r.WithPeerId(random.RandInt())
+	r.WithLink(random.RandString())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
@@ -339,7 +340,7 @@ func TestVKMessagesGetChatPreviewSuccess(t *testing.T) {
 	fillRandomlyMessagesGetChatPreviewResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getChatPreview", params.Params(), expectedJSON))
@@ -349,15 +350,15 @@ func TestVKMessagesGetChatPreviewSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesGetConversationMembersRequest(r *requests.MessagesGetConversationMembersRequest) {
-	r.WithPeerId(randInt())
+	r.WithPeerId(random.RandInt())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesGetConversationMembersSuccess(t *testing.T) {
@@ -367,7 +368,7 @@ func TestVKMessagesGetConversationMembersSuccess(t *testing.T) {
 	fillRandomlyMessagesGetConversationMembersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getConversationMembers", params.Params(), expectedJSON))
@@ -377,19 +378,19 @@ func TestVKMessagesGetConversationMembersSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesGetConversationsRequest(r *requests.MessagesGetConversationsRequest) {
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithFilter(randString())
-	r.WithExtended(randBool())
-	r.WithStartMessageId(randInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithFilter(random.RandString())
+	r.WithExtended(random.RandBool())
+	r.WithStartMessageId(random.RandInt())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesGetConversationsSuccess(t *testing.T) {
@@ -399,7 +400,7 @@ func TestVKMessagesGetConversationsSuccess(t *testing.T) {
 	fillRandomlyMessagesGetConversationsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getConversations", params.Params(), expectedJSON))
@@ -409,17 +410,17 @@ func TestVKMessagesGetConversationsSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesGetConversationsByIdRequest(r *requests.MessagesGetConversationsByIdRequest) {
-	lPeerIds := randIntn(maxArrayLength + 1)
-	r.WithPeerIds(randIntArr(lPeerIds))
-	r.WithExtended(randBool())
+	lPeerIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithPeerIds(random.RandIntArr(lPeerIds))
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesGetConversationsByIdSuccess(t *testing.T) {
@@ -430,7 +431,7 @@ func TestVKMessagesGetConversationsByIdSuccess(t *testing.T) {
 	fillRandomlyMessagesGetConversationsByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getConversationsById", params.Params(), expectedJSON))
@@ -447,7 +448,7 @@ func TestVKMessagesGetConversationsByIdExtendedSuccess(t *testing.T) {
 	fillRandomlyMessagesGetConversationsByIdExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getConversationsById", params.Params(), expectedJSON))
@@ -457,21 +458,21 @@ func TestVKMessagesGetConversationsByIdExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesGetHistoryRequest(r *requests.MessagesGetHistoryRequest) {
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithUserId(randInt())
-	r.WithPeerId(randInt())
-	r.WithStartMessageId(randInt())
-	r.WithRev(randInt())
-	r.WithExtended(randBool())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithUserId(random.RandInt())
+	r.WithPeerId(random.RandInt())
+	r.WithStartMessageId(random.RandInt())
+	r.WithRev(random.RandInt())
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesGetHistorySuccess(t *testing.T) {
@@ -482,7 +483,7 @@ func TestVKMessagesGetHistorySuccess(t *testing.T) {
 	fillRandomlyMessagesGetHistoryResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getHistory", params.Params(), expectedJSON))
@@ -499,7 +500,7 @@ func TestVKMessagesGetHistoryExtendedSuccess(t *testing.T) {
 	fillRandomlyMessagesGetHistoryExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getHistory", params.Params(), expectedJSON))
@@ -509,21 +510,21 @@ func TestVKMessagesGetHistoryExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesGetHistoryAttachmentsRequest(r *requests.MessagesGetHistoryAttachmentsRequest) {
-	r.WithPeerId(randInt())
-	r.WithMediaType(randString())
-	r.WithStartFrom(randString())
-	r.WithCount(randInt())
-	r.WithPhotoSizes(randBool())
+	r.WithPeerId(random.RandInt())
+	r.WithMediaType(random.RandString())
+	r.WithStartFrom(random.RandString())
+	r.WithCount(random.RandInt())
+	r.WithPhotoSizes(random.RandBool())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithGroupId(randInt())
-	r.WithPreserveOrder(randBool())
-	r.WithMaxForwardsLevel(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithPreserveOrder(random.RandBool())
+	r.WithMaxForwardsLevel(random.RandInt())
 }
 
 func TestVKMessagesGetHistoryAttachmentsSuccess(t *testing.T) {
@@ -533,7 +534,7 @@ func TestVKMessagesGetHistoryAttachmentsSuccess(t *testing.T) {
 	fillRandomlyMessagesGetHistoryAttachmentsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getHistoryAttachments", params.Params(), expectedJSON))
@@ -543,19 +544,19 @@ func TestVKMessagesGetHistoryAttachmentsSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesGetImportantMessagesRequest(r *requests.MessagesGetImportantMessagesRequest) {
-	r.WithCount(randInt())
-	r.WithOffset(randInt())
-	r.WithStartMessageId(randInt())
-	r.WithPreviewLength(randInt())
+	r.WithCount(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithStartMessageId(random.RandInt())
+	r.WithPreviewLength(random.RandInt())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithExtended(randBool())
-	r.WithGroupId(randInt())
+	r.WithExtended(random.RandBool())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesGetImportantMessagesSuccess(t *testing.T) {
@@ -566,7 +567,7 @@ func TestVKMessagesGetImportantMessagesSuccess(t *testing.T) {
 	fillRandomlyMessagesGetImportantMessagesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getImportantMessages", params.Params(), expectedJSON))
@@ -583,7 +584,7 @@ func TestVKMessagesGetImportantMessagesExtendedSuccess(t *testing.T) {
 	fillRandomlyMessagesGetImportantMessagesExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getImportantMessages", params.Params(), expectedJSON))
@@ -593,15 +594,15 @@ func TestVKMessagesGetImportantMessagesExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesGetIntentUsersRequest(r *requests.MessagesGetIntentUsersRequest) {
-	r.WithIntent(randString())
-	r.WithSubscribeId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithExtended(randBool())
-	lNameCase := randIntn(maxArrayLength + 1)
-	r.WithNameCase(randStringArr(lNameCase))
-	lFields := randIntn(maxArrayLength + 1)
-	r.WithFields(randStringArr(lFields))
+	r.WithIntent(random.RandString())
+	r.WithSubscribeId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithExtended(random.RandBool())
+	lNameCase := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithNameCase(random.RandStringArr(lNameCase))
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithFields(random.RandStringArr(lFields))
 }
 
 func TestVKMessagesGetIntentUsersSuccess(t *testing.T) {
@@ -611,7 +612,7 @@ func TestVKMessagesGetIntentUsersSuccess(t *testing.T) {
 	fillRandomlyMessagesGetIntentUsersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getIntentUsers", params.Params(), expectedJSON))
@@ -621,9 +622,9 @@ func TestVKMessagesGetIntentUsersSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesGetInviteLinkRequest(r *requests.MessagesGetInviteLinkRequest) {
-	r.WithPeerId(randInt())
-	r.WithReset(randBool())
-	r.WithGroupId(randInt())
+	r.WithPeerId(random.RandInt())
+	r.WithReset(random.RandBool())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesGetInviteLinkSuccess(t *testing.T) {
@@ -633,7 +634,7 @@ func TestVKMessagesGetInviteLinkSuccess(t *testing.T) {
 	fillRandomlyMessagesGetInviteLinkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getInviteLink", params.Params(), expectedJSON))
@@ -643,7 +644,7 @@ func TestVKMessagesGetInviteLinkSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesGetLastActivityRequest(r *requests.MessagesGetLastActivityRequest) {
-	r.WithUserId(randInt())
+	r.WithUserId(random.RandInt())
 }
 
 func TestVKMessagesGetLastActivitySuccess(t *testing.T) {
@@ -653,7 +654,7 @@ func TestVKMessagesGetLastActivitySuccess(t *testing.T) {
 	fillRandomlyMessagesGetLastActivityResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getLastActivity", params.Params(), expectedJSON))
@@ -663,25 +664,25 @@ func TestVKMessagesGetLastActivitySuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesGetLongPollHistoryRequest(r *requests.MessagesGetLongPollHistoryRequest) {
-	r.WithTs(randInt())
-	r.WithPts(randInt())
-	r.WithPreviewLength(randInt())
-	r.WithOnlines(randBool())
+	r.WithTs(random.RandInt())
+	r.WithPts(random.RandInt())
+	r.WithPreviewLength(random.RandInt())
+	r.WithOnlines(random.RandBool())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithEventsLimit(randInt())
-	r.WithMsgsLimit(randInt())
-	r.WithMaxMsgId(randInt())
-	r.WithGroupId(randInt())
-	r.WithLpVersion(randInt())
-	r.WithLastN(randInt())
-	r.WithCredentials(randBool())
-	r.WithExtended(randBool())
+	r.WithEventsLimit(random.RandInt())
+	r.WithMsgsLimit(random.RandInt())
+	r.WithMaxMsgId(random.RandInt())
+	r.WithGroupId(random.RandInt())
+	r.WithLpVersion(random.RandInt())
+	r.WithLastN(random.RandInt())
+	r.WithCredentials(random.RandBool())
+	r.WithExtended(random.RandBool())
 }
 
 func TestVKMessagesGetLongPollHistorySuccess(t *testing.T) {
@@ -691,7 +692,7 @@ func TestVKMessagesGetLongPollHistorySuccess(t *testing.T) {
 	fillRandomlyMessagesGetLongPollHistoryResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getLongPollHistory", params.Params(), expectedJSON))
@@ -701,9 +702,9 @@ func TestVKMessagesGetLongPollHistorySuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesGetLongPollServerRequest(r *requests.MessagesGetLongPollServerRequest) {
-	r.WithNeedPts(randBool())
-	r.WithGroupId(randInt())
-	r.WithLpVersion(randInt())
+	r.WithNeedPts(random.RandBool())
+	r.WithGroupId(random.RandInt())
+	r.WithLpVersion(random.RandInt())
 }
 
 func TestVKMessagesGetLongPollServerSuccess(t *testing.T) {
@@ -713,7 +714,7 @@ func TestVKMessagesGetLongPollServerSuccess(t *testing.T) {
 	fillRandomlyMessagesGetLongPollServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.getLongPollServer", params.Params(), expectedJSON))
@@ -723,8 +724,8 @@ func TestVKMessagesGetLongPollServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesIsMessagesFromGroupAllowedRequest(r *requests.MessagesIsMessagesFromGroupAllowedRequest) {
-	r.WithGroupId(randInt())
-	r.WithUserId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.RandInt())
 }
 
 func TestVKMessagesIsMessagesFromGroupAllowedSuccess(t *testing.T) {
@@ -734,7 +735,7 @@ func TestVKMessagesIsMessagesFromGroupAllowedSuccess(t *testing.T) {
 	fillRandomlyMessagesIsMessagesFromGroupAllowedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.isMessagesFromGroupAllowed", params.Params(), expectedJSON))
@@ -744,7 +745,7 @@ func TestVKMessagesIsMessagesFromGroupAllowedSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesJoinChatByInviteLinkRequest(r *requests.MessagesJoinChatByInviteLinkRequest) {
-	r.WithLink(randString())
+	r.WithLink(random.RandString())
 }
 
 func TestVKMessagesJoinChatByInviteLinkSuccess(t *testing.T) {
@@ -754,7 +755,7 @@ func TestVKMessagesJoinChatByInviteLinkSuccess(t *testing.T) {
 	fillRandomlyMessagesJoinChatByInviteLinkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.joinChatByInviteLink", params.Params(), expectedJSON))
@@ -764,9 +765,9 @@ func TestVKMessagesJoinChatByInviteLinkSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesMarkAsAnsweredConversationRequest(r *requests.MessagesMarkAsAnsweredConversationRequest) {
-	r.WithPeerId(randInt())
-	r.WithAnswered(randBool())
-	r.WithGroupId(randInt())
+	r.WithPeerId(random.RandInt())
+	r.WithAnswered(random.RandBool())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesMarkAsAnsweredConversationSuccess(t *testing.T) {
@@ -776,7 +777,7 @@ func TestVKMessagesMarkAsAnsweredConversationSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.markAsAnsweredConversation", params.Params(), expectedJSON))
@@ -786,9 +787,9 @@ func TestVKMessagesMarkAsAnsweredConversationSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesMarkAsImportantRequest(r *requests.MessagesMarkAsImportantRequest) {
-	lMessageIds := randIntn(maxArrayLength + 1)
-	r.WithMessageIds(randIntArr(lMessageIds))
-	r.WithImportant(randInt())
+	lMessageIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithMessageIds(random.RandIntArr(lMessageIds))
+	r.WithImportant(random.RandInt())
 }
 
 func TestVKMessagesMarkAsImportantSuccess(t *testing.T) {
@@ -798,7 +799,7 @@ func TestVKMessagesMarkAsImportantSuccess(t *testing.T) {
 	fillRandomlyMessagesMarkAsImportantResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.markAsImportant", params.Params(), expectedJSON))
@@ -808,9 +809,9 @@ func TestVKMessagesMarkAsImportantSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesMarkAsImportantConversationRequest(r *requests.MessagesMarkAsImportantConversationRequest) {
-	r.WithPeerId(randInt())
-	r.WithImportant(randBool())
-	r.WithGroupId(randInt())
+	r.WithPeerId(random.RandInt())
+	r.WithImportant(random.RandBool())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesMarkAsImportantConversationSuccess(t *testing.T) {
@@ -820,7 +821,7 @@ func TestVKMessagesMarkAsImportantConversationSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.markAsImportantConversation", params.Params(), expectedJSON))
@@ -830,12 +831,12 @@ func TestVKMessagesMarkAsImportantConversationSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesMarkAsReadRequest(r *requests.MessagesMarkAsReadRequest) {
-	lMessageIds := randIntn(maxArrayLength + 1)
-	r.WithMessageIds(randIntArr(lMessageIds))
-	r.WithPeerId(randInt())
-	r.WithStartMessageId(randInt())
-	r.WithGroupId(randInt())
-	r.WithMarkConversationAsRead(randBool())
+	lMessageIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithMessageIds(random.RandIntArr(lMessageIds))
+	r.WithPeerId(random.RandInt())
+	r.WithStartMessageId(random.RandInt())
+	r.WithGroupId(random.RandInt())
+	r.WithMarkConversationAsRead(random.RandBool())
 }
 
 func TestVKMessagesMarkAsReadSuccess(t *testing.T) {
@@ -845,7 +846,7 @@ func TestVKMessagesMarkAsReadSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.markAsRead", params.Params(), expectedJSON))
@@ -855,9 +856,9 @@ func TestVKMessagesMarkAsReadSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesPinRequest(r *requests.MessagesPinRequest) {
-	r.WithPeerId(randInt())
-	r.WithMessageId(randInt())
-	r.WithConversationMessageId(randInt())
+	r.WithPeerId(random.RandInt())
+	r.WithMessageId(random.RandInt())
+	r.WithConversationMessageId(random.RandInt())
 }
 
 func TestVKMessagesPinSuccess(t *testing.T) {
@@ -867,7 +868,7 @@ func TestVKMessagesPinSuccess(t *testing.T) {
 	fillRandomlyMessagesPinResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.pin", params.Params(), expectedJSON))
@@ -877,9 +878,9 @@ func TestVKMessagesPinSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesRemoveChatUserRequest(r *requests.MessagesRemoveChatUserRequest) {
-	r.WithChatId(randInt())
-	r.WithUserId(randInt())
-	r.WithMemberId(randInt())
+	r.WithChatId(random.RandInt())
+	r.WithUserId(random.RandInt())
+	r.WithMemberId(random.RandInt())
 }
 
 func TestVKMessagesRemoveChatUserSuccess(t *testing.T) {
@@ -889,7 +890,7 @@ func TestVKMessagesRemoveChatUserSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.removeChatUser", params.Params(), expectedJSON))
@@ -899,8 +900,8 @@ func TestVKMessagesRemoveChatUserSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesRestoreRequest(r *requests.MessagesRestoreRequest) {
-	r.WithMessageId(randInt())
-	r.WithGroupId(randInt())
+	r.WithMessageId(random.RandInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesRestoreSuccess(t *testing.T) {
@@ -910,7 +911,7 @@ func TestVKMessagesRestoreSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.restore", params.Params(), expectedJSON))
@@ -920,16 +921,16 @@ func TestVKMessagesRestoreSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesSearchRequest(r *requests.MessagesSearchRequest) {
-	r.WithQ(randString())
-	r.WithPeerId(randInt())
-	r.WithDate(randInt())
-	r.WithPreviewLength(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithExtended(randBool())
-	lFields := randIntn(maxArrayLength + 1)
-	r.WithFields(randStringArr(lFields))
-	r.WithGroupId(randInt())
+	r.WithQ(random.RandString())
+	r.WithPeerId(random.RandInt())
+	r.WithDate(random.RandInt())
+	r.WithPreviewLength(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithExtended(random.RandBool())
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithFields(random.RandStringArr(lFields))
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesSearchSuccess(t *testing.T) {
@@ -940,7 +941,7 @@ func TestVKMessagesSearchSuccess(t *testing.T) {
 	fillRandomlyMessagesSearchResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.search", params.Params(), expectedJSON))
@@ -957,7 +958,7 @@ func TestVKMessagesSearchExtendedSuccess(t *testing.T) {
 	fillRandomlyMessagesSearchExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.search", params.Params(), expectedJSON))
@@ -967,17 +968,17 @@ func TestVKMessagesSearchExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesSearchConversationsRequest(r *requests.MessagesSearchConversationsRequest) {
-	r.WithQ(randString())
-	r.WithCount(randInt())
-	r.WithExtended(randBool())
+	r.WithQ(random.RandString())
+	r.WithCount(random.RandInt())
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesSearchConversationsSuccess(t *testing.T) {
@@ -988,7 +989,7 @@ func TestVKMessagesSearchConversationsSuccess(t *testing.T) {
 	fillRandomlyMessagesSearchConversationsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.searchConversations", params.Params(), expectedJSON))
@@ -1005,7 +1006,7 @@ func TestVKMessagesSearchConversationsExtendedSuccess(t *testing.T) {
 	fillRandomlyMessagesSearchConversationsExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.searchConversations", params.Params(), expectedJSON))
@@ -1015,37 +1016,37 @@ func TestVKMessagesSearchConversationsExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesSendRequest(r *requests.MessagesSendRequest) {
-	r.WithUserId(randInt())
-	r.WithRandomId(randInt())
-	r.WithPeerId(randInt())
-	lPeerIds := randIntn(maxArrayLength + 1)
-	r.WithPeerIds(randIntArr(lPeerIds))
-	r.WithDomain(randString())
-	r.WithChatId(randInt())
-	lUserIds := randIntn(maxArrayLength + 1)
-	r.WithUserIds(randIntArr(lUserIds))
-	r.WithMessage(randString())
-	r.WithLat(randFloat())
-	r.WithLong(randFloat())
-	r.WithAttachment(randString())
-	r.WithReplyTo(randInt())
-	lForwardMessages := randIntn(maxArrayLength + 1)
-	r.WithForwardMessages(randIntArr(lForwardMessages))
+	r.WithUserId(random.RandInt())
+	r.WithRandomId(random.RandInt())
+	r.WithPeerId(random.RandInt())
+	lPeerIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithPeerIds(random.RandIntArr(lPeerIds))
+	r.WithDomain(random.RandString())
+	r.WithChatId(random.RandInt())
+	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithUserIds(random.RandIntArr(lUserIds))
+	r.WithMessage(random.RandString())
+	r.WithLat(random.RandFloat())
+	r.WithLong(random.RandFloat())
+	r.WithAttachment(random.RandString())
+	r.WithReplyTo(random.RandInt())
+	lForwardMessages := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithForwardMessages(random.RandIntArr(lForwardMessages))
 	Forward := new(models.MessagesForward)
 	fillRandomlyMessagesForward(Forward)
 	r.WithForward(*Forward)
-	r.WithStickerId(randInt())
-	r.WithGroupId(randInt())
+	r.WithStickerId(random.RandInt())
+	r.WithGroupId(random.RandInt())
 	Keyboard := new(models.MessagesKeyboard)
 	fillRandomlyMessagesKeyboard(Keyboard)
 	r.WithKeyboard(*Keyboard)
-	r.WithTemplate(randString())
-	r.WithPayload(randString())
-	r.WithContentSource(randString())
-	r.WithDontParseLinks(randBool())
-	r.WithDisableMentions(randBool())
-	r.WithIntent(randString())
-	r.WithSubscribeId(randInt())
+	r.WithTemplate(random.RandString())
+	r.WithPayload(random.RandString())
+	r.WithContentSource(random.RandString())
+	r.WithDontParseLinks(random.RandBool())
+	r.WithDisableMentions(random.RandBool())
+	r.WithIntent(random.RandString())
+	r.WithSubscribeId(random.RandInt())
 }
 
 func TestVKMessagesSendSuccess(t *testing.T) {
@@ -1055,7 +1056,7 @@ func TestVKMessagesSendSuccess(t *testing.T) {
 	fillRandomlyMessagesSendResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.send", params.Params(), expectedJSON))
@@ -1065,37 +1066,37 @@ func TestVKMessagesSendSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesSendUserIDsRequest(r *requests.MessagesSendUserIDsRequest) {
-	r.WithUserId(randInt())
-	r.WithRandomId(randInt())
-	r.WithPeerId(randInt())
-	lPeerIds := randIntn(maxArrayLength + 1)
-	r.WithPeerIds(randIntArr(lPeerIds))
-	r.WithDomain(randString())
-	r.WithChatId(randInt())
-	lUserIds := randIntn(maxArrayLength + 1)
-	r.WithUserIds(randIntArr(lUserIds))
-	r.WithMessage(randString())
-	r.WithLat(randFloat())
-	r.WithLong(randFloat())
-	r.WithAttachment(randString())
-	r.WithReplyTo(randInt())
-	lForwardMessages := randIntn(maxArrayLength + 1)
-	r.WithForwardMessages(randIntArr(lForwardMessages))
+	r.WithUserId(random.RandInt())
+	r.WithRandomId(random.RandInt())
+	r.WithPeerId(random.RandInt())
+	lPeerIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithPeerIds(random.RandIntArr(lPeerIds))
+	r.WithDomain(random.RandString())
+	r.WithChatId(random.RandInt())
+	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithUserIds(random.RandIntArr(lUserIds))
+	r.WithMessage(random.RandString())
+	r.WithLat(random.RandFloat())
+	r.WithLong(random.RandFloat())
+	r.WithAttachment(random.RandString())
+	r.WithReplyTo(random.RandInt())
+	lForwardMessages := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithForwardMessages(random.RandIntArr(lForwardMessages))
 	Forward := new(models.MessagesForward)
 	fillRandomlyMessagesForward(Forward)
 	r.WithForward(*Forward)
-	r.WithStickerId(randInt())
-	r.WithGroupId(randInt())
+	r.WithStickerId(random.RandInt())
+	r.WithGroupId(random.RandInt())
 	Keyboard := new(models.MessagesKeyboard)
 	fillRandomlyMessagesKeyboard(Keyboard)
 	r.WithKeyboard(*Keyboard)
-	r.WithTemplate(randString())
-	r.WithPayload(randString())
-	r.WithContentSource(randString())
-	r.WithDontParseLinks(randBool())
-	r.WithDisableMentions(randBool())
-	r.WithIntent(randString())
-	r.WithSubscribeId(randInt())
+	r.WithTemplate(random.RandString())
+	r.WithPayload(random.RandString())
+	r.WithContentSource(random.RandString())
+	r.WithDontParseLinks(random.RandBool())
+	r.WithDisableMentions(random.RandBool())
+	r.WithIntent(random.RandString())
+	r.WithSubscribeId(random.RandInt())
 }
 
 func TestVKMessagesSendUserIDsSuccess(t *testing.T) {
@@ -1105,7 +1106,7 @@ func TestVKMessagesSendUserIDsSuccess(t *testing.T) {
 	fillRandomlyMessagesSendUserIdsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.send", params.Params(), expectedJSON))
@@ -1115,10 +1116,10 @@ func TestVKMessagesSendUserIDsSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesSendMessageEventAnswerRequest(r *requests.MessagesSendMessageEventAnswerRequest) {
-	r.WithEventId(randString())
-	r.WithUserId(randInt())
-	r.WithPeerId(randInt())
-	r.WithEventData(randString())
+	r.WithEventId(random.RandString())
+	r.WithUserId(random.RandInt())
+	r.WithPeerId(random.RandInt())
+	r.WithEventData(random.RandString())
 }
 
 func TestVKMessagesSendMessageEventAnswerSuccess(t *testing.T) {
@@ -1128,7 +1129,7 @@ func TestVKMessagesSendMessageEventAnswerSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.sendMessageEventAnswer", params.Params(), expectedJSON))
@@ -1138,10 +1139,10 @@ func TestVKMessagesSendMessageEventAnswerSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesSetActivityRequest(r *requests.MessagesSetActivityRequest) {
-	r.WithUserId(randInt())
-	r.WithType(randString())
-	r.WithPeerId(randInt())
-	r.WithGroupId(randInt())
+	r.WithUserId(random.RandInt())
+	r.WithType(random.RandString())
+	r.WithPeerId(random.RandInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesSetActivitySuccess(t *testing.T) {
@@ -1151,7 +1152,7 @@ func TestVKMessagesSetActivitySuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.setActivity", params.Params(), expectedJSON))
@@ -1161,7 +1162,7 @@ func TestVKMessagesSetActivitySuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesSetChatPhotoRequest(r *requests.MessagesSetChatPhotoRequest) {
-	r.WithFile(randString())
+	r.WithFile(random.RandString())
 }
 
 func TestVKMessagesSetChatPhotoSuccess(t *testing.T) {
@@ -1171,7 +1172,7 @@ func TestVKMessagesSetChatPhotoSuccess(t *testing.T) {
 	fillRandomlyMessagesSetChatPhotoResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.setChatPhoto", params.Params(), expectedJSON))
@@ -1181,8 +1182,8 @@ func TestVKMessagesSetChatPhotoSuccess(t *testing.T) {
 }
 
 func fillRandomlyMessagesUnpinRequest(r *requests.MessagesUnpinRequest) {
-	r.WithPeerId(randInt())
-	r.WithGroupId(randInt())
+	r.WithPeerId(random.RandInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKMessagesUnpinSuccess(t *testing.T) {
@@ -1192,7 +1193,7 @@ func TestVKMessagesUnpinSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "messages.unpin", params.Params(), expectedJSON))
@@ -1200,4 +1201,3 @@ func TestVKMessagesUnpinSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

@@ -4,17 +4,18 @@ package tests
 
 import (
 	"github.com/defany/govk/api/gen/models"
+	"github.com/defany/govk/pkg/random"
 )
 
 func fillRandomlyAccountChangePasswordResponse(o *models.AccountChangePasswordResponse) {
 	(*o).Account.Secret = new(string)
-	*(*o).Account.Secret = randString()
-	(*o).Account.Token = randString()
+	*(*o).Account.Secret = random.RandString()
+	(*o).Account.Token = random.RandString()
 }
 
 func fillRandomlyAccountGetActiveOffersResponse(o *models.AccountGetActiveOffersResponse) {
-	(*o).Account.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Account.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Account.Items = make([]models.AccountOffer, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAccountOffer(&((*o).Account.Items)[i0])
@@ -22,24 +23,24 @@ func fillRandomlyAccountGetActiveOffersResponse(o *models.AccountGetActiveOffers
 }
 
 func fillRandomlyAccountGetAppPermissionsResponse(o *models.AccountGetAppPermissionsResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyAccountGetBannedResponse(o *models.AccountGetBannedResponse) {
-	(*o).Account.Count = randInt()
+	(*o).Account.Count = random.RandInt()
 	(*o).Account.Groups = new([]models.GroupsGroup)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Account.Groups = make([]models.GroupsGroup, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroup(&(*(*o).Account.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Account.Items = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Account.Items)[i0] = randInt()
+		((*o).Account.Items)[i0] = random.RandInt()
 	}
 	(*o).Account.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Account.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Account.Profiles)[i0])
@@ -69,7 +70,7 @@ func fillRandomlyAccountSaveProfileInfoResponse(o *models.AccountSaveProfileInfo
 }
 
 func fillRandomlyAdsAddOfficeUsersResponse(o *models.AdsAddOfficeUsersResponse) {
-	(*o).Response = randBool()
+	(*o).Response = random.RandBool()
 }
 
 func fillRandomlyAdsCheckLinkResponse(o *models.AdsCheckLinkResponse) {
@@ -77,7 +78,7 @@ func fillRandomlyAdsCheckLinkResponse(o *models.AdsCheckLinkResponse) {
 }
 
 func fillRandomlyAdsCreateAdsResponse(o *models.AdsCreateAdsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsCreateAdStatus, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsCreateAdStatus(&((*o).Response)[i0])
@@ -85,7 +86,7 @@ func fillRandomlyAdsCreateAdsResponse(o *models.AdsCreateAdsResponse) {
 }
 
 func fillRandomlyAdsCreateCampaignsResponse(o *models.AdsCreateCampaignsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsCreateCampaignStatus, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsCreateCampaignStatus(&((*o).Response)[i0])
@@ -93,46 +94,46 @@ func fillRandomlyAdsCreateCampaignsResponse(o *models.AdsCreateCampaignsResponse
 }
 
 func fillRandomlyAdsCreateClientsResponse(o *models.AdsCreateClientsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Response)[i0] = randInt()
+		((*o).Response)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyAdsCreateTargetGroupResponse(o *models.AdsCreateTargetGroupResponse) {
 	(*o).Ads.Id = new(int)
-	*(*o).Ads.Id = randInt()
+	*(*o).Ads.Id = random.RandInt()
 	(*o).Ads.Pixel = new(string)
-	*(*o).Ads.Pixel = randString()
+	*(*o).Ads.Pixel = random.RandString()
 }
 
 func fillRandomlyAdsDeleteAdsResponse(o *models.AdsDeleteAdsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Response)[i0] = randInt()
+		((*o).Response)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyAdsDeleteCampaignsResponse(o *models.AdsDeleteCampaignsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Response)[i0] = randInt()
+		((*o).Response)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyAdsDeleteClientsResponse(o *models.AdsDeleteClientsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Response)[i0] = randInt()
+		((*o).Response)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyAdsGetAccountsResponse(o *models.AdsGetAccountsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsAccount, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsAccount(&((*o).Response)[i0])
@@ -140,7 +141,7 @@ func fillRandomlyAdsGetAccountsResponse(o *models.AdsGetAccountsResponse) {
 }
 
 func fillRandomlyAdsGetAdsLayoutResponse(o *models.AdsGetAdsLayoutResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsAdLayout, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsAdLayout(&((*o).Response)[i0])
@@ -148,7 +149,7 @@ func fillRandomlyAdsGetAdsLayoutResponse(o *models.AdsGetAdsLayoutResponse) {
 }
 
 func fillRandomlyAdsGetAdsTargetingResponse(o *models.AdsGetAdsTargetingResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsTargSettings, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsTargSettings(&((*o).Response)[i0])
@@ -156,7 +157,7 @@ func fillRandomlyAdsGetAdsTargetingResponse(o *models.AdsGetAdsTargetingResponse
 }
 
 func fillRandomlyAdsGetAdsResponse(o *models.AdsGetAdsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsAd, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsAd(&((*o).Response)[i0])
@@ -164,11 +165,11 @@ func fillRandomlyAdsGetAdsResponse(o *models.AdsGetAdsResponse) {
 }
 
 func fillRandomlyAdsGetBudgetResponse(o *models.AdsGetBudgetResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyAdsGetCampaignsResponse(o *models.AdsGetCampaignsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsCampaign, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsCampaign(&((*o).Response)[i0])
@@ -177,13 +178,13 @@ func fillRandomlyAdsGetCampaignsResponse(o *models.AdsGetCampaignsResponse) {
 
 func fillRandomlyAdsGetCategoriesResponse(o *models.AdsGetCategoriesResponse) {
 	(*o).Ads.V1 = new([]models.AdsCategory)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Ads.V1 = make([]models.AdsCategory, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsCategory(&(*(*o).Ads.V1)[i0])
 	}
 	(*o).Ads.V2 = new([]models.AdsCategory)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Ads.V2 = make([]models.AdsCategory, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsCategory(&(*(*o).Ads.V2)[i0])
@@ -191,7 +192,7 @@ func fillRandomlyAdsGetCategoriesResponse(o *models.AdsGetCategoriesResponse) {
 }
 
 func fillRandomlyAdsGetClientsResponse(o *models.AdsGetClientsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsClient, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsClient(&((*o).Response)[i0])
@@ -199,7 +200,7 @@ func fillRandomlyAdsGetClientsResponse(o *models.AdsGetClientsResponse) {
 }
 
 func fillRandomlyAdsGetDemographicsResponse(o *models.AdsGetDemographicsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsDemoStats, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsDemoStats(&((*o).Response)[i0])
@@ -211,8 +212,8 @@ func fillRandomlyAdsGetFloodStatsResponse(o *models.AdsGetFloodStatsResponse) {
 }
 
 func fillRandomlyAdsGetLookalikeRequestsResponse(o *models.AdsGetLookalikeRequestsResponse) {
-	(*o).Ads.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Ads.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Ads.Items = make([]models.AdsLookalikeRequest, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsLookalikeRequest(&((*o).Ads.Items)[i0])
@@ -220,7 +221,7 @@ func fillRandomlyAdsGetLookalikeRequestsResponse(o *models.AdsGetLookalikeReques
 }
 
 func fillRandomlyAdsGetMusiciansResponse(o *models.AdsGetMusiciansResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Ads.Items = make([]models.AdsMusician, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsMusician(&((*o).Ads.Items)[i0])
@@ -228,7 +229,7 @@ func fillRandomlyAdsGetMusiciansResponse(o *models.AdsGetMusiciansResponse) {
 }
 
 func fillRandomlyAdsGetOfficeUsersResponse(o *models.AdsGetOfficeUsersResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsUsers, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsUsers(&((*o).Response)[i0])
@@ -236,7 +237,7 @@ func fillRandomlyAdsGetOfficeUsersResponse(o *models.AdsGetOfficeUsersResponse) 
 }
 
 func fillRandomlyAdsGetPostsReachResponse(o *models.AdsGetPostsReachResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsPromotedPostReach, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsPromotedPostReach(&((*o).Response)[i0])
@@ -248,7 +249,7 @@ func fillRandomlyAdsGetRejectionReasonResponse(o *models.AdsGetRejectionReasonRe
 }
 
 func fillRandomlyAdsGetStatisticsResponse(o *models.AdsGetStatisticsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsStats, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsStats(&((*o).Response)[i0])
@@ -256,7 +257,7 @@ func fillRandomlyAdsGetStatisticsResponse(o *models.AdsGetStatisticsResponse) {
 }
 
 func fillRandomlyAdsGetSuggestionsCitiesResponse(o *models.AdsGetSuggestionsCitiesResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsTargSuggestionsCities, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsTargSuggestionsCities(&((*o).Response)[i0])
@@ -264,7 +265,7 @@ func fillRandomlyAdsGetSuggestionsCitiesResponse(o *models.AdsGetSuggestionsCiti
 }
 
 func fillRandomlyAdsGetSuggestionsRegionsResponse(o *models.AdsGetSuggestionsRegionsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsTargSuggestionsRegions, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsTargSuggestionsRegions(&((*o).Response)[i0])
@@ -272,7 +273,7 @@ func fillRandomlyAdsGetSuggestionsRegionsResponse(o *models.AdsGetSuggestionsReg
 }
 
 func fillRandomlyAdsGetSuggestionsResponse(o *models.AdsGetSuggestionsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsTargSuggestions, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsTargSuggestions(&((*o).Response)[i0])
@@ -280,7 +281,7 @@ func fillRandomlyAdsGetSuggestionsResponse(o *models.AdsGetSuggestionsResponse) 
 }
 
 func fillRandomlyAdsGetSuggestionsSchoolsResponse(o *models.AdsGetSuggestionsSchoolsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsTargSuggestionsSchools, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsTargSuggestionsSchools(&((*o).Response)[i0])
@@ -288,7 +289,7 @@ func fillRandomlyAdsGetSuggestionsSchoolsResponse(o *models.AdsGetSuggestionsSch
 }
 
 func fillRandomlyAdsGetTargetGroupsResponse(o *models.AdsGetTargetGroupsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsTargetGroup, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsTargetGroup(&((*o).Response)[i0])
@@ -300,39 +301,39 @@ func fillRandomlyAdsGetTargetingStatsResponse(o *models.AdsGetTargetingStatsResp
 }
 
 func fillRandomlyAdsGetUploadURLResponse(o *models.AdsGetUploadURLResponse) {
-	(*o).Response = randString()
+	(*o).Response = random.RandString()
 }
 
 func fillRandomlyAdsGetVideoUploadURLResponse(o *models.AdsGetVideoUploadURLResponse) {
-	(*o).Response = randString()
+	(*o).Response = random.RandString()
 }
 
 func fillRandomlyAdsImportTargetContactsResponse(o *models.AdsImportTargetContactsResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyAdsRemoveOfficeUsersResponse(o *models.AdsRemoveOfficeUsersResponse) {
-	(*o).Response = randBool()
+	(*o).Response = random.RandBool()
 }
 
 func fillRandomlyAdsUpdateAdsResponse(o *models.AdsUpdateAdsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Response)[i0] = randInt()
+		((*o).Response)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyAdsUpdateCampaignsResponse(o *models.AdsUpdateCampaignsResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyAdsUpdateClientsResponse(o *models.AdsUpdateClientsResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyAdsUpdateOfficeUsersResponse(o *models.AdsUpdateOfficeUsersResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AdsUpdateOfficeUsersResult, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdsUpdateOfficeUsersResult(&((*o).Response)[i0])
@@ -340,7 +341,7 @@ func fillRandomlyAdsUpdateOfficeUsersResponse(o *models.AdsUpdateOfficeUsersResp
 }
 
 func fillRandomlyAdswebGetAdCategoriesResponse(o *models.AdswebGetAdCategoriesResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Adsweb.Categories = make([]models.AdswebGetAdCategoriesResponseCategoriesCategory, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdswebGetAdCategoriesResponseCategoriesCategory(&((*o).Adsweb.Categories)[i0])
@@ -348,23 +349,23 @@ func fillRandomlyAdswebGetAdCategoriesResponse(o *models.AdswebGetAdCategoriesRe
 }
 
 func fillRandomlyAdswebGetAdUnitCodeResponse(o *models.AdswebGetAdUnitCodeResponse) {
-	(*o).Adsweb.Html = randString()
+	(*o).Adsweb.Html = random.RandString()
 }
 
 func fillRandomlyAdswebGetAdUnitsResponse(o *models.AdswebGetAdUnitsResponse) {
 	(*o).Adsweb.AdUnits = new([]models.AdswebGetAdUnitsResponseAdUnitsAdUnit)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Adsweb.AdUnits = make([]models.AdswebGetAdUnitsResponseAdUnitsAdUnit, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdswebGetAdUnitsResponseAdUnitsAdUnit(&(*(*o).Adsweb.AdUnits)[i0])
 	}
-	(*o).Adsweb.Count = randInt()
+	(*o).Adsweb.Count = random.RandInt()
 }
 
 func fillRandomlyAdswebGetFraudHistoryResponse(o *models.AdswebGetFraudHistoryResponse) {
-	(*o).Adsweb.Count = randInt()
+	(*o).Adsweb.Count = random.RandInt()
 	(*o).Adsweb.Entries = new([]models.AdswebGetFraudHistoryResponseEntriesEntry)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Adsweb.Entries = make([]models.AdswebGetFraudHistoryResponseEntriesEntry, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdswebGetFraudHistoryResponseEntriesEntry(&(*(*o).Adsweb.Entries)[i0])
@@ -372,9 +373,9 @@ func fillRandomlyAdswebGetFraudHistoryResponse(o *models.AdswebGetFraudHistoryRe
 }
 
 func fillRandomlyAdswebGetSitesResponse(o *models.AdswebGetSitesResponse) {
-	(*o).Adsweb.Count = randInt()
+	(*o).Adsweb.Count = random.RandInt()
 	(*o).Adsweb.Sites = new([]models.AdswebGetSitesResponseSitesSite)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Adsweb.Sites = make([]models.AdswebGetSitesResponseSitesSite, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdswebGetSitesResponseSitesSite(&(*(*o).Adsweb.Sites)[i0])
@@ -382,18 +383,18 @@ func fillRandomlyAdswebGetSitesResponse(o *models.AdswebGetSitesResponse) {
 }
 
 func fillRandomlyAdswebGetStatisticsResponse(o *models.AdswebGetStatisticsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Adsweb.Items = make([]models.AdswebGetStatisticsResponseItemsItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAdswebGetStatisticsResponseItemsItem(&((*o).Adsweb.Items)[i0])
 	}
 	(*o).Adsweb.NextPageId = new(string)
-	*(*o).Adsweb.NextPageId = randString()
+	*(*o).Adsweb.NextPageId = random.RandString()
 }
 
 func fillRandomlyAppWidgetsGetAppImageUploadServerResponse(o *models.AppWidgetsGetAppImageUploadServerResponse) {
 	(*o).Appwidgets.UploadUrl = new(string)
-	*(*o).Appwidgets.UploadUrl = randString()
+	*(*o).Appwidgets.UploadUrl = random.RandString()
 }
 
 func fillRandomlyAppWidgetsGetAppImagesResponse(o *models.AppWidgetsGetAppImagesResponse) {
@@ -402,7 +403,7 @@ func fillRandomlyAppWidgetsGetAppImagesResponse(o *models.AppWidgetsGetAppImages
 
 func fillRandomlyAppWidgetsGetGroupImageUploadServerResponse(o *models.AppWidgetsGetGroupImageUploadServerResponse) {
 	(*o).Appwidgets.UploadUrl = new(string)
-	*(*o).Appwidgets.UploadUrl = randString()
+	*(*o).Appwidgets.UploadUrl = random.RandString()
 }
 
 func fillRandomlyAppWidgetsGetGroupImagesResponse(o *models.AppWidgetsGetGroupImagesResponse) {
@@ -410,7 +411,7 @@ func fillRandomlyAppWidgetsGetGroupImagesResponse(o *models.AppWidgetsGetGroupIm
 }
 
 func fillRandomlyAppWidgetsGetImagesByIdResponse(o *models.AppWidgetsGetImagesByIdResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.AppWidgetsPhoto, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAppWidgetsPhoto(&((*o).Response)[i0])
@@ -430,9 +431,9 @@ func fillRandomlyAppsGetCatalogResponse(o *models.AppsGetCatalogResponse) {
 }
 
 func fillRandomlyAppsGetFriendsListExtendedResponse(o *models.AppsGetFriendsListExtendedResponse) {
-	(*o).Apps.Count = randInt()
+	(*o).Apps.Count = random.RandInt()
 	(*o).Apps.Items = new([]models.UsersUserFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Apps.Items = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Apps.Items)[i0])
@@ -440,26 +441,26 @@ func fillRandomlyAppsGetFriendsListExtendedResponse(o *models.AppsGetFriendsList
 }
 
 func fillRandomlyAppsGetFriendsListResponse(o *models.AppsGetFriendsListResponse) {
-	(*o).Apps.Count = randInt()
+	(*o).Apps.Count = random.RandInt()
 	(*o).Apps.Items = new([]int)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Apps.Items = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		(*(*o).Apps.Items)[i0] = randInt()
+		(*(*o).Apps.Items)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyAppsGetLeaderboardExtendedResponse(o *models.AppsGetLeaderboardExtendedResponse) {
 	(*o).Apps.Count = new(int)
-	*(*o).Apps.Count = randInt()
+	*(*o).Apps.Count = random.RandInt()
 	(*o).Apps.Items = new([]models.AppsLeaderboard)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Apps.Items = make([]models.AppsLeaderboard, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAppsLeaderboard(&(*(*o).Apps.Items)[i0])
 	}
 	(*o).Apps.Profiles = new([]models.UsersUser)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Apps.Profiles = make([]models.UsersUser, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUser(&(*(*o).Apps.Profiles)[i0])
@@ -468,9 +469,9 @@ func fillRandomlyAppsGetLeaderboardExtendedResponse(o *models.AppsGetLeaderboard
 
 func fillRandomlyAppsGetLeaderboardResponse(o *models.AppsGetLeaderboardResponse) {
 	(*o).Apps.Count = new(int)
-	*(*o).Apps.Count = randInt()
+	*(*o).Apps.Count = random.RandInt()
 	(*o).Apps.Items = new([]models.AppsLeaderboard)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Apps.Items = make([]models.AppsLeaderboard, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAppsLeaderboard(&(*(*o).Apps.Items)[i0])
@@ -479,14 +480,14 @@ func fillRandomlyAppsGetLeaderboardResponse(o *models.AppsGetLeaderboardResponse
 
 func fillRandomlyAppsGetMiniAppPoliciesResponse(o *models.AppsGetMiniAppPoliciesResponse) {
 	(*o).Apps.PrivacyPolicy = new(string)
-	*(*o).Apps.PrivacyPolicy = randString()
+	*(*o).Apps.PrivacyPolicy = random.RandString()
 	(*o).Apps.Terms = new(string)
-	*(*o).Apps.Terms = randString()
+	*(*o).Apps.Terms = random.RandString()
 }
 
 func fillRandomlyAppsGetScopesResponse(o *models.AppsGetScopesResponse) {
-	(*o).Apps.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Apps.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Apps.Items = make([]models.AppsScope, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAppsScope(&((*o).Apps.Items)[i0])
@@ -494,14 +495,14 @@ func fillRandomlyAppsGetScopesResponse(o *models.AppsGetScopesResponse) {
 }
 
 func fillRandomlyAppsGetScoreResponse(o *models.AppsGetScoreResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyAppsGetResponse(o *models.AppsGetResponse) {
 	(*o).Apps.Count = new(int)
-	*(*o).Apps.Count = randInt()
+	*(*o).Apps.Count = random.RandInt()
 	(*o).Apps.Items = new([]models.AppsApp)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Apps.Items = make([]models.AppsApp, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAppsApp(&(*(*o).Apps.Items)[i0])
@@ -510,17 +511,17 @@ func fillRandomlyAppsGetResponse(o *models.AppsGetResponse) {
 
 func fillRandomlyAppsImageUploadResponse(o *models.AppsImageUploadResponse) {
 	(*o).Apps.Hash = new(string)
-	*(*o).Apps.Hash = randString()
+	*(*o).Apps.Hash = random.RandString()
 	(*o).Apps.Image = new(string)
-	*(*o).Apps.Image = randString()
+	*(*o).Apps.Image = random.RandString()
 }
 
 func fillRandomlyAppsSendRequestResponse(o *models.AppsSendRequestResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyAuthRestoreResponseAuthSuccess(o *models.AuthRestoreResponseAuthSuccess) {
-	switch randIntn(1) {
+	switch random.RandIntn(1) {
 	case 0:
 		*o = 1
 	}
@@ -528,7 +529,7 @@ func fillRandomlyAuthRestoreResponseAuthSuccess(o *models.AuthRestoreResponseAut
 
 func fillRandomlyAuthRestoreResponse(o *models.AuthRestoreResponse) {
 	(*o).Auth.Sid = new(string)
-	*(*o).Auth.Sid = randString()
+	*(*o).Auth.Sid = random.RandString()
 	(*o).Auth.Success = new(models.AuthRestoreResponseAuthSuccess)
 	fillRandomlyAuthRestoreResponseAuthSuccess((*o).Auth.Success)
 }
@@ -542,7 +543,7 @@ func fillRandomlyBaseGetUploadServerResponse(o *models.BaseGetUploadServerRespon
 }
 
 func fillRandomlyBaseOkResponseResponse(o *models.BaseOkResponseResponse) {
-	switch randIntn(1) {
+	switch random.RandIntn(1) {
 	case 0:
 		*o = 1
 	}
@@ -553,39 +554,39 @@ func fillRandomlyBaseOkResponse(o *models.BaseOkResponse) {
 }
 
 func fillRandomlyBoardAddTopicResponse(o *models.BoardAddTopicResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyBoardCreateCommentResponse(o *models.BoardCreateCommentResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyBoardGetCommentsExtendedResponse(o *models.BoardGetCommentsExtendedResponse) {
-	(*o).Board.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Board.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Board.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Board.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Board.Items = make([]models.BoardTopicComment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyBoardTopicComment(&((*o).Board.Items)[i0])
 	}
 	(*o).Board.Poll = new(models.PollsPoll)
 	fillRandomlyPollsPoll((*o).Board.Poll)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Board.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Board.Profiles)[i0])
 	}
 	(*o).Board.RealOffset = new(int)
-	*(*o).Board.RealOffset = randInt()
+	*(*o).Board.RealOffset = random.RandInt()
 }
 
 func fillRandomlyBoardGetCommentsResponse(o *models.BoardGetCommentsResponse) {
-	(*o).Board.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Board.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Board.Items = make([]models.BoardTopicComment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyBoardTopicComment(&((*o).Board.Items)[i0])
@@ -593,24 +594,24 @@ func fillRandomlyBoardGetCommentsResponse(o *models.BoardGetCommentsResponse) {
 	(*o).Board.Poll = new(models.PollsPoll)
 	fillRandomlyPollsPoll((*o).Board.Poll)
 	(*o).Board.RealOffset = new(int)
-	*(*o).Board.RealOffset = randInt()
+	*(*o).Board.RealOffset = random.RandInt()
 }
 
 func fillRandomlyBoardGetTopicsExtendedResponse(o *models.BoardGetTopicsExtendedResponse) {
 	fillRandomlyBaseBoolInt(&(*o).Board.CanAddTopics)
-	(*o).Board.Count = randInt()
+	(*o).Board.Count = random.RandInt()
 	fillRandomlyBoardDefaultOrder(&(*o).Board.DefaultOrder)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Board.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Board.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Board.Items = make([]models.BoardTopic, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyBoardTopic(&((*o).Board.Items)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Board.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Board.Profiles)[i0])
@@ -619,9 +620,9 @@ func fillRandomlyBoardGetTopicsExtendedResponse(o *models.BoardGetTopicsExtended
 
 func fillRandomlyBoardGetTopicsResponse(o *models.BoardGetTopicsResponse) {
 	fillRandomlyBaseBoolInt(&(*o).Board.CanAddTopics)
-	(*o).Board.Count = randInt()
+	(*o).Board.Count = random.RandInt()
 	fillRandomlyBoardDefaultOrder(&(*o).Board.DefaultOrder)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Board.Items = make([]models.BoardTopic, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyBoardTopic(&((*o).Board.Items)[i0])
@@ -629,8 +630,8 @@ func fillRandomlyBoardGetTopicsResponse(o *models.BoardGetTopicsResponse) {
 }
 
 func fillRandomlyDatabaseGetChairsResponse(o *models.DatabaseGetChairsResponse) {
-	(*o).Database.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Database.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Database.Items = make([]models.BaseObject, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyBaseObject(&((*o).Database.Items)[i0])
@@ -638,7 +639,7 @@ func fillRandomlyDatabaseGetChairsResponse(o *models.DatabaseGetChairsResponse) 
 }
 
 func fillRandomlyDatabaseGetCitiesByIdResponse(o *models.DatabaseGetCitiesByIdResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.DatabaseCityById, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyDatabaseCityById(&((*o).Response)[i0])
@@ -646,8 +647,8 @@ func fillRandomlyDatabaseGetCitiesByIdResponse(o *models.DatabaseGetCitiesByIdRe
 }
 
 func fillRandomlyDatabaseGetCitiesResponse(o *models.DatabaseGetCitiesResponse) {
-	(*o).Database.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Database.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Database.Items = make([]models.DatabaseCity, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyDatabaseCity(&((*o).Database.Items)[i0])
@@ -655,7 +656,7 @@ func fillRandomlyDatabaseGetCitiesResponse(o *models.DatabaseGetCitiesResponse) 
 }
 
 func fillRandomlyDatabaseGetCountriesByIdResponse(o *models.DatabaseGetCountriesByIdResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.BaseCountry, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyBaseCountry(&((*o).Response)[i0])
@@ -663,8 +664,8 @@ func fillRandomlyDatabaseGetCountriesByIdResponse(o *models.DatabaseGetCountries
 }
 
 func fillRandomlyDatabaseGetCountriesResponse(o *models.DatabaseGetCountriesResponse) {
-	(*o).Database.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Database.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Database.Items = make([]models.BaseCountry, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyBaseCountry(&((*o).Database.Items)[i0])
@@ -672,8 +673,8 @@ func fillRandomlyDatabaseGetCountriesResponse(o *models.DatabaseGetCountriesResp
 }
 
 func fillRandomlyDatabaseGetFacultiesResponse(o *models.DatabaseGetFacultiesResponse) {
-	(*o).Database.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Database.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Database.Items = make([]models.DatabaseFaculty, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyDatabaseFaculty(&((*o).Database.Items)[i0])
@@ -681,7 +682,7 @@ func fillRandomlyDatabaseGetFacultiesResponse(o *models.DatabaseGetFacultiesResp
 }
 
 func fillRandomlyDatabaseGetMetroStationsByIdResponse(o *models.DatabaseGetMetroStationsByIdResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.DatabaseStation, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyDatabaseStation(&((*o).Response)[i0])
@@ -689,8 +690,8 @@ func fillRandomlyDatabaseGetMetroStationsByIdResponse(o *models.DatabaseGetMetro
 }
 
 func fillRandomlyDatabaseGetMetroStationsResponse(o *models.DatabaseGetMetroStationsResponse) {
-	(*o).Database.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Database.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Database.Items = make([]models.DatabaseStation, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyDatabaseStation(&((*o).Database.Items)[i0])
@@ -698,8 +699,8 @@ func fillRandomlyDatabaseGetMetroStationsResponse(o *models.DatabaseGetMetroStat
 }
 
 func fillRandomlyDatabaseGetRegionsResponse(o *models.DatabaseGetRegionsResponse) {
-	(*o).Database.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Database.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Database.Items = make([]models.DatabaseRegion, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyDatabaseRegion(&((*o).Database.Items)[i0])
@@ -707,20 +708,20 @@ func fillRandomlyDatabaseGetRegionsResponse(o *models.DatabaseGetRegionsResponse
 }
 
 func fillRandomlyDatabaseGetSchoolClassesResponse(o *models.DatabaseGetSchoolClassesResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([][]string, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		l1 := randIntn(maxArrayLength + 1)
+		l1 := random.RandIntn(random.MaxArrayLength + 1)
 		((*o).Response)[i0] = make([]string, l1)
 		for i1 := 0; i1 < l1; i1++ {
-			((*o).Response)[i0][i1] = randString()
+			((*o).Response)[i0][i1] = random.RandString()
 		}
 	}
 }
 
 func fillRandomlyDatabaseGetSchoolsResponse(o *models.DatabaseGetSchoolsResponse) {
-	(*o).Database.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Database.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Database.Items = make([]models.DatabaseSchool, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyDatabaseSchool(&((*o).Database.Items)[i0])
@@ -728,8 +729,8 @@ func fillRandomlyDatabaseGetSchoolsResponse(o *models.DatabaseGetSchoolsResponse
 }
 
 func fillRandomlyDatabaseGetUniversitiesResponse(o *models.DatabaseGetUniversitiesResponse) {
-	(*o).Database.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Database.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Database.Items = make([]models.DatabaseUniversity, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyDatabaseUniversity(&((*o).Database.Items)[i0])
@@ -737,16 +738,16 @@ func fillRandomlyDatabaseGetUniversitiesResponse(o *models.DatabaseGetUniversiti
 }
 
 func fillRandomlyDocsAddResponse(o *models.DocsAddResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyDocsDocUploadResponse(o *models.DocsDocUploadResponse) {
 	(*o).Docs.File = new(string)
-	*(*o).Docs.File = randString()
+	*(*o).Docs.File = random.RandString()
 }
 
 func fillRandomlyDocsGetByIdResponse(o *models.DocsGetByIdResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.DocsDoc, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyDocsDoc(&((*o).Response)[i0])
@@ -755,9 +756,9 @@ func fillRandomlyDocsGetByIdResponse(o *models.DocsGetByIdResponse) {
 
 func fillRandomlyDocsGetTypesResponse(o *models.DocsGetTypesResponse) {
 	(*o).Docs.Count = new(int)
-	*(*o).Docs.Count = randInt()
+	*(*o).Docs.Count = random.RandInt()
 	(*o).Docs.Items = new([]models.DocsDocTypes)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Docs.Items = make([]models.DocsDocTypes, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyDocsDocTypes(&(*(*o).Docs.Items)[i0])
@@ -769,8 +770,8 @@ func fillRandomlyDocsGetUploadServerResponse(o *models.DocsGetUploadServerRespon
 }
 
 func fillRandomlyDocsGetResponse(o *models.DocsGetResponse) {
-	(*o).Docs.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Docs.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Docs.Items = make([]models.DocsDoc, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyDocsDoc(&((*o).Docs.Items)[i0])
@@ -789,8 +790,8 @@ func fillRandomlyDocsSaveResponse(o *models.DocsSaveResponse) {
 }
 
 func fillRandomlyDocsSearchResponse(o *models.DocsSearchResponse) {
-	(*o).Docs.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Docs.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Docs.Items = make([]models.DocsDoc, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyDocsDoc(&((*o).Docs.Items)[i0])
@@ -803,20 +804,20 @@ func fillRandomlyDonutGetSubscriptionResponse(o *models.DonutGetSubscriptionResp
 
 func fillRandomlyDonutGetSubscriptionsResponse(o *models.DonutGetSubscriptionsResponse) {
 	(*o).Donut.Count = new(int)
-	*(*o).Donut.Count = randInt()
+	*(*o).Donut.Count = random.RandInt()
 	(*o).Donut.Groups = new([]models.GroupsGroupFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Donut.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Donut.Groups)[i0])
 	}
 	(*o).Donut.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Donut.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Donut.Profiles)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Donut.Subscriptions = make([]models.DonutDonatorSubscriptionInfo, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyDonutDonatorSubscriptionInfo(&((*o).Donut.Subscriptions)[i0])
@@ -824,7 +825,7 @@ func fillRandomlyDonutGetSubscriptionsResponse(o *models.DonutGetSubscriptionsRe
 }
 
 func fillRandomlyDownloadedGamesPaidStatusResponse(o *models.DownloadedGamesPaidStatusResponse) {
-	(*o).Downloadedgames.IsPaid = randBool()
+	(*o).Downloadedgames.IsPaid = random.RandBool()
 }
 
 func fillRandomlyFaveAddTagResponse(o *models.FaveAddTagResponse) {
@@ -833,9 +834,9 @@ func fillRandomlyFaveAddTagResponse(o *models.FaveAddTagResponse) {
 
 func fillRandomlyFaveGetPagesResponse(o *models.FaveGetPagesResponse) {
 	(*o).Fave.Count = new(int)
-	*(*o).Fave.Count = randInt()
+	*(*o).Fave.Count = random.RandInt()
 	(*o).Fave.Items = new([]models.FavePage)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Fave.Items = make([]models.FavePage, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyFavePage(&(*(*o).Fave.Items)[i0])
@@ -844,9 +845,9 @@ func fillRandomlyFaveGetPagesResponse(o *models.FaveGetPagesResponse) {
 
 func fillRandomlyFaveGetTagsResponse(o *models.FaveGetTagsResponse) {
 	(*o).Fave.Count = new(int)
-	*(*o).Fave.Count = randInt()
+	*(*o).Fave.Count = random.RandInt()
 	(*o).Fave.Items = new([]models.FaveTag)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Fave.Items = make([]models.FaveTag, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyFaveTag(&(*(*o).Fave.Items)[i0])
@@ -855,21 +856,21 @@ func fillRandomlyFaveGetTagsResponse(o *models.FaveGetTagsResponse) {
 
 func fillRandomlyFaveGetExtendedResponse(o *models.FaveGetExtendedResponse) {
 	(*o).Fave.Count = new(int)
-	*(*o).Fave.Count = randInt()
+	*(*o).Fave.Count = random.RandInt()
 	(*o).Fave.Groups = new([]models.GroupsGroup)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Fave.Groups = make([]models.GroupsGroup, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroup(&(*(*o).Fave.Groups)[i0])
 	}
 	(*o).Fave.Items = new([]models.FaveBookmark)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Fave.Items = make([]models.FaveBookmark, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyFaveBookmark(&(*(*o).Fave.Items)[i0])
 	}
 	(*o).Fave.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Fave.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Fave.Profiles)[i0])
@@ -878,9 +879,9 @@ func fillRandomlyFaveGetExtendedResponse(o *models.FaveGetExtendedResponse) {
 
 func fillRandomlyFaveGetResponse(o *models.FaveGetResponse) {
 	(*o).Fave.Count = new(int)
-	*(*o).Fave.Count = randInt()
+	*(*o).Fave.Count = random.RandInt()
 	(*o).Fave.Items = new([]models.FaveBookmark)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Fave.Items = make([]models.FaveBookmark, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyFaveBookmark(&(*(*o).Fave.Items)[i0])
@@ -888,11 +889,11 @@ func fillRandomlyFaveGetResponse(o *models.FaveGetResponse) {
 }
 
 func fillRandomlyFriendsAddListResponse(o *models.FriendsAddListResponse) {
-	(*o).Friends.ListId = randInt()
+	(*o).Friends.ListId = random.RandInt()
 }
 
 func fillRandomlyFriendsAddResponseResponse(o *models.FriendsAddResponseResponse) {
-	switch randIntn(3) {
+	switch random.RandIntn(3) {
 	case 0:
 		*o = 1
 	case 1:
@@ -907,7 +908,7 @@ func fillRandomlyFriendsAddResponse(o *models.FriendsAddResponse) {
 }
 
 func fillRandomlyFriendsAreFriendsExtendedResponse(o *models.FriendsAreFriendsExtendedResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.FriendsFriendExtendedStatus, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyFriendsFriendExtendedStatus(&((*o).Response)[i0])
@@ -915,7 +916,7 @@ func fillRandomlyFriendsAreFriendsExtendedResponse(o *models.FriendsAreFriendsEx
 }
 
 func fillRandomlyFriendsAreFriendsResponse(o *models.FriendsAreFriendsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.FriendsFriendStatus, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyFriendsFriendStatus(&((*o).Response)[i0])
@@ -923,28 +924,28 @@ func fillRandomlyFriendsAreFriendsResponse(o *models.FriendsAreFriendsResponse) 
 }
 
 func fillRandomlyFriendsDeleteResponseFriendsFriendDeleted(o *models.FriendsDeleteResponseFriendsFriendDeleted) {
-	switch randIntn(1) {
+	switch random.RandIntn(1) {
 	case 0:
 		*o = 1
 	}
 }
 
 func fillRandomlyFriendsDeleteResponseFriendsInRequestDeleted(o *models.FriendsDeleteResponseFriendsInRequestDeleted) {
-	switch randIntn(1) {
+	switch random.RandIntn(1) {
 	case 0:
 		*o = 1
 	}
 }
 
 func fillRandomlyFriendsDeleteResponseFriendsOutRequestDeleted(o *models.FriendsDeleteResponseFriendsOutRequestDeleted) {
-	switch randIntn(1) {
+	switch random.RandIntn(1) {
 	case 0:
 		*o = 1
 	}
 }
 
 func fillRandomlyFriendsDeleteResponseFriendsSuggestionDeleted(o *models.FriendsDeleteResponseFriendsSuggestionDeleted) {
-	switch randIntn(1) {
+	switch random.RandIntn(1) {
 	case 0:
 		*o = 1
 	}
@@ -957,21 +958,21 @@ func fillRandomlyFriendsDeleteResponse(o *models.FriendsDeleteResponse) {
 	fillRandomlyFriendsDeleteResponseFriendsInRequestDeleted((*o).Friends.InRequestDeleted)
 	(*o).Friends.OutRequestDeleted = new(models.FriendsDeleteResponseFriendsOutRequestDeleted)
 	fillRandomlyFriendsDeleteResponseFriendsOutRequestDeleted((*o).Friends.OutRequestDeleted)
-	(*o).Friends.Success = randInt()
+	(*o).Friends.Success = random.RandInt()
 	(*o).Friends.SuggestionDeleted = new(models.FriendsDeleteResponseFriendsSuggestionDeleted)
 	fillRandomlyFriendsDeleteResponseFriendsSuggestionDeleted((*o).Friends.SuggestionDeleted)
 }
 
 func fillRandomlyFriendsGetAppUsersResponse(o *models.FriendsGetAppUsersResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Response)[i0] = randInt()
+		((*o).Response)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyFriendsGetByPhonesResponse(o *models.FriendsGetByPhonesResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.FriendsUserXtrPhone, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyFriendsUserXtrPhone(&((*o).Response)[i0])
@@ -979,8 +980,8 @@ func fillRandomlyFriendsGetByPhonesResponse(o *models.FriendsGetByPhonesResponse
 }
 
 func fillRandomlyFriendsGetListsResponse(o *models.FriendsGetListsResponse) {
-	(*o).Friends.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Friends.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Friends.Items = make([]models.FriendsFriendsList, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyFriendsFriendsList(&((*o).Friends.Items)[i0])
@@ -988,15 +989,15 @@ func fillRandomlyFriendsGetListsResponse(o *models.FriendsGetListsResponse) {
 }
 
 func fillRandomlyFriendsGetMutualResponse(o *models.FriendsGetMutualResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Response)[i0] = randInt()
+		((*o).Response)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyFriendsGetMutualTargetUidsResponse(o *models.FriendsGetMutualTargetUidsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.FriendsMutualFriend, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyFriendsMutualFriend(&((*o).Response)[i0])
@@ -1004,39 +1005,39 @@ func fillRandomlyFriendsGetMutualTargetUidsResponse(o *models.FriendsGetMutualTa
 }
 
 func fillRandomlyFriendsGetOnlineOnlineMobileResponse(o *models.FriendsGetOnlineOnlineMobileResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Friends.Online = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Friends.Online)[i0] = randInt()
+		((*o).Friends.Online)[i0] = random.RandInt()
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Friends.OnlineMobile = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Friends.OnlineMobile)[i0] = randInt()
+		((*o).Friends.OnlineMobile)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyFriendsGetOnlineResponse(o *models.FriendsGetOnlineResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Response)[i0] = randInt()
+		((*o).Response)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyFriendsGetRecentResponse(o *models.FriendsGetRecentResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Response)[i0] = randInt()
+		((*o).Response)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyFriendsGetRequestsExtendedResponse(o *models.FriendsGetRequestsExtendedResponse) {
 	(*o).Friends.Count = new(int)
-	*(*o).Friends.Count = randInt()
+	*(*o).Friends.Count = random.RandInt()
 	(*o).Friends.Items = new([]models.FriendsRequestsXtrMessage)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Friends.Items = make([]models.FriendsRequestsXtrMessage, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyFriendsRequestsXtrMessage(&(*(*o).Friends.Items)[i0])
@@ -1045,9 +1046,9 @@ func fillRandomlyFriendsGetRequestsExtendedResponse(o *models.FriendsGetRequests
 
 func fillRandomlyFriendsGetRequestsNeedMutualResponse(o *models.FriendsGetRequestsNeedMutualResponse) {
 	(*o).Friends.Count = new(int)
-	*(*o).Friends.Count = randInt()
+	*(*o).Friends.Count = random.RandInt()
 	(*o).Friends.Items = new([]models.FriendsRequests)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Friends.Items = make([]models.FriendsRequests, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyFriendsRequests(&(*(*o).Friends.Items)[i0])
@@ -1056,20 +1057,20 @@ func fillRandomlyFriendsGetRequestsNeedMutualResponse(o *models.FriendsGetReques
 
 func fillRandomlyFriendsGetRequestsResponse(o *models.FriendsGetRequestsResponse) {
 	(*o).Friends.Count = new(int)
-	*(*o).Friends.Count = randInt()
+	*(*o).Friends.Count = random.RandInt()
 	(*o).Friends.CountUnread = new(int)
-	*(*o).Friends.CountUnread = randInt()
+	*(*o).Friends.CountUnread = random.RandInt()
 	(*o).Friends.Items = new([]int)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Friends.Items = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		(*(*o).Friends.Items)[i0] = randInt()
+		(*(*o).Friends.Items)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyFriendsGetSuggestionsResponse(o *models.FriendsGetSuggestionsResponse) {
-	(*o).Friends.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Friends.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Friends.Items = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Friends.Items)[i0])
@@ -1077,8 +1078,8 @@ func fillRandomlyFriendsGetSuggestionsResponse(o *models.FriendsGetSuggestionsRe
 }
 
 func fillRandomlyFriendsGetFieldsResponse(o *models.FriendsGetFieldsResponse) {
-	(*o).Friends.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Friends.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Friends.Items = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Friends.Items)[i0])
@@ -1086,17 +1087,17 @@ func fillRandomlyFriendsGetFieldsResponse(o *models.FriendsGetFieldsResponse) {
 }
 
 func fillRandomlyFriendsGetResponse(o *models.FriendsGetResponse) {
-	(*o).Friends.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Friends.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Friends.Items = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Friends.Items)[i0] = randInt()
+		((*o).Friends.Items)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyFriendsSearchResponse(o *models.FriendsSearchResponse) {
-	(*o).Friends.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Friends.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Friends.Items = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Friends.Items)[i0])
@@ -1105,9 +1106,9 @@ func fillRandomlyFriendsSearchResponse(o *models.FriendsSearchResponse) {
 
 func fillRandomlyGiftsGetResponse(o *models.GiftsGetResponse) {
 	(*o).Gifts.Count = new(int)
-	*(*o).Gifts.Count = randInt()
+	*(*o).Gifts.Count = random.RandInt()
 	(*o).Gifts.Items = new([]models.GiftsGift)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Gifts.Items = make([]models.GiftsGift, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGiftsGift(&(*(*o).Gifts.Items)[i0])
@@ -1119,7 +1120,7 @@ func fillRandomlyGroupsAddAddressResponse(o *models.GroupsAddAddressResponse) {
 }
 
 func fillRandomlyGroupsAddCallbackServerResponse(o *models.GroupsAddCallbackServerResponse) {
-	(*o).Groups.ServerId = randInt()
+	(*o).Groups.ServerId = random.RandInt()
 }
 
 func fillRandomlyGroupsAddLinkResponse(o *models.GroupsAddLinkResponse) {
@@ -1135,8 +1136,8 @@ func fillRandomlyGroupsEditAddressResponse(o *models.GroupsEditAddressResponse) 
 }
 
 func fillRandomlyGroupsGetAddressesResponse(o *models.GroupsGetAddressesResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]models.GroupsAddress, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsAddress(&((*o).Groups.Items)[i0])
@@ -1144,8 +1145,8 @@ func fillRandomlyGroupsGetAddressesResponse(o *models.GroupsGetAddressesResponse
 }
 
 func fillRandomlyGroupsGetBannedResponse(o *models.GroupsGetBannedResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]models.GroupsBannedItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsBannedItem(&((*o).Groups.Items)[i0])
@@ -1153,7 +1154,7 @@ func fillRandomlyGroupsGetBannedResponse(o *models.GroupsGetBannedResponse) {
 }
 
 func fillRandomlyGroupsGetByIdObjectLegacyResponse(o *models.GroupsGetByIdObjectLegacyResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Response)[i0])
@@ -1161,12 +1162,12 @@ func fillRandomlyGroupsGetByIdObjectLegacyResponse(o *models.GroupsGetByIdObject
 }
 
 func fillRandomlyGroupsGetCallbackConfirmationCodeResponse(o *models.GroupsGetCallbackConfirmationCodeResponse) {
-	(*o).Groups.Code = randString()
+	(*o).Groups.Code = random.RandString()
 }
 
 func fillRandomlyGroupsGetCallbackServersResponse(o *models.GroupsGetCallbackServersResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]models.GroupsCallbackServer, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsCallbackServer(&((*o).Groups.Items)[i0])
@@ -1179,7 +1180,7 @@ func fillRandomlyGroupsGetCallbackSettingsResponse(o *models.GroupsGetCallbackSe
 
 func fillRandomlyGroupsGetCatalogInfoExtendedResponse(o *models.GroupsGetCatalogInfoExtendedResponse) {
 	(*o).Groups.Categories = new([]models.GroupsGroupCategoryFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Groups.Categories = make([]models.GroupsGroupCategoryFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupCategoryFull(&(*(*o).Groups.Categories)[i0])
@@ -1189,7 +1190,7 @@ func fillRandomlyGroupsGetCatalogInfoExtendedResponse(o *models.GroupsGetCatalog
 
 func fillRandomlyGroupsGetCatalogInfoResponse(o *models.GroupsGetCatalogInfoResponse) {
 	(*o).Groups.Categories = new([]models.GroupsGroupCategory)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Groups.Categories = make([]models.GroupsGroupCategory, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupCategory(&(*(*o).Groups.Categories)[i0])
@@ -1198,8 +1199,8 @@ func fillRandomlyGroupsGetCatalogInfoResponse(o *models.GroupsGetCatalogInfoResp
 }
 
 func fillRandomlyGroupsGetCatalogResponse(o *models.GroupsGetCatalogResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]models.GroupsGroup, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroup(&((*o).Groups.Items)[i0])
@@ -1207,8 +1208,8 @@ func fillRandomlyGroupsGetCatalogResponse(o *models.GroupsGetCatalogResponse) {
 }
 
 func fillRandomlyGroupsGetInvitedUsersResponse(o *models.GroupsGetInvitedUsersResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Groups.Items)[i0])
@@ -1216,18 +1217,18 @@ func fillRandomlyGroupsGetInvitedUsersResponse(o *models.GroupsGetInvitedUsersRe
 }
 
 func fillRandomlyGroupsGetInvitesExtendedResponse(o *models.GroupsGetInvitesExtendedResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Groups.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Groups.Items)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Profiles = make([]models.UsersUserMin, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserMin(&((*o).Groups.Profiles)[i0])
@@ -1235,8 +1236,8 @@ func fillRandomlyGroupsGetInvitesExtendedResponse(o *models.GroupsGetInvitesExte
 }
 
 func fillRandomlyGroupsGetInvitesResponse(o *models.GroupsGetInvitesResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Groups.Items)[i0])
@@ -1252,8 +1253,8 @@ func fillRandomlyGroupsGetLongPollSettingsResponse(o *models.GroupsGetLongPollSe
 }
 
 func fillRandomlyGroupsGetMembersFieldsResponse(o *models.GroupsGetMembersFieldsResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]models.GroupsUserXtrRole, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsUserXtrRole(&((*o).Groups.Items)[i0])
@@ -1261,8 +1262,8 @@ func fillRandomlyGroupsGetMembersFieldsResponse(o *models.GroupsGetMembersFields
 }
 
 func fillRandomlyGroupsGetMembersFilterResponse(o *models.GroupsGetMembersFilterResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]models.GroupsMemberRole, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsMemberRole(&((*o).Groups.Items)[i0])
@@ -1270,17 +1271,17 @@ func fillRandomlyGroupsGetMembersFilterResponse(o *models.GroupsGetMembersFilter
 }
 
 func fillRandomlyGroupsGetMembersResponse(o *models.GroupsGetMembersResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Groups.Items)[i0] = randInt()
+		((*o).Groups.Items)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyGroupsGetRequestsFieldsResponse(o *models.GroupsGetRequestsFieldsResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Groups.Items)[i0])
@@ -1288,11 +1289,11 @@ func fillRandomlyGroupsGetRequestsFieldsResponse(o *models.GroupsGetRequestsFiel
 }
 
 func fillRandomlyGroupsGetRequestsResponse(o *models.GroupsGetRequestsResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Groups.Items)[i0] = randInt()
+		((*o).Groups.Items)[i0] = random.RandInt()
 	}
 }
 
@@ -1300,92 +1301,92 @@ func fillRandomlyGroupsGetSettingsResponse(o *models.GroupsGetSettingsResponse) 
 	(*o).Groups.Access = new(models.GroupsGroupAccess)
 	fillRandomlyGroupsGroupAccess((*o).Groups.Access)
 	(*o).Groups.Address = new(string)
-	*(*o).Groups.Address = randString()
+	*(*o).Groups.Address = random.RandString()
 	(*o).Groups.AgeLimits = new(models.GroupsGroupAgeLimits)
 	fillRandomlyGroupsGroupAgeLimits((*o).Groups.AgeLimits)
-	(*o).Groups.Articles = randInt()
+	(*o).Groups.Articles = random.RandInt()
 	fillRandomlyGroupsGroupAudio(&(*o).Groups.Audio)
-	(*o).Groups.CityId = randInt()
-	(*o).Groups.CityName = randString()
+	(*o).Groups.CityId = random.RandInt()
+	(*o).Groups.CityName = random.RandString()
 	(*o).Groups.Contacts = new(models.BaseBoolInt)
 	fillRandomlyBaseBoolInt((*o).Groups.Contacts)
-	(*o).Groups.CountryId = randInt()
-	(*o).Groups.CountryName = randString()
-	(*o).Groups.Description = randString()
+	(*o).Groups.CountryId = random.RandInt()
+	(*o).Groups.CountryName = random.RandString()
+	(*o).Groups.Description = random.RandString()
 	fillRandomlyGroupsGroupDocs(&(*o).Groups.Docs)
 	(*o).Groups.Email = new(string)
-	*(*o).Groups.Email = randString()
+	*(*o).Groups.Email = random.RandString()
 	(*o).Groups.EventGroupId = new(int)
-	*(*o).Groups.EventGroupId = randInt()
+	*(*o).Groups.EventGroupId = random.RandInt()
 	(*o).Groups.Events = new(models.BaseBoolInt)
 	fillRandomlyBaseBoolInt((*o).Groups.Events)
 	(*o).Groups.FinishDate = new(int)
-	*(*o).Groups.FinishDate = randInt()
+	*(*o).Groups.FinishDate = random.RandInt()
 	(*o).Groups.Links = new(models.BaseBoolInt)
 	fillRandomlyBaseBoolInt((*o).Groups.Links)
 	(*o).Groups.MainSection = new(models.GroupsGroupFullSection)
 	fillRandomlyGroupsGroupFullSection((*o).Groups.MainSection)
 	fillRandomlyBaseBoolInt(&(*o).Groups.ObsceneFilter)
 	fillRandomlyBaseBoolInt(&(*o).Groups.ObsceneStopwords)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.ObsceneWords = make([]string, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Groups.ObsceneWords)[i0] = randString()
+		((*o).Groups.ObsceneWords)[i0] = random.RandString()
 	}
 	(*o).Groups.Phone = new(string)
-	*(*o).Groups.Phone = randString()
+	*(*o).Groups.Phone = random.RandString()
 	fillRandomlyGroupsGroupPhotos(&(*o).Groups.Photos)
 	(*o).Groups.PublicCategory = new(int)
-	*(*o).Groups.PublicCategory = randInt()
+	*(*o).Groups.PublicCategory = random.RandInt()
 	(*o).Groups.PublicCategoryList = new([]models.GroupsGroupPublicCategoryList)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Groups.PublicCategoryList = make([]models.GroupsGroupPublicCategoryList, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupPublicCategoryList(&(*(*o).Groups.PublicCategoryList)[i0])
 	}
 	(*o).Groups.PublicDate = new(string)
-	*(*o).Groups.PublicDate = randString()
+	*(*o).Groups.PublicDate = random.RandString()
 	(*o).Groups.PublicDateLabel = new(string)
-	*(*o).Groups.PublicDateLabel = randString()
+	*(*o).Groups.PublicDateLabel = random.RandString()
 	(*o).Groups.PublicSubcategory = new(int)
-	*(*o).Groups.PublicSubcategory = randInt()
+	*(*o).Groups.PublicSubcategory = random.RandInt()
 	(*o).Groups.RecognizePhoto = new(int)
-	*(*o).Groups.RecognizePhoto = randInt()
+	*(*o).Groups.RecognizePhoto = random.RandInt()
 	(*o).Groups.Rss = new(string)
-	*(*o).Groups.Rss = randString()
+	*(*o).Groups.Rss = random.RandString()
 	(*o).Groups.SecondarySection = new(models.GroupsGroupFullSection)
 	fillRandomlyGroupsGroupFullSection((*o).Groups.SecondarySection)
 	(*o).Groups.SectionsList = new([]models.GroupsSectionsListItem)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Groups.SectionsList = make([]models.GroupsSectionsListItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsSectionsListItem(&(*(*o).Groups.SectionsList)[i0])
 	}
 	(*o).Groups.StartDate = new(int)
-	*(*o).Groups.StartDate = randInt()
+	*(*o).Groups.StartDate = random.RandInt()
 	(*o).Groups.Subject = new(int)
-	*(*o).Groups.Subject = randInt()
+	*(*o).Groups.Subject = random.RandInt()
 	(*o).Groups.SubjectList = new([]models.GroupsSubjectItem)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Groups.SubjectList = make([]models.GroupsSubjectItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsSubjectItem(&(*(*o).Groups.SubjectList)[i0])
 	}
 	(*o).Groups.SuggestedPrivacy = new(models.GroupsGroupSuggestedPrivacy)
 	fillRandomlyGroupsGroupSuggestedPrivacy((*o).Groups.SuggestedPrivacy)
-	(*o).Groups.Title = randString()
+	(*o).Groups.Title = random.RandString()
 	fillRandomlyGroupsGroupTopics(&(*o).Groups.Topics)
 	(*o).Groups.Twitter = new(models.GroupsSettingsTwitter)
 	fillRandomlyGroupsSettingsTwitter((*o).Groups.Twitter)
 	fillRandomlyGroupsGroupVideo(&(*o).Groups.Video)
 	fillRandomlyGroupsGroupWall(&(*o).Groups.Wall)
 	(*o).Groups.Website = new(string)
-	*(*o).Groups.Website = randString()
+	*(*o).Groups.Website = random.RandString()
 	fillRandomlyGroupsGroupWiki(&(*o).Groups.Wiki)
 }
 
 func fillRandomlyGroupsGetTagListResponse(o *models.GroupsGetTagListResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.GroupsGroupTag, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupTag(&((*o).Response)[i0])
@@ -1393,8 +1394,8 @@ func fillRandomlyGroupsGetTagListResponse(o *models.GroupsGetTagListResponse) {
 }
 
 func fillRandomlyGroupsGetTokenPermissionsResponse(o *models.GroupsGetTokenPermissionsResponse) {
-	(*o).Groups.Mask = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Mask = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Permissions = make([]models.GroupsTokenPermissionSetting, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsTokenPermissionSetting(&((*o).Groups.Permissions)[i0])
@@ -1402,8 +1403,8 @@ func fillRandomlyGroupsGetTokenPermissionsResponse(o *models.GroupsGetTokenPermi
 }
 
 func fillRandomlyGroupsGetObjectExtendedResponse(o *models.GroupsGetObjectExtendedResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Groups.Items)[i0])
@@ -1411,11 +1412,11 @@ func fillRandomlyGroupsGetObjectExtendedResponse(o *models.GroupsGetObjectExtend
 }
 
 func fillRandomlyGroupsGetResponse(o *models.GroupsGetResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Groups.Items)[i0] = randInt()
+		((*o).Groups.Items)[i0] = random.RandInt()
 	}
 }
 
@@ -1436,7 +1437,7 @@ func fillRandomlyGroupsIsMemberResponse(o *models.GroupsIsMemberResponse) {
 }
 
 func fillRandomlyGroupsIsMemberUserIdsExtendedResponse(o *models.GroupsIsMemberUserIdsExtendedResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.GroupsMemberStatusFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsMemberStatusFull(&((*o).Response)[i0])
@@ -1444,7 +1445,7 @@ func fillRandomlyGroupsIsMemberUserIdsExtendedResponse(o *models.GroupsIsMemberU
 }
 
 func fillRandomlyGroupsIsMemberUserIdsResponse(o *models.GroupsIsMemberUserIdsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.GroupsMemberStatus, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsMemberStatus(&((*o).Response)[i0])
@@ -1452,8 +1453,8 @@ func fillRandomlyGroupsIsMemberUserIdsResponse(o *models.GroupsIsMemberUserIdsRe
 }
 
 func fillRandomlyGroupsSearchResponse(o *models.GroupsSearchResponse) {
-	(*o).Groups.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Groups.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Groups.Items = make([]models.GroupsGroup, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroup(&((*o).Groups.Items)[i0])
@@ -1461,22 +1462,22 @@ func fillRandomlyGroupsSearchResponse(o *models.GroupsSearchResponse) {
 }
 
 func fillRandomlyLeadFormsCreateResponse(o *models.LeadFormsCreateResponse) {
-	(*o).Leadforms.FormId = randInt()
-	(*o).Leadforms.Url = randString()
+	(*o).Leadforms.FormId = random.RandInt()
+	(*o).Leadforms.Url = random.RandString()
 }
 
 func fillRandomlyLeadFormsDeleteResponse(o *models.LeadFormsDeleteResponse) {
-	(*o).Leadforms.FormId = randInt()
+	(*o).Leadforms.FormId = random.RandInt()
 }
 
 func fillRandomlyLeadFormsGetLeadsResponse(o *models.LeadFormsGetLeadsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Leadforms.Leads = make([]models.LeadFormsLead, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyLeadFormsLead(&((*o).Leadforms.Leads)[i0])
 	}
 	(*o).Leadforms.NextPageToken = new(string)
-	*(*o).Leadforms.NextPageToken = randString()
+	*(*o).Leadforms.NextPageToken = random.RandString()
 }
 
 func fillRandomlyLeadFormsGetResponse(o *models.LeadFormsGetResponse) {
@@ -1484,7 +1485,7 @@ func fillRandomlyLeadFormsGetResponse(o *models.LeadFormsGetResponse) {
 }
 
 func fillRandomlyLeadFormsListResponse(o *models.LeadFormsListResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.LeadFormsForm, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyLeadFormsForm(&((*o).Response)[i0])
@@ -1492,20 +1493,20 @@ func fillRandomlyLeadFormsListResponse(o *models.LeadFormsListResponse) {
 }
 
 func fillRandomlyLeadFormsUploadUrlResponse(o *models.LeadFormsUploadUrlResponse) {
-	(*o).Response = randString()
+	(*o).Response = random.RandString()
 }
 
 func fillRandomlyLikesAddResponse(o *models.LikesAddResponse) {
-	(*o).Likes.Likes = randInt()
+	(*o).Likes.Likes = random.RandInt()
 }
 
 func fillRandomlyLikesDeleteResponse(o *models.LikesDeleteResponse) {
-	(*o).Likes.Likes = randInt()
+	(*o).Likes.Likes = random.RandInt()
 }
 
 func fillRandomlyLikesGetListExtendedResponse(o *models.LikesGetListExtendedResponse) {
-	(*o).Likes.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Likes.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Likes.Items = make([]models.UsersUserMin, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserMin(&((*o).Likes.Items)[i0])
@@ -1513,11 +1514,11 @@ func fillRandomlyLikesGetListExtendedResponse(o *models.LikesGetListExtendedResp
 }
 
 func fillRandomlyLikesGetListResponse(o *models.LikesGetListResponse) {
-	(*o).Likes.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Likes.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Likes.Items = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Likes.Items)[i0] = randInt()
+		((*o).Likes.Items)[i0] = random.RandInt()
 	}
 }
 
@@ -1528,17 +1529,17 @@ func fillRandomlyLikesIsLikedResponse(o *models.LikesIsLikedResponse) {
 
 func fillRandomlyMarketAddAlbumResponse(o *models.MarketAddAlbumResponse) {
 	(*o).Market.AlbumsCount = new(int)
-	*(*o).Market.AlbumsCount = randInt()
+	*(*o).Market.AlbumsCount = random.RandInt()
 	(*o).Market.MarketAlbumId = new(int)
-	*(*o).Market.MarketAlbumId = randInt()
+	*(*o).Market.MarketAlbumId = random.RandInt()
 }
 
 func fillRandomlyMarketAddResponse(o *models.MarketAddResponse) {
-	(*o).Market.MarketItemId = randInt()
+	(*o).Market.MarketItemId = random.RandInt()
 }
 
 func fillRandomlyMarketCreateCommentResponse(o *models.MarketCreateCommentResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyMarketDeleteCommentResponse(o *models.MarketDeleteCommentResponse) {
@@ -1547,9 +1548,9 @@ func fillRandomlyMarketDeleteCommentResponse(o *models.MarketDeleteCommentRespon
 
 func fillRandomlyMarketGetAlbumByIdResponse(o *models.MarketGetAlbumByIdResponse) {
 	(*o).Market.Count = new(int)
-	*(*o).Market.Count = randInt()
+	*(*o).Market.Count = random.RandInt()
 	(*o).Market.Items = new([]models.MarketMarketAlbum)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Market.Items = make([]models.MarketMarketAlbum, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketMarketAlbum(&(*(*o).Market.Items)[i0])
@@ -1558,9 +1559,9 @@ func fillRandomlyMarketGetAlbumByIdResponse(o *models.MarketGetAlbumByIdResponse
 
 func fillRandomlyMarketGetAlbumsResponse(o *models.MarketGetAlbumsResponse) {
 	(*o).Market.Count = new(int)
-	*(*o).Market.Count = randInt()
+	*(*o).Market.Count = random.RandInt()
 	(*o).Market.Items = new([]models.MarketMarketAlbum)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Market.Items = make([]models.MarketMarketAlbum, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketMarketAlbum(&(*(*o).Market.Items)[i0])
@@ -1569,9 +1570,9 @@ func fillRandomlyMarketGetAlbumsResponse(o *models.MarketGetAlbumsResponse) {
 
 func fillRandomlyMarketGetByIdExtendedResponse(o *models.MarketGetByIdExtendedResponse) {
 	(*o).Market.Count = new(int)
-	*(*o).Market.Count = randInt()
+	*(*o).Market.Count = random.RandInt()
 	(*o).Market.Items = new([]models.MarketMarketItemFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Market.Items = make([]models.MarketMarketItemFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketMarketItemFull(&(*(*o).Market.Items)[i0])
@@ -1580,9 +1581,9 @@ func fillRandomlyMarketGetByIdExtendedResponse(o *models.MarketGetByIdExtendedRe
 
 func fillRandomlyMarketGetByIdResponse(o *models.MarketGetByIdResponse) {
 	(*o).Market.Count = new(int)
-	*(*o).Market.Count = randInt()
+	*(*o).Market.Count = random.RandInt()
 	(*o).Market.Items = new([]models.MarketMarketItem)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Market.Items = make([]models.MarketMarketItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketMarketItem(&(*(*o).Market.Items)[i0])
@@ -1590,7 +1591,7 @@ func fillRandomlyMarketGetByIdResponse(o *models.MarketGetByIdResponse) {
 }
 
 func fillRandomlyMarketGetCategoriesNewResponse(o *models.MarketGetCategoriesNewResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Market.Items = make([]models.MarketMarketCategoryTree, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketMarketCategoryTree(&((*o).Market.Items)[i0])
@@ -1599,9 +1600,9 @@ func fillRandomlyMarketGetCategoriesNewResponse(o *models.MarketGetCategoriesNew
 
 func fillRandomlyMarketGetCategoriesResponse(o *models.MarketGetCategoriesResponse) {
 	(*o).Market.Count = new(int)
-	*(*o).Market.Count = randInt()
+	*(*o).Market.Count = random.RandInt()
 	(*o).Market.Items = new([]models.MarketMarketCategory)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Market.Items = make([]models.MarketMarketCategory, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketMarketCategory(&(*(*o).Market.Items)[i0])
@@ -1610,9 +1611,9 @@ func fillRandomlyMarketGetCategoriesResponse(o *models.MarketGetCategoriesRespon
 
 func fillRandomlyMarketGetCommentsResponse(o *models.MarketGetCommentsResponse) {
 	(*o).Market.Count = new(int)
-	*(*o).Market.Count = randInt()
+	*(*o).Market.Count = random.RandInt()
 	(*o).Market.Items = new([]models.WallWallComment)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Market.Items = make([]models.WallWallComment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallComment(&(*(*o).Market.Items)[i0])
@@ -1620,8 +1621,8 @@ func fillRandomlyMarketGetCommentsResponse(o *models.MarketGetCommentsResponse) 
 }
 
 func fillRandomlyMarketGetGroupOrdersResponse(o *models.MarketGetGroupOrdersResponse) {
-	(*o).Market.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Market.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Market.Items = make([]models.MarketOrder, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketOrder(&((*o).Market.Items)[i0])
@@ -1634,8 +1635,8 @@ func fillRandomlyMarketGetOrderByIdResponse(o *models.MarketGetOrderByIdResponse
 }
 
 func fillRandomlyMarketGetOrderItemsResponse(o *models.MarketGetOrderItemsResponse) {
-	(*o).Market.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Market.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Market.Items = make([]models.MarketOrderItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketOrderItem(&((*o).Market.Items)[i0])
@@ -1643,14 +1644,14 @@ func fillRandomlyMarketGetOrderItemsResponse(o *models.MarketGetOrderItemsRespon
 }
 
 func fillRandomlyMarketGetOrdersExtendedResponse(o *models.MarketGetOrdersExtendedResponse) {
-	(*o).Market.Count = randInt()
+	(*o).Market.Count = random.RandInt()
 	(*o).Market.Groups = new([]models.GroupsGroupFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Market.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Market.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Market.Items = make([]models.MarketOrder, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketOrder(&((*o).Market.Items)[i0])
@@ -1658,8 +1659,8 @@ func fillRandomlyMarketGetOrdersExtendedResponse(o *models.MarketGetOrdersExtend
 }
 
 func fillRandomlyMarketGetOrdersResponse(o *models.MarketGetOrdersResponse) {
-	(*o).Market.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Market.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Market.Items = make([]models.MarketOrder, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketOrder(&((*o).Market.Items)[i0])
@@ -1668,15 +1669,15 @@ func fillRandomlyMarketGetOrdersResponse(o *models.MarketGetOrdersResponse) {
 
 func fillRandomlyMarketGetExtendedResponse(o *models.MarketGetExtendedResponse) {
 	(*o).Market.Count = new(int)
-	*(*o).Market.Count = randInt()
+	*(*o).Market.Count = random.RandInt()
 	(*o).Market.Items = new([]models.MarketMarketItemFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Market.Items = make([]models.MarketMarketItemFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketMarketItemFull(&(*(*o).Market.Items)[i0])
 	}
 	(*o).Market.Variants = new([]models.MarketMarketItemFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Market.Variants = make([]models.MarketMarketItemFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketMarketItemFull(&(*(*o).Market.Variants)[i0])
@@ -1685,15 +1686,15 @@ func fillRandomlyMarketGetExtendedResponse(o *models.MarketGetExtendedResponse) 
 
 func fillRandomlyMarketGetResponse(o *models.MarketGetResponse) {
 	(*o).Market.Count = new(int)
-	*(*o).Market.Count = randInt()
+	*(*o).Market.Count = random.RandInt()
 	(*o).Market.Items = new([]models.MarketMarketItem)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Market.Items = make([]models.MarketMarketItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketMarketItem(&(*(*o).Market.Items)[i0])
 	}
 	(*o).Market.Variants = new([]models.MarketMarketItem)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Market.Variants = make([]models.MarketMarketItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketMarketItem(&(*(*o).Market.Variants)[i0])
@@ -1705,14 +1706,14 @@ func fillRandomlyMarketRestoreCommentResponse(o *models.MarketRestoreCommentResp
 }
 
 func fillRandomlyMarketSearchExtendedResponse(o *models.MarketSearchExtendedResponse) {
-	(*o).Market.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Market.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Market.Items = make([]models.MarketMarketItemFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketMarketItemFull(&((*o).Market.Items)[i0])
 	}
 	(*o).Market.Variants = new([]models.MarketMarketItemFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Market.Variants = make([]models.MarketMarketItemFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketMarketItemFull(&(*(*o).Market.Variants)[i0])
@@ -1721,20 +1722,20 @@ func fillRandomlyMarketSearchExtendedResponse(o *models.MarketSearchExtendedResp
 }
 
 func fillRandomlyMarketSearchResponse(o *models.MarketSearchResponse) {
-	(*o).Market.Count = randInt()
+	(*o).Market.Count = random.RandInt()
 	(*o).Market.Groups = new([]models.GroupsGroupFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Market.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Market.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Market.Items = make([]models.MarketMarketItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketMarketItem(&((*o).Market.Items)[i0])
 	}
 	(*o).Market.Variants = new([]models.MarketMarketItem)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Market.Variants = make([]models.MarketMarketItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMarketMarketItem(&(*(*o).Market.Variants)[i0])
@@ -1743,18 +1744,18 @@ func fillRandomlyMarketSearchResponse(o *models.MarketSearchResponse) {
 }
 
 func fillRandomlyMessagesCreateChatResponse(o *models.MessagesCreateChatResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyMessagesDeleteChatPhotoResponse(o *models.MessagesDeleteChatPhotoResponse) {
 	(*o).Messages.Chat = new(models.MessagesChat)
 	fillRandomlyMessagesChat((*o).Messages.Chat)
 	(*o).Messages.MessageId = new(int)
-	*(*o).Messages.MessageId = randInt()
+	*(*o).Messages.MessageId = random.RandInt()
 }
 
 func fillRandomlyMessagesDeleteConversationResponse(o *models.MessagesDeleteConversationResponse) {
-	(*o).Messages.LastDeletedId = randInt()
+	(*o).Messages.LastDeletedId = random.RandInt()
 }
 
 func fillRandomlyMessagesDeleteResponse(o *models.MessagesDeleteResponse) {
@@ -1765,20 +1766,20 @@ func fillRandomlyMessagesEditResponse(o *models.MessagesEditResponse) {
 }
 
 func fillRandomlyMessagesGetByConversationMessageIdExtendedResponse(o *models.MessagesGetByConversationMessageIdExtendedResponse) {
-	(*o).Messages.Count = randInt()
+	(*o).Messages.Count = random.RandInt()
 	(*o).Messages.Groups = new([]models.GroupsGroupFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Messages.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Messages.Items = make([]models.MessagesMessage, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesMessage(&((*o).Messages.Items)[i0])
 	}
 	(*o).Messages.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Messages.Profiles)[i0])
@@ -1786,8 +1787,8 @@ func fillRandomlyMessagesGetByConversationMessageIdExtendedResponse(o *models.Me
 }
 
 func fillRandomlyMessagesGetByConversationMessageIdResponse(o *models.MessagesGetByConversationMessageIdResponse) {
-	(*o).Messages.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Messages.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Messages.Items = make([]models.MessagesMessage, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesMessage(&((*o).Messages.Items)[i0])
@@ -1795,19 +1796,19 @@ func fillRandomlyMessagesGetByConversationMessageIdResponse(o *models.MessagesGe
 }
 
 func fillRandomlyMessagesGetByIdExtendedResponse(o *models.MessagesGetByIdExtendedResponse) {
-	(*o).Messages.Count = randInt()
+	(*o).Messages.Count = random.RandInt()
 	(*o).Messages.Groups = new([]models.GroupsGroupFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Messages.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Messages.Items = make([]models.MessagesMessage, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesMessage(&((*o).Messages.Items)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Messages.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Messages.Profiles)[i0])
@@ -1815,8 +1816,8 @@ func fillRandomlyMessagesGetByIdExtendedResponse(o *models.MessagesGetByIdExtend
 }
 
 func fillRandomlyMessagesGetByIdResponse(o *models.MessagesGetByIdResponse) {
-	(*o).Messages.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Messages.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Messages.Items = make([]models.MessagesMessage, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesMessage(&((*o).Messages.Items)[i0])
@@ -1825,7 +1826,7 @@ func fillRandomlyMessagesGetByIdResponse(o *models.MessagesGetByIdResponse) {
 
 func fillRandomlyMessagesGetChatPreviewResponse(o *models.MessagesGetChatPreviewResponse) {
 	(*o).Messages.Groups = new([]models.GroupsGroupFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Messages.Groups)[i0])
@@ -1833,7 +1834,7 @@ func fillRandomlyMessagesGetChatPreviewResponse(o *models.MessagesGetChatPreview
 	(*o).Messages.Preview = new(models.MessagesChatPreview)
 	fillRandomlyMessagesChatPreview((*o).Messages.Preview)
 	(*o).Messages.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Messages.Profiles)[i0])
@@ -1841,7 +1842,7 @@ func fillRandomlyMessagesGetChatPreviewResponse(o *models.MessagesGetChatPreview
 }
 
 func fillRandomlyMessagesGetChatChatIdsFieldsResponse(o *models.MessagesGetChatChatIdsFieldsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.MessagesChatFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesChatFull(&((*o).Response)[i0])
@@ -1849,7 +1850,7 @@ func fillRandomlyMessagesGetChatChatIdsFieldsResponse(o *models.MessagesGetChatC
 }
 
 func fillRandomlyMessagesGetChatChatIdsResponse(o *models.MessagesGetChatChatIdsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.MessagesChat, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesChat(&((*o).Response)[i0])
@@ -1877,45 +1878,45 @@ func fillRandomlyMessagesGetConversationsByIdResponse(o *models.MessagesGetConve
 }
 
 func fillRandomlyMessagesGetConversationsResponse(o *models.MessagesGetConversationsResponse) {
-	(*o).Messages.Count = randInt()
+	(*o).Messages.Count = random.RandInt()
 	(*o).Messages.Groups = new([]models.GroupsGroupFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Messages.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Messages.Items = make([]models.MessagesConversationWithMessage, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesConversationWithMessage(&((*o).Messages.Items)[i0])
 	}
 	(*o).Messages.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Messages.Profiles)[i0])
 	}
 	(*o).Messages.UnreadCount = new(int)
-	*(*o).Messages.UnreadCount = randInt()
+	*(*o).Messages.UnreadCount = random.RandInt()
 }
 
 func fillRandomlyMessagesGetHistoryAttachmentsResponse(o *models.MessagesGetHistoryAttachmentsResponse) {
 	(*o).Messages.Groups = new([]models.GroupsGroupFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Messages.Groups)[i0])
 	}
 	(*o).Messages.Items = new([]models.MessagesHistoryAttachment)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Items = make([]models.MessagesHistoryAttachment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesHistoryAttachment(&(*(*o).Messages.Items)[i0])
 	}
 	(*o).Messages.NextFrom = new(string)
-	*(*o).Messages.NextFrom = randString()
+	*(*o).Messages.NextFrom = random.RandString()
 	(*o).Messages.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Messages.Profiles)[i0])
@@ -1924,25 +1925,25 @@ func fillRandomlyMessagesGetHistoryAttachmentsResponse(o *models.MessagesGetHist
 
 func fillRandomlyMessagesGetHistoryExtendedResponse(o *models.MessagesGetHistoryExtendedResponse) {
 	(*o).Messages.Conversations = new([]models.MessagesConversation)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Conversations = make([]models.MessagesConversation, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesConversation(&(*(*o).Messages.Conversations)[i0])
 	}
-	(*o).Messages.Count = randInt()
+	(*o).Messages.Count = random.RandInt()
 	(*o).Messages.Groups = new([]models.GroupsGroupFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Messages.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Messages.Items = make([]models.MessagesMessage, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesMessage(&((*o).Messages.Items)[i0])
 	}
 	(*o).Messages.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Messages.Profiles)[i0])
@@ -1950,8 +1951,8 @@ func fillRandomlyMessagesGetHistoryExtendedResponse(o *models.MessagesGetHistory
 }
 
 func fillRandomlyMessagesGetHistoryResponse(o *models.MessagesGetHistoryResponse) {
-	(*o).Messages.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Messages.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Messages.Items = make([]models.MessagesMessage, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesMessage(&((*o).Messages.Items)[i0])
@@ -1960,20 +1961,20 @@ func fillRandomlyMessagesGetHistoryResponse(o *models.MessagesGetHistoryResponse
 
 func fillRandomlyMessagesGetImportantMessagesExtendedResponse(o *models.MessagesGetImportantMessagesExtendedResponse) {
 	(*o).Messages.Conversations = new([]models.MessagesConversation)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Conversations = make([]models.MessagesConversation, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesConversation(&(*(*o).Messages.Conversations)[i0])
 	}
 	(*o).Messages.Groups = new([]models.GroupsGroupFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Messages.Groups)[i0])
 	}
 	fillRandomlyMessagesMessagesArray(&(*o).Messages.Messages)
 	(*o).Messages.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Messages.Profiles)[i0])
@@ -1982,20 +1983,20 @@ func fillRandomlyMessagesGetImportantMessagesExtendedResponse(o *models.Messages
 
 func fillRandomlyMessagesGetImportantMessagesResponse(o *models.MessagesGetImportantMessagesResponse) {
 	(*o).Messages.Conversations = new([]models.MessagesConversation)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Conversations = make([]models.MessagesConversation, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesConversation(&(*(*o).Messages.Conversations)[i0])
 	}
 	(*o).Messages.Groups = new([]models.GroupsGroupFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Messages.Groups)[i0])
 	}
 	fillRandomlyMessagesMessagesArray(&(*o).Messages.Messages)
 	(*o).Messages.Profiles = new([]models.UsersUser)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Profiles = make([]models.UsersUser, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUser(&(*(*o).Messages.Profiles)[i0])
@@ -2003,14 +2004,14 @@ func fillRandomlyMessagesGetImportantMessagesResponse(o *models.MessagesGetImpor
 }
 
 func fillRandomlyMessagesGetIntentUsersResponse(o *models.MessagesGetIntentUsersResponse) {
-	(*o).Messages.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Messages.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Messages.Items = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Messages.Items)[i0] = randInt()
+		((*o).Messages.Items)[i0] = random.RandInt()
 	}
 	(*o).Messages.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Messages.Profiles)[i0])
@@ -2019,7 +2020,7 @@ func fillRandomlyMessagesGetIntentUsersResponse(o *models.MessagesGetIntentUsers
 
 func fillRandomlyMessagesGetInviteLinkResponse(o *models.MessagesGetInviteLinkResponse) {
 	(*o).Messages.Link = new(string)
-	*(*o).Messages.Link = randString()
+	*(*o).Messages.Link = random.RandString()
 }
 
 func fillRandomlyMessagesGetLastActivityResponse(o *models.MessagesGetLastActivityResponse) {
@@ -2028,13 +2029,13 @@ func fillRandomlyMessagesGetLastActivityResponse(o *models.MessagesGetLastActivi
 
 func fillRandomlyMessagesGetLongPollHistoryResponse(o *models.MessagesGetLongPollHistoryResponse) {
 	(*o).Messages.Chats = new([]models.MessagesChat)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Chats = make([]models.MessagesChat, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesChat(&(*(*o).Messages.Chats)[i0])
 	}
 	(*o).Messages.Conversations = new([]models.MessagesConversation)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Conversations = make([]models.MessagesConversation, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesConversation(&(*(*o).Messages.Conversations)[i0])
@@ -2042,31 +2043,31 @@ func fillRandomlyMessagesGetLongPollHistoryResponse(o *models.MessagesGetLongPol
 	(*o).Messages.Credentials = new(models.MessagesLongpollParams)
 	fillRandomlyMessagesLongpollParams((*o).Messages.Credentials)
 	(*o).Messages.FromPts = new(int)
-	*(*o).Messages.FromPts = randInt()
+	*(*o).Messages.FromPts = random.RandInt()
 	(*o).Messages.Groups = new([]models.GroupsGroupFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Messages.Groups)[i0])
 	}
 	(*o).Messages.History = new([][]int)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.History = make([][]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		l1 := randIntn(maxArrayLength + 1)
+		l1 := random.RandIntn(random.MaxArrayLength + 1)
 		(*(*o).Messages.History)[i0] = make([]int, l1)
 		for i1 := 0; i1 < l1; i1++ {
-			(*(*o).Messages.History)[i0][i1] = randInt()
+			(*(*o).Messages.History)[i0][i1] = random.RandInt()
 		}
 	}
 	(*o).Messages.Messages = new(models.MessagesLongpollMessages)
 	fillRandomlyMessagesLongpollMessages((*o).Messages.Messages)
 	(*o).Messages.More = new(bool)
-	*(*o).Messages.More = randBool()
+	*(*o).Messages.More = random.RandBool()
 	(*o).Messages.NewPts = new(int)
-	*(*o).Messages.NewPts = randInt()
+	*(*o).Messages.NewPts = random.RandInt()
 	(*o).Messages.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Messages.Profiles)[i0])
@@ -2084,14 +2085,14 @@ func fillRandomlyMessagesIsMessagesFromGroupAllowedResponse(o *models.MessagesIs
 
 func fillRandomlyMessagesJoinChatByInviteLinkResponse(o *models.MessagesJoinChatByInviteLinkResponse) {
 	(*o).Messages.ChatId = new(int)
-	*(*o).Messages.ChatId = randInt()
+	*(*o).Messages.ChatId = random.RandInt()
 }
 
 func fillRandomlyMessagesMarkAsImportantResponse(o *models.MessagesMarkAsImportantResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Response)[i0] = randInt()
+		((*o).Response)[i0] = random.RandInt()
 	}
 }
 
@@ -2100,20 +2101,20 @@ func fillRandomlyMessagesPinResponse(o *models.MessagesPinResponse) {
 }
 
 func fillRandomlyMessagesSearchConversationsExtendedResponse(o *models.MessagesSearchConversationsExtendedResponse) {
-	(*o).Messages.Count = randInt()
+	(*o).Messages.Count = random.RandInt()
 	(*o).Messages.Groups = new([]models.GroupsGroupFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Messages.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Messages.Items = make([]models.MessagesConversation, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesConversation(&((*o).Messages.Items)[i0])
 	}
 	(*o).Messages.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Messages.Profiles)[i0])
@@ -2121,8 +2122,8 @@ func fillRandomlyMessagesSearchConversationsExtendedResponse(o *models.MessagesS
 }
 
 func fillRandomlyMessagesSearchConversationsResponse(o *models.MessagesSearchConversationsResponse) {
-	(*o).Messages.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Messages.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Messages.Items = make([]models.MessagesConversation, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesConversation(&((*o).Messages.Items)[i0])
@@ -2131,25 +2132,25 @@ func fillRandomlyMessagesSearchConversationsResponse(o *models.MessagesSearchCon
 
 func fillRandomlyMessagesSearchExtendedResponse(o *models.MessagesSearchExtendedResponse) {
 	(*o).Messages.Conversations = new([]models.MessagesConversation)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Conversations = make([]models.MessagesConversation, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesConversation(&(*(*o).Messages.Conversations)[i0])
 	}
-	(*o).Messages.Count = randInt()
+	(*o).Messages.Count = random.RandInt()
 	(*o).Messages.Groups = new([]models.GroupsGroupFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Messages.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Messages.Items = make([]models.MessagesMessage, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesMessage(&((*o).Messages.Items)[i0])
 	}
 	(*o).Messages.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Messages.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Messages.Profiles)[i0])
@@ -2157,8 +2158,8 @@ func fillRandomlyMessagesSearchExtendedResponse(o *models.MessagesSearchExtended
 }
 
 func fillRandomlyMessagesSearchResponse(o *models.MessagesSearchResponse) {
-	(*o).Messages.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Messages.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Messages.Items = make([]models.MessagesMessage, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesMessage(&((*o).Messages.Items)[i0])
@@ -2166,11 +2167,11 @@ func fillRandomlyMessagesSearchResponse(o *models.MessagesSearchResponse) {
 }
 
 func fillRandomlyMessagesSendResponse(o *models.MessagesSendResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyMessagesSendUserIdsResponse(o *models.MessagesSendUserIdsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.MessagesSendUserIdsResponseItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyMessagesSendUserIdsResponseItem(&((*o).Response)[i0])
@@ -2181,23 +2182,23 @@ func fillRandomlyMessagesSetChatPhotoResponse(o *models.MessagesSetChatPhotoResp
 	(*o).Messages.Chat = new(models.MessagesChat)
 	fillRandomlyMessagesChat((*o).Messages.Chat)
 	(*o).Messages.MessageId = new(int)
-	*(*o).Messages.MessageId = randInt()
+	*(*o).Messages.MessageId = random.RandInt()
 }
 
 func fillRandomlyNewsfeedGenericResponse(o *models.NewsfeedGenericResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Newsfeed.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Newsfeed.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Newsfeed.Items = make([]models.NewsfeedNewsfeedItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyNewsfeedNewsfeedItem(&((*o).Newsfeed.Items)[i0])
 	}
 	(*o).Newsfeed.NewReturnedNewsItemsCount = new(int)
-	*(*o).Newsfeed.NewReturnedNewsItemsCount = randInt()
-	l0 = randIntn(maxArrayLength + 1)
+	*(*o).Newsfeed.NewReturnedNewsItemsCount = random.RandInt()
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Newsfeed.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Newsfeed.Profiles)[i0])
@@ -2206,13 +2207,13 @@ func fillRandomlyNewsfeedGenericResponse(o *models.NewsfeedGenericResponse) {
 
 func fillRandomlyNewsfeedGetBannedExtendedResponse(o *models.NewsfeedGetBannedExtendedResponse) {
 	(*o).Newsfeed.Groups = new([]models.GroupsGroupFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Newsfeed.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Newsfeed.Groups)[i0])
 	}
 	(*o).Newsfeed.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Newsfeed.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Newsfeed.Profiles)[i0])
@@ -2221,33 +2222,33 @@ func fillRandomlyNewsfeedGetBannedExtendedResponse(o *models.NewsfeedGetBannedEx
 
 func fillRandomlyNewsfeedGetBannedResponse(o *models.NewsfeedGetBannedResponse) {
 	(*o).Newsfeed.Groups = new([]int)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Newsfeed.Groups = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		(*(*o).Newsfeed.Groups)[i0] = randInt()
+		(*(*o).Newsfeed.Groups)[i0] = random.RandInt()
 	}
 	(*o).Newsfeed.Members = new([]int)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Newsfeed.Members = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		(*(*o).Newsfeed.Members)[i0] = randInt()
+		(*(*o).Newsfeed.Members)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyNewsfeedGetCommentsResponse(o *models.NewsfeedGetCommentsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Newsfeed.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Newsfeed.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Newsfeed.Items = make([]models.NewsfeedNewsfeedItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyNewsfeedNewsfeedItem(&((*o).Newsfeed.Items)[i0])
 	}
 	(*o).Newsfeed.NextFrom = new(string)
-	*(*o).Newsfeed.NextFrom = randString()
-	l0 = randIntn(maxArrayLength + 1)
+	*(*o).Newsfeed.NextFrom = random.RandString()
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Newsfeed.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Newsfeed.Profiles)[i0])
@@ -2255,8 +2256,8 @@ func fillRandomlyNewsfeedGetCommentsResponse(o *models.NewsfeedGetCommentsRespon
 }
 
 func fillRandomlyNewsfeedGetListsExtendedResponse(o *models.NewsfeedGetListsExtendedResponse) {
-	(*o).Newsfeed.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Newsfeed.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Newsfeed.Items = make([]models.NewsfeedListFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyNewsfeedListFull(&((*o).Newsfeed.Items)[i0])
@@ -2264,8 +2265,8 @@ func fillRandomlyNewsfeedGetListsExtendedResponse(o *models.NewsfeedGetListsExte
 }
 
 func fillRandomlyNewsfeedGetListsResponse(o *models.NewsfeedGetListsResponse) {
-	(*o).Newsfeed.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Newsfeed.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Newsfeed.Items = make([]models.NewsfeedList, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyNewsfeedList(&((*o).Newsfeed.Items)[i0])
@@ -2273,8 +2274,8 @@ func fillRandomlyNewsfeedGetListsResponse(o *models.NewsfeedGetListsResponse) {
 }
 
 func fillRandomlyNewsfeedGetMentionsResponse(o *models.NewsfeedGetMentionsResponse) {
-	(*o).Newsfeed.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Newsfeed.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Newsfeed.Items = make([]models.WallWallpostToId, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallpostToId(&((*o).Newsfeed.Items)[i0])
@@ -2283,9 +2284,9 @@ func fillRandomlyNewsfeedGetMentionsResponse(o *models.NewsfeedGetMentionsRespon
 
 func fillRandomlyNewsfeedGetSuggestedSourcesResponse(o *models.NewsfeedGetSuggestedSourcesResponse) {
 	(*o).Newsfeed.Count = new(int)
-	*(*o).Newsfeed.Count = randInt()
+	*(*o).Newsfeed.Count = random.RandInt()
 	(*o).Newsfeed.Items = new([]models.UsersSubscriptionsItem)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Newsfeed.Items = make([]models.UsersSubscriptionsItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersSubscriptionsItem(&(*(*o).Newsfeed.Items)[i0])
@@ -2293,73 +2294,73 @@ func fillRandomlyNewsfeedGetSuggestedSourcesResponse(o *models.NewsfeedGetSugges
 }
 
 func fillRandomlyNewsfeedIgnoreItemResponse(o *models.NewsfeedIgnoreItemResponse) {
-	(*o).Newsfeed.Status = randBool()
+	(*o).Newsfeed.Status = random.RandBool()
 }
 
 func fillRandomlyNewsfeedSaveListResponse(o *models.NewsfeedSaveListResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyNewsfeedSearchExtendedResponse(o *models.NewsfeedSearchExtendedResponse) {
 	(*o).Newsfeed.Count = new(int)
-	*(*o).Newsfeed.Count = randInt()
+	*(*o).Newsfeed.Count = random.RandInt()
 	(*o).Newsfeed.Groups = new([]models.GroupsGroupFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Newsfeed.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Newsfeed.Groups)[i0])
 	}
 	(*o).Newsfeed.Items = new([]models.WallWallpostFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Newsfeed.Items = make([]models.WallWallpostFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallpostFull(&(*(*o).Newsfeed.Items)[i0])
 	}
 	(*o).Newsfeed.NextFrom = new(string)
-	*(*o).Newsfeed.NextFrom = randString()
+	*(*o).Newsfeed.NextFrom = random.RandString()
 	(*o).Newsfeed.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Newsfeed.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Newsfeed.Profiles)[i0])
 	}
 	(*o).Newsfeed.SuggestedQueries = new([]string)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Newsfeed.SuggestedQueries = make([]string, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		(*(*o).Newsfeed.SuggestedQueries)[i0] = randString()
+		(*(*o).Newsfeed.SuggestedQueries)[i0] = random.RandString()
 	}
 	(*o).Newsfeed.TotalCount = new(int)
-	*(*o).Newsfeed.TotalCount = randInt()
+	*(*o).Newsfeed.TotalCount = random.RandInt()
 }
 
 func fillRandomlyNewsfeedSearchResponse(o *models.NewsfeedSearchResponse) {
 	(*o).Newsfeed.Count = new(int)
-	*(*o).Newsfeed.Count = randInt()
+	*(*o).Newsfeed.Count = random.RandInt()
 	(*o).Newsfeed.Items = new([]models.WallWallpostFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Newsfeed.Items = make([]models.WallWallpostFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallpostFull(&(*(*o).Newsfeed.Items)[i0])
 	}
 	(*o).Newsfeed.NextFrom = new(string)
-	*(*o).Newsfeed.NextFrom = randString()
+	*(*o).Newsfeed.NextFrom = random.RandString()
 	(*o).Newsfeed.SuggestedQueries = new([]string)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Newsfeed.SuggestedQueries = make([]string, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		(*(*o).Newsfeed.SuggestedQueries)[i0] = randString()
+		(*(*o).Newsfeed.SuggestedQueries)[i0] = random.RandString()
 	}
 	(*o).Newsfeed.TotalCount = new(int)
-	*(*o).Newsfeed.TotalCount = randInt()
+	*(*o).Newsfeed.TotalCount = random.RandInt()
 }
 
 func fillRandomlyNotesAddResponse(o *models.NotesAddResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyNotesCreateCommentResponse(o *models.NotesCreateCommentResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyNotesGetByIdResponse(o *models.NotesGetByIdResponse) {
@@ -2367,8 +2368,8 @@ func fillRandomlyNotesGetByIdResponse(o *models.NotesGetByIdResponse) {
 }
 
 func fillRandomlyNotesGetCommentsResponse(o *models.NotesGetCommentsResponse) {
-	(*o).Notes.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Notes.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Notes.Items = make([]models.NotesNoteComment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyNotesNoteComment(&((*o).Notes.Items)[i0])
@@ -2376,8 +2377,8 @@ func fillRandomlyNotesGetCommentsResponse(o *models.NotesGetCommentsResponse) {
 }
 
 func fillRandomlyNotesGetResponse(o *models.NotesGetResponse) {
-	(*o).Notes.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Notes.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Notes.Items = make([]models.NotesNote, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyNotesNote(&((*o).Notes.Items)[i0])
@@ -2386,45 +2387,45 @@ func fillRandomlyNotesGetResponse(o *models.NotesGetResponse) {
 
 func fillRandomlyNotificationsGetResponse(o *models.NotificationsGetResponse) {
 	(*o).Notifications.Apps = new([]models.AppsApp)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Notifications.Apps = make([]models.AppsApp, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyAppsApp(&(*(*o).Notifications.Apps)[i0])
 	}
 	(*o).Notifications.Count = new(int)
-	*(*o).Notifications.Count = randInt()
+	*(*o).Notifications.Count = random.RandInt()
 	(*o).Notifications.Groups = new([]models.GroupsGroup)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Notifications.Groups = make([]models.GroupsGroup, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroup(&(*(*o).Notifications.Groups)[i0])
 	}
 	(*o).Notifications.Items = new([]models.NotificationsNotificationItem)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Notifications.Items = make([]models.NotificationsNotificationItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyNotificationsNotificationItem(&(*(*o).Notifications.Items)[i0])
 	}
 	(*o).Notifications.LastViewed = new(int)
-	*(*o).Notifications.LastViewed = randInt()
+	*(*o).Notifications.LastViewed = random.RandInt()
 	(*o).Notifications.NextFrom = new(string)
-	*(*o).Notifications.NextFrom = randString()
+	*(*o).Notifications.NextFrom = random.RandString()
 	(*o).Notifications.Photos = new([]models.PhotosPhoto)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Notifications.Photos = make([]models.PhotosPhoto, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhoto(&(*(*o).Notifications.Photos)[i0])
 	}
 	(*o).Notifications.Profiles = new([]models.UsersUser)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Notifications.Profiles = make([]models.UsersUser, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUser(&(*(*o).Notifications.Profiles)[i0])
 	}
 	(*o).Notifications.Ttl = new(int)
-	*(*o).Notifications.Ttl = randInt()
+	*(*o).Notifications.Ttl = random.RandInt()
 	(*o).Notifications.Videos = new([]models.VideoVideo)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Notifications.Videos = make([]models.VideoVideo, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyVideoVideo(&(*(*o).Notifications.Videos)[i0])
@@ -2436,7 +2437,7 @@ func fillRandomlyNotificationsMarkAsViewedResponse(o *models.NotificationsMarkAs
 }
 
 func fillRandomlyNotificationsSendMessageResponse(o *models.NotificationsSendMessageResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.NotificationsSendMessageItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyNotificationsSendMessageItem(&((*o).Response)[i0])
@@ -2448,11 +2449,11 @@ func fillRandomlyOrdersCancelSubscriptionResponse(o *models.OrdersCancelSubscrip
 }
 
 func fillRandomlyOrdersChangeStateResponse(o *models.OrdersChangeStateResponse) {
-	(*o).Response = randString()
+	(*o).Response = random.RandString()
 }
 
 func fillRandomlyOrdersGetAmountResponse(o *models.OrdersGetAmountResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.OrdersAmount, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyOrdersAmount(&((*o).Response)[i0])
@@ -2460,7 +2461,7 @@ func fillRandomlyOrdersGetAmountResponse(o *models.OrdersGetAmountResponse) {
 }
 
 func fillRandomlyOrdersGetByIdResponse(o *models.OrdersGetByIdResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.OrdersOrder, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyOrdersOrder(&((*o).Response)[i0])
@@ -2473,9 +2474,9 @@ func fillRandomlyOrdersGetUserSubscriptionByIdResponse(o *models.OrdersGetUserSu
 
 func fillRandomlyOrdersGetUserSubscriptionsResponse(o *models.OrdersGetUserSubscriptionsResponse) {
 	(*o).Orders.Count = new(int)
-	*(*o).Orders.Count = randInt()
+	*(*o).Orders.Count = random.RandInt()
 	(*o).Orders.Items = new([]models.OrdersSubscription)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Orders.Items = make([]models.OrdersSubscription, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyOrdersSubscription(&(*(*o).Orders.Items)[i0])
@@ -2483,7 +2484,7 @@ func fillRandomlyOrdersGetUserSubscriptionsResponse(o *models.OrdersGetUserSubsc
 }
 
 func fillRandomlyOrdersGetResponse(o *models.OrdersGetResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.OrdersOrder, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyOrdersOrder(&((*o).Response)[i0])
@@ -2495,7 +2496,7 @@ func fillRandomlyOrdersUpdateSubscriptionResponse(o *models.OrdersUpdateSubscrip
 }
 
 func fillRandomlyPagesGetHistoryResponse(o *models.PagesGetHistoryResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.PagesWikipageHistory, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPagesWikipageHistory(&((*o).Response)[i0])
@@ -2503,7 +2504,7 @@ func fillRandomlyPagesGetHistoryResponse(o *models.PagesGetHistoryResponse) {
 }
 
 func fillRandomlyPagesGetTitlesResponse(o *models.PagesGetTitlesResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.PagesWikipage, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPagesWikipage(&((*o).Response)[i0])
@@ -2519,19 +2520,19 @@ func fillRandomlyPagesGetResponse(o *models.PagesGetResponse) {
 }
 
 func fillRandomlyPagesParseWikiResponse(o *models.PagesParseWikiResponse) {
-	(*o).Response = randString()
+	(*o).Response = random.RandString()
 }
 
 func fillRandomlyPagesSaveAccessResponse(o *models.PagesSaveAccessResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyPagesSaveResponse(o *models.PagesSaveResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyPhotosCopyResponse(o *models.PhotosCopyResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyPhotosCreateAlbumResponse(o *models.PhotosCreateAlbumResponse) {
@@ -2539,7 +2540,7 @@ func fillRandomlyPhotosCreateAlbumResponse(o *models.PhotosCreateAlbumResponse) 
 }
 
 func fillRandomlyPhotosCreateCommentResponse(o *models.PhotosCreateCommentResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyPhotosDeleteCommentResponse(o *models.PhotosDeleteCommentResponse) {
@@ -2547,12 +2548,12 @@ func fillRandomlyPhotosDeleteCommentResponse(o *models.PhotosDeleteCommentRespon
 }
 
 func fillRandomlyPhotosGetAlbumsCountResponse(o *models.PhotosGetAlbumsCountResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyPhotosGetAlbumsResponse(o *models.PhotosGetAlbumsResponse) {
-	(*o).Photos.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Photos.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Photos.Items = make([]models.PhotosPhotoAlbumFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhotoAlbumFull(&((*o).Photos.Items)[i0])
@@ -2561,9 +2562,9 @@ func fillRandomlyPhotosGetAlbumsResponse(o *models.PhotosGetAlbumsResponse) {
 
 func fillRandomlyPhotosGetAllCommentsResponse(o *models.PhotosGetAllCommentsResponse) {
 	(*o).Photos.Count = new(int)
-	*(*o).Photos.Count = randInt()
+	*(*o).Photos.Count = random.RandInt()
 	(*o).Photos.Items = new([]models.WallWallComment)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Photos.Items = make([]models.WallWallComment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallComment(&(*(*o).Photos.Items)[i0])
@@ -2572,9 +2573,9 @@ func fillRandomlyPhotosGetAllCommentsResponse(o *models.PhotosGetAllCommentsResp
 
 func fillRandomlyPhotosGetAllExtendedResponse(o *models.PhotosGetAllExtendedResponse) {
 	(*o).Photos.Count = new(int)
-	*(*o).Photos.Count = randInt()
+	*(*o).Photos.Count = random.RandInt()
 	(*o).Photos.Items = new([]models.PhotosPhotoFullXtrRealOffset)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Photos.Items = make([]models.PhotosPhotoFullXtrRealOffset, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhotoFullXtrRealOffset(&(*(*o).Photos.Items)[i0])
@@ -2585,9 +2586,9 @@ func fillRandomlyPhotosGetAllExtendedResponse(o *models.PhotosGetAllExtendedResp
 
 func fillRandomlyPhotosGetAllResponse(o *models.PhotosGetAllResponse) {
 	(*o).Photos.Count = new(int)
-	*(*o).Photos.Count = randInt()
+	*(*o).Photos.Count = random.RandInt()
 	(*o).Photos.Items = new([]models.PhotosPhotoXtrRealOffset)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Photos.Items = make([]models.PhotosPhotoXtrRealOffset, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhotoXtrRealOffset(&(*(*o).Photos.Items)[i0])
@@ -2597,7 +2598,7 @@ func fillRandomlyPhotosGetAllResponse(o *models.PhotosGetAllResponse) {
 }
 
 func fillRandomlyPhotosGetByIdResponse(o *models.PhotosGetByIdResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.PhotosPhoto, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhoto(&((*o).Response)[i0])
@@ -2605,37 +2606,37 @@ func fillRandomlyPhotosGetByIdResponse(o *models.PhotosGetByIdResponse) {
 }
 
 func fillRandomlyPhotosGetCommentsExtendedResponse(o *models.PhotosGetCommentsExtendedResponse) {
-	(*o).Photos.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Photos.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Photos.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Photos.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Photos.Items = make([]models.WallWallComment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallComment(&((*o).Photos.Items)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Photos.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Photos.Profiles)[i0])
 	}
 	(*o).Photos.RealOffset = new(int)
-	*(*o).Photos.RealOffset = randInt()
+	*(*o).Photos.RealOffset = random.RandInt()
 }
 
 func fillRandomlyPhotosGetCommentsResponse(o *models.PhotosGetCommentsResponse) {
 	(*o).Photos.Count = new(int)
-	*(*o).Photos.Count = randInt()
+	*(*o).Photos.Count = random.RandInt()
 	(*o).Photos.Items = new([]models.WallWallComment)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Photos.Items = make([]models.WallWallComment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallComment(&(*(*o).Photos.Items)[i0])
 	}
 	(*o).Photos.RealOffset = new(int)
-	*(*o).Photos.RealOffset = randInt()
+	*(*o).Photos.RealOffset = random.RandInt()
 }
 
 func fillRandomlyPhotosGetMarketUploadServerResponse(o *models.PhotosGetMarketUploadServerResponse) {
@@ -2647,8 +2648,8 @@ func fillRandomlyPhotosGetMessagesUploadServerResponse(o *models.PhotosGetMessag
 }
 
 func fillRandomlyPhotosGetNewTagsResponse(o *models.PhotosGetNewTagsResponse) {
-	(*o).Photos.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Photos.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Photos.Items = make([]models.PhotosPhotoXtrTagInfo, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhotoXtrTagInfo(&((*o).Photos.Items)[i0])
@@ -2656,7 +2657,7 @@ func fillRandomlyPhotosGetNewTagsResponse(o *models.PhotosGetNewTagsResponse) {
 }
 
 func fillRandomlyPhotosGetTagsResponse(o *models.PhotosGetTagsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.PhotosPhotoTag, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhotoTag(&((*o).Response)[i0])
@@ -2668,8 +2669,8 @@ func fillRandomlyPhotosGetUploadServerResponse(o *models.PhotosGetUploadServerRe
 }
 
 func fillRandomlyPhotosGetUserPhotosResponse(o *models.PhotosGetUserPhotosResponse) {
-	(*o).Photos.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Photos.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Photos.Items = make([]models.PhotosPhoto, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhoto(&((*o).Photos.Items)[i0])
@@ -2681,8 +2682,8 @@ func fillRandomlyPhotosGetWallUploadServerResponse(o *models.PhotosGetWallUpload
 }
 
 func fillRandomlyPhotosGetResponse(o *models.PhotosGetResponse) {
-	(*o).Photos.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Photos.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Photos.Items = make([]models.PhotosPhoto, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhoto(&((*o).Photos.Items)[i0])
@@ -2691,70 +2692,70 @@ func fillRandomlyPhotosGetResponse(o *models.PhotosGetResponse) {
 
 func fillRandomlyPhotosMarketAlbumUploadResponse(o *models.PhotosMarketAlbumUploadResponse) {
 	(*o).Photos.Gid = new(int)
-	*(*o).Photos.Gid = randInt()
+	*(*o).Photos.Gid = random.RandInt()
 	(*o).Photos.Hash = new(string)
-	*(*o).Photos.Hash = randString()
+	*(*o).Photos.Hash = random.RandString()
 	(*o).Photos.Photo = new(string)
-	*(*o).Photos.Photo = randString()
+	*(*o).Photos.Photo = random.RandString()
 	(*o).Photos.Server = new(int)
-	*(*o).Photos.Server = randInt()
+	*(*o).Photos.Server = random.RandInt()
 }
 
 func fillRandomlyPhotosMarketUploadResponse(o *models.PhotosMarketUploadResponse) {
 	(*o).Photos.CropData = new(string)
-	*(*o).Photos.CropData = randString()
+	*(*o).Photos.CropData = random.RandString()
 	(*o).Photos.CropHash = new(string)
-	*(*o).Photos.CropHash = randString()
+	*(*o).Photos.CropHash = random.RandString()
 	(*o).Photos.GroupId = new(int)
-	*(*o).Photos.GroupId = randInt()
+	*(*o).Photos.GroupId = random.RandInt()
 	(*o).Photos.Hash = new(string)
-	*(*o).Photos.Hash = randString()
+	*(*o).Photos.Hash = random.RandString()
 	(*o).Photos.Photo = new(string)
-	*(*o).Photos.Photo = randString()
+	*(*o).Photos.Photo = random.RandString()
 	(*o).Photos.Server = new(int)
-	*(*o).Photos.Server = randInt()
+	*(*o).Photos.Server = random.RandInt()
 }
 
 func fillRandomlyPhotosMessageUploadResponse(o *models.PhotosMessageUploadResponse) {
 	(*o).Photos.Hash = new(string)
-	*(*o).Photos.Hash = randString()
+	*(*o).Photos.Hash = random.RandString()
 	(*o).Photos.Photo = new(string)
-	*(*o).Photos.Photo = randString()
+	*(*o).Photos.Photo = random.RandString()
 	(*o).Photos.Server = new(int)
-	*(*o).Photos.Server = randInt()
+	*(*o).Photos.Server = random.RandInt()
 }
 
 func fillRandomlyPhotosOwnerCoverUploadResponse(o *models.PhotosOwnerCoverUploadResponse) {
 	(*o).Photos.Hash = new(string)
-	*(*o).Photos.Hash = randString()
+	*(*o).Photos.Hash = random.RandString()
 	(*o).Photos.Photo = new(string)
-	*(*o).Photos.Photo = randString()
+	*(*o).Photos.Photo = random.RandString()
 }
 
 func fillRandomlyPhotosOwnerUploadResponse(o *models.PhotosOwnerUploadResponse) {
 	(*o).Photos.Hash = new(string)
-	*(*o).Photos.Hash = randString()
+	*(*o).Photos.Hash = random.RandString()
 	(*o).Photos.Photo = new(string)
-	*(*o).Photos.Photo = randString()
+	*(*o).Photos.Photo = random.RandString()
 	(*o).Photos.Server = new(int)
-	*(*o).Photos.Server = randInt()
+	*(*o).Photos.Server = random.RandInt()
 }
 
 func fillRandomlyPhotosPhotoUploadResponse(o *models.PhotosPhotoUploadResponse) {
 	(*o).Photos.Aid = new(int)
-	*(*o).Photos.Aid = randInt()
+	*(*o).Photos.Aid = random.RandInt()
 	(*o).Photos.Hash = new(string)
-	*(*o).Photos.Hash = randString()
+	*(*o).Photos.Hash = random.RandString()
 	(*o).Photos.Photo = new(string)
-	*(*o).Photos.Photo = randString()
+	*(*o).Photos.Photo = random.RandString()
 	(*o).Photos.PhotosList = new(string)
-	*(*o).Photos.PhotosList = randString()
+	*(*o).Photos.PhotosList = random.RandString()
 	(*o).Photos.Server = new(int)
-	*(*o).Photos.Server = randInt()
+	*(*o).Photos.Server = random.RandInt()
 }
 
 func fillRandomlyPhotosPutTagResponse(o *models.PhotosPutTagResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyPhotosRestoreCommentResponse(o *models.PhotosRestoreCommentResponse) {
@@ -2762,7 +2763,7 @@ func fillRandomlyPhotosRestoreCommentResponse(o *models.PhotosRestoreCommentResp
 }
 
 func fillRandomlyPhotosSaveMarketAlbumPhotoResponse(o *models.PhotosSaveMarketAlbumPhotoResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.PhotosPhoto, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhoto(&((*o).Response)[i0])
@@ -2770,7 +2771,7 @@ func fillRandomlyPhotosSaveMarketAlbumPhotoResponse(o *models.PhotosSaveMarketAl
 }
 
 func fillRandomlyPhotosSaveMarketPhotoResponse(o *models.PhotosSaveMarketPhotoResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.PhotosPhoto, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhoto(&((*o).Response)[i0])
@@ -2778,7 +2779,7 @@ func fillRandomlyPhotosSaveMarketPhotoResponse(o *models.PhotosSaveMarketPhotoRe
 }
 
 func fillRandomlyPhotosSaveMessagesPhotoResponse(o *models.PhotosSaveMessagesPhotoResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.PhotosPhoto, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhoto(&((*o).Response)[i0])
@@ -2787,7 +2788,7 @@ func fillRandomlyPhotosSaveMessagesPhotoResponse(o *models.PhotosSaveMessagesPho
 
 func fillRandomlyPhotosSaveOwnerCoverPhotoResponse(o *models.PhotosSaveOwnerCoverPhotoResponse) {
 	(*o).Photos.Images = new([]models.BaseImage)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Photos.Images = make([]models.BaseImage, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyBaseImage(&(*(*o).Photos.Images)[i0])
@@ -2795,20 +2796,20 @@ func fillRandomlyPhotosSaveOwnerCoverPhotoResponse(o *models.PhotosSaveOwnerCove
 }
 
 func fillRandomlyPhotosSaveOwnerPhotoResponse(o *models.PhotosSaveOwnerPhotoResponse) {
-	(*o).Photos.PhotoHash = randString()
-	(*o).Photos.PhotoSrc = randString()
+	(*o).Photos.PhotoHash = random.RandString()
+	(*o).Photos.PhotoSrc = random.RandString()
 	(*o).Photos.PhotoSrcBig = new(string)
-	*(*o).Photos.PhotoSrcBig = randString()
+	*(*o).Photos.PhotoSrcBig = random.RandString()
 	(*o).Photos.PhotoSrcSmall = new(string)
-	*(*o).Photos.PhotoSrcSmall = randString()
+	*(*o).Photos.PhotoSrcSmall = random.RandString()
 	(*o).Photos.PostId = new(int)
-	*(*o).Photos.PostId = randInt()
+	*(*o).Photos.PostId = random.RandInt()
 	(*o).Photos.Saved = new(int)
-	*(*o).Photos.Saved = randInt()
+	*(*o).Photos.Saved = random.RandInt()
 }
 
 func fillRandomlyPhotosSaveWallPhotoResponse(o *models.PhotosSaveWallPhotoResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.PhotosPhoto, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhoto(&((*o).Response)[i0])
@@ -2816,7 +2817,7 @@ func fillRandomlyPhotosSaveWallPhotoResponse(o *models.PhotosSaveWallPhotoRespon
 }
 
 func fillRandomlyPhotosSaveResponse(o *models.PhotosSaveResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.PhotosPhoto, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhoto(&((*o).Response)[i0])
@@ -2825,9 +2826,9 @@ func fillRandomlyPhotosSaveResponse(o *models.PhotosSaveResponse) {
 
 func fillRandomlyPhotosSearchResponse(o *models.PhotosSearchResponse) {
 	(*o).Photos.Count = new(int)
-	*(*o).Photos.Count = randInt()
+	*(*o).Photos.Count = random.RandInt()
 	(*o).Photos.Items = new([]models.PhotosPhoto)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Photos.Items = make([]models.PhotosPhoto, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPhotosPhoto(&(*(*o).Photos.Items)[i0])
@@ -2836,20 +2837,20 @@ func fillRandomlyPhotosSearchResponse(o *models.PhotosSearchResponse) {
 
 func fillRandomlyPhotosWallUploadResponse(o *models.PhotosWallUploadResponse) {
 	(*o).Photos.Hash = new(string)
-	*(*o).Photos.Hash = randString()
+	*(*o).Photos.Hash = random.RandString()
 	(*o).Photos.Photo = new(string)
-	*(*o).Photos.Photo = randString()
+	*(*o).Photos.Photo = random.RandString()
 	(*o).Photos.Server = new(int)
-	*(*o).Photos.Server = randInt()
+	*(*o).Photos.Server = random.RandInt()
 }
 
 func fillRandomlyPodcastsSearchPodcastResponse(o *models.PodcastsSearchPodcastResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Podcasts.Podcasts = make([]models.PodcastExternalData, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPodcastExternalData(&((*o).Podcasts.Podcasts)[i0])
 	}
-	(*o).Podcasts.ResultsTotal = randInt()
+	(*o).Podcasts.ResultsTotal = random.RandInt()
 }
 
 func fillRandomlyPollsAddVoteResponse(o *models.PollsAddVoteResponse) {
@@ -2865,7 +2866,7 @@ func fillRandomlyPollsDeleteVoteResponse(o *models.PollsDeleteVoteResponse) {
 }
 
 func fillRandomlyPollsGetBackgroundsResponse(o *models.PollsGetBackgroundsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.PollsBackground, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPollsBackground(&((*o).Response)[i0])
@@ -2877,7 +2878,7 @@ func fillRandomlyPollsGetByIdResponse(o *models.PollsGetByIdResponse) {
 }
 
 func fillRandomlyPollsGetVotersResponse(o *models.PollsGetVotersResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.PollsVoters, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPollsVoters(&((*o).Response)[i0])
@@ -2889,24 +2890,24 @@ func fillRandomlyPollsSavePhotoResponse(o *models.PollsSavePhotoResponse) {
 }
 
 func fillRandomlyPrettyCardsCreateResponse(o *models.PrettyCardsCreateResponse) {
-	(*o).Prettycards.CardId = randString()
-	(*o).Prettycards.OwnerId = randInt()
+	(*o).Prettycards.CardId = random.RandString()
+	(*o).Prettycards.OwnerId = random.RandInt()
 }
 
 func fillRandomlyPrettyCardsDeleteResponse(o *models.PrettyCardsDeleteResponse) {
-	(*o).Prettycards.CardId = randString()
+	(*o).Prettycards.CardId = random.RandString()
 	(*o).Prettycards.Error = new(string)
-	*(*o).Prettycards.Error = randString()
-	(*o).Prettycards.OwnerId = randInt()
+	*(*o).Prettycards.Error = random.RandString()
+	(*o).Prettycards.OwnerId = random.RandInt()
 }
 
 func fillRandomlyPrettyCardsEditResponse(o *models.PrettyCardsEditResponse) {
-	(*o).Prettycards.CardId = randString()
-	(*o).Prettycards.OwnerId = randInt()
+	(*o).Prettycards.CardId = random.RandString()
+	(*o).Prettycards.OwnerId = random.RandInt()
 }
 
 func fillRandomlyPrettyCardsGetByIdResponse(o *models.PrettyCardsGetByIdResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.PrettyCardsPrettyCardOrError, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPrettyCardsPrettyCardOrError(&((*o).Response)[i0])
@@ -2914,12 +2915,12 @@ func fillRandomlyPrettyCardsGetByIdResponse(o *models.PrettyCardsGetByIdResponse
 }
 
 func fillRandomlyPrettyCardsGetUploadURLResponse(o *models.PrettyCardsGetUploadURLResponse) {
-	(*o).Response = randString()
+	(*o).Response = random.RandString()
 }
 
 func fillRandomlyPrettyCardsGetResponse(o *models.PrettyCardsGetResponse) {
-	(*o).Prettycards.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Prettycards.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Prettycards.Items = make([]models.PrettyCardsPrettyCard, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyPrettyCardsPrettyCard(&((*o).Prettycards.Items)[i0])
@@ -2927,17 +2928,17 @@ func fillRandomlyPrettyCardsGetResponse(o *models.PrettyCardsGetResponse) {
 }
 
 func fillRandomlySearchGetHintsResponse(o *models.SearchGetHintsResponse) {
-	(*o).Search.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Search.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Search.Items = make([]models.SearchHint, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlySearchHint(&((*o).Search.Items)[i0])
 	}
 	(*o).Search.SuggestedQueries = new([]string)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Search.SuggestedQueries = make([]string, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		(*(*o).Search.SuggestedQueries)[i0] = randString()
+		(*(*o).Search.SuggestedQueries)[i0] = random.RandString()
 	}
 }
 
@@ -2946,11 +2947,11 @@ func fillRandomlySecureCheckTokenResponse(o *models.SecureCheckTokenResponse) {
 }
 
 func fillRandomlySecureGetAppBalanceResponse(o *models.SecureGetAppBalanceResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlySecureGetSMSHistoryResponse(o *models.SecureGetSMSHistoryResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.SecureSmsNotification, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlySecureSmsNotification(&((*o).Response)[i0])
@@ -2958,7 +2959,7 @@ func fillRandomlySecureGetSMSHistoryResponse(o *models.SecureGetSMSHistoryRespon
 }
 
 func fillRandomlySecureGetTransactionsHistoryResponse(o *models.SecureGetTransactionsHistoryResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.SecureTransaction, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlySecureTransaction(&((*o).Response)[i0])
@@ -2966,7 +2967,7 @@ func fillRandomlySecureGetTransactionsHistoryResponse(o *models.SecureGetTransac
 }
 
 func fillRandomlySecureGetUserLevelResponse(o *models.SecureGetUserLevelResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.SecureLevel, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlySecureLevel(&((*o).Response)[i0])
@@ -2974,7 +2975,7 @@ func fillRandomlySecureGetUserLevelResponse(o *models.SecureGetUserLevelResponse
 }
 
 func fillRandomlySecureGiveEventStickerResponse(o *models.SecureGiveEventStickerResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.SecureGiveEventStickerItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlySecureGiveEventStickerItem(&((*o).Response)[i0])
@@ -2982,15 +2983,15 @@ func fillRandomlySecureGiveEventStickerResponse(o *models.SecureGiveEventSticker
 }
 
 func fillRandomlySecureSendNotificationResponse(o *models.SecureSendNotificationResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Response)[i0] = randInt()
+		((*o).Response)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlySecureSetCounterArrayResponse(o *models.SecureSetCounterArrayResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.SecureSetCounterItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlySecureSetCounterItem(&((*o).Response)[i0])
@@ -2998,7 +2999,7 @@ func fillRandomlySecureSetCounterArrayResponse(o *models.SecureSetCounterArrayRe
 }
 
 func fillRandomlyStatsGetPostReachResponse(o *models.StatsGetPostReachResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.StatsWallpostStat, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyStatsWallpostStat(&((*o).Response)[i0])
@@ -3006,7 +3007,7 @@ func fillRandomlyStatsGetPostReachResponse(o *models.StatsGetPostReachResponse) 
 }
 
 func fillRandomlyStatsGetResponse(o *models.StatsGetResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.StatsPeriod, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyStatsPeriod(&((*o).Response)[i0])
@@ -3018,15 +3019,15 @@ func fillRandomlyStatusGetResponse(o *models.StatusGetResponse) {
 }
 
 func fillRandomlyStorageGetKeysResponse(o *models.StorageGetKeysResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]string, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Response)[i0] = randString()
+		((*o).Response)[i0] = random.RandString()
 	}
 }
 
 func fillRandomlyStorageGetResponse(o *models.StorageGetResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.StorageValue, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyStorageValue(&((*o).Response)[i0])
@@ -3034,7 +3035,7 @@ func fillRandomlyStorageGetResponse(o *models.StorageGetResponse) {
 }
 
 func fillRandomlyStoreGetFavoriteStickersResponse(o *models.StoreGetFavoriteStickersResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.BaseSticker, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyBaseSticker(&((*o).Response)[i0])
@@ -3042,7 +3043,7 @@ func fillRandomlyStoreGetFavoriteStickersResponse(o *models.StoreGetFavoriteStic
 }
 
 func fillRandomlyStoreGetProductsResponse(o *models.StoreGetProductsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.StoreProduct, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyStoreProduct(&((*o).Response)[i0])
@@ -3051,11 +3052,11 @@ func fillRandomlyStoreGetProductsResponse(o *models.StoreGetProductsResponse) {
 
 func fillRandomlyStoreGetStickersKeywordsResponse(o *models.StoreGetStickersKeywordsResponse) {
 	(*o).Store.ChunksCount = new(int)
-	*(*o).Store.ChunksCount = randInt()
+	*(*o).Store.ChunksCount = random.RandInt()
 	(*o).Store.ChunksHash = new(string)
-	*(*o).Store.ChunksHash = randString()
-	(*o).Store.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	*(*o).Store.ChunksHash = random.RandString()
+	(*o).Store.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Store.Dictionary = make([]models.StoreStickersKeyword, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyStoreStickersKeyword(&((*o).Store.Dictionary)[i0])
@@ -3063,18 +3064,18 @@ func fillRandomlyStoreGetStickersKeywordsResponse(o *models.StoreGetStickersKeyw
 }
 
 func fillRandomlyStoriesGetBannedExtendedResponse(o *models.StoriesGetBannedExtendedResponse) {
-	(*o).Stories.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Stories.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Stories.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Stories.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Stories.Items = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Stories.Items)[i0] = randInt()
+		((*o).Stories.Items)[i0] = random.RandInt()
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Stories.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Stories.Profiles)[i0])
@@ -3082,27 +3083,27 @@ func fillRandomlyStoriesGetBannedExtendedResponse(o *models.StoriesGetBannedExte
 }
 
 func fillRandomlyStoriesGetBannedResponse(o *models.StoriesGetBannedResponse) {
-	(*o).Stories.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Stories.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Stories.Items = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Stories.Items)[i0] = randInt()
+		((*o).Stories.Items)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyStoriesGetByIdExtendedResponse(o *models.StoriesGetByIdExtendedResponse) {
-	(*o).Stories.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Stories.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Stories.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Stories.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Stories.Items = make([]models.StoriesStory, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyStoriesStory(&((*o).Stories.Items)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Stories.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Stories.Profiles)[i0])
@@ -3110,11 +3111,11 @@ func fillRandomlyStoriesGetByIdExtendedResponse(o *models.StoriesGetByIdExtended
 }
 
 func fillRandomlyStoriesGetPhotoUploadServerResponse(o *models.StoriesGetPhotoUploadServerResponse) {
-	(*o).Stories.UploadUrl = randString()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Stories.UploadUrl = random.RandString()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Stories.UserIds = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Stories.UserIds)[i0] = randInt()
+		((*o).Stories.UserIds)[i0] = random.RandInt()
 	}
 }
 
@@ -3123,30 +3124,30 @@ func fillRandomlyStoriesGetStatsResponse(o *models.StoriesGetStatsResponse) {
 }
 
 func fillRandomlyStoriesGetVideoUploadServerResponse(o *models.StoriesGetVideoUploadServerResponse) {
-	(*o).Stories.UploadUrl = randString()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Stories.UploadUrl = random.RandString()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Stories.UserIds = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Stories.UserIds)[i0] = randInt()
+		((*o).Stories.UserIds)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyStoriesGetViewersExtendedV5115Response(o *models.StoriesGetViewersExtendedV5115Response) {
-	(*o).Stories.Count = randInt()
+	(*o).Stories.Count = random.RandInt()
 	(*o).Stories.HiddenReason = new(string)
-	*(*o).Stories.HiddenReason = randString()
-	l0 := randIntn(maxArrayLength + 1)
+	*(*o).Stories.HiddenReason = random.RandString()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Stories.Items = make([]models.StoriesViewersItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyStoriesViewersItem(&((*o).Stories.Items)[i0])
 	}
 	(*o).Stories.NextFrom = new(string)
-	*(*o).Stories.NextFrom = randString()
+	*(*o).Stories.NextFrom = random.RandString()
 }
 
 func fillRandomlyStoriesGetViewersExtendedResponse(o *models.StoriesGetViewersExtendedResponse) {
-	(*o).Stories.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Stories.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Stories.Items = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Stories.Items)[i0])
@@ -3154,24 +3155,24 @@ func fillRandomlyStoriesGetViewersExtendedResponse(o *models.StoriesGetViewersEx
 }
 
 func fillRandomlyStoriesGetV5113Response(o *models.StoriesGetV5113Response) {
-	(*o).Stories.Count = randInt()
+	(*o).Stories.Count = random.RandInt()
 	(*o).Stories.Groups = new([]models.GroupsGroup)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Stories.Groups = make([]models.GroupsGroup, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroup(&(*(*o).Stories.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Stories.Items = make([]models.StoriesFeedItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyStoriesFeedItem(&((*o).Stories.Items)[i0])
 	}
 	(*o).Stories.NeedUploadScreen = new(bool)
-	*(*o).Stories.NeedUploadScreen = randBool()
+	*(*o).Stories.NeedUploadScreen = random.RandBool()
 	(*o).Stories.NextFrom = new(string)
-	*(*o).Stories.NextFrom = randString()
+	*(*o).Stories.NextFrom = random.RandString()
 	(*o).Stories.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Stories.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Stories.Profiles)[i0])
@@ -3179,26 +3180,26 @@ func fillRandomlyStoriesGetV5113Response(o *models.StoriesGetV5113Response) {
 }
 
 func fillRandomlyStoriesGetResponse(o *models.StoriesGetResponse) {
-	(*o).Stories.Count = randInt()
+	(*o).Stories.Count = random.RandInt()
 	(*o).Stories.Groups = new([]models.GroupsGroup)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Stories.Groups = make([]models.GroupsGroup, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroup(&(*(*o).Stories.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Stories.Items = make([][]models.StoriesStory, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		l1 := randIntn(maxArrayLength + 1)
+		l1 := random.RandIntn(random.MaxArrayLength + 1)
 		((*o).Stories.Items)[i0] = make([]models.StoriesStory, l1)
 		for i1 := 0; i1 < l1; i1++ {
 			fillRandomlyStoriesStory(&((*o).Stories.Items)[i0][i1])
 		}
 	}
 	(*o).Stories.NeedUploadScreen = new(bool)
-	*(*o).Stories.NeedUploadScreen = randBool()
+	*(*o).Stories.NeedUploadScreen = random.RandBool()
 	(*o).Stories.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Stories.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Stories.Profiles)[i0])
@@ -3208,20 +3209,20 @@ func fillRandomlyStoriesGetResponse(o *models.StoriesGetResponse) {
 }
 
 func fillRandomlyStoriesSaveResponse(o *models.StoriesSaveResponse) {
-	(*o).Stories.Count = randInt()
+	(*o).Stories.Count = random.RandInt()
 	(*o).Stories.Groups = new([]models.GroupsGroup)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Stories.Groups = make([]models.GroupsGroup, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroup(&(*(*o).Stories.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Stories.Items = make([]models.StoriesStory, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyStoriesStory(&((*o).Stories.Items)[i0])
 	}
 	(*o).Stories.Profiles = new([]models.UsersUser)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Stories.Profiles = make([]models.UsersUser, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUser(&(*(*o).Stories.Profiles)[i0])
@@ -3230,19 +3231,19 @@ func fillRandomlyStoriesSaveResponse(o *models.StoriesSaveResponse) {
 
 func fillRandomlyStoriesUploadResponse(o *models.StoriesUploadResponse) {
 	(*o).Stories.UploadResult = new(string)
-	*(*o).Stories.UploadResult = randString()
+	*(*o).Stories.UploadResult = random.RandString()
 }
 
 func fillRandomlyStreamingGetServerUrlResponse(o *models.StreamingGetServerUrlResponse) {
 	(*o).Streaming.Endpoint = new(string)
-	*(*o).Streaming.Endpoint = randString()
+	*(*o).Streaming.Endpoint = random.RandString()
 	(*o).Streaming.Key = new(string)
-	*(*o).Streaming.Key = randString()
+	*(*o).Streaming.Key = random.RandString()
 }
 
 func fillRandomlyUsersGetFollowersFieldsResponse(o *models.UsersGetFollowersFieldsResponse) {
-	(*o).Users.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Users.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Users.Items = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Users.Items)[i0])
@@ -3250,17 +3251,17 @@ func fillRandomlyUsersGetFollowersFieldsResponse(o *models.UsersGetFollowersFiel
 }
 
 func fillRandomlyUsersGetFollowersResponse(o *models.UsersGetFollowersResponse) {
-	(*o).Users.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Users.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Users.Items = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Users.Items)[i0] = randInt()
+		((*o).Users.Items)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyUsersGetSubscriptionsExtendedResponse(o *models.UsersGetSubscriptionsExtendedResponse) {
-	(*o).Users.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Users.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Users.Items = make([]models.UsersSubscriptionsItem, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersSubscriptionsItem(&((*o).Users.Items)[i0])
@@ -3273,7 +3274,7 @@ func fillRandomlyUsersGetSubscriptionsResponse(o *models.UsersGetSubscriptionsRe
 }
 
 func fillRandomlyUsersGetResponse(o *models.UsersGetResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Response)[i0])
@@ -3281,8 +3282,8 @@ func fillRandomlyUsersGetResponse(o *models.UsersGetResponse) {
 }
 
 func fillRandomlyUsersSearchResponse(o *models.UsersSearchResponse) {
-	(*o).Users.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Users.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Users.Items = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Users.Items)[i0])
@@ -3295,9 +3296,9 @@ func fillRandomlyUtilsCheckLinkResponse(o *models.UtilsCheckLinkResponse) {
 
 func fillRandomlyUtilsGetLastShortenedLinksResponse(o *models.UtilsGetLastShortenedLinksResponse) {
 	(*o).Utils.Count = new(int)
-	*(*o).Utils.Count = randInt()
+	*(*o).Utils.Count = random.RandInt()
 	(*o).Utils.Items = new([]models.UtilsLastShortenedLink)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Utils.Items = make([]models.UtilsLastShortenedLink, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUtilsLastShortenedLink(&(*(*o).Utils.Items)[i0])
@@ -3313,7 +3314,7 @@ func fillRandomlyUtilsGetLinkStatsResponse(o *models.UtilsGetLinkStatsResponse) 
 }
 
 func fillRandomlyUtilsGetServerTimeResponse(o *models.UtilsGetServerTimeResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyUtilsGetShortLinkResponse(o *models.UtilsGetShortLinkResponse) {
@@ -3325,19 +3326,19 @@ func fillRandomlyUtilsResolveScreenNameResponse(o *models.UtilsResolveScreenName
 }
 
 func fillRandomlyVideoAddAlbumResponse(o *models.VideoAddAlbumResponse) {
-	(*o).Video.AlbumId = randInt()
+	(*o).Video.AlbumId = random.RandInt()
 }
 
 func fillRandomlyVideoChangeVideoAlbumsResponse(o *models.VideoChangeVideoAlbumsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Response)[i0] = randInt()
+		((*o).Response)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyVideoCreateCommentResponse(o *models.VideoCreateCommentResponse) {
-	(*o).Response = randInt()
+	(*o).Response = random.RandInt()
 }
 
 func fillRandomlyVideoGetAlbumByIdResponse(o *models.VideoGetAlbumByIdResponse) {
@@ -3346,9 +3347,9 @@ func fillRandomlyVideoGetAlbumByIdResponse(o *models.VideoGetAlbumByIdResponse) 
 
 func fillRandomlyVideoGetAlbumsByVideoExtendedResponse(o *models.VideoGetAlbumsByVideoExtendedResponse) {
 	(*o).Video.Count = new(int)
-	*(*o).Video.Count = randInt()
+	*(*o).Video.Count = random.RandInt()
 	(*o).Video.Items = new([]models.VideoVideoAlbumFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Video.Items = make([]models.VideoVideoAlbumFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyVideoVideoAlbumFull(&(*(*o).Video.Items)[i0])
@@ -3356,16 +3357,16 @@ func fillRandomlyVideoGetAlbumsByVideoExtendedResponse(o *models.VideoGetAlbumsB
 }
 
 func fillRandomlyVideoGetAlbumsByVideoResponse(o *models.VideoGetAlbumsByVideoResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]int, l0)
 	for i0 := 0; i0 < l0; i0++ {
-		((*o).Response)[i0] = randInt()
+		((*o).Response)[i0] = random.RandInt()
 	}
 }
 
 func fillRandomlyVideoGetAlbumsExtendedResponse(o *models.VideoGetAlbumsExtendedResponse) {
-	(*o).Video.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Video.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Video.Items = make([]models.VideoVideoAlbumFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyVideoVideoAlbumFull(&((*o).Video.Items)[i0])
@@ -3373,8 +3374,8 @@ func fillRandomlyVideoGetAlbumsExtendedResponse(o *models.VideoGetAlbumsExtended
 }
 
 func fillRandomlyVideoGetAlbumsResponse(o *models.VideoGetAlbumsResponse) {
-	(*o).Video.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Video.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Video.Items = make([]models.VideoVideoAlbum, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyVideoVideoAlbum(&((*o).Video.Items)[i0])
@@ -3383,67 +3384,67 @@ func fillRandomlyVideoGetAlbumsResponse(o *models.VideoGetAlbumsResponse) {
 
 func fillRandomlyVideoGetCommentsExtendedResponse(o *models.VideoGetCommentsExtendedResponse) {
 	(*o).Video.CanPost = new(bool)
-	*(*o).Video.CanPost = randBool()
-	(*o).Video.Count = randInt()
+	*(*o).Video.CanPost = random.RandBool()
+	(*o).Video.Count = random.RandInt()
 	(*o).Video.CurrentLevelCount = new(int)
-	*(*o).Video.CurrentLevelCount = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	*(*o).Video.CurrentLevelCount = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Video.Groups = make([]models.GroupsGroup, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroup(&((*o).Video.Groups)[i0])
 	}
 	(*o).Video.GroupsCanPost = new(bool)
-	*(*o).Video.GroupsCanPost = randBool()
-	l0 = randIntn(maxArrayLength + 1)
+	*(*o).Video.GroupsCanPost = random.RandBool()
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Video.Items = make([]models.WallWallComment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallComment(&((*o).Video.Items)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Video.Profiles = make([]models.UsersUser, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUser(&((*o).Video.Profiles)[i0])
 	}
 	(*o).Video.RealOffset = new(int)
-	*(*o).Video.RealOffset = randInt()
+	*(*o).Video.RealOffset = random.RandInt()
 	(*o).Video.ShowReplyButton = new(bool)
-	*(*o).Video.ShowReplyButton = randBool()
+	*(*o).Video.ShowReplyButton = random.RandBool()
 }
 
 func fillRandomlyVideoGetCommentsResponse(o *models.VideoGetCommentsResponse) {
 	(*o).Video.CanPost = new(bool)
-	*(*o).Video.CanPost = randBool()
-	(*o).Video.Count = randInt()
+	*(*o).Video.CanPost = random.RandBool()
+	(*o).Video.Count = random.RandInt()
 	(*o).Video.CurrentLevelCount = new(int)
-	*(*o).Video.CurrentLevelCount = randInt()
+	*(*o).Video.CurrentLevelCount = random.RandInt()
 	(*o).Video.GroupsCanPost = new(bool)
-	*(*o).Video.GroupsCanPost = randBool()
-	l0 := randIntn(maxArrayLength + 1)
+	*(*o).Video.GroupsCanPost = random.RandBool()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Video.Items = make([]models.WallWallComment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallComment(&((*o).Video.Items)[i0])
 	}
 	(*o).Video.RealOffset = new(int)
-	*(*o).Video.RealOffset = randInt()
+	*(*o).Video.RealOffset = random.RandInt()
 	(*o).Video.ShowReplyButton = new(bool)
-	*(*o).Video.ShowReplyButton = randBool()
+	*(*o).Video.ShowReplyButton = random.RandBool()
 }
 
 func fillRandomlyVideoGetResponse(o *models.VideoGetResponse) {
-	(*o).Video.Count = randInt()
+	(*o).Video.Count = random.RandInt()
 	(*o).Video.Groups = new([]models.GroupsGroupFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Video.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&(*(*o).Video.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Video.Items = make([]models.VideoVideoFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyVideoVideoFull(&((*o).Video.Items)[i0])
 	}
 	(*o).Video.Profiles = new([]models.UsersUserFull)
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Video.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&(*(*o).Video.Profiles)[i0])
@@ -3459,18 +3460,18 @@ func fillRandomlyVideoSaveResponse(o *models.VideoSaveResponse) {
 }
 
 func fillRandomlyVideoSearchExtendedResponse(o *models.VideoSearchExtendedResponse) {
-	(*o).Video.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Video.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Video.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Video.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Video.Items = make([]models.VideoVideoFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyVideoVideoFull(&((*o).Video.Items)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Video.Profiles = make([]models.UsersUser, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUser(&((*o).Video.Profiles)[i0])
@@ -3478,8 +3479,8 @@ func fillRandomlyVideoSearchExtendedResponse(o *models.VideoSearchExtendedRespon
 }
 
 func fillRandomlyVideoSearchResponse(o *models.VideoSearchResponse) {
-	(*o).Video.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Video.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Video.Items = make([]models.VideoVideoFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyVideoVideoFull(&((*o).Video.Items)[i0])
@@ -3488,31 +3489,31 @@ func fillRandomlyVideoSearchResponse(o *models.VideoSearchResponse) {
 
 func fillRandomlyVideoUploadResponse(o *models.VideoUploadResponse) {
 	(*o).Video.Size = new(int)
-	*(*o).Video.Size = randInt()
+	*(*o).Video.Size = random.RandInt()
 	(*o).Video.VideoId = new(int)
-	*(*o).Video.VideoId = randInt()
+	*(*o).Video.VideoId = random.RandInt()
 }
 
 func fillRandomlyWallCreateCommentResponse(o *models.WallCreateCommentResponse) {
-	(*o).Wall.CommentId = randInt()
+	(*o).Wall.CommentId = random.RandInt()
 }
 
 func fillRandomlyWallEditResponse(o *models.WallEditResponse) {
-	(*o).Wall.PostId = randInt()
+	(*o).Wall.PostId = random.RandInt()
 }
 
 func fillRandomlyWallGetByIdExtendedResponse(o *models.WallGetByIdExtendedResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Wall.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Items = make([]models.WallWallpostFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallpostFull(&((*o).Wall.Items)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Wall.Profiles)[i0])
@@ -3520,7 +3521,7 @@ func fillRandomlyWallGetByIdExtendedResponse(o *models.WallGetByIdExtendedRespon
 }
 
 func fillRandomlyWallGetByIdLegacyResponse(o *models.WallGetByIdLegacyResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Response = make([]models.WallWallpostFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallpostFull(&((*o).Response)[i0])
@@ -3529,7 +3530,7 @@ func fillRandomlyWallGetByIdLegacyResponse(o *models.WallGetByIdLegacyResponse) 
 
 func fillRandomlyWallGetByIdResponse(o *models.WallGetByIdResponse) {
 	(*o).Wall.Items = new([]models.WallWallpostFull)
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	*(*o).Wall.Items = make([]models.WallWallpostFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallpostFull(&(*(*o).Wall.Items)[i0])
@@ -3537,17 +3538,17 @@ func fillRandomlyWallGetByIdResponse(o *models.WallGetByIdResponse) {
 }
 
 func fillRandomlyWallGetCommentExtendedResponse(o *models.WallGetCommentExtendedResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Groups = make([]models.GroupsGroup, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroup(&((*o).Wall.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Items = make([]models.WallWallComment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallComment(&((*o).Wall.Items)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Profiles = make([]models.UsersUser, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUser(&((*o).Wall.Profiles)[i0])
@@ -3555,7 +3556,7 @@ func fillRandomlyWallGetCommentExtendedResponse(o *models.WallGetCommentExtended
 }
 
 func fillRandomlyWallGetCommentResponse(o *models.WallGetCommentResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Items = make([]models.WallWallComment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallComment(&((*o).Wall.Items)[i0])
@@ -3564,60 +3565,60 @@ func fillRandomlyWallGetCommentResponse(o *models.WallGetCommentResponse) {
 
 func fillRandomlyWallGetCommentsExtendedResponse(o *models.WallGetCommentsExtendedResponse) {
 	(*o).Wall.CanPost = new(bool)
-	*(*o).Wall.CanPost = randBool()
-	(*o).Wall.Count = randInt()
+	*(*o).Wall.CanPost = random.RandBool()
+	(*o).Wall.Count = random.RandInt()
 	(*o).Wall.CurrentLevelCount = new(int)
-	*(*o).Wall.CurrentLevelCount = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	*(*o).Wall.CurrentLevelCount = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Groups = make([]models.GroupsGroup, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroup(&((*o).Wall.Groups)[i0])
 	}
 	(*o).Wall.GroupsCanPost = new(bool)
-	*(*o).Wall.GroupsCanPost = randBool()
-	l0 = randIntn(maxArrayLength + 1)
+	*(*o).Wall.GroupsCanPost = random.RandBool()
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Items = make([]models.WallWallComment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallComment(&((*o).Wall.Items)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Profiles = make([]models.UsersUser, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUser(&((*o).Wall.Profiles)[i0])
 	}
 	(*o).Wall.ShowReplyButton = new(bool)
-	*(*o).Wall.ShowReplyButton = randBool()
+	*(*o).Wall.ShowReplyButton = random.RandBool()
 }
 
 func fillRandomlyWallGetCommentsResponse(o *models.WallGetCommentsResponse) {
 	(*o).Wall.CanPost = new(bool)
-	*(*o).Wall.CanPost = randBool()
-	(*o).Wall.Count = randInt()
+	*(*o).Wall.CanPost = random.RandBool()
+	(*o).Wall.Count = random.RandInt()
 	(*o).Wall.CurrentLevelCount = new(int)
-	*(*o).Wall.CurrentLevelCount = randInt()
+	*(*o).Wall.CurrentLevelCount = random.RandInt()
 	(*o).Wall.GroupsCanPost = new(bool)
-	*(*o).Wall.GroupsCanPost = randBool()
-	l0 := randIntn(maxArrayLength + 1)
+	*(*o).Wall.GroupsCanPost = random.RandBool()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Items = make([]models.WallWallComment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallComment(&((*o).Wall.Items)[i0])
 	}
 	(*o).Wall.ShowReplyButton = new(bool)
-	*(*o).Wall.ShowReplyButton = randBool()
+	*(*o).Wall.ShowReplyButton = random.RandBool()
 }
 
 func fillRandomlyWallGetRepostsResponse(o *models.WallGetRepostsResponse) {
-	l0 := randIntn(maxArrayLength + 1)
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Groups = make([]models.GroupsGroup, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroup(&((*o).Wall.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Items = make([]models.WallWallpostFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallpostFull(&((*o).Wall.Items)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Profiles = make([]models.UsersUser, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUser(&((*o).Wall.Profiles)[i0])
@@ -3625,18 +3626,18 @@ func fillRandomlyWallGetRepostsResponse(o *models.WallGetRepostsResponse) {
 }
 
 func fillRandomlyWallGetExtendedResponse(o *models.WallGetExtendedResponse) {
-	(*o).Wall.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Wall.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Wall.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Items = make([]models.WallWallpostFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallpostFull(&((*o).Wall.Items)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Wall.Profiles)[i0])
@@ -3644,8 +3645,8 @@ func fillRandomlyWallGetExtendedResponse(o *models.WallGetExtendedResponse) {
 }
 
 func fillRandomlyWallGetResponse(o *models.WallGetResponse) {
-	(*o).Wall.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Wall.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Items = make([]models.WallWallpostFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallpostFull(&((*o).Wall.Items)[i0])
@@ -3653,37 +3654,37 @@ func fillRandomlyWallGetResponse(o *models.WallGetResponse) {
 }
 
 func fillRandomlyWallPostAdsStealthResponse(o *models.WallPostAdsStealthResponse) {
-	(*o).Wall.PostId = randInt()
+	(*o).Wall.PostId = random.RandInt()
 }
 
 func fillRandomlyWallPostResponse(o *models.WallPostResponse) {
-	(*o).Wall.PostId = randInt()
+	(*o).Wall.PostId = random.RandInt()
 }
 
 func fillRandomlyWallRepostResponse(o *models.WallRepostResponse) {
-	(*o).Wall.LikesCount = randInt()
+	(*o).Wall.LikesCount = random.RandInt()
 	(*o).Wall.MailRepostCount = new(int)
-	*(*o).Wall.MailRepostCount = randInt()
-	(*o).Wall.PostId = randInt()
-	(*o).Wall.RepostsCount = randInt()
-	(*o).Wall.Success = randInt()
+	*(*o).Wall.MailRepostCount = random.RandInt()
+	(*o).Wall.PostId = random.RandInt()
+	(*o).Wall.RepostsCount = random.RandInt()
+	(*o).Wall.Success = random.RandInt()
 	(*o).Wall.WallRepostCount = new(int)
-	*(*o).Wall.WallRepostCount = randInt()
+	*(*o).Wall.WallRepostCount = random.RandInt()
 }
 
 func fillRandomlyWallSearchExtendedResponse(o *models.WallSearchExtendedResponse) {
-	(*o).Wall.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Wall.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Groups = make([]models.GroupsGroupFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyGroupsGroupFull(&((*o).Wall.Groups)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Items = make([]models.WallWallpostFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallpostFull(&((*o).Wall.Items)[i0])
 	}
-	l0 = randIntn(maxArrayLength + 1)
+	l0 = random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Profiles = make([]models.UsersUserFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyUsersUserFull(&((*o).Wall.Profiles)[i0])
@@ -3691,8 +3692,8 @@ func fillRandomlyWallSearchExtendedResponse(o *models.WallSearchExtendedResponse
 }
 
 func fillRandomlyWallSearchResponse(o *models.WallSearchResponse) {
-	(*o).Wall.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Wall.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Wall.Items = make([]models.WallWallpostFull, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWallWallpostFull(&((*o).Wall.Items)[i0])
@@ -3700,8 +3701,8 @@ func fillRandomlyWallSearchResponse(o *models.WallSearchResponse) {
 }
 
 func fillRandomlyWidgetsGetCommentsResponse(o *models.WidgetsGetCommentsResponse) {
-	(*o).Widgets.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Widgets.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Widgets.Posts = make([]models.WidgetsWidgetComment, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWidgetsWidgetComment(&((*o).Widgets.Posts)[i0])
@@ -3709,11 +3710,10 @@ func fillRandomlyWidgetsGetCommentsResponse(o *models.WidgetsGetCommentsResponse
 }
 
 func fillRandomlyWidgetsGetPagesResponse(o *models.WidgetsGetPagesResponse) {
-	(*o).Widgets.Count = randInt()
-	l0 := randIntn(maxArrayLength + 1)
+	(*o).Widgets.Count = random.RandInt()
+	l0 := random.RandIntn(random.MaxArrayLength + 1)
 	(*o).Widgets.Pages = make([]models.WidgetsWidgetPage, l0)
 	for i0 := 0; i0 < l0; i0++ {
 		fillRandomlyWidgetsWidgetPage(&((*o).Widgets.Pages)[i0])
 	}
 }
-

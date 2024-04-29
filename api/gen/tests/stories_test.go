@@ -3,18 +3,19 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/stories"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyStoriesBanOwnerRequest(r *requests.StoriesBanOwnerRequest) {
-	lOwnersIds := randIntn(maxArrayLength + 1)
-	r.WithOwnersIds(randIntArr(lOwnersIds))
+	lOwnersIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithOwnersIds(random.RandIntArr(lOwnersIds))
 }
 
 func TestVKStoriesBanOwnerSuccess(t *testing.T) {
@@ -24,7 +25,7 @@ func TestVKStoriesBanOwnerSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.banOwner", params.Params(), expectedJSON))
@@ -34,10 +35,10 @@ func TestVKStoriesBanOwnerSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesDeleteRequest(r *requests.StoriesDeleteRequest) {
-	r.WithOwnerId(randInt())
-	r.WithStoryId(randInt())
-	lStories := randIntn(maxArrayLength + 1)
-	r.WithStories(randStringArr(lStories))
+	r.WithOwnerId(random.RandInt())
+	r.WithStoryId(random.RandInt())
+	lStories := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithStories(random.RandStringArr(lStories))
 }
 
 func TestVKStoriesDeleteSuccess(t *testing.T) {
@@ -47,7 +48,7 @@ func TestVKStoriesDeleteSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.delete", params.Params(), expectedJSON))
@@ -57,10 +58,10 @@ func TestVKStoriesDeleteSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesGetRequest(r *requests.StoriesGetRequest) {
-	r.WithOwnerId(randInt())
-	r.WithExtended(randBool())
+	r.WithOwnerId(random.RandInt())
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -75,7 +76,7 @@ func TestVKStoriesGetSuccess(t *testing.T) {
 	fillRandomlyStoriesGetV5113Response(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.get", params.Params(), expectedJSON))
@@ -85,9 +86,9 @@ func TestVKStoriesGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesGetBannedRequest(r *requests.StoriesGetBannedRequest) {
-	r.WithExtended(randBool())
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -103,7 +104,7 @@ func TestVKStoriesGetBannedSuccess(t *testing.T) {
 	fillRandomlyStoriesGetBannedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.getBanned", params.Params(), expectedJSON))
@@ -120,7 +121,7 @@ func TestVKStoriesGetBannedExtendedSuccess(t *testing.T) {
 	fillRandomlyStoriesGetBannedExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.getBanned", params.Params(), expectedJSON))
@@ -130,11 +131,11 @@ func TestVKStoriesGetBannedExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesGetByIdRequest(r *requests.StoriesGetByIdRequest) {
-	lStories := randIntn(maxArrayLength + 1)
-	r.WithStories(randStringArr(lStories))
-	r.WithExtended(randBool())
+	lStories := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithStories(random.RandStringArr(lStories))
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -149,7 +150,7 @@ func TestVKStoriesGetByIdSuccess(t *testing.T) {
 	fillRandomlyStoriesGetByIdExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.getById", params.Params(), expectedJSON))
@@ -159,16 +160,16 @@ func TestVKStoriesGetByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesGetPhotoUploadServerRequest(r *requests.StoriesGetPhotoUploadServerRequest) {
-	r.WithAddToNews(randBool())
-	lUserIds := randIntn(maxArrayLength + 1)
-	r.WithUserIds(randIntArr(lUserIds))
-	r.WithReplyToStory(randString())
+	r.WithAddToNews(random.RandBool())
+	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithUserIds(random.RandIntArr(lUserIds))
+	r.WithReplyToStory(random.RandString())
 	LinkText := new(models.StoriesUploadLinkText)
 	fillRandomlyStoriesUploadLinkText(LinkText)
 	r.WithLinkText(*LinkText)
-	r.WithLinkUrl(randString())
-	r.WithGroupId(randInt())
-	r.WithClickableStickers(randString())
+	r.WithLinkUrl(random.RandString())
+	r.WithGroupId(random.RandInt())
+	r.WithClickableStickers(random.RandString())
 }
 
 func TestVKStoriesGetPhotoUploadServerSuccess(t *testing.T) {
@@ -178,7 +179,7 @@ func TestVKStoriesGetPhotoUploadServerSuccess(t *testing.T) {
 	fillRandomlyStoriesGetPhotoUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.getPhotoUploadServer", params.Params(), expectedJSON))
@@ -188,12 +189,12 @@ func TestVKStoriesGetPhotoUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesGetRepliesRequest(r *requests.StoriesGetRepliesRequest) {
-	r.WithOwnerId(randInt())
-	r.WithStoryId(randInt())
-	r.WithAccessKey(randString())
-	r.WithExtended(randBool())
+	r.WithOwnerId(random.RandInt())
+	r.WithStoryId(random.RandInt())
+	r.WithAccessKey(random.RandString())
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -208,7 +209,7 @@ func TestVKStoriesGetRepliesSuccess(t *testing.T) {
 	fillRandomlyStoriesGetV5113Response(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.getReplies", params.Params(), expectedJSON))
@@ -218,8 +219,8 @@ func TestVKStoriesGetRepliesSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesGetStatsRequest(r *requests.StoriesGetStatsRequest) {
-	r.WithOwnerId(randInt())
-	r.WithStoryId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithStoryId(random.RandInt())
 }
 
 func TestVKStoriesGetStatsSuccess(t *testing.T) {
@@ -229,7 +230,7 @@ func TestVKStoriesGetStatsSuccess(t *testing.T) {
 	fillRandomlyStoriesGetStatsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.getStats", params.Params(), expectedJSON))
@@ -239,16 +240,16 @@ func TestVKStoriesGetStatsSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesGetVideoUploadServerRequest(r *requests.StoriesGetVideoUploadServerRequest) {
-	r.WithAddToNews(randBool())
-	lUserIds := randIntn(maxArrayLength + 1)
-	r.WithUserIds(randIntArr(lUserIds))
-	r.WithReplyToStory(randString())
+	r.WithAddToNews(random.RandBool())
+	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithUserIds(random.RandIntArr(lUserIds))
+	r.WithReplyToStory(random.RandString())
 	LinkText := new(models.StoriesUploadLinkText)
 	fillRandomlyStoriesUploadLinkText(LinkText)
 	r.WithLinkText(*LinkText)
-	r.WithLinkUrl(randString())
-	r.WithGroupId(randInt())
-	r.WithClickableStickers(randString())
+	r.WithLinkUrl(random.RandString())
+	r.WithGroupId(random.RandInt())
+	r.WithClickableStickers(random.RandString())
 }
 
 func TestVKStoriesGetVideoUploadServerSuccess(t *testing.T) {
@@ -258,7 +259,7 @@ func TestVKStoriesGetVideoUploadServerSuccess(t *testing.T) {
 	fillRandomlyStoriesGetVideoUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.getVideoUploadServer", params.Params(), expectedJSON))
@@ -268,13 +269,13 @@ func TestVKStoriesGetVideoUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesGetViewersRequest(r *requests.StoriesGetViewersRequest) {
-	r.WithOwnerId(randInt())
-	r.WithStoryId(randInt())
-	r.WithCount(randInt())
-	r.WithOffset(randInt())
-	r.WithExtended(randBool())
+	r.WithOwnerId(random.RandInt())
+	r.WithStoryId(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -290,7 +291,7 @@ func TestVKStoriesGetViewersSuccess(t *testing.T) {
 	fillRandomlyStoriesGetViewersExtendedV5115Response(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.getViewers", params.Params(), expectedJSON))
@@ -307,7 +308,7 @@ func TestVKStoriesGetViewersExtendedSuccess(t *testing.T) {
 	fillRandomlyStoriesGetViewersExtendedV5115Response(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.getViewers", params.Params(), expectedJSON))
@@ -317,8 +318,8 @@ func TestVKStoriesGetViewersExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesHideAllRepliesRequest(r *requests.StoriesHideAllRepliesRequest) {
-	r.WithOwnerId(randInt())
-	r.WithGroupId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKStoriesHideAllRepliesSuccess(t *testing.T) {
@@ -328,7 +329,7 @@ func TestVKStoriesHideAllRepliesSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.hideAllReplies", params.Params(), expectedJSON))
@@ -338,8 +339,8 @@ func TestVKStoriesHideAllRepliesSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesHideReplyRequest(r *requests.StoriesHideReplyRequest) {
-	r.WithOwnerId(randInt())
-	r.WithStoryId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithStoryId(random.RandInt())
 }
 
 func TestVKStoriesHideReplySuccess(t *testing.T) {
@@ -349,7 +350,7 @@ func TestVKStoriesHideReplySuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.hideReply", params.Params(), expectedJSON))
@@ -359,11 +360,11 @@ func TestVKStoriesHideReplySuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesSaveRequest(r *requests.StoriesSaveRequest) {
-	lUploadResults := randIntn(maxArrayLength + 1)
-	r.WithUploadResults(randStringArr(lUploadResults))
-	r.WithExtended(randBool())
+	lUploadResults := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithUploadResults(random.RandStringArr(lUploadResults))
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -378,7 +379,7 @@ func TestVKStoriesSaveSuccess(t *testing.T) {
 	fillRandomlyStoriesSaveResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.save", params.Params(), expectedJSON))
@@ -388,16 +389,16 @@ func TestVKStoriesSaveSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesSearchRequest(r *requests.StoriesSearchRequest) {
-	r.WithQ(randString())
-	r.WithPlaceId(randInt())
-	r.WithLatitude(randFloat())
-	r.WithLongitude(randFloat())
-	r.WithRadius(randInt())
-	r.WithMentionedId(randInt())
-	r.WithCount(randInt())
-	r.WithExtended(randBool())
+	r.WithQ(random.RandString())
+	r.WithPlaceId(random.RandInt())
+	r.WithLatitude(random.RandFloat())
+	r.WithLongitude(random.RandFloat())
+	r.WithRadius(random.RandInt())
+	r.WithMentionedId(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -412,7 +413,7 @@ func TestVKStoriesSearchSuccess(t *testing.T) {
 	fillRandomlyStoriesGetV5113Response(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.search", params.Params(), expectedJSON))
@@ -422,11 +423,11 @@ func TestVKStoriesSearchSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesSendInteractionRequest(r *requests.StoriesSendInteractionRequest) {
-	r.WithAccessKey(randString())
-	r.WithMessage(randString())
-	r.WithIsBroadcast(randBool())
-	r.WithIsAnonymous(randBool())
-	r.WithUnseenMarker(randBool())
+	r.WithAccessKey(random.RandString())
+	r.WithMessage(random.RandString())
+	r.WithIsBroadcast(random.RandBool())
+	r.WithIsAnonymous(random.RandBool())
+	r.WithUnseenMarker(random.RandBool())
 }
 
 func TestVKStoriesSendInteractionSuccess(t *testing.T) {
@@ -436,7 +437,7 @@ func TestVKStoriesSendInteractionSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.sendInteraction", params.Params(), expectedJSON))
@@ -446,8 +447,8 @@ func TestVKStoriesSendInteractionSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoriesUnbanOwnerRequest(r *requests.StoriesUnbanOwnerRequest) {
-	lOwnersIds := randIntn(maxArrayLength + 1)
-	r.WithOwnersIds(randIntArr(lOwnersIds))
+	lOwnersIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithOwnersIds(random.RandIntArr(lOwnersIds))
 }
 
 func TestVKStoriesUnbanOwnerSuccess(t *testing.T) {
@@ -457,7 +458,7 @@ func TestVKStoriesUnbanOwnerSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stories.unbanOwner", params.Params(), expectedJSON))
@@ -465,4 +466,3 @@ func TestVKStoriesUnbanOwnerSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

@@ -39,7 +39,7 @@ func GenerateErrors(w io.Writer, errorsRaw []byte) {
 	scs := parseSubcodes(file.Definitions.Subcodes)
 	errs := parseErrors(file.Errors)
 
-	writeStartFile(w, "vk_sdk", "// For more information about errors see https://dev.vk.com/reference/errors")
+	writeStartFile(w, "tests", "// For more information about errors see https://dev.vk.com/reference/errors")
 
 	fmt.Fprint(w, scs.Gen())
 	fmt.Fprint(w, errs.Gen())

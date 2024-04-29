@@ -4,6 +4,7 @@ package requests
 
 import (
 	"github.com/defany/govk/api"
+	"github.com/defany/govk/api/gen/models"
 )
 
 type Friends struct {
@@ -16,3 +17,960 @@ func NewFriends(api *api.API) *Friends {
 	}
 }
 
+// FriendsAdd Approves or creates a friend request.
+type FriendsAddRequest api.Params
+
+func NewFriendsAddRequest() FriendsAddRequest {
+	params := make(FriendsAddRequest, 4)
+	return params
+}
+
+func (f FriendsAddRequest) WithUserId(f_user_id int) FriendsAddRequest {
+	f["user_id"] = f_user_id
+	return f
+}
+
+func (f FriendsAddRequest) WithText(f_text string) FriendsAddRequest {
+	f["text"] = f_text
+	return f
+}
+
+func (f FriendsAddRequest) WithFollow(f_follow bool) FriendsAddRequest {
+	f["follow"] = f_follow
+	return f
+}
+
+func (f FriendsAddRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_FriendsAddInEnemy, Error_FriendsAddEnemy, Error_FriendsAddYourself, Error_FriendsAddNotFound ]
+//
+// https://dev.vk.com/method/friends.add
+func (f *Friends) FriendsAdd(params ...api.MethodParams) (resp models.FriendsAddResponse, err error) {
+	req := api.NewRequest[models.FriendsAddResponse](f.api)
+
+	res, err := req.Execute("friends.add", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsAddList Creates a new friend list for the current user.
+type FriendsAddListRequest api.Params
+
+func NewFriendsAddListRequest() FriendsAddListRequest {
+	params := make(FriendsAddListRequest, 3)
+	return params
+}
+
+func (f FriendsAddListRequest) WithName(f_name string) FriendsAddListRequest {
+	f["name"] = f_name
+	return f
+}
+
+func (f FriendsAddListRequest) WithUserIds(f_user_ids []int) FriendsAddListRequest {
+	f["user_ids"] = f_user_ids
+	return f
+}
+
+func (f FriendsAddListRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_FriendsListLimit ]
+//
+// https://dev.vk.com/method/friends.addList
+func (f *Friends) FriendsAddList(params ...api.MethodParams) (resp models.FriendsAddListResponse, err error) {
+	req := api.NewRequest[models.FriendsAddListResponse](f.api)
+
+	res, err := req.Execute("friends.addList", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsAreFriends Checks the current user's friendship status with other specified users.
+type FriendsAreFriendsRequest api.Params
+
+func NewFriendsAreFriendsRequest() FriendsAreFriendsRequest {
+	params := make(FriendsAreFriendsRequest, 5)
+	return params
+}
+
+func (f FriendsAreFriendsRequest) WithUserIds(f_user_ids []int) FriendsAreFriendsRequest {
+	f["user_ids"] = f_user_ids
+	return f
+}
+
+func (f FriendsAreFriendsRequest) WithNeedSign(f_need_sign bool) FriendsAreFriendsRequest {
+	f["need_sign"] = f_need_sign
+	return f
+}
+
+func (f FriendsAreFriendsRequest) WithExtended(f_extended bool) FriendsAreFriendsRequest {
+	f["extended"] = f_extended
+	return f
+}
+
+func (f FriendsAreFriendsRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.areFriends
+func (f *Friends) FriendsAreFriends(params ...api.MethodParams) (resp models.FriendsAreFriendsResponse, err error) {
+	req := api.NewRequest[models.FriendsAreFriendsResponse](f.api)
+
+	res, err := req.Execute("friends.areFriends", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsAreFriendsExtended Checks the current user's friendship status with other specified users.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.areFriends
+func (f *Friends) FriendsAreFriendsExtended(params ...api.MethodParams) (resp models.FriendsAreFriendsExtendedResponse, err error) {
+	req := api.NewRequest[models.FriendsAreFriendsExtendedResponse](f.api)
+
+	res, err := req.Execute("friends.areFriends", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsDelete Declines a friend request or deletes a user from the current user's friend list.
+type FriendsDeleteRequest api.Params
+
+func NewFriendsDeleteRequest() FriendsDeleteRequest {
+	params := make(FriendsDeleteRequest, 2)
+	return params
+}
+
+func (f FriendsDeleteRequest) WithUserId(f_user_id int) FriendsDeleteRequest {
+	f["user_id"] = f_user_id
+	return f
+}
+
+func (f FriendsDeleteRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.delete
+func (f *Friends) FriendsDelete(params ...api.MethodParams) (resp models.FriendsDeleteResponse, err error) {
+	req := api.NewRequest[models.FriendsDeleteResponse](f.api)
+
+	res, err := req.Execute("friends.delete", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsDeleteAllRequests Marks all incoming friend requests as viewed.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.deleteAllRequests
+func (f *Friends) FriendsDeleteAllRequests(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](f.api)
+
+	res, err := req.Execute("friends.deleteAllRequests", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsDeleteList Deletes a friend list of the current user.
+type FriendsDeleteListRequest api.Params
+
+func NewFriendsDeleteListRequest() FriendsDeleteListRequest {
+	params := make(FriendsDeleteListRequest, 2)
+	return params
+}
+
+func (f FriendsDeleteListRequest) WithListId(f_list_id int) FriendsDeleteListRequest {
+	f["list_id"] = f_list_id
+	return f
+}
+
+func (f FriendsDeleteListRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_FriendsListId ]
+//
+// https://dev.vk.com/method/friends.deleteList
+func (f *Friends) FriendsDeleteList(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](f.api)
+
+	res, err := req.Execute("friends.deleteList", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsEdit Edits the friend lists of the selected user.
+type FriendsEditRequest api.Params
+
+func NewFriendsEditRequest() FriendsEditRequest {
+	params := make(FriendsEditRequest, 3)
+	return params
+}
+
+func (f FriendsEditRequest) WithUserId(f_user_id int) FriendsEditRequest {
+	f["user_id"] = f_user_id
+	return f
+}
+
+func (f FriendsEditRequest) WithListIds(f_list_ids []int) FriendsEditRequest {
+	f["list_ids"] = f_list_ids
+	return f
+}
+
+func (f FriendsEditRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.edit
+func (f *Friends) FriendsEdit(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](f.api)
+
+	res, err := req.Execute("friends.edit", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsEditList Edits a friend list of the current user.
+type FriendsEditListRequest api.Params
+
+func NewFriendsEditListRequest() FriendsEditListRequest {
+	params := make(FriendsEditListRequest, 6)
+	return params
+}
+
+func (f FriendsEditListRequest) WithName(f_name string) FriendsEditListRequest {
+	f["name"] = f_name
+	return f
+}
+
+func (f FriendsEditListRequest) WithListId(f_list_id int) FriendsEditListRequest {
+	f["list_id"] = f_list_id
+	return f
+}
+
+func (f FriendsEditListRequest) WithUserIds(f_user_ids []int) FriendsEditListRequest {
+	f["user_ids"] = f_user_ids
+	return f
+}
+
+func (f FriendsEditListRequest) WithAddUserIds(f_add_user_ids []int) FriendsEditListRequest {
+	f["add_user_ids"] = f_add_user_ids
+	return f
+}
+
+func (f FriendsEditListRequest) WithDeleteUserIds(f_delete_user_ids []int) FriendsEditListRequest {
+	f["delete_user_ids"] = f_delete_user_ids
+	return f
+}
+
+func (f FriendsEditListRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_FriendsListId ]
+//
+// https://dev.vk.com/method/friends.editList
+func (f *Friends) FriendsEditList(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](f.api)
+
+	res, err := req.Execute("friends.editList", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsGet Returns a list of user IDs or detailed information about a user's friends.
+type FriendsGetRequest api.Params
+
+func NewFriendsGetRequest() FriendsGetRequest {
+	params := make(FriendsGetRequest, 9)
+	return params
+}
+
+func (f FriendsGetRequest) WithUserId(f_user_id int) FriendsGetRequest {
+	f["user_id"] = f_user_id
+	return f
+}
+
+func (f FriendsGetRequest) WithOrder(f_order string) FriendsGetRequest {
+	f["order"] = f_order
+	return f
+}
+
+func (f FriendsGetRequest) WithListId(f_list_id int) FriendsGetRequest {
+	f["list_id"] = f_list_id
+	return f
+}
+
+func (f FriendsGetRequest) WithCount(f_count int) FriendsGetRequest {
+	f["count"] = f_count
+	return f
+}
+
+func (f FriendsGetRequest) WithOffset(f_offset int) FriendsGetRequest {
+	f["offset"] = f_offset
+	return f
+}
+
+func (f FriendsGetRequest) WithFields(f_fields []models.UsersFields) FriendsGetRequest {
+	f["fields"] = f_fields
+	return f
+}
+
+func (f FriendsGetRequest) WithNameCase(f_name_case string) FriendsGetRequest {
+	f["name_case"] = f_name_case
+	return f
+}
+
+func (f FriendsGetRequest) WithRef(f_ref string) FriendsGetRequest {
+	f["ref"] = f_ref
+	return f
+}
+
+func (f FriendsGetRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.get
+func (f *Friends) FriendsGet(params ...api.MethodParams) (resp models.FriendsGetResponse, err error) {
+	req := api.NewRequest[models.FriendsGetResponse](f.api)
+
+	res, err := req.Execute("friends.get", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsGetAppUsers Returns a list of IDs of the current user's friends who installed the application.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.getAppUsers
+func (f *Friends) FriendsGetAppUsers(params ...api.MethodParams) (resp models.FriendsGetAppUsersResponse, err error) {
+	req := api.NewRequest[models.FriendsGetAppUsersResponse](f.api)
+
+	res, err := req.Execute("friends.getAppUsers", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsGetByPhones Returns a list of the current user's friends whose phone numbers, validated or specified in a profile, are in a given list.
+type FriendsGetByPhonesRequest api.Params
+
+func NewFriendsGetByPhonesRequest() FriendsGetByPhonesRequest {
+	params := make(FriendsGetByPhonesRequest, 3)
+	return params
+}
+
+func (f FriendsGetByPhonesRequest) WithPhones(f_phones []string) FriendsGetByPhonesRequest {
+	f["phones"] = f_phones
+	return f
+}
+
+func (f FriendsGetByPhonesRequest) WithFields(f_fields []models.UsersFields) FriendsGetByPhonesRequest {
+	f["fields"] = f_fields
+	return f
+}
+
+func (f FriendsGetByPhonesRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.getByPhones
+func (f *Friends) FriendsGetByPhones(params ...api.MethodParams) (resp models.FriendsGetByPhonesResponse, err error) {
+	req := api.NewRequest[models.FriendsGetByPhonesResponse](f.api)
+
+	res, err := req.Execute("friends.getByPhones", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsGetLists Returns a list of the user's friend lists.
+type FriendsGetListsRequest api.Params
+
+func NewFriendsGetListsRequest() FriendsGetListsRequest {
+	params := make(FriendsGetListsRequest, 3)
+	return params
+}
+
+func (f FriendsGetListsRequest) WithUserId(f_user_id int) FriendsGetListsRequest {
+	f["user_id"] = f_user_id
+	return f
+}
+
+func (f FriendsGetListsRequest) WithReturnSystem(f_return_system bool) FriendsGetListsRequest {
+	f["return_system"] = f_return_system
+	return f
+}
+
+func (f FriendsGetListsRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.getLists
+func (f *Friends) FriendsGetLists(params ...api.MethodParams) (resp models.FriendsGetListsResponse, err error) {
+	req := api.NewRequest[models.FriendsGetListsResponse](f.api)
+
+	res, err := req.Execute("friends.getLists", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsGetMutual Returns a list of user IDs of the mutual friends of two users.
+type FriendsGetMutualRequest api.Params
+
+func NewFriendsGetMutualRequest() FriendsGetMutualRequest {
+	params := make(FriendsGetMutualRequest, 7)
+	return params
+}
+
+func (f FriendsGetMutualRequest) WithSourceUid(f_source_uid int) FriendsGetMutualRequest {
+	f["source_uid"] = f_source_uid
+	return f
+}
+
+func (f FriendsGetMutualRequest) WithTargetUid(f_target_uid int) FriendsGetMutualRequest {
+	f["target_uid"] = f_target_uid
+	return f
+}
+
+func (f FriendsGetMutualRequest) WithTargetUids(f_target_uids []int) FriendsGetMutualRequest {
+	f["target_uids"] = f_target_uids
+	return f
+}
+
+func (f FriendsGetMutualRequest) WithOrder(f_order string) FriendsGetMutualRequest {
+	f["order"] = f_order
+	return f
+}
+
+func (f FriendsGetMutualRequest) WithCount(f_count int) FriendsGetMutualRequest {
+	f["count"] = f_count
+	return f
+}
+
+func (f FriendsGetMutualRequest) WithOffset(f_offset int) FriendsGetMutualRequest {
+	f["offset"] = f_offset
+	return f
+}
+
+func (f FriendsGetMutualRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.getMutual
+func (f *Friends) FriendsGetMutual(params ...api.MethodParams) (resp models.FriendsGetMutualResponse, err error) {
+	req := api.NewRequest[models.FriendsGetMutualResponse](f.api)
+
+	res, err := req.Execute("friends.getMutual", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsGetMutualTargetUIDs Returns a list of user IDs of the mutual friends of two users.
+type FriendsGetMutualTargetUIDsRequest api.Params
+
+func NewFriendsGetMutualTargetUIDsRequest() FriendsGetMutualTargetUIDsRequest {
+	params := make(FriendsGetMutualTargetUIDsRequest, 7)
+	return params
+}
+
+func (f FriendsGetMutualTargetUIDsRequest) WithSourceUid(f_source_uid int) FriendsGetMutualTargetUIDsRequest {
+	f["source_uid"] = f_source_uid
+	return f
+}
+
+func (f FriendsGetMutualTargetUIDsRequest) WithTargetUid(f_target_uid int) FriendsGetMutualTargetUIDsRequest {
+	f["target_uid"] = f_target_uid
+	return f
+}
+
+func (f FriendsGetMutualTargetUIDsRequest) WithTargetUids(f_target_uids []int) FriendsGetMutualTargetUIDsRequest {
+	f["target_uids"] = f_target_uids
+	return f
+}
+
+func (f FriendsGetMutualTargetUIDsRequest) WithOrder(f_order string) FriendsGetMutualTargetUIDsRequest {
+	f["order"] = f_order
+	return f
+}
+
+func (f FriendsGetMutualTargetUIDsRequest) WithCount(f_count int) FriendsGetMutualTargetUIDsRequest {
+	f["count"] = f_count
+	return f
+}
+
+func (f FriendsGetMutualTargetUIDsRequest) WithOffset(f_offset int) FriendsGetMutualTargetUIDsRequest {
+	f["offset"] = f_offset
+	return f
+}
+
+func (f FriendsGetMutualTargetUIDsRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.getMutual
+func (f *Friends) FriendsGetMutualTargetUIDs(params ...api.MethodParams) (resp models.FriendsGetMutualTargetUidsResponse, err error) {
+	req := api.NewRequest[models.FriendsGetMutualTargetUidsResponse](f.api)
+
+	res, err := req.Execute("friends.getMutual", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsGetOnline Returns a list of user IDs of a user's friends who are online.
+type FriendsGetOnlineRequest api.Params
+
+func NewFriendsGetOnlineRequest() FriendsGetOnlineRequest {
+	params := make(FriendsGetOnlineRequest, 8)
+	return params
+}
+
+func (f FriendsGetOnlineRequest) WithUserId(f_user_id int) FriendsGetOnlineRequest {
+	f["user_id"] = f_user_id
+	return f
+}
+
+func (f FriendsGetOnlineRequest) WithListId(f_list_id int) FriendsGetOnlineRequest {
+	f["list_id"] = f_list_id
+	return f
+}
+
+func (f FriendsGetOnlineRequest) WithOnlineMobile(f_online_mobile bool) FriendsGetOnlineRequest {
+	f["online_mobile"] = f_online_mobile
+	return f
+}
+
+func (f FriendsGetOnlineRequest) WithOrder(f_order string) FriendsGetOnlineRequest {
+	f["order"] = f_order
+	return f
+}
+
+func (f FriendsGetOnlineRequest) WithCount(f_count int) FriendsGetOnlineRequest {
+	f["count"] = f_count
+	return f
+}
+
+func (f FriendsGetOnlineRequest) WithOffset(f_offset int) FriendsGetOnlineRequest {
+	f["offset"] = f_offset
+	return f
+}
+
+func (f FriendsGetOnlineRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.getOnline
+func (f *Friends) FriendsGetOnline(params ...api.MethodParams) (resp models.FriendsGetOnlineResponse, err error) {
+	req := api.NewRequest[models.FriendsGetOnlineResponse](f.api)
+
+	res, err := req.Execute("friends.getOnline", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsGetOnlineOnlineMobile Returns a list of user IDs of a user's friends who are online.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.getOnline
+func (f *Friends) FriendsGetOnlineOnlineMobile(params ...api.MethodParams) (resp models.FriendsGetOnlineOnlineMobileResponse, err error) {
+	req := api.NewRequest[models.FriendsGetOnlineOnlineMobileResponse](f.api)
+
+	res, err := req.Execute("friends.getOnline", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsGetRecent Returns a list of user IDs of the current user's recently added friends.
+type FriendsGetRecentRequest api.Params
+
+func NewFriendsGetRecentRequest() FriendsGetRecentRequest {
+	params := make(FriendsGetRecentRequest, 2)
+	return params
+}
+
+func (f FriendsGetRecentRequest) WithCount(f_count int) FriendsGetRecentRequest {
+	f["count"] = f_count
+	return f
+}
+
+func (f FriendsGetRecentRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.getRecent
+func (f *Friends) FriendsGetRecent(params ...api.MethodParams) (resp models.FriendsGetRecentResponse, err error) {
+	req := api.NewRequest[models.FriendsGetRecentResponse](f.api)
+
+	res, err := req.Execute("friends.getRecent", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsGetRequests Returns information about the current user's incoming and outgoing friend requests.
+type FriendsGetRequestsRequest api.Params
+
+func NewFriendsGetRequestsRequest() FriendsGetRequestsRequest {
+	params := make(FriendsGetRequestsRequest, 12)
+	return params
+}
+
+func (f FriendsGetRequestsRequest) WithOffset(f_offset int) FriendsGetRequestsRequest {
+	f["offset"] = f_offset
+	return f
+}
+
+func (f FriendsGetRequestsRequest) WithCount(f_count int) FriendsGetRequestsRequest {
+	f["count"] = f_count
+	return f
+}
+
+func (f FriendsGetRequestsRequest) WithExtended(f_extended bool) FriendsGetRequestsRequest {
+	f["extended"] = f_extended
+	return f
+}
+
+func (f FriendsGetRequestsRequest) WithNeedMutual(f_need_mutual bool) FriendsGetRequestsRequest {
+	f["need_mutual"] = f_need_mutual
+	return f
+}
+
+func (f FriendsGetRequestsRequest) WithOut(f_out bool) FriendsGetRequestsRequest {
+	f["out"] = f_out
+	return f
+}
+
+func (f FriendsGetRequestsRequest) WithSort(f_sort int) FriendsGetRequestsRequest {
+	f["sort"] = f_sort
+	return f
+}
+
+func (f FriendsGetRequestsRequest) WithNeedViewed(f_need_viewed bool) FriendsGetRequestsRequest {
+	f["need_viewed"] = f_need_viewed
+	return f
+}
+
+func (f FriendsGetRequestsRequest) WithSuggested(f_suggested bool) FriendsGetRequestsRequest {
+	f["suggested"] = f_suggested
+	return f
+}
+
+func (f FriendsGetRequestsRequest) WithRef(f_ref string) FriendsGetRequestsRequest {
+	f["ref"] = f_ref
+	return f
+}
+
+func (f FriendsGetRequestsRequest) WithFields(f_fields []models.UsersFields) FriendsGetRequestsRequest {
+	f["fields"] = f_fields
+	return f
+}
+
+func (f FriendsGetRequestsRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.getRequests
+func (f *Friends) FriendsGetRequests(params ...api.MethodParams) (resp models.FriendsGetRequestsResponse, err error) {
+	req := api.NewRequest[models.FriendsGetRequestsResponse](f.api)
+
+	res, err := req.Execute("friends.getRequests", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsGetRequestsExtended Returns information about the current user's incoming and outgoing friend requests.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.getRequests
+func (f *Friends) FriendsGetRequestsExtended(params ...api.MethodParams) (resp models.FriendsGetRequestsExtendedResponse, err error) {
+	req := api.NewRequest[models.FriendsGetRequestsExtendedResponse](f.api)
+
+	res, err := req.Execute("friends.getRequests", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsGetSuggestions Returns a list of profiles of users whom the current user may know.
+type FriendsGetSuggestionsRequest api.Params
+
+func NewFriendsGetSuggestionsRequest() FriendsGetSuggestionsRequest {
+	params := make(FriendsGetSuggestionsRequest, 6)
+	return params
+}
+
+func (f FriendsGetSuggestionsRequest) WithFilter(f_filter []string) FriendsGetSuggestionsRequest {
+	f["filter"] = f_filter
+	return f
+}
+
+func (f FriendsGetSuggestionsRequest) WithCount(f_count int) FriendsGetSuggestionsRequest {
+	f["count"] = f_count
+	return f
+}
+
+func (f FriendsGetSuggestionsRequest) WithOffset(f_offset int) FriendsGetSuggestionsRequest {
+	f["offset"] = f_offset
+	return f
+}
+
+func (f FriendsGetSuggestionsRequest) WithFields(f_fields []models.UsersFields) FriendsGetSuggestionsRequest {
+	f["fields"] = f_fields
+	return f
+}
+
+func (f FriendsGetSuggestionsRequest) WithNameCase(f_name_case string) FriendsGetSuggestionsRequest {
+	f["name_case"] = f_name_case
+	return f
+}
+
+func (f FriendsGetSuggestionsRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.getSuggestions
+func (f *Friends) FriendsGetSuggestions(params ...api.MethodParams) (resp models.FriendsGetSuggestionsResponse, err error) {
+	req := api.NewRequest[models.FriendsGetSuggestionsResponse](f.api)
+
+	res, err := req.Execute("friends.getSuggestions", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// FriendsSearch Returns a list of friends matching the search criteria.
+type FriendsSearchRequest api.Params
+
+func NewFriendsSearchRequest() FriendsSearchRequest {
+	params := make(FriendsSearchRequest, 7)
+	return params
+}
+
+func (f FriendsSearchRequest) WithUserId(f_user_id int) FriendsSearchRequest {
+	f["user_id"] = f_user_id
+	return f
+}
+
+func (f FriendsSearchRequest) WithQ(f_q string) FriendsSearchRequest {
+	f["q"] = f_q
+	return f
+}
+
+func (f FriendsSearchRequest) WithFields(f_fields []models.UsersFields) FriendsSearchRequest {
+	f["fields"] = f_fields
+	return f
+}
+
+func (f FriendsSearchRequest) WithNameCase(f_name_case string) FriendsSearchRequest {
+	f["name_case"] = f_name_case
+	return f
+}
+
+func (f FriendsSearchRequest) WithOffset(f_offset int) FriendsSearchRequest {
+	f["offset"] = f_offset
+	return f
+}
+
+func (f FriendsSearchRequest) WithCount(f_count int) FriendsSearchRequest {
+	f["count"] = f_count
+	return f
+}
+
+func (f FriendsSearchRequest) Params() api.Params {
+	return api.Params(f)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/friends.search
+func (f *Friends) FriendsSearch(params ...api.MethodParams) (resp models.FriendsSearchResponse, err error) {
+	req := api.NewRequest[models.FriendsSearchResponse](f.api)
+
+	res, err := req.Execute("friends.search", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}

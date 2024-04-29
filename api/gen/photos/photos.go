@@ -4,6 +4,7 @@ package requests
 
 import (
 	"github.com/defany/govk/api"
+	"github.com/defany/govk/api/gen/models"
 )
 
 type Photos struct {
@@ -16,3 +17,2454 @@ func NewPhotos(api *api.API) *Photos {
 	}
 }
 
+// PhotosConfirmTag Confirms a tag on a photo.
+type PhotosConfirmTagRequest api.Params
+
+func NewPhotosConfirmTagRequest() PhotosConfirmTagRequest {
+	params := make(PhotosConfirmTagRequest, 4)
+	return params
+}
+
+func (p PhotosConfirmTagRequest) WithOwnerId(p_owner_id int) PhotosConfirmTagRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosConfirmTagRequest) WithPhotoId(p_photo_id string) PhotosConfirmTagRequest {
+	p["photo_id"] = p_photo_id
+	return p
+}
+
+func (p PhotosConfirmTagRequest) WithTagId(p_tag_id int) PhotosConfirmTagRequest {
+	p["tag_id"] = p_tag_id
+	return p
+}
+
+func (p PhotosConfirmTagRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.confirmTag
+func (p *Photos) PhotosConfirmTag(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](p.api)
+
+	res, err := req.Execute("photos.confirmTag", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosCopy Allows to copy a photo to the "Saved photos" album
+type PhotosCopyRequest api.Params
+
+func NewPhotosCopyRequest() PhotosCopyRequest {
+	params := make(PhotosCopyRequest, 4)
+	return params
+}
+
+func (p PhotosCopyRequest) WithOwnerId(p_owner_id int) PhotosCopyRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosCopyRequest) WithPhotoId(p_photo_id int) PhotosCopyRequest {
+	p["photo_id"] = p_photo_id
+	return p
+}
+
+func (p PhotosCopyRequest) WithAccessKey(p_access_key string) PhotosCopyRequest {
+	p["access_key"] = p_access_key
+	return p
+}
+
+func (p PhotosCopyRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.copy
+func (p *Photos) PhotosCopy(params ...api.MethodParams) (resp models.PhotosCopyResponse, err error) {
+	req := api.NewRequest[models.PhotosCopyResponse](p.api)
+
+	res, err := req.Execute("photos.copy", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosCreateAlbum Creates an empty photo album.
+type PhotosCreateAlbumRequest api.Params
+
+func NewPhotosCreateAlbumRequest() PhotosCreateAlbumRequest {
+	params := make(PhotosCreateAlbumRequest, 8)
+	return params
+}
+
+func (p PhotosCreateAlbumRequest) WithTitle(p_title string) PhotosCreateAlbumRequest {
+	p["title"] = p_title
+	return p
+}
+
+func (p PhotosCreateAlbumRequest) WithGroupId(p_group_id int) PhotosCreateAlbumRequest {
+	p["group_id"] = p_group_id
+	return p
+}
+
+func (p PhotosCreateAlbumRequest) WithDescription(p_description string) PhotosCreateAlbumRequest {
+	p["description"] = p_description
+	return p
+}
+
+func (p PhotosCreateAlbumRequest) WithPrivacyView(p_privacy_view []string) PhotosCreateAlbumRequest {
+	p["privacy_view"] = p_privacy_view
+	return p
+}
+
+func (p PhotosCreateAlbumRequest) WithPrivacyComment(p_privacy_comment []string) PhotosCreateAlbumRequest {
+	p["privacy_comment"] = p_privacy_comment
+	return p
+}
+
+func (p PhotosCreateAlbumRequest) WithUploadByAdminsOnly(p_upload_by_admins_only bool) PhotosCreateAlbumRequest {
+	p["upload_by_admins_only"] = p_upload_by_admins_only
+	return p
+}
+
+func (p PhotosCreateAlbumRequest) WithCommentsDisabled(p_comments_disabled bool) PhotosCreateAlbumRequest {
+	p["comments_disabled"] = p_comments_disabled
+	return p
+}
+
+func (p PhotosCreateAlbumRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AlbumsLimit ]
+//
+// https://dev.vk.com/method/photos.createAlbum
+func (p *Photos) PhotosCreateAlbum(params ...api.MethodParams) (resp models.PhotosCreateAlbumResponse, err error) {
+	req := api.NewRequest[models.PhotosCreateAlbumResponse](p.api)
+
+	res, err := req.Execute("photos.createAlbum", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosCreateComment Adds a new comment on the photo.
+type PhotosCreateCommentRequest api.Params
+
+func NewPhotosCreateCommentRequest() PhotosCreateCommentRequest {
+	params := make(PhotosCreateCommentRequest, 10)
+	return params
+}
+
+func (p PhotosCreateCommentRequest) WithOwnerId(p_owner_id int) PhotosCreateCommentRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosCreateCommentRequest) WithPhotoId(p_photo_id int) PhotosCreateCommentRequest {
+	p["photo_id"] = p_photo_id
+	return p
+}
+
+func (p PhotosCreateCommentRequest) WithMessage(p_message string) PhotosCreateCommentRequest {
+	p["message"] = p_message
+	return p
+}
+
+func (p PhotosCreateCommentRequest) WithAttachments(p_attachments []string) PhotosCreateCommentRequest {
+	p["attachments"] = p_attachments
+	return p
+}
+
+func (p PhotosCreateCommentRequest) WithFromGroup(p_from_group bool) PhotosCreateCommentRequest {
+	p["from_group"] = p_from_group
+	return p
+}
+
+func (p PhotosCreateCommentRequest) WithReplyToComment(p_reply_to_comment int) PhotosCreateCommentRequest {
+	p["reply_to_comment"] = p_reply_to_comment
+	return p
+}
+
+func (p PhotosCreateCommentRequest) WithStickerId(p_sticker_id int) PhotosCreateCommentRequest {
+	p["sticker_id"] = p_sticker_id
+	return p
+}
+
+func (p PhotosCreateCommentRequest) WithAccessKey(p_access_key string) PhotosCreateCommentRequest {
+	p["access_key"] = p_access_key
+	return p
+}
+
+func (p PhotosCreateCommentRequest) WithGuid(p_guid string) PhotosCreateCommentRequest {
+	p["guid"] = p_guid
+	return p
+}
+
+func (p PhotosCreateCommentRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.createComment
+func (p *Photos) PhotosCreateComment(params ...api.MethodParams) (resp models.PhotosCreateCommentResponse, err error) {
+	req := api.NewRequest[models.PhotosCreateCommentResponse](p.api)
+
+	res, err := req.Execute("photos.createComment", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosDelete Deletes a photo.
+type PhotosDeleteRequest api.Params
+
+func NewPhotosDeleteRequest() PhotosDeleteRequest {
+	params := make(PhotosDeleteRequest, 3)
+	return params
+}
+
+func (p PhotosDeleteRequest) WithOwnerId(p_owner_id int) PhotosDeleteRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosDeleteRequest) WithPhotoId(p_photo_id int) PhotosDeleteRequest {
+	p["photo_id"] = p_photo_id
+	return p
+}
+
+func (p PhotosDeleteRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.delete
+func (p *Photos) PhotosDelete(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](p.api)
+
+	res, err := req.Execute("photos.delete", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosDeleteAlbum Deletes a photo album belonging to the current user.
+type PhotosDeleteAlbumRequest api.Params
+
+func NewPhotosDeleteAlbumRequest() PhotosDeleteAlbumRequest {
+	params := make(PhotosDeleteAlbumRequest, 3)
+	return params
+}
+
+func (p PhotosDeleteAlbumRequest) WithAlbumId(p_album_id int) PhotosDeleteAlbumRequest {
+	p["album_id"] = p_album_id
+	return p
+}
+
+func (p PhotosDeleteAlbumRequest) WithGroupId(p_group_id int) PhotosDeleteAlbumRequest {
+	p["group_id"] = p_group_id
+	return p
+}
+
+func (p PhotosDeleteAlbumRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ParamAlbumId ]
+//
+// https://dev.vk.com/method/photos.deleteAlbum
+func (p *Photos) PhotosDeleteAlbum(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](p.api)
+
+	res, err := req.Execute("photos.deleteAlbum", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosDeleteComment Deletes a comment on the photo.
+type PhotosDeleteCommentRequest api.Params
+
+func NewPhotosDeleteCommentRequest() PhotosDeleteCommentRequest {
+	params := make(PhotosDeleteCommentRequest, 3)
+	return params
+}
+
+func (p PhotosDeleteCommentRequest) WithOwnerId(p_owner_id int) PhotosDeleteCommentRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosDeleteCommentRequest) WithCommentId(p_comment_id int) PhotosDeleteCommentRequest {
+	p["comment_id"] = p_comment_id
+	return p
+}
+
+func (p PhotosDeleteCommentRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.deleteComment
+func (p *Photos) PhotosDeleteComment(params ...api.MethodParams) (resp models.PhotosDeleteCommentResponse, err error) {
+	req := api.NewRequest[models.PhotosDeleteCommentResponse](p.api)
+
+	res, err := req.Execute("photos.deleteComment", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosEdit Edits the caption of a photo.
+type PhotosEditRequest api.Params
+
+func NewPhotosEditRequest() PhotosEditRequest {
+	params := make(PhotosEditRequest, 9)
+	return params
+}
+
+func (p PhotosEditRequest) WithOwnerId(p_owner_id int) PhotosEditRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosEditRequest) WithPhotoId(p_photo_id int) PhotosEditRequest {
+	p["photo_id"] = p_photo_id
+	return p
+}
+
+func (p PhotosEditRequest) WithCaption(p_caption string) PhotosEditRequest {
+	p["caption"] = p_caption
+	return p
+}
+
+func (p PhotosEditRequest) WithLatitude(p_latitude float64) PhotosEditRequest {
+	p["latitude"] = p_latitude
+	return p
+}
+
+func (p PhotosEditRequest) WithLongitude(p_longitude float64) PhotosEditRequest {
+	p["longitude"] = p_longitude
+	return p
+}
+
+func (p PhotosEditRequest) WithPlaceStr(p_place_str string) PhotosEditRequest {
+	p["place_str"] = p_place_str
+	return p
+}
+
+func (p PhotosEditRequest) WithFoursquareId(p_foursquare_id string) PhotosEditRequest {
+	p["foursquare_id"] = p_foursquare_id
+	return p
+}
+
+func (p PhotosEditRequest) WithDeletePlace(p_delete_place bool) PhotosEditRequest {
+	p["delete_place"] = p_delete_place
+	return p
+}
+
+func (p PhotosEditRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.edit
+func (p *Photos) PhotosEdit(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](p.api)
+
+	res, err := req.Execute("photos.edit", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosEditAlbum Edits information about a photo album.
+type PhotosEditAlbumRequest api.Params
+
+func NewPhotosEditAlbumRequest() PhotosEditAlbumRequest {
+	params := make(PhotosEditAlbumRequest, 9)
+	return params
+}
+
+func (p PhotosEditAlbumRequest) WithAlbumId(p_album_id int) PhotosEditAlbumRequest {
+	p["album_id"] = p_album_id
+	return p
+}
+
+func (p PhotosEditAlbumRequest) WithTitle(p_title string) PhotosEditAlbumRequest {
+	p["title"] = p_title
+	return p
+}
+
+func (p PhotosEditAlbumRequest) WithDescription(p_description string) PhotosEditAlbumRequest {
+	p["description"] = p_description
+	return p
+}
+
+func (p PhotosEditAlbumRequest) WithOwnerId(p_owner_id int) PhotosEditAlbumRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosEditAlbumRequest) WithPrivacyView(p_privacy_view []string) PhotosEditAlbumRequest {
+	p["privacy_view"] = p_privacy_view
+	return p
+}
+
+func (p PhotosEditAlbumRequest) WithPrivacyComment(p_privacy_comment []string) PhotosEditAlbumRequest {
+	p["privacy_comment"] = p_privacy_comment
+	return p
+}
+
+func (p PhotosEditAlbumRequest) WithUploadByAdminsOnly(p_upload_by_admins_only bool) PhotosEditAlbumRequest {
+	p["upload_by_admins_only"] = p_upload_by_admins_only
+	return p
+}
+
+func (p PhotosEditAlbumRequest) WithCommentsDisabled(p_comments_disabled bool) PhotosEditAlbumRequest {
+	p["comments_disabled"] = p_comments_disabled
+	return p
+}
+
+func (p PhotosEditAlbumRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ParamAlbumId ]
+//
+// https://dev.vk.com/method/photos.editAlbum
+func (p *Photos) PhotosEditAlbum(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](p.api)
+
+	res, err := req.Execute("photos.editAlbum", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosEditComment Edits a comment on a photo.
+type PhotosEditCommentRequest api.Params
+
+func NewPhotosEditCommentRequest() PhotosEditCommentRequest {
+	params := make(PhotosEditCommentRequest, 5)
+	return params
+}
+
+func (p PhotosEditCommentRequest) WithOwnerId(p_owner_id int) PhotosEditCommentRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosEditCommentRequest) WithCommentId(p_comment_id int) PhotosEditCommentRequest {
+	p["comment_id"] = p_comment_id
+	return p
+}
+
+func (p PhotosEditCommentRequest) WithMessage(p_message string) PhotosEditCommentRequest {
+	p["message"] = p_message
+	return p
+}
+
+func (p PhotosEditCommentRequest) WithAttachments(p_attachments []string) PhotosEditCommentRequest {
+	p["attachments"] = p_attachments
+	return p
+}
+
+func (p PhotosEditCommentRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.editComment
+func (p *Photos) PhotosEditComment(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](p.api)
+
+	res, err := req.Execute("photos.editComment", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGet Returns a list of a user's or community's photos.
+type PhotosGetRequest api.Params
+
+func NewPhotosGetRequest() PhotosGetRequest {
+	params := make(PhotosGetRequest, 11)
+	return params
+}
+
+func (p PhotosGetRequest) WithOwnerId(p_owner_id int) PhotosGetRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosGetRequest) WithAlbumId(p_album_id string) PhotosGetRequest {
+	p["album_id"] = p_album_id
+	return p
+}
+
+func (p PhotosGetRequest) WithPhotoIds(p_photo_ids []string) PhotosGetRequest {
+	p["photo_ids"] = p_photo_ids
+	return p
+}
+
+func (p PhotosGetRequest) WithRev(p_rev bool) PhotosGetRequest {
+	p["rev"] = p_rev
+	return p
+}
+
+func (p PhotosGetRequest) WithExtended(p_extended bool) PhotosGetRequest {
+	p["extended"] = p_extended
+	return p
+}
+
+func (p PhotosGetRequest) WithFeedType(p_feed_type string) PhotosGetRequest {
+	p["feed_type"] = p_feed_type
+	return p
+}
+
+func (p PhotosGetRequest) WithFeed(p_feed int) PhotosGetRequest {
+	p["feed"] = p_feed
+	return p
+}
+
+func (p PhotosGetRequest) WithPhotoSizes(p_photo_sizes bool) PhotosGetRequest {
+	p["photo_sizes"] = p_photo_sizes
+	return p
+}
+
+func (p PhotosGetRequest) WithOffset(p_offset int) PhotosGetRequest {
+	p["offset"] = p_offset
+	return p
+}
+
+func (p PhotosGetRequest) WithCount(p_count int) PhotosGetRequest {
+	p["count"] = p_count
+	return p
+}
+
+func (p PhotosGetRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.get
+func (p *Photos) PhotosGet(params ...api.MethodParams) (resp models.PhotosGetResponse, err error) {
+	req := api.NewRequest[models.PhotosGetResponse](p.api)
+
+	res, err := req.Execute("photos.get", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetAlbums Returns a list of a user's or community's photo albums.
+type PhotosGetAlbumsRequest api.Params
+
+func NewPhotosGetAlbumsRequest() PhotosGetAlbumsRequest {
+	params := make(PhotosGetAlbumsRequest, 8)
+	return params
+}
+
+func (p PhotosGetAlbumsRequest) WithOwnerId(p_owner_id int) PhotosGetAlbumsRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosGetAlbumsRequest) WithAlbumIds(p_album_ids []int) PhotosGetAlbumsRequest {
+	p["album_ids"] = p_album_ids
+	return p
+}
+
+func (p PhotosGetAlbumsRequest) WithOffset(p_offset int) PhotosGetAlbumsRequest {
+	p["offset"] = p_offset
+	return p
+}
+
+func (p PhotosGetAlbumsRequest) WithCount(p_count int) PhotosGetAlbumsRequest {
+	p["count"] = p_count
+	return p
+}
+
+func (p PhotosGetAlbumsRequest) WithNeedSystem(p_need_system bool) PhotosGetAlbumsRequest {
+	p["need_system"] = p_need_system
+	return p
+}
+
+func (p PhotosGetAlbumsRequest) WithNeedCovers(p_need_covers bool) PhotosGetAlbumsRequest {
+	p["need_covers"] = p_need_covers
+	return p
+}
+
+func (p PhotosGetAlbumsRequest) WithPhotoSizes(p_photo_sizes bool) PhotosGetAlbumsRequest {
+	p["photo_sizes"] = p_photo_sizes
+	return p
+}
+
+func (p PhotosGetAlbumsRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.getAlbums
+func (p *Photos) PhotosGetAlbums(params ...api.MethodParams) (resp models.PhotosGetAlbumsResponse, err error) {
+	req := api.NewRequest[models.PhotosGetAlbumsResponse](p.api)
+
+	res, err := req.Execute("photos.getAlbums", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetAlbumsCount Returns the number of photo albums belonging to a user or community.
+type PhotosGetAlbumsCountRequest api.Params
+
+func NewPhotosGetAlbumsCountRequest() PhotosGetAlbumsCountRequest {
+	params := make(PhotosGetAlbumsCountRequest, 3)
+	return params
+}
+
+func (p PhotosGetAlbumsCountRequest) WithUserId(p_user_id int) PhotosGetAlbumsCountRequest {
+	p["user_id"] = p_user_id
+	return p
+}
+
+func (p PhotosGetAlbumsCountRequest) WithGroupId(p_group_id int) PhotosGetAlbumsCountRequest {
+	p["group_id"] = p_group_id
+	return p
+}
+
+func (p PhotosGetAlbumsCountRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.getAlbumsCount
+func (p *Photos) PhotosGetAlbumsCount(params ...api.MethodParams) (resp models.PhotosGetAlbumsCountResponse, err error) {
+	req := api.NewRequest[models.PhotosGetAlbumsCountResponse](p.api)
+
+	res, err := req.Execute("photos.getAlbumsCount", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetAll Returns a list of photos belonging to a user or community, in reverse chronological order.
+type PhotosGetAllRequest api.Params
+
+func NewPhotosGetAllRequest() PhotosGetAllRequest {
+	params := make(PhotosGetAllRequest, 10)
+	return params
+}
+
+func (p PhotosGetAllRequest) WithOwnerId(p_owner_id int) PhotosGetAllRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosGetAllRequest) WithExtended(p_extended bool) PhotosGetAllRequest {
+	p["extended"] = p_extended
+	return p
+}
+
+func (p PhotosGetAllRequest) WithOffset(p_offset int) PhotosGetAllRequest {
+	p["offset"] = p_offset
+	return p
+}
+
+func (p PhotosGetAllRequest) WithCount(p_count int) PhotosGetAllRequest {
+	p["count"] = p_count
+	return p
+}
+
+func (p PhotosGetAllRequest) WithPhotoSizes(p_photo_sizes bool) PhotosGetAllRequest {
+	p["photo_sizes"] = p_photo_sizes
+	return p
+}
+
+func (p PhotosGetAllRequest) WithNoServiceAlbums(p_no_service_albums bool) PhotosGetAllRequest {
+	p["no_service_albums"] = p_no_service_albums
+	return p
+}
+
+func (p PhotosGetAllRequest) WithNeedHidden(p_need_hidden bool) PhotosGetAllRequest {
+	p["need_hidden"] = p_need_hidden
+	return p
+}
+
+func (p PhotosGetAllRequest) WithSkipHidden(p_skip_hidden bool) PhotosGetAllRequest {
+	p["skip_hidden"] = p_skip_hidden
+	return p
+}
+
+func (p PhotosGetAllRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_Blocked ]
+//
+// https://dev.vk.com/method/photos.getAll
+func (p *Photos) PhotosGetAll(params ...api.MethodParams) (resp models.PhotosGetAllResponse, err error) {
+	req := api.NewRequest[models.PhotosGetAllResponse](p.api)
+
+	res, err := req.Execute("photos.getAll", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetAllExtended Returns a list of photos belonging to a user or community, in reverse chronological order.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_Blocked ]
+//
+// https://dev.vk.com/method/photos.getAll
+func (p *Photos) PhotosGetAllExtended(params ...api.MethodParams) (resp models.PhotosGetAllExtendedResponse, err error) {
+	req := api.NewRequest[models.PhotosGetAllExtendedResponse](p.api)
+
+	res, err := req.Execute("photos.getAll", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetAllComments Returns a list of comments on a specific photo album or all albums of the user sorted in reverse chronological order.
+type PhotosGetAllCommentsRequest api.Params
+
+func NewPhotosGetAllCommentsRequest() PhotosGetAllCommentsRequest {
+	params := make(PhotosGetAllCommentsRequest, 6)
+	return params
+}
+
+func (p PhotosGetAllCommentsRequest) WithOwnerId(p_owner_id int) PhotosGetAllCommentsRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosGetAllCommentsRequest) WithAlbumId(p_album_id int) PhotosGetAllCommentsRequest {
+	p["album_id"] = p_album_id
+	return p
+}
+
+func (p PhotosGetAllCommentsRequest) WithNeedLikes(p_need_likes bool) PhotosGetAllCommentsRequest {
+	p["need_likes"] = p_need_likes
+	return p
+}
+
+func (p PhotosGetAllCommentsRequest) WithOffset(p_offset int) PhotosGetAllCommentsRequest {
+	p["offset"] = p_offset
+	return p
+}
+
+func (p PhotosGetAllCommentsRequest) WithCount(p_count int) PhotosGetAllCommentsRequest {
+	p["count"] = p_count
+	return p
+}
+
+func (p PhotosGetAllCommentsRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ParamAlbumId ]
+//
+// https://dev.vk.com/method/photos.getAllComments
+func (p *Photos) PhotosGetAllComments(params ...api.MethodParams) (resp models.PhotosGetAllCommentsResponse, err error) {
+	req := api.NewRequest[models.PhotosGetAllCommentsResponse](p.api)
+
+	res, err := req.Execute("photos.getAllComments", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetById Returns information about photos by their IDs.
+type PhotosGetByIdRequest api.Params
+
+func NewPhotosGetByIdRequest() PhotosGetByIdRequest {
+	params := make(PhotosGetByIdRequest, 4)
+	return params
+}
+
+func (p PhotosGetByIdRequest) WithPhotos(p_photos []string) PhotosGetByIdRequest {
+	p["photos"] = p_photos
+	return p
+}
+
+func (p PhotosGetByIdRequest) WithExtended(p_extended bool) PhotosGetByIdRequest {
+	p["extended"] = p_extended
+	return p
+}
+
+func (p PhotosGetByIdRequest) WithPhotoSizes(p_photo_sizes bool) PhotosGetByIdRequest {
+	p["photo_sizes"] = p_photo_sizes
+	return p
+}
+
+func (p PhotosGetByIdRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.getById
+func (p *Photos) PhotosGetById(params ...api.MethodParams) (resp models.PhotosGetByIdResponse, err error) {
+	req := api.NewRequest[models.PhotosGetByIdResponse](p.api)
+
+	res, err := req.Execute("photos.getById", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetChatUploadServer Returns an upload link for chat cover pictures.
+type PhotosGetChatUploadServerRequest api.Params
+
+func NewPhotosGetChatUploadServerRequest() PhotosGetChatUploadServerRequest {
+	params := make(PhotosGetChatUploadServerRequest, 5)
+	return params
+}
+
+func (p PhotosGetChatUploadServerRequest) WithChatId(p_chat_id int) PhotosGetChatUploadServerRequest {
+	p["chat_id"] = p_chat_id
+	return p
+}
+
+func (p PhotosGetChatUploadServerRequest) WithCropX(p_crop_x int) PhotosGetChatUploadServerRequest {
+	p["crop_x"] = p_crop_x
+	return p
+}
+
+func (p PhotosGetChatUploadServerRequest) WithCropY(p_crop_y int) PhotosGetChatUploadServerRequest {
+	p["crop_y"] = p_crop_y
+	return p
+}
+
+func (p PhotosGetChatUploadServerRequest) WithCropWidth(p_crop_width int) PhotosGetChatUploadServerRequest {
+	p["crop_width"] = p_crop_width
+	return p
+}
+
+func (p PhotosGetChatUploadServerRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, group ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.getChatUploadServer
+func (p *Photos) PhotosGetChatUploadServer(params ...api.MethodParams) (resp models.BaseGetUploadServerResponse, err error) {
+	req := api.NewRequest[models.BaseGetUploadServerResponse](p.api)
+
+	res, err := req.Execute("photos.getChatUploadServer", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetComments Returns a list of comments on a photo.
+type PhotosGetCommentsRequest api.Params
+
+func NewPhotosGetCommentsRequest() PhotosGetCommentsRequest {
+	params := make(PhotosGetCommentsRequest, 12)
+	return params
+}
+
+func (p PhotosGetCommentsRequest) WithOwnerId(p_owner_id int) PhotosGetCommentsRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosGetCommentsRequest) WithPhotoId(p_photo_id int) PhotosGetCommentsRequest {
+	p["photo_id"] = p_photo_id
+	return p
+}
+
+func (p PhotosGetCommentsRequest) WithNeedLikes(p_need_likes bool) PhotosGetCommentsRequest {
+	p["need_likes"] = p_need_likes
+	return p
+}
+
+func (p PhotosGetCommentsRequest) WithStartCommentId(p_start_comment_id int) PhotosGetCommentsRequest {
+	p["start_comment_id"] = p_start_comment_id
+	return p
+}
+
+func (p PhotosGetCommentsRequest) WithOffset(p_offset int) PhotosGetCommentsRequest {
+	p["offset"] = p_offset
+	return p
+}
+
+func (p PhotosGetCommentsRequest) WithCount(p_count int) PhotosGetCommentsRequest {
+	p["count"] = p_count
+	return p
+}
+
+func (p PhotosGetCommentsRequest) WithSort(p_sort string) PhotosGetCommentsRequest {
+	p["sort"] = p_sort
+	return p
+}
+
+func (p PhotosGetCommentsRequest) WithAccessKey(p_access_key string) PhotosGetCommentsRequest {
+	p["access_key"] = p_access_key
+	return p
+}
+
+func (p PhotosGetCommentsRequest) WithExtended(p_extended bool) PhotosGetCommentsRequest {
+	p["extended"] = p_extended
+	return p
+}
+
+func (p PhotosGetCommentsRequest) WithFields(p_fields []models.UsersFields) PhotosGetCommentsRequest {
+	p["fields"] = p_fields
+	return p
+}
+
+func (p PhotosGetCommentsRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.getComments
+func (p *Photos) PhotosGetComments(params ...api.MethodParams) (resp models.PhotosGetCommentsResponse, err error) {
+	req := api.NewRequest[models.PhotosGetCommentsResponse](p.api)
+
+	res, err := req.Execute("photos.getComments", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetCommentsExtended Returns a list of comments on a photo.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.getComments
+func (p *Photos) PhotosGetCommentsExtended(params ...api.MethodParams) (resp models.PhotosGetCommentsExtendedResponse, err error) {
+	req := api.NewRequest[models.PhotosGetCommentsExtendedResponse](p.api)
+
+	res, err := req.Execute("photos.getComments", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetMarketAlbumUploadServer Returns the server address for market album photo upload.
+type PhotosGetMarketAlbumUploadServerRequest api.Params
+
+func NewPhotosGetMarketAlbumUploadServerRequest() PhotosGetMarketAlbumUploadServerRequest {
+	params := make(PhotosGetMarketAlbumUploadServerRequest, 2)
+	return params
+}
+
+func (p PhotosGetMarketAlbumUploadServerRequest) WithGroupId(p_group_id int) PhotosGetMarketAlbumUploadServerRequest {
+	p["group_id"] = p_group_id
+	return p
+}
+
+func (p PhotosGetMarketAlbumUploadServerRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_MarketNotEnabled ]
+//
+// https://dev.vk.com/method/photos.getMarketAlbumUploadServer
+func (p *Photos) PhotosGetMarketAlbumUploadServer(params ...api.MethodParams) (resp models.BaseGetUploadServerResponse, err error) {
+	req := api.NewRequest[models.BaseGetUploadServerResponse](p.api)
+
+	res, err := req.Execute("photos.getMarketAlbumUploadServer", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetMarketUploadServer Returns the server address for market photo upload.
+type PhotosGetMarketUploadServerRequest api.Params
+
+func NewPhotosGetMarketUploadServerRequest() PhotosGetMarketUploadServerRequest {
+	params := make(PhotosGetMarketUploadServerRequest, 6)
+	return params
+}
+
+func (p PhotosGetMarketUploadServerRequest) WithGroupId(p_group_id int) PhotosGetMarketUploadServerRequest {
+	p["group_id"] = p_group_id
+	return p
+}
+
+func (p PhotosGetMarketUploadServerRequest) WithMainPhoto(p_main_photo bool) PhotosGetMarketUploadServerRequest {
+	p["main_photo"] = p_main_photo
+	return p
+}
+
+func (p PhotosGetMarketUploadServerRequest) WithCropX(p_crop_x int) PhotosGetMarketUploadServerRequest {
+	p["crop_x"] = p_crop_x
+	return p
+}
+
+func (p PhotosGetMarketUploadServerRequest) WithCropY(p_crop_y int) PhotosGetMarketUploadServerRequest {
+	p["crop_y"] = p_crop_y
+	return p
+}
+
+func (p PhotosGetMarketUploadServerRequest) WithCropWidth(p_crop_width int) PhotosGetMarketUploadServerRequest {
+	p["crop_width"] = p_crop_width
+	return p
+}
+
+func (p PhotosGetMarketUploadServerRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_MarketNotEnabled ]
+//
+// https://dev.vk.com/method/photos.getMarketUploadServer
+func (p *Photos) PhotosGetMarketUploadServer(params ...api.MethodParams) (resp models.PhotosGetMarketUploadServerResponse, err error) {
+	req := api.NewRequest[models.PhotosGetMarketUploadServerResponse](p.api)
+
+	res, err := req.Execute("photos.getMarketUploadServer", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetMessagesUploadServer Returns the server address for photo upload in a private message for a user.
+type PhotosGetMessagesUploadServerRequest api.Params
+
+func NewPhotosGetMessagesUploadServerRequest() PhotosGetMessagesUploadServerRequest {
+	params := make(PhotosGetMessagesUploadServerRequest, 2)
+	return params
+}
+
+func (p PhotosGetMessagesUploadServerRequest) WithPeerId(p_peer_id int) PhotosGetMessagesUploadServerRequest {
+	p["peer_id"] = p_peer_id
+	return p
+}
+
+func (p PhotosGetMessagesUploadServerRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, group ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_MessagesDenySend ]
+//
+// https://dev.vk.com/method/photos.getMessagesUploadServer
+func (p *Photos) PhotosGetMessagesUploadServer(params ...api.MethodParams) (resp models.PhotosGetMessagesUploadServerResponse, err error) {
+	req := api.NewRequest[models.PhotosGetMessagesUploadServerResponse](p.api)
+
+	res, err := req.Execute("photos.getMessagesUploadServer", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetNewTags Returns a list of photos with tags that have not been viewed.
+type PhotosGetNewTagsRequest api.Params
+
+func NewPhotosGetNewTagsRequest() PhotosGetNewTagsRequest {
+	params := make(PhotosGetNewTagsRequest, 3)
+	return params
+}
+
+func (p PhotosGetNewTagsRequest) WithOffset(p_offset int) PhotosGetNewTagsRequest {
+	p["offset"] = p_offset
+	return p
+}
+
+func (p PhotosGetNewTagsRequest) WithCount(p_count int) PhotosGetNewTagsRequest {
+	p["count"] = p_count
+	return p
+}
+
+func (p PhotosGetNewTagsRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.getNewTags
+func (p *Photos) PhotosGetNewTags(params ...api.MethodParams) (resp models.PhotosGetNewTagsResponse, err error) {
+	req := api.NewRequest[models.PhotosGetNewTagsResponse](p.api)
+
+	res, err := req.Execute("photos.getNewTags", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetOwnerCoverPhotoUploadServer Returns the server address for owner cover upload.
+type PhotosGetOwnerCoverPhotoUploadServerRequest api.Params
+
+func NewPhotosGetOwnerCoverPhotoUploadServerRequest() PhotosGetOwnerCoverPhotoUploadServerRequest {
+	params := make(PhotosGetOwnerCoverPhotoUploadServerRequest, 6)
+	return params
+}
+
+func (p PhotosGetOwnerCoverPhotoUploadServerRequest) WithGroupId(p_group_id int) PhotosGetOwnerCoverPhotoUploadServerRequest {
+	p["group_id"] = p_group_id
+	return p
+}
+
+func (p PhotosGetOwnerCoverPhotoUploadServerRequest) WithCropX(p_crop_x int) PhotosGetOwnerCoverPhotoUploadServerRequest {
+	p["crop_x"] = p_crop_x
+	return p
+}
+
+func (p PhotosGetOwnerCoverPhotoUploadServerRequest) WithCropY(p_crop_y int) PhotosGetOwnerCoverPhotoUploadServerRequest {
+	p["crop_y"] = p_crop_y
+	return p
+}
+
+func (p PhotosGetOwnerCoverPhotoUploadServerRequest) WithCropX2(p_crop_x2 int) PhotosGetOwnerCoverPhotoUploadServerRequest {
+	p["crop_x2"] = p_crop_x2
+	return p
+}
+
+func (p PhotosGetOwnerCoverPhotoUploadServerRequest) WithCropY2(p_crop_y2 int) PhotosGetOwnerCoverPhotoUploadServerRequest {
+	p["crop_y2"] = p_crop_y2
+	return p
+}
+
+func (p PhotosGetOwnerCoverPhotoUploadServerRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, group ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.getOwnerCoverPhotoUploadServer
+func (p *Photos) PhotosGetOwnerCoverPhotoUploadServer(params ...api.MethodParams) (resp models.BaseGetUploadServerResponse, err error) {
+	req := api.NewRequest[models.BaseGetUploadServerResponse](p.api)
+
+	res, err := req.Execute("photos.getOwnerCoverPhotoUploadServer", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetOwnerPhotoUploadServer Returns an upload server address for a profile or community photo.
+type PhotosGetOwnerPhotoUploadServerRequest api.Params
+
+func NewPhotosGetOwnerPhotoUploadServerRequest() PhotosGetOwnerPhotoUploadServerRequest {
+	params := make(PhotosGetOwnerPhotoUploadServerRequest, 2)
+	return params
+}
+
+func (p PhotosGetOwnerPhotoUploadServerRequest) WithOwnerId(p_owner_id int) PhotosGetOwnerPhotoUploadServerRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosGetOwnerPhotoUploadServerRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.getOwnerPhotoUploadServer
+func (p *Photos) PhotosGetOwnerPhotoUploadServer(params ...api.MethodParams) (resp models.BaseGetUploadServerResponse, err error) {
+	req := api.NewRequest[models.BaseGetUploadServerResponse](p.api)
+
+	res, err := req.Execute("photos.getOwnerPhotoUploadServer", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetTags Returns a list of tags on a photo.
+type PhotosGetTagsRequest api.Params
+
+func NewPhotosGetTagsRequest() PhotosGetTagsRequest {
+	params := make(PhotosGetTagsRequest, 4)
+	return params
+}
+
+func (p PhotosGetTagsRequest) WithOwnerId(p_owner_id int) PhotosGetTagsRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosGetTagsRequest) WithPhotoId(p_photo_id int) PhotosGetTagsRequest {
+	p["photo_id"] = p_photo_id
+	return p
+}
+
+func (p PhotosGetTagsRequest) WithAccessKey(p_access_key string) PhotosGetTagsRequest {
+	p["access_key"] = p_access_key
+	return p
+}
+
+func (p PhotosGetTagsRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.getTags
+func (p *Photos) PhotosGetTags(params ...api.MethodParams) (resp models.PhotosGetTagsResponse, err error) {
+	req := api.NewRequest[models.PhotosGetTagsResponse](p.api)
+
+	res, err := req.Execute("photos.getTags", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetUploadServer Returns the server address for photo upload.
+type PhotosGetUploadServerRequest api.Params
+
+func NewPhotosGetUploadServerRequest() PhotosGetUploadServerRequest {
+	params := make(PhotosGetUploadServerRequest, 3)
+	return params
+}
+
+func (p PhotosGetUploadServerRequest) WithAlbumId(p_album_id int) PhotosGetUploadServerRequest {
+	p["album_id"] = p_album_id
+	return p
+}
+
+func (p PhotosGetUploadServerRequest) WithGroupId(p_group_id int) PhotosGetUploadServerRequest {
+	p["group_id"] = p_group_id
+	return p
+}
+
+func (p PhotosGetUploadServerRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.getUploadServer
+func (p *Photos) PhotosGetUploadServer(params ...api.MethodParams) (resp models.PhotosGetUploadServerResponse, err error) {
+	req := api.NewRequest[models.PhotosGetUploadServerResponse](p.api)
+
+	res, err := req.Execute("photos.getUploadServer", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetUserPhotos Returns a list of photos in which a user is tagged.
+type PhotosGetUserPhotosRequest api.Params
+
+func NewPhotosGetUserPhotosRequest() PhotosGetUserPhotosRequest {
+	params := make(PhotosGetUserPhotosRequest, 6)
+	return params
+}
+
+func (p PhotosGetUserPhotosRequest) WithUserId(p_user_id int) PhotosGetUserPhotosRequest {
+	p["user_id"] = p_user_id
+	return p
+}
+
+func (p PhotosGetUserPhotosRequest) WithOffset(p_offset int) PhotosGetUserPhotosRequest {
+	p["offset"] = p_offset
+	return p
+}
+
+func (p PhotosGetUserPhotosRequest) WithCount(p_count int) PhotosGetUserPhotosRequest {
+	p["count"] = p_count
+	return p
+}
+
+func (p PhotosGetUserPhotosRequest) WithExtended(p_extended bool) PhotosGetUserPhotosRequest {
+	p["extended"] = p_extended
+	return p
+}
+
+func (p PhotosGetUserPhotosRequest) WithSort(p_sort string) PhotosGetUserPhotosRequest {
+	p["sort"] = p_sort
+	return p
+}
+
+func (p PhotosGetUserPhotosRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.getUserPhotos
+func (p *Photos) PhotosGetUserPhotos(params ...api.MethodParams) (resp models.PhotosGetUserPhotosResponse, err error) {
+	req := api.NewRequest[models.PhotosGetUserPhotosResponse](p.api)
+
+	res, err := req.Execute("photos.getUserPhotos", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosGetWallUploadServer Returns the server address for photo upload onto a user's wall.
+type PhotosGetWallUploadServerRequest api.Params
+
+func NewPhotosGetWallUploadServerRequest() PhotosGetWallUploadServerRequest {
+	params := make(PhotosGetWallUploadServerRequest, 2)
+	return params
+}
+
+func (p PhotosGetWallUploadServerRequest) WithGroupId(p_group_id int) PhotosGetWallUploadServerRequest {
+	p["group_id"] = p_group_id
+	return p
+}
+
+func (p PhotosGetWallUploadServerRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.getWallUploadServer
+func (p *Photos) PhotosGetWallUploadServer(params ...api.MethodParams) (resp models.PhotosGetWallUploadServerResponse, err error) {
+	req := api.NewRequest[models.PhotosGetWallUploadServerResponse](p.api)
+
+	res, err := req.Execute("photos.getWallUploadServer", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosMakeCover Makes a photo into an album cover.
+type PhotosMakeCoverRequest api.Params
+
+func NewPhotosMakeCoverRequest() PhotosMakeCoverRequest {
+	params := make(PhotosMakeCoverRequest, 4)
+	return params
+}
+
+func (p PhotosMakeCoverRequest) WithOwnerId(p_owner_id int) PhotosMakeCoverRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosMakeCoverRequest) WithPhotoId(p_photo_id int) PhotosMakeCoverRequest {
+	p["photo_id"] = p_photo_id
+	return p
+}
+
+func (p PhotosMakeCoverRequest) WithAlbumId(p_album_id int) PhotosMakeCoverRequest {
+	p["album_id"] = p_album_id
+	return p
+}
+
+func (p PhotosMakeCoverRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.makeCover
+func (p *Photos) PhotosMakeCover(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](p.api)
+
+	res, err := req.Execute("photos.makeCover", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosMove Moves a photo from one album to another.
+type PhotosMoveRequest api.Params
+
+func NewPhotosMoveRequest() PhotosMoveRequest {
+	params := make(PhotosMoveRequest, 4)
+	return params
+}
+
+func (p PhotosMoveRequest) WithOwnerId(p_owner_id int) PhotosMoveRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosMoveRequest) WithTargetAlbumId(p_target_album_id int) PhotosMoveRequest {
+	p["target_album_id"] = p_target_album_id
+	return p
+}
+
+func (p PhotosMoveRequest) WithPhotoIds(p_photo_ids int) PhotosMoveRequest {
+	p["photo_ids"] = p_photo_ids
+	return p
+}
+
+func (p PhotosMoveRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.move
+func (p *Photos) PhotosMove(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](p.api)
+
+	res, err := req.Execute("photos.move", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosPutTag Adds a tag on the photo.
+type PhotosPutTagRequest api.Params
+
+func NewPhotosPutTagRequest() PhotosPutTagRequest {
+	params := make(PhotosPutTagRequest, 8)
+	return params
+}
+
+func (p PhotosPutTagRequest) WithOwnerId(p_owner_id int) PhotosPutTagRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosPutTagRequest) WithPhotoId(p_photo_id int) PhotosPutTagRequest {
+	p["photo_id"] = p_photo_id
+	return p
+}
+
+func (p PhotosPutTagRequest) WithUserId(p_user_id int) PhotosPutTagRequest {
+	p["user_id"] = p_user_id
+	return p
+}
+
+func (p PhotosPutTagRequest) WithX(p_x float64) PhotosPutTagRequest {
+	p["x"] = p_x
+	return p
+}
+
+func (p PhotosPutTagRequest) WithY(p_y float64) PhotosPutTagRequest {
+	p["y"] = p_y
+	return p
+}
+
+func (p PhotosPutTagRequest) WithX2(p_x2 float64) PhotosPutTagRequest {
+	p["x2"] = p_x2
+	return p
+}
+
+func (p PhotosPutTagRequest) WithY2(p_y2 float64) PhotosPutTagRequest {
+	p["y2"] = p_y2
+	return p
+}
+
+func (p PhotosPutTagRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.putTag
+func (p *Photos) PhotosPutTag(params ...api.MethodParams) (resp models.PhotosPutTagResponse, err error) {
+	req := api.NewRequest[models.PhotosPutTagResponse](p.api)
+
+	res, err := req.Execute("photos.putTag", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosRemoveTag Removes a tag from a photo.
+type PhotosRemoveTagRequest api.Params
+
+func NewPhotosRemoveTagRequest() PhotosRemoveTagRequest {
+	params := make(PhotosRemoveTagRequest, 4)
+	return params
+}
+
+func (p PhotosRemoveTagRequest) WithOwnerId(p_owner_id int) PhotosRemoveTagRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosRemoveTagRequest) WithPhotoId(p_photo_id int) PhotosRemoveTagRequest {
+	p["photo_id"] = p_photo_id
+	return p
+}
+
+func (p PhotosRemoveTagRequest) WithTagId(p_tag_id int) PhotosRemoveTagRequest {
+	p["tag_id"] = p_tag_id
+	return p
+}
+
+func (p PhotosRemoveTagRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.removeTag
+func (p *Photos) PhotosRemoveTag(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](p.api)
+
+	res, err := req.Execute("photos.removeTag", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosReorderAlbums Reorders the album in the list of user albums.
+type PhotosReorderAlbumsRequest api.Params
+
+func NewPhotosReorderAlbumsRequest() PhotosReorderAlbumsRequest {
+	params := make(PhotosReorderAlbumsRequest, 5)
+	return params
+}
+
+func (p PhotosReorderAlbumsRequest) WithOwnerId(p_owner_id int) PhotosReorderAlbumsRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosReorderAlbumsRequest) WithAlbumId(p_album_id int) PhotosReorderAlbumsRequest {
+	p["album_id"] = p_album_id
+	return p
+}
+
+func (p PhotosReorderAlbumsRequest) WithBefore(p_before int) PhotosReorderAlbumsRequest {
+	p["before"] = p_before
+	return p
+}
+
+func (p PhotosReorderAlbumsRequest) WithAfter(p_after int) PhotosReorderAlbumsRequest {
+	p["after"] = p_after
+	return p
+}
+
+func (p PhotosReorderAlbumsRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.reorderAlbums
+func (p *Photos) PhotosReorderAlbums(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](p.api)
+
+	res, err := req.Execute("photos.reorderAlbums", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosReorderPhotos Reorders the photo in the list of photos of the user album.
+type PhotosReorderPhotosRequest api.Params
+
+func NewPhotosReorderPhotosRequest() PhotosReorderPhotosRequest {
+	params := make(PhotosReorderPhotosRequest, 5)
+	return params
+}
+
+func (p PhotosReorderPhotosRequest) WithOwnerId(p_owner_id int) PhotosReorderPhotosRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosReorderPhotosRequest) WithPhotoId(p_photo_id int) PhotosReorderPhotosRequest {
+	p["photo_id"] = p_photo_id
+	return p
+}
+
+func (p PhotosReorderPhotosRequest) WithBefore(p_before int) PhotosReorderPhotosRequest {
+	p["before"] = p_before
+	return p
+}
+
+func (p PhotosReorderPhotosRequest) WithAfter(p_after int) PhotosReorderPhotosRequest {
+	p["after"] = p_after
+	return p
+}
+
+func (p PhotosReorderPhotosRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ParamPhotos ]
+//
+// https://dev.vk.com/method/photos.reorderPhotos
+func (p *Photos) PhotosReorderPhotos(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](p.api)
+
+	res, err := req.Execute("photos.reorderPhotos", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosReport Reports (submits a complaint about) a photo.
+type PhotosReportRequest api.Params
+
+func NewPhotosReportRequest() PhotosReportRequest {
+	params := make(PhotosReportRequest, 4)
+	return params
+}
+
+func (p PhotosReportRequest) WithOwnerId(p_owner_id int) PhotosReportRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosReportRequest) WithPhotoId(p_photo_id int) PhotosReportRequest {
+	p["photo_id"] = p_photo_id
+	return p
+}
+
+func (p PhotosReportRequest) WithReason(p_reason int) PhotosReportRequest {
+	p["reason"] = p_reason
+	return p
+}
+
+func (p PhotosReportRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.report
+func (p *Photos) PhotosReport(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](p.api)
+
+	res, err := req.Execute("photos.report", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosReportComment Reports (submits a complaint about) a comment on a photo.
+type PhotosReportCommentRequest api.Params
+
+func NewPhotosReportCommentRequest() PhotosReportCommentRequest {
+	params := make(PhotosReportCommentRequest, 4)
+	return params
+}
+
+func (p PhotosReportCommentRequest) WithOwnerId(p_owner_id int) PhotosReportCommentRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosReportCommentRequest) WithCommentId(p_comment_id int) PhotosReportCommentRequest {
+	p["comment_id"] = p_comment_id
+	return p
+}
+
+func (p PhotosReportCommentRequest) WithReason(p_reason int) PhotosReportCommentRequest {
+	p["reason"] = p_reason
+	return p
+}
+
+func (p PhotosReportCommentRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.reportComment
+func (p *Photos) PhotosReportComment(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](p.api)
+
+	res, err := req.Execute("photos.reportComment", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosRestore Restores a deleted photo.
+type PhotosRestoreRequest api.Params
+
+func NewPhotosRestoreRequest() PhotosRestoreRequest {
+	params := make(PhotosRestoreRequest, 3)
+	return params
+}
+
+func (p PhotosRestoreRequest) WithOwnerId(p_owner_id int) PhotosRestoreRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosRestoreRequest) WithPhotoId(p_photo_id int) PhotosRestoreRequest {
+	p["photo_id"] = p_photo_id
+	return p
+}
+
+func (p PhotosRestoreRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.restore
+func (p *Photos) PhotosRestore(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](p.api)
+
+	res, err := req.Execute("photos.restore", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosRestoreComment Restores a deleted comment on a photo.
+type PhotosRestoreCommentRequest api.Params
+
+func NewPhotosRestoreCommentRequest() PhotosRestoreCommentRequest {
+	params := make(PhotosRestoreCommentRequest, 3)
+	return params
+}
+
+func (p PhotosRestoreCommentRequest) WithOwnerId(p_owner_id int) PhotosRestoreCommentRequest {
+	p["owner_id"] = p_owner_id
+	return p
+}
+
+func (p PhotosRestoreCommentRequest) WithCommentId(p_comment_id int) PhotosRestoreCommentRequest {
+	p["comment_id"] = p_comment_id
+	return p
+}
+
+func (p PhotosRestoreCommentRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.restoreComment
+func (p *Photos) PhotosRestoreComment(params ...api.MethodParams) (resp models.PhotosRestoreCommentResponse, err error) {
+	req := api.NewRequest[models.PhotosRestoreCommentResponse](p.api)
+
+	res, err := req.Execute("photos.restoreComment", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosSave Saves photos after successful uploading.
+type PhotosSaveRequest api.Params
+
+func NewPhotosSaveRequest() PhotosSaveRequest {
+	params := make(PhotosSaveRequest, 9)
+	return params
+}
+
+func (p PhotosSaveRequest) WithAlbumId(p_album_id int) PhotosSaveRequest {
+	p["album_id"] = p_album_id
+	return p
+}
+
+func (p PhotosSaveRequest) WithGroupId(p_group_id int) PhotosSaveRequest {
+	p["group_id"] = p_group_id
+	return p
+}
+
+func (p PhotosSaveRequest) WithServer(p_server int) PhotosSaveRequest {
+	p["server"] = p_server
+	return p
+}
+
+func (p PhotosSaveRequest) WithPhotosList(p_photos_list string) PhotosSaveRequest {
+	p["photos_list"] = p_photos_list
+	return p
+}
+
+func (p PhotosSaveRequest) WithHash(p_hash string) PhotosSaveRequest {
+	p["hash"] = p_hash
+	return p
+}
+
+func (p PhotosSaveRequest) WithLatitude(p_latitude float64) PhotosSaveRequest {
+	p["latitude"] = p_latitude
+	return p
+}
+
+func (p PhotosSaveRequest) WithLongitude(p_longitude float64) PhotosSaveRequest {
+	p["longitude"] = p_longitude
+	return p
+}
+
+func (p PhotosSaveRequest) WithCaption(p_caption string) PhotosSaveRequest {
+	p["caption"] = p_caption
+	return p
+}
+
+func (p PhotosSaveRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ParamAlbumId, Error_ParamServer, Error_ParamHash ]
+//
+// https://dev.vk.com/method/photos.save
+func (p *Photos) PhotosSave(params ...api.MethodParams) (resp models.PhotosSaveResponse, err error) {
+	req := api.NewRequest[models.PhotosSaveResponse](p.api)
+
+	res, err := req.Execute("photos.save", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosSaveMarketAlbumPhoto Saves market album photos after successful uploading.
+type PhotosSaveMarketAlbumPhotoRequest api.Params
+
+func NewPhotosSaveMarketAlbumPhotoRequest() PhotosSaveMarketAlbumPhotoRequest {
+	params := make(PhotosSaveMarketAlbumPhotoRequest, 5)
+	return params
+}
+
+func (p PhotosSaveMarketAlbumPhotoRequest) WithGroupId(p_group_id int) PhotosSaveMarketAlbumPhotoRequest {
+	p["group_id"] = p_group_id
+	return p
+}
+
+func (p PhotosSaveMarketAlbumPhotoRequest) WithPhoto(p_photo string) PhotosSaveMarketAlbumPhotoRequest {
+	p["photo"] = p_photo
+	return p
+}
+
+func (p PhotosSaveMarketAlbumPhotoRequest) WithServer(p_server int) PhotosSaveMarketAlbumPhotoRequest {
+	p["server"] = p_server
+	return p
+}
+
+func (p PhotosSaveMarketAlbumPhotoRequest) WithHash(p_hash string) PhotosSaveMarketAlbumPhotoRequest {
+	p["hash"] = p_hash
+	return p
+}
+
+func (p PhotosSaveMarketAlbumPhotoRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ParamHash, Error_ParamPhoto, Error_MarketNotEnabled ]
+//
+// https://dev.vk.com/method/photos.saveMarketAlbumPhoto
+func (p *Photos) PhotosSaveMarketAlbumPhoto(params ...api.MethodParams) (resp models.PhotosSaveMarketAlbumPhotoResponse, err error) {
+	req := api.NewRequest[models.PhotosSaveMarketAlbumPhotoResponse](p.api)
+
+	res, err := req.Execute("photos.saveMarketAlbumPhoto", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosSaveMarketPhoto Saves market photos after successful uploading.
+type PhotosSaveMarketPhotoRequest api.Params
+
+func NewPhotosSaveMarketPhotoRequest() PhotosSaveMarketPhotoRequest {
+	params := make(PhotosSaveMarketPhotoRequest, 7)
+	return params
+}
+
+func (p PhotosSaveMarketPhotoRequest) WithGroupId(p_group_id int) PhotosSaveMarketPhotoRequest {
+	p["group_id"] = p_group_id
+	return p
+}
+
+func (p PhotosSaveMarketPhotoRequest) WithPhoto(p_photo string) PhotosSaveMarketPhotoRequest {
+	p["photo"] = p_photo
+	return p
+}
+
+func (p PhotosSaveMarketPhotoRequest) WithServer(p_server int) PhotosSaveMarketPhotoRequest {
+	p["server"] = p_server
+	return p
+}
+
+func (p PhotosSaveMarketPhotoRequest) WithHash(p_hash string) PhotosSaveMarketPhotoRequest {
+	p["hash"] = p_hash
+	return p
+}
+
+func (p PhotosSaveMarketPhotoRequest) WithCropData(p_crop_data string) PhotosSaveMarketPhotoRequest {
+	p["crop_data"] = p_crop_data
+	return p
+}
+
+func (p PhotosSaveMarketPhotoRequest) WithCropHash(p_crop_hash string) PhotosSaveMarketPhotoRequest {
+	p["crop_hash"] = p_crop_hash
+	return p
+}
+
+func (p PhotosSaveMarketPhotoRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ParamHash, Error_ParamPhoto, Error_MarketNotEnabled ]
+//
+// https://dev.vk.com/method/photos.saveMarketPhoto
+func (p *Photos) PhotosSaveMarketPhoto(params ...api.MethodParams) (resp models.PhotosSaveMarketPhotoResponse, err error) {
+	req := api.NewRequest[models.PhotosSaveMarketPhotoResponse](p.api)
+
+	res, err := req.Execute("photos.saveMarketPhoto", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosSaveMessagesPhoto Saves a photo after being successfully uploaded. URL obtained with [vk.com/dev/photos.getMessagesUploadServer|photos.getMessagesUploadServer] method.
+type PhotosSaveMessagesPhotoRequest api.Params
+
+func NewPhotosSaveMessagesPhotoRequest() PhotosSaveMessagesPhotoRequest {
+	params := make(PhotosSaveMessagesPhotoRequest, 4)
+	return params
+}
+
+func (p PhotosSaveMessagesPhotoRequest) WithPhoto(p_photo string) PhotosSaveMessagesPhotoRequest {
+	p["photo"] = p_photo
+	return p
+}
+
+func (p PhotosSaveMessagesPhotoRequest) WithServer(p_server int) PhotosSaveMessagesPhotoRequest {
+	p["server"] = p_server
+	return p
+}
+
+func (p PhotosSaveMessagesPhotoRequest) WithHash(p_hash string) PhotosSaveMessagesPhotoRequest {
+	p["hash"] = p_hash
+	return p
+}
+
+func (p PhotosSaveMessagesPhotoRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, group ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ParamAlbumId, Error_ParamServer, Error_ParamHash ]
+//
+// https://dev.vk.com/method/photos.saveMessagesPhoto
+func (p *Photos) PhotosSaveMessagesPhoto(params ...api.MethodParams) (resp models.PhotosSaveMessagesPhotoResponse, err error) {
+	req := api.NewRequest[models.PhotosSaveMessagesPhotoResponse](p.api)
+
+	res, err := req.Execute("photos.saveMessagesPhoto", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosSaveOwnerCoverPhoto Saves cover photo after successful uploading.
+type PhotosSaveOwnerCoverPhotoRequest api.Params
+
+func NewPhotosSaveOwnerCoverPhotoRequest() PhotosSaveOwnerCoverPhotoRequest {
+	params := make(PhotosSaveOwnerCoverPhotoRequest, 3)
+	return params
+}
+
+func (p PhotosSaveOwnerCoverPhotoRequest) WithHash(p_hash string) PhotosSaveOwnerCoverPhotoRequest {
+	p["hash"] = p_hash
+	return p
+}
+
+func (p PhotosSaveOwnerCoverPhotoRequest) WithPhoto(p_photo string) PhotosSaveOwnerCoverPhotoRequest {
+	p["photo"] = p_photo
+	return p
+}
+
+func (p PhotosSaveOwnerCoverPhotoRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, group ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ParamPhoto ]
+//
+// https://dev.vk.com/method/photos.saveOwnerCoverPhoto
+func (p *Photos) PhotosSaveOwnerCoverPhoto(params ...api.MethodParams) (resp models.PhotosSaveOwnerCoverPhotoResponse, err error) {
+	req := api.NewRequest[models.PhotosSaveOwnerCoverPhotoResponse](p.api)
+
+	res, err := req.Execute("photos.saveOwnerCoverPhoto", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosSaveOwnerPhoto Saves a profile or community photo. Upload URL can be got with the [vk.com/dev/photos.getOwnerPhotoUploadServer|photos.getOwnerPhotoUploadServer] method.
+type PhotosSaveOwnerPhotoRequest api.Params
+
+func NewPhotosSaveOwnerPhotoRequest() PhotosSaveOwnerPhotoRequest {
+	params := make(PhotosSaveOwnerPhotoRequest, 4)
+	return params
+}
+
+func (p PhotosSaveOwnerPhotoRequest) WithServer(p_server string) PhotosSaveOwnerPhotoRequest {
+	p["server"] = p_server
+	return p
+}
+
+func (p PhotosSaveOwnerPhotoRequest) WithHash(p_hash string) PhotosSaveOwnerPhotoRequest {
+	p["hash"] = p_hash
+	return p
+}
+
+func (p PhotosSaveOwnerPhotoRequest) WithPhoto(p_photo string) PhotosSaveOwnerPhotoRequest {
+	p["photo"] = p_photo
+	return p
+}
+
+func (p PhotosSaveOwnerPhotoRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ParamPhoto ]
+//
+// https://dev.vk.com/method/photos.saveOwnerPhoto
+func (p *Photos) PhotosSaveOwnerPhoto(params ...api.MethodParams) (resp models.PhotosSaveOwnerPhotoResponse, err error) {
+	req := api.NewRequest[models.PhotosSaveOwnerPhotoResponse](p.api)
+
+	res, err := req.Execute("photos.saveOwnerPhoto", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosSaveWallPhoto Saves a photo to a user's or community's wall after being uploaded.
+type PhotosSaveWallPhotoRequest api.Params
+
+func NewPhotosSaveWallPhotoRequest() PhotosSaveWallPhotoRequest {
+	params := make(PhotosSaveWallPhotoRequest, 9)
+	return params
+}
+
+func (p PhotosSaveWallPhotoRequest) WithUserId(p_user_id int) PhotosSaveWallPhotoRequest {
+	p["user_id"] = p_user_id
+	return p
+}
+
+func (p PhotosSaveWallPhotoRequest) WithGroupId(p_group_id int) PhotosSaveWallPhotoRequest {
+	p["group_id"] = p_group_id
+	return p
+}
+
+func (p PhotosSaveWallPhotoRequest) WithPhoto(p_photo string) PhotosSaveWallPhotoRequest {
+	p["photo"] = p_photo
+	return p
+}
+
+func (p PhotosSaveWallPhotoRequest) WithServer(p_server int) PhotosSaveWallPhotoRequest {
+	p["server"] = p_server
+	return p
+}
+
+func (p PhotosSaveWallPhotoRequest) WithHash(p_hash string) PhotosSaveWallPhotoRequest {
+	p["hash"] = p_hash
+	return p
+}
+
+func (p PhotosSaveWallPhotoRequest) WithLatitude(p_latitude float64) PhotosSaveWallPhotoRequest {
+	p["latitude"] = p_latitude
+	return p
+}
+
+func (p PhotosSaveWallPhotoRequest) WithLongitude(p_longitude float64) PhotosSaveWallPhotoRequest {
+	p["longitude"] = p_longitude
+	return p
+}
+
+func (p PhotosSaveWallPhotoRequest) WithCaption(p_caption string) PhotosSaveWallPhotoRequest {
+	p["caption"] = p_caption
+	return p
+}
+
+func (p PhotosSaveWallPhotoRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ParamAlbumId, Error_ParamServer, Error_ParamHash ]
+//
+// https://dev.vk.com/method/photos.saveWallPhoto
+func (p *Photos) PhotosSaveWallPhoto(params ...api.MethodParams) (resp models.PhotosSaveWallPhotoResponse, err error) {
+	req := api.NewRequest[models.PhotosSaveWallPhotoResponse](p.api)
+
+	res, err := req.Execute("photos.saveWallPhoto", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// PhotosSearch Returns a list of photos.
+type PhotosSearchRequest api.Params
+
+func NewPhotosSearchRequest() PhotosSearchRequest {
+	params := make(PhotosSearchRequest, 10)
+	return params
+}
+
+func (p PhotosSearchRequest) WithQ(p_q string) PhotosSearchRequest {
+	p["q"] = p_q
+	return p
+}
+
+func (p PhotosSearchRequest) WithLat(p_lat float64) PhotosSearchRequest {
+	p["lat"] = p_lat
+	return p
+}
+
+func (p PhotosSearchRequest) WithLong(p_long float64) PhotosSearchRequest {
+	p["long"] = p_long
+	return p
+}
+
+func (p PhotosSearchRequest) WithStartTime(p_start_time int) PhotosSearchRequest {
+	p["start_time"] = p_start_time
+	return p
+}
+
+func (p PhotosSearchRequest) WithEndTime(p_end_time int) PhotosSearchRequest {
+	p["end_time"] = p_end_time
+	return p
+}
+
+func (p PhotosSearchRequest) WithSort(p_sort int) PhotosSearchRequest {
+	p["sort"] = p_sort
+	return p
+}
+
+func (p PhotosSearchRequest) WithOffset(p_offset int) PhotosSearchRequest {
+	p["offset"] = p_offset
+	return p
+}
+
+func (p PhotosSearchRequest) WithCount(p_count int) PhotosSearchRequest {
+	p["count"] = p_count
+	return p
+}
+
+func (p PhotosSearchRequest) WithRadius(p_radius int) PhotosSearchRequest {
+	p["radius"] = p_radius
+	return p
+}
+
+func (p PhotosSearchRequest) Params() api.Params {
+	return api.Params(p)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/photos.search
+func (p *Photos) PhotosSearch(params ...api.MethodParams) (resp models.PhotosSearchResponse, err error) {
+	req := api.NewRequest[models.PhotosSearchResponse](p.api)
+
+	res, err := req.Execute("photos.search", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}

@@ -4,6 +4,7 @@ package requests
 
 import (
 	"github.com/defany/govk/api"
+	"github.com/defany/govk/api/gen/models"
 )
 
 type Video struct {
@@ -16,3 +17,1448 @@ func NewVideo(api *api.API) *Video {
 	}
 }
 
+// VideoAdd Adds a video to a user or community page.
+type VideoAddRequest api.Params
+
+func NewVideoAddRequest() VideoAddRequest {
+	params := make(VideoAddRequest, 4)
+	return params
+}
+
+func (v VideoAddRequest) WithTargetId(v_target_id int) VideoAddRequest {
+	v["target_id"] = v_target_id
+	return v
+}
+
+func (v VideoAddRequest) WithVideoId(v_video_id int) VideoAddRequest {
+	v["video_id"] = v_video_id
+	return v
+}
+
+func (v VideoAddRequest) WithOwnerId(v_owner_id int) VideoAddRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoAddRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo, Error_VideoAlreadyAdded ]
+//
+// https://dev.vk.com/method/video.add
+func (v *Video) VideoAdd(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](v.api)
+
+	res, err := req.Execute("video.add", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoAddAlbum Creates an empty album for videos.
+type VideoAddAlbumRequest api.Params
+
+func NewVideoAddAlbumRequest() VideoAddAlbumRequest {
+	params := make(VideoAddAlbumRequest, 4)
+	return params
+}
+
+func (v VideoAddAlbumRequest) WithGroupId(v_group_id int) VideoAddAlbumRequest {
+	v["group_id"] = v_group_id
+	return v
+}
+
+func (v VideoAddAlbumRequest) WithTitle(v_title string) VideoAddAlbumRequest {
+	v["title"] = v_title
+	return v
+}
+
+func (v VideoAddAlbumRequest) WithPrivacy(v_privacy []string) VideoAddAlbumRequest {
+	v["privacy"] = v_privacy
+	return v
+}
+
+func (v VideoAddAlbumRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo, Error_AlbumsLimit ]
+//
+// https://dev.vk.com/method/video.addAlbum
+func (v *Video) VideoAddAlbum(params ...api.MethodParams) (resp models.VideoAddAlbumResponse, err error) {
+	req := api.NewRequest[models.VideoAddAlbumResponse](v.api)
+
+	res, err := req.Execute("video.addAlbum", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoAddToAlbum ...
+type VideoAddToAlbumRequest api.Params
+
+func NewVideoAddToAlbumRequest() VideoAddToAlbumRequest {
+	params := make(VideoAddToAlbumRequest, 6)
+	return params
+}
+
+func (v VideoAddToAlbumRequest) WithTargetId(v_target_id int) VideoAddToAlbumRequest {
+	v["target_id"] = v_target_id
+	return v
+}
+
+func (v VideoAddToAlbumRequest) WithAlbumId(v_album_id int) VideoAddToAlbumRequest {
+	v["album_id"] = v_album_id
+	return v
+}
+
+func (v VideoAddToAlbumRequest) WithAlbumIds(v_album_ids []int) VideoAddToAlbumRequest {
+	v["album_ids"] = v_album_ids
+	return v
+}
+
+func (v VideoAddToAlbumRequest) WithOwnerId(v_owner_id int) VideoAddToAlbumRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoAddToAlbumRequest) WithVideoId(v_video_id int) VideoAddToAlbumRequest {
+	v["video_id"] = v_video_id
+	return v
+}
+
+func (v VideoAddToAlbumRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo, Error_VideoAlreadyAdded ]
+//
+// https://dev.vk.com/method/video.addToAlbum
+func (v *Video) VideoAddToAlbum(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](v.api)
+
+	res, err := req.Execute("video.addToAlbum", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoCreateComment Adds a new comment on a video.
+type VideoCreateCommentRequest api.Params
+
+func NewVideoCreateCommentRequest() VideoCreateCommentRequest {
+	params := make(VideoCreateCommentRequest, 9)
+	return params
+}
+
+func (v VideoCreateCommentRequest) WithOwnerId(v_owner_id int) VideoCreateCommentRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoCreateCommentRequest) WithVideoId(v_video_id int) VideoCreateCommentRequest {
+	v["video_id"] = v_video_id
+	return v
+}
+
+func (v VideoCreateCommentRequest) WithMessage(v_message string) VideoCreateCommentRequest {
+	v["message"] = v_message
+	return v
+}
+
+func (v VideoCreateCommentRequest) WithAttachments(v_attachments []string) VideoCreateCommentRequest {
+	v["attachments"] = v_attachments
+	return v
+}
+
+func (v VideoCreateCommentRequest) WithFromGroup(v_from_group bool) VideoCreateCommentRequest {
+	v["from_group"] = v_from_group
+	return v
+}
+
+func (v VideoCreateCommentRequest) WithReplyToComment(v_reply_to_comment int) VideoCreateCommentRequest {
+	v["reply_to_comment"] = v_reply_to_comment
+	return v
+}
+
+func (v VideoCreateCommentRequest) WithStickerId(v_sticker_id int) VideoCreateCommentRequest {
+	v["sticker_id"] = v_sticker_id
+	return v
+}
+
+func (v VideoCreateCommentRequest) WithGuid(v_guid string) VideoCreateCommentRequest {
+	v["guid"] = v_guid
+	return v
+}
+
+func (v VideoCreateCommentRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_VideoCommentsClosed ]
+//
+// https://dev.vk.com/method/video.createComment
+func (v *Video) VideoCreateComment(params ...api.MethodParams) (resp models.VideoCreateCommentResponse, err error) {
+	req := api.NewRequest[models.VideoCreateCommentResponse](v.api)
+
+	res, err := req.Execute("video.createComment", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoDelete Deletes a video from a user or community page.
+type VideoDeleteRequest api.Params
+
+func NewVideoDeleteRequest() VideoDeleteRequest {
+	params := make(VideoDeleteRequest, 4)
+	return params
+}
+
+func (v VideoDeleteRequest) WithVideoId(v_video_id int) VideoDeleteRequest {
+	v["video_id"] = v_video_id
+	return v
+}
+
+func (v VideoDeleteRequest) WithOwnerId(v_owner_id int) VideoDeleteRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoDeleteRequest) WithTargetId(v_target_id int) VideoDeleteRequest {
+	v["target_id"] = v_target_id
+	return v
+}
+
+func (v VideoDeleteRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/video.delete
+func (v *Video) VideoDelete(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](v.api)
+
+	res, err := req.Execute("video.delete", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoDeleteAlbum Deletes a video album.
+type VideoDeleteAlbumRequest api.Params
+
+func NewVideoDeleteAlbumRequest() VideoDeleteAlbumRequest {
+	params := make(VideoDeleteAlbumRequest, 3)
+	return params
+}
+
+func (v VideoDeleteAlbumRequest) WithGroupId(v_group_id int) VideoDeleteAlbumRequest {
+	v["group_id"] = v_group_id
+	return v
+}
+
+func (v VideoDeleteAlbumRequest) WithAlbumId(v_album_id int) VideoDeleteAlbumRequest {
+	v["album_id"] = v_album_id
+	return v
+}
+
+func (v VideoDeleteAlbumRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo ]
+//
+// https://dev.vk.com/method/video.deleteAlbum
+func (v *Video) VideoDeleteAlbum(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](v.api)
+
+	res, err := req.Execute("video.deleteAlbum", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoDeleteComment Deletes a comment on a video.
+type VideoDeleteCommentRequest api.Params
+
+func NewVideoDeleteCommentRequest() VideoDeleteCommentRequest {
+	params := make(VideoDeleteCommentRequest, 3)
+	return params
+}
+
+func (v VideoDeleteCommentRequest) WithOwnerId(v_owner_id int) VideoDeleteCommentRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoDeleteCommentRequest) WithCommentId(v_comment_id int) VideoDeleteCommentRequest {
+	v["comment_id"] = v_comment_id
+	return v
+}
+
+func (v VideoDeleteCommentRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/video.deleteComment
+func (v *Video) VideoDeleteComment(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](v.api)
+
+	res, err := req.Execute("video.deleteComment", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoEdit Edits information about a video on a user or community page.
+type VideoEditRequest api.Params
+
+func NewVideoEditRequest() VideoEditRequest {
+	params := make(VideoEditRequest, 9)
+	return params
+}
+
+func (v VideoEditRequest) WithOwnerId(v_owner_id int) VideoEditRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoEditRequest) WithVideoId(v_video_id int) VideoEditRequest {
+	v["video_id"] = v_video_id
+	return v
+}
+
+func (v VideoEditRequest) WithName(v_name string) VideoEditRequest {
+	v["name"] = v_name
+	return v
+}
+
+func (v VideoEditRequest) WithDesc(v_desc string) VideoEditRequest {
+	v["desc"] = v_desc
+	return v
+}
+
+func (v VideoEditRequest) WithPrivacyView(v_privacy_view []string) VideoEditRequest {
+	v["privacy_view"] = v_privacy_view
+	return v
+}
+
+func (v VideoEditRequest) WithPrivacyComment(v_privacy_comment []string) VideoEditRequest {
+	v["privacy_comment"] = v_privacy_comment
+	return v
+}
+
+func (v VideoEditRequest) WithNoComments(v_no_comments bool) VideoEditRequest {
+	v["no_comments"] = v_no_comments
+	return v
+}
+
+func (v VideoEditRequest) WithRepeat(v_repeat bool) VideoEditRequest {
+	v["repeat"] = v_repeat
+	return v
+}
+
+func (v VideoEditRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/video.edit
+func (v *Video) VideoEdit(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](v.api)
+
+	res, err := req.Execute("video.edit", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoEditAlbum Edits the title of a video album.
+type VideoEditAlbumRequest api.Params
+
+func NewVideoEditAlbumRequest() VideoEditAlbumRequest {
+	params := make(VideoEditAlbumRequest, 5)
+	return params
+}
+
+func (v VideoEditAlbumRequest) WithGroupId(v_group_id int) VideoEditAlbumRequest {
+	v["group_id"] = v_group_id
+	return v
+}
+
+func (v VideoEditAlbumRequest) WithAlbumId(v_album_id int) VideoEditAlbumRequest {
+	v["album_id"] = v_album_id
+	return v
+}
+
+func (v VideoEditAlbumRequest) WithTitle(v_title string) VideoEditAlbumRequest {
+	v["title"] = v_title
+	return v
+}
+
+func (v VideoEditAlbumRequest) WithPrivacy(v_privacy []string) VideoEditAlbumRequest {
+	v["privacy"] = v_privacy
+	return v
+}
+
+func (v VideoEditAlbumRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo ]
+//
+// https://dev.vk.com/method/video.editAlbum
+func (v *Video) VideoEditAlbum(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](v.api)
+
+	res, err := req.Execute("video.editAlbum", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoEditComment Edits the text of a comment on a video.
+type VideoEditCommentRequest api.Params
+
+func NewVideoEditCommentRequest() VideoEditCommentRequest {
+	params := make(VideoEditCommentRequest, 5)
+	return params
+}
+
+func (v VideoEditCommentRequest) WithOwnerId(v_owner_id int) VideoEditCommentRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoEditCommentRequest) WithCommentId(v_comment_id int) VideoEditCommentRequest {
+	v["comment_id"] = v_comment_id
+	return v
+}
+
+func (v VideoEditCommentRequest) WithMessage(v_message string) VideoEditCommentRequest {
+	v["message"] = v_message
+	return v
+}
+
+func (v VideoEditCommentRequest) WithAttachments(v_attachments []string) VideoEditCommentRequest {
+	v["attachments"] = v_attachments
+	return v
+}
+
+func (v VideoEditCommentRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/video.editComment
+func (v *Video) VideoEditComment(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](v.api)
+
+	res, err := req.Execute("video.editComment", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoGet Returns detailed information about videos.
+type VideoGetRequest api.Params
+
+func NewVideoGetRequest() VideoGetRequest {
+	params := make(VideoGetRequest, 8)
+	return params
+}
+
+func (v VideoGetRequest) WithOwnerId(v_owner_id int) VideoGetRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoGetRequest) WithVideos(v_videos []string) VideoGetRequest {
+	v["videos"] = v_videos
+	return v
+}
+
+func (v VideoGetRequest) WithAlbumId(v_album_id int) VideoGetRequest {
+	v["album_id"] = v_album_id
+	return v
+}
+
+func (v VideoGetRequest) WithCount(v_count int) VideoGetRequest {
+	v["count"] = v_count
+	return v
+}
+
+func (v VideoGetRequest) WithOffset(v_offset int) VideoGetRequest {
+	v["offset"] = v_offset
+	return v
+}
+
+func (v VideoGetRequest) WithExtended(v_extended bool) VideoGetRequest {
+	v["extended"] = v_extended
+	return v
+}
+
+func (v VideoGetRequest) WithFields(v_fields []string) VideoGetRequest {
+	v["fields"] = v_fields
+	return v
+}
+
+func (v VideoGetRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo ]
+//
+// https://dev.vk.com/method/video.get
+func (v *Video) VideoGet(params ...api.MethodParams) (resp models.VideoGetResponse, err error) {
+	req := api.NewRequest[models.VideoGetResponse](v.api)
+
+	res, err := req.Execute("video.get", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoGetAlbumById Returns video album info
+type VideoGetAlbumByIdRequest api.Params
+
+func NewVideoGetAlbumByIdRequest() VideoGetAlbumByIdRequest {
+	params := make(VideoGetAlbumByIdRequest, 3)
+	return params
+}
+
+func (v VideoGetAlbumByIdRequest) WithOwnerId(v_owner_id int) VideoGetAlbumByIdRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoGetAlbumByIdRequest) WithAlbumId(v_album_id int) VideoGetAlbumByIdRequest {
+	v["album_id"] = v_album_id
+	return v
+}
+
+func (v VideoGetAlbumByIdRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo ]
+//
+// https://dev.vk.com/method/video.getAlbumById
+func (v *Video) VideoGetAlbumById(params ...api.MethodParams) (resp models.VideoGetAlbumByIdResponse, err error) {
+	req := api.NewRequest[models.VideoGetAlbumByIdResponse](v.api)
+
+	res, err := req.Execute("video.getAlbumById", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoGetAlbums Returns a list of video albums owned by a user or community.
+type VideoGetAlbumsRequest api.Params
+
+func NewVideoGetAlbumsRequest() VideoGetAlbumsRequest {
+	params := make(VideoGetAlbumsRequest, 7)
+	return params
+}
+
+func (v VideoGetAlbumsRequest) WithOwnerId(v_owner_id int) VideoGetAlbumsRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoGetAlbumsRequest) WithOffset(v_offset int) VideoGetAlbumsRequest {
+	v["offset"] = v_offset
+	return v
+}
+
+func (v VideoGetAlbumsRequest) WithCount(v_count int) VideoGetAlbumsRequest {
+	v["count"] = v_count
+	return v
+}
+
+func (v VideoGetAlbumsRequest) WithExtended(v_extended bool) VideoGetAlbumsRequest {
+	v["extended"] = v_extended
+	return v
+}
+
+func (v VideoGetAlbumsRequest) WithNeedSystem(v_need_system bool) VideoGetAlbumsRequest {
+	v["need_system"] = v_need_system
+	return v
+}
+
+func (v VideoGetAlbumsRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo ]
+//
+// https://dev.vk.com/method/video.getAlbums
+func (v *Video) VideoGetAlbums(params ...api.MethodParams) (resp models.VideoGetAlbumsResponse, err error) {
+	req := api.NewRequest[models.VideoGetAlbumsResponse](v.api)
+
+	res, err := req.Execute("video.getAlbums", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoGetAlbumsExtended Returns a list of video albums owned by a user or community.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo ]
+//
+// https://dev.vk.com/method/video.getAlbums
+func (v *Video) VideoGetAlbumsExtended(params ...api.MethodParams) (resp models.VideoGetAlbumsExtendedResponse, err error) {
+	req := api.NewRequest[models.VideoGetAlbumsExtendedResponse](v.api)
+
+	res, err := req.Execute("video.getAlbums", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoGetAlbumsByVideo ...
+type VideoGetAlbumsByVideoRequest api.Params
+
+func NewVideoGetAlbumsByVideoRequest() VideoGetAlbumsByVideoRequest {
+	params := make(VideoGetAlbumsByVideoRequest, 6)
+	return params
+}
+
+func (v VideoGetAlbumsByVideoRequest) WithTargetId(v_target_id int) VideoGetAlbumsByVideoRequest {
+	v["target_id"] = v_target_id
+	return v
+}
+
+func (v VideoGetAlbumsByVideoRequest) WithOwnerId(v_owner_id int) VideoGetAlbumsByVideoRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoGetAlbumsByVideoRequest) WithVideoId(v_video_id int) VideoGetAlbumsByVideoRequest {
+	v["video_id"] = v_video_id
+	return v
+}
+
+func (v VideoGetAlbumsByVideoRequest) WithExtended(v_extended bool) VideoGetAlbumsByVideoRequest {
+	v["extended"] = v_extended
+	return v
+}
+
+func (v VideoGetAlbumsByVideoRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo ]
+//
+// https://dev.vk.com/method/video.getAlbumsByVideo
+func (v *Video) VideoGetAlbumsByVideo(params ...api.MethodParams) (resp models.VideoGetAlbumsByVideoResponse, err error) {
+	req := api.NewRequest[models.VideoGetAlbumsByVideoResponse](v.api)
+
+	res, err := req.Execute("video.getAlbumsByVideo", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoGetAlbumsByVideoExtended ...
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo ]
+//
+// https://dev.vk.com/method/video.getAlbumsByVideo
+func (v *Video) VideoGetAlbumsByVideoExtended(params ...api.MethodParams) (resp models.VideoGetAlbumsByVideoExtendedResponse, err error) {
+	req := api.NewRequest[models.VideoGetAlbumsByVideoExtendedResponse](v.api)
+
+	res, err := req.Execute("video.getAlbumsByVideo", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoGetComments Returns a list of comments on a video.
+type VideoGetCommentsRequest api.Params
+
+func NewVideoGetCommentsRequest() VideoGetCommentsRequest {
+	params := make(VideoGetCommentsRequest, 11)
+	return params
+}
+
+func (v VideoGetCommentsRequest) WithOwnerId(v_owner_id int) VideoGetCommentsRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoGetCommentsRequest) WithVideoId(v_video_id int) VideoGetCommentsRequest {
+	v["video_id"] = v_video_id
+	return v
+}
+
+func (v VideoGetCommentsRequest) WithNeedLikes(v_need_likes bool) VideoGetCommentsRequest {
+	v["need_likes"] = v_need_likes
+	return v
+}
+
+func (v VideoGetCommentsRequest) WithStartCommentId(v_start_comment_id int) VideoGetCommentsRequest {
+	v["start_comment_id"] = v_start_comment_id
+	return v
+}
+
+func (v VideoGetCommentsRequest) WithOffset(v_offset int) VideoGetCommentsRequest {
+	v["offset"] = v_offset
+	return v
+}
+
+func (v VideoGetCommentsRequest) WithCount(v_count int) VideoGetCommentsRequest {
+	v["count"] = v_count
+	return v
+}
+
+func (v VideoGetCommentsRequest) WithSort(v_sort string) VideoGetCommentsRequest {
+	v["sort"] = v_sort
+	return v
+}
+
+func (v VideoGetCommentsRequest) WithExtended(v_extended bool) VideoGetCommentsRequest {
+	v["extended"] = v_extended
+	return v
+}
+
+func (v VideoGetCommentsRequest) WithFields(v_fields []string) VideoGetCommentsRequest {
+	v["fields"] = v_fields
+	return v
+}
+
+func (v VideoGetCommentsRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_VideoCommentsClosed ]
+//
+// https://dev.vk.com/method/video.getComments
+func (v *Video) VideoGetComments(params ...api.MethodParams) (resp models.VideoGetCommentsResponse, err error) {
+	req := api.NewRequest[models.VideoGetCommentsResponse](v.api)
+
+	res, err := req.Execute("video.getComments", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoGetCommentsExtended Returns a list of comments on a video.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_VideoCommentsClosed ]
+//
+// https://dev.vk.com/method/video.getComments
+func (v *Video) VideoGetCommentsExtended(params ...api.MethodParams) (resp models.VideoGetCommentsExtendedResponse, err error) {
+	req := api.NewRequest[models.VideoGetCommentsExtendedResponse](v.api)
+
+	res, err := req.Execute("video.getComments", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoRemoveFromAlbum ...
+type VideoRemoveFromAlbumRequest api.Params
+
+func NewVideoRemoveFromAlbumRequest() VideoRemoveFromAlbumRequest {
+	params := make(VideoRemoveFromAlbumRequest, 6)
+	return params
+}
+
+func (v VideoRemoveFromAlbumRequest) WithTargetId(v_target_id int) VideoRemoveFromAlbumRequest {
+	v["target_id"] = v_target_id
+	return v
+}
+
+func (v VideoRemoveFromAlbumRequest) WithAlbumId(v_album_id int) VideoRemoveFromAlbumRequest {
+	v["album_id"] = v_album_id
+	return v
+}
+
+func (v VideoRemoveFromAlbumRequest) WithAlbumIds(v_album_ids []int) VideoRemoveFromAlbumRequest {
+	v["album_ids"] = v_album_ids
+	return v
+}
+
+func (v VideoRemoveFromAlbumRequest) WithOwnerId(v_owner_id int) VideoRemoveFromAlbumRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoRemoveFromAlbumRequest) WithVideoId(v_video_id int) VideoRemoveFromAlbumRequest {
+	v["video_id"] = v_video_id
+	return v
+}
+
+func (v VideoRemoveFromAlbumRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo ]
+//
+// https://dev.vk.com/method/video.removeFromAlbum
+func (v *Video) VideoRemoveFromAlbum(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](v.api)
+
+	res, err := req.Execute("video.removeFromAlbum", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoReorderAlbums Reorders the album in the list of user video albums.
+type VideoReorderAlbumsRequest api.Params
+
+func NewVideoReorderAlbumsRequest() VideoReorderAlbumsRequest {
+	params := make(VideoReorderAlbumsRequest, 5)
+	return params
+}
+
+func (v VideoReorderAlbumsRequest) WithOwnerId(v_owner_id int) VideoReorderAlbumsRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoReorderAlbumsRequest) WithAlbumId(v_album_id int) VideoReorderAlbumsRequest {
+	v["album_id"] = v_album_id
+	return v
+}
+
+func (v VideoReorderAlbumsRequest) WithBefore(v_before int) VideoReorderAlbumsRequest {
+	v["before"] = v_before
+	return v
+}
+
+func (v VideoReorderAlbumsRequest) WithAfter(v_after int) VideoReorderAlbumsRequest {
+	v["after"] = v_after
+	return v
+}
+
+func (v VideoReorderAlbumsRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo, Error_NotFound ]
+//
+// https://dev.vk.com/method/video.reorderAlbums
+func (v *Video) VideoReorderAlbums(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](v.api)
+
+	res, err := req.Execute("video.reorderAlbums", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoReorderVideos Reorders the video in the video album.
+type VideoReorderVideosRequest api.Params
+
+func NewVideoReorderVideosRequest() VideoReorderVideosRequest {
+	params := make(VideoReorderVideosRequest, 9)
+	return params
+}
+
+func (v VideoReorderVideosRequest) WithTargetId(v_target_id int) VideoReorderVideosRequest {
+	v["target_id"] = v_target_id
+	return v
+}
+
+func (v VideoReorderVideosRequest) WithAlbumId(v_album_id int) VideoReorderVideosRequest {
+	v["album_id"] = v_album_id
+	return v
+}
+
+func (v VideoReorderVideosRequest) WithOwnerId(v_owner_id int) VideoReorderVideosRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoReorderVideosRequest) WithVideoId(v_video_id int) VideoReorderVideosRequest {
+	v["video_id"] = v_video_id
+	return v
+}
+
+func (v VideoReorderVideosRequest) WithBeforeOwnerId(v_before_owner_id int) VideoReorderVideosRequest {
+	v["before_owner_id"] = v_before_owner_id
+	return v
+}
+
+func (v VideoReorderVideosRequest) WithBeforeVideoId(v_before_video_id int) VideoReorderVideosRequest {
+	v["before_video_id"] = v_before_video_id
+	return v
+}
+
+func (v VideoReorderVideosRequest) WithAfterOwnerId(v_after_owner_id int) VideoReorderVideosRequest {
+	v["after_owner_id"] = v_after_owner_id
+	return v
+}
+
+func (v VideoReorderVideosRequest) WithAfterVideoId(v_after_video_id int) VideoReorderVideosRequest {
+	v["after_video_id"] = v_after_video_id
+	return v
+}
+
+func (v VideoReorderVideosRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo ]
+//
+// https://dev.vk.com/method/video.reorderVideos
+func (v *Video) VideoReorderVideos(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](v.api)
+
+	res, err := req.Execute("video.reorderVideos", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoReport Reports (submits a complaint about) a video.
+type VideoReportRequest api.Params
+
+func NewVideoReportRequest() VideoReportRequest {
+	params := make(VideoReportRequest, 6)
+	return params
+}
+
+func (v VideoReportRequest) WithOwnerId(v_owner_id int) VideoReportRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoReportRequest) WithVideoId(v_video_id int) VideoReportRequest {
+	v["video_id"] = v_video_id
+	return v
+}
+
+func (v VideoReportRequest) WithReason(v_reason int) VideoReportRequest {
+	v["reason"] = v_reason
+	return v
+}
+
+func (v VideoReportRequest) WithComment(v_comment string) VideoReportRequest {
+	v["comment"] = v_comment
+	return v
+}
+
+func (v VideoReportRequest) WithSearchQuery(v_search_query string) VideoReportRequest {
+	v["search_query"] = v_search_query
+	return v
+}
+
+func (v VideoReportRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/video.report
+func (v *Video) VideoReport(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](v.api)
+
+	res, err := req.Execute("video.report", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoReportComment Reports (submits a complaint about) a comment on a video.
+type VideoReportCommentRequest api.Params
+
+func NewVideoReportCommentRequest() VideoReportCommentRequest {
+	params := make(VideoReportCommentRequest, 4)
+	return params
+}
+
+func (v VideoReportCommentRequest) WithOwnerId(v_owner_id int) VideoReportCommentRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoReportCommentRequest) WithCommentId(v_comment_id int) VideoReportCommentRequest {
+	v["comment_id"] = v_comment_id
+	return v
+}
+
+func (v VideoReportCommentRequest) WithReason(v_reason int) VideoReportCommentRequest {
+	v["reason"] = v_reason
+	return v
+}
+
+func (v VideoReportCommentRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/video.reportComment
+func (v *Video) VideoReportComment(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](v.api)
+
+	res, err := req.Execute("video.reportComment", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoRestore Restores a previously deleted video.
+type VideoRestoreRequest api.Params
+
+func NewVideoRestoreRequest() VideoRestoreRequest {
+	params := make(VideoRestoreRequest, 3)
+	return params
+}
+
+func (v VideoRestoreRequest) WithVideoId(v_video_id int) VideoRestoreRequest {
+	v["video_id"] = v_video_id
+	return v
+}
+
+func (v VideoRestoreRequest) WithOwnerId(v_owner_id int) VideoRestoreRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoRestoreRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/video.restore
+func (v *Video) VideoRestore(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](v.api)
+
+	res, err := req.Execute("video.restore", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoRestoreComment Restores a previously deleted comment on a video.
+type VideoRestoreCommentRequest api.Params
+
+func NewVideoRestoreCommentRequest() VideoRestoreCommentRequest {
+	params := make(VideoRestoreCommentRequest, 3)
+	return params
+}
+
+func (v VideoRestoreCommentRequest) WithOwnerId(v_owner_id int) VideoRestoreCommentRequest {
+	v["owner_id"] = v_owner_id
+	return v
+}
+
+func (v VideoRestoreCommentRequest) WithCommentId(v_comment_id int) VideoRestoreCommentRequest {
+	v["comment_id"] = v_comment_id
+	return v
+}
+
+func (v VideoRestoreCommentRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/video.restoreComment
+func (v *Video) VideoRestoreComment(params ...api.MethodParams) (resp models.VideoRestoreCommentResponse, err error) {
+	req := api.NewRequest[models.VideoRestoreCommentResponse](v.api)
+
+	res, err := req.Execute("video.restoreComment", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoSave Returns a server address (required for upload) and video data.
+type VideoSaveRequest api.Params
+
+func NewVideoSaveRequest() VideoSaveRequest {
+	params := make(VideoSaveRequest, 13)
+	return params
+}
+
+func (v VideoSaveRequest) WithName(v_name string) VideoSaveRequest {
+	v["name"] = v_name
+	return v
+}
+
+func (v VideoSaveRequest) WithDescription(v_description string) VideoSaveRequest {
+	v["description"] = v_description
+	return v
+}
+
+func (v VideoSaveRequest) WithIsPrivate(v_is_private bool) VideoSaveRequest {
+	v["is_private"] = v_is_private
+	return v
+}
+
+func (v VideoSaveRequest) WithWallpost(v_wallpost bool) VideoSaveRequest {
+	v["wallpost"] = v_wallpost
+	return v
+}
+
+func (v VideoSaveRequest) WithLink(v_link string) VideoSaveRequest {
+	v["link"] = v_link
+	return v
+}
+
+func (v VideoSaveRequest) WithGroupId(v_group_id int) VideoSaveRequest {
+	v["group_id"] = v_group_id
+	return v
+}
+
+func (v VideoSaveRequest) WithAlbumId(v_album_id int) VideoSaveRequest {
+	v["album_id"] = v_album_id
+	return v
+}
+
+func (v VideoSaveRequest) WithPrivacyView(v_privacy_view []string) VideoSaveRequest {
+	v["privacy_view"] = v_privacy_view
+	return v
+}
+
+func (v VideoSaveRequest) WithPrivacyComment(v_privacy_comment []string) VideoSaveRequest {
+	v["privacy_comment"] = v_privacy_comment
+	return v
+}
+
+func (v VideoSaveRequest) WithNoComments(v_no_comments bool) VideoSaveRequest {
+	v["no_comments"] = v_no_comments
+	return v
+}
+
+func (v VideoSaveRequest) WithRepeat(v_repeat bool) VideoSaveRequest {
+	v["repeat"] = v_repeat
+	return v
+}
+
+func (v VideoSaveRequest) WithCompression(v_compression bool) VideoSaveRequest {
+	v["compression"] = v_compression
+	return v
+}
+
+func (v VideoSaveRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AccessVideo, Error_WallAddPost, Error_WallAdsPublished, Error_Upload, Error_GroupHostNeed2fa ]
+//
+// https://dev.vk.com/method/video.save
+func (v *Video) VideoSave(params ...api.MethodParams) (resp models.VideoSaveResponse, err error) {
+	req := api.NewRequest[models.VideoSaveResponse](v.api)
+
+	res, err := req.Execute("video.save", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoSearch Returns a list of videos under the set search criterion.
+type VideoSearchRequest api.Params
+
+func NewVideoSearchRequest() VideoSearchRequest {
+	params := make(VideoSearchRequest, 14)
+	return params
+}
+
+func (v VideoSearchRequest) WithQ(v_q string) VideoSearchRequest {
+	v["q"] = v_q
+	return v
+}
+
+func (v VideoSearchRequest) WithSort(v_sort int) VideoSearchRequest {
+	v["sort"] = v_sort
+	return v
+}
+
+func (v VideoSearchRequest) WithHd(v_hd int) VideoSearchRequest {
+	v["hd"] = v_hd
+	return v
+}
+
+func (v VideoSearchRequest) WithAdult(v_adult bool) VideoSearchRequest {
+	v["adult"] = v_adult
+	return v
+}
+
+func (v VideoSearchRequest) WithLive(v_live bool) VideoSearchRequest {
+	v["live"] = v_live
+	return v
+}
+
+func (v VideoSearchRequest) WithFilters(v_filters []string) VideoSearchRequest {
+	v["filters"] = v_filters
+	return v
+}
+
+func (v VideoSearchRequest) WithSearchOwn(v_search_own bool) VideoSearchRequest {
+	v["search_own"] = v_search_own
+	return v
+}
+
+func (v VideoSearchRequest) WithOffset(v_offset int) VideoSearchRequest {
+	v["offset"] = v_offset
+	return v
+}
+
+func (v VideoSearchRequest) WithLonger(v_longer int) VideoSearchRequest {
+	v["longer"] = v_longer
+	return v
+}
+
+func (v VideoSearchRequest) WithShorter(v_shorter int) VideoSearchRequest {
+	v["shorter"] = v_shorter
+	return v
+}
+
+func (v VideoSearchRequest) WithCount(v_count int) VideoSearchRequest {
+	v["count"] = v_count
+	return v
+}
+
+func (v VideoSearchRequest) WithExtended(v_extended bool) VideoSearchRequest {
+	v["extended"] = v_extended
+	return v
+}
+
+func (v VideoSearchRequest) Params() api.Params {
+	return api.Params(v)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ActionFailed ]
+//
+// https://dev.vk.com/method/video.search
+func (v *Video) VideoSearch(params ...api.MethodParams) (resp models.VideoSearchResponse, err error) {
+	req := api.NewRequest[models.VideoSearchResponse](v.api)
+
+	res, err := req.Execute("video.search", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// VideoSearchExtended Returns a list of videos under the set search criterion.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ActionFailed ]
+//
+// https://dev.vk.com/method/video.search
+func (v *Video) VideoSearchExtended(params ...api.MethodParams) (resp models.VideoSearchExtendedResponse, err error) {
+	req := api.NewRequest[models.VideoSearchExtendedResponse](v.api)
+
+	res, err := req.Execute("video.search", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}

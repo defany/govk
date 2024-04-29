@@ -3,17 +3,18 @@
 package tests
 
 import (
-	"github.com/defany/govk/api/gen/models"
+	"encoding/json"
 	"github.com/defany/govk/api/gen/adsweb"
+	"github.com/defany/govk/api/gen/models"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyAdswebGetAdCategoriesRequest(r *requests.AdswebGetAdCategoriesRequest) {
-	r.WithOfficeId(randInt())
+	r.WithOfficeId(random.RandInt())
 }
 
 func TestVKAdswebGetAdCategoriesSuccess(t *testing.T) {
@@ -23,7 +24,7 @@ func TestVKAdswebGetAdCategoriesSuccess(t *testing.T) {
 	fillRandomlyAdswebGetAdCategoriesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "adsweb.getAdCategories", params.Params(), expectedJSON))
@@ -37,7 +38,7 @@ func TestVKAdswebGetAdUnitCodeSuccess(t *testing.T) {
 	fillRandomlyAdswebGetAdUnitCodeResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "adsweb.getAdUnitCode", nil, expectedJSON))
@@ -47,12 +48,12 @@ func TestVKAdswebGetAdUnitCodeSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdswebGetAdUnitsRequest(r *requests.AdswebGetAdUnitsRequest) {
-	r.WithOfficeId(randInt())
-	r.WithSitesIds(randString())
-	r.WithAdUnitsIds(randString())
-	r.WithFields(randString())
-	r.WithLimit(randInt())
-	r.WithOffset(randInt())
+	r.WithOfficeId(random.RandInt())
+	r.WithSitesIds(random.RandString())
+	r.WithAdUnitsIds(random.RandString())
+	r.WithFields(random.RandString())
+	r.WithLimit(random.RandInt())
+	r.WithOffset(random.RandInt())
 }
 
 func TestVKAdswebGetAdUnitsSuccess(t *testing.T) {
@@ -62,7 +63,7 @@ func TestVKAdswebGetAdUnitsSuccess(t *testing.T) {
 	fillRandomlyAdswebGetAdUnitsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "adsweb.getAdUnits", params.Params(), expectedJSON))
@@ -72,10 +73,10 @@ func TestVKAdswebGetAdUnitsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdswebGetFraudHistoryRequest(r *requests.AdswebGetFraudHistoryRequest) {
-	r.WithOfficeId(randInt())
-	r.WithSitesIds(randString())
-	r.WithLimit(randInt())
-	r.WithOffset(randInt())
+	r.WithOfficeId(random.RandInt())
+	r.WithSitesIds(random.RandString())
+	r.WithLimit(random.RandInt())
+	r.WithOffset(random.RandInt())
 }
 
 func TestVKAdswebGetFraudHistorySuccess(t *testing.T) {
@@ -85,7 +86,7 @@ func TestVKAdswebGetFraudHistorySuccess(t *testing.T) {
 	fillRandomlyAdswebGetFraudHistoryResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "adsweb.getFraudHistory", params.Params(), expectedJSON))
@@ -95,11 +96,11 @@ func TestVKAdswebGetFraudHistorySuccess(t *testing.T) {
 }
 
 func fillRandomlyAdswebGetSitesRequest(r *requests.AdswebGetSitesRequest) {
-	r.WithOfficeId(randInt())
-	r.WithSitesIds(randString())
-	r.WithFields(randString())
-	r.WithLimit(randInt())
-	r.WithOffset(randInt())
+	r.WithOfficeId(random.RandInt())
+	r.WithSitesIds(random.RandString())
+	r.WithFields(random.RandString())
+	r.WithLimit(random.RandInt())
+	r.WithOffset(random.RandInt())
 }
 
 func TestVKAdswebGetSitesSuccess(t *testing.T) {
@@ -109,7 +110,7 @@ func TestVKAdswebGetSitesSuccess(t *testing.T) {
 	fillRandomlyAdswebGetSitesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "adsweb.getSites", params.Params(), expectedJSON))
@@ -119,15 +120,15 @@ func TestVKAdswebGetSitesSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdswebGetStatisticsRequest(r *requests.AdswebGetStatisticsRequest) {
-	r.WithOfficeId(randInt())
-	r.WithIdsType(randString())
-	r.WithIds(randString())
-	r.WithPeriod(randString())
-	r.WithDateFrom(randString())
-	r.WithDateTo(randString())
-	r.WithFields(randString())
-	r.WithLimit(randInt())
-	r.WithPageId(randString())
+	r.WithOfficeId(random.RandInt())
+	r.WithIdsType(random.RandString())
+	r.WithIds(random.RandString())
+	r.WithPeriod(random.RandString())
+	r.WithDateFrom(random.RandString())
+	r.WithDateTo(random.RandString())
+	r.WithFields(random.RandString())
+	r.WithLimit(random.RandInt())
+	r.WithPageId(random.RandString())
 }
 
 func TestVKAdswebGetStatisticsSuccess(t *testing.T) {
@@ -137,7 +138,7 @@ func TestVKAdswebGetStatisticsSuccess(t *testing.T) {
 	fillRandomlyAdswebGetStatisticsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "adsweb.getStatistics", params.Params(), expectedJSON))
@@ -145,4 +146,3 @@ func TestVKAdswebGetStatisticsSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

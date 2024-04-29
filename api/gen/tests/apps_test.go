@@ -3,13 +3,14 @@
 package tests
 
 import (
-	"github.com/defany/govk/api/gen/models"
+	"encoding/json"
 	"github.com/defany/govk/api/gen/apps"
+	"github.com/defany/govk/api/gen/models"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func TestVKAppsDeleteAppRequestsSuccess(t *testing.T) {
@@ -17,7 +18,7 @@ func TestVKAppsDeleteAppRequestsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "apps.deleteAppRequests", nil, expectedJSON))
@@ -27,20 +28,20 @@ func TestVKAppsDeleteAppRequestsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppsGetRequest(r *requests.AppsGetRequest) {
-	r.WithAppId(randInt())
-	lAppIds := randIntn(maxArrayLength + 1)
-	r.WithAppIds(randStringArr(lAppIds))
-	r.WithPlatform(randString())
-	r.WithExtended(randBool())
-	r.WithReturnFriends(randBool())
+	r.WithAppId(random.RandInt())
+	lAppIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAppIds(random.RandStringArr(lAppIds))
+	r.WithPlatform(random.RandString())
+	r.WithExtended(random.RandBool())
+	r.WithReturnFriends(random.RandBool())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithNameCase(randString())
+	r.WithNameCase(random.RandString())
 }
 
 func TestVKAppsGetSuccess(t *testing.T) {
@@ -50,7 +51,7 @@ func TestVKAppsGetSuccess(t *testing.T) {
 	fillRandomlyAppsGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "apps.get", params.Params(), expectedJSON))
@@ -60,23 +61,23 @@ func TestVKAppsGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppsGetCatalogRequest(r *requests.AppsGetCatalogRequest) {
-	r.WithSort(randString())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithPlatform(randString())
-	r.WithExtended(randBool())
-	r.WithReturnFriends(randBool())
+	r.WithSort(random.RandString())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithPlatform(random.RandString())
+	r.WithExtended(random.RandBool())
+	r.WithReturnFriends(random.RandBool())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithNameCase(randString())
-	r.WithQ(randString())
-	r.WithGenreId(randInt())
-	r.WithFilter(randString())
+	r.WithNameCase(random.RandString())
+	r.WithQ(random.RandString())
+	r.WithGenreId(random.RandInt())
+	r.WithFilter(random.RandString())
 }
 
 func TestVKAppsGetCatalogSuccess(t *testing.T) {
@@ -86,7 +87,7 @@ func TestVKAppsGetCatalogSuccess(t *testing.T) {
 	fillRandomlyAppsGetCatalogResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "apps.getCatalog", params.Params(), expectedJSON))
@@ -96,12 +97,12 @@ func TestVKAppsGetCatalogSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppsGetFriendsListRequest(r *requests.AppsGetFriendsListRequest) {
-	r.WithExtended(randBool())
-	r.WithCount(randInt())
-	r.WithOffset(randInt())
-	r.WithType(randString())
+	r.WithExtended(random.RandBool())
+	r.WithCount(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithType(random.RandString())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
@@ -117,7 +118,7 @@ func TestVKAppsGetFriendsListSuccess(t *testing.T) {
 	fillRandomlyAppsGetFriendsListResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "apps.getFriendsList", params.Params(), expectedJSON))
@@ -134,7 +135,7 @@ func TestVKAppsGetFriendsListExtendedSuccess(t *testing.T) {
 	fillRandomlyAppsGetFriendsListExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "apps.getFriendsList", params.Params(), expectedJSON))
@@ -144,9 +145,9 @@ func TestVKAppsGetFriendsListExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppsGetLeaderboardRequest(r *requests.AppsGetLeaderboardRequest) {
-	r.WithType(randString())
-	r.WithGlobal(randBool())
-	r.WithExtended(randBool())
+	r.WithType(random.RandString())
+	r.WithGlobal(random.RandBool())
+	r.WithExtended(random.RandBool())
 }
 
 func TestVKAppsGetLeaderboardSuccess(t *testing.T) {
@@ -157,7 +158,7 @@ func TestVKAppsGetLeaderboardSuccess(t *testing.T) {
 	fillRandomlyAppsGetLeaderboardResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "apps.getLeaderboard", params.Params(), expectedJSON))
@@ -174,7 +175,7 @@ func TestVKAppsGetLeaderboardExtendedSuccess(t *testing.T) {
 	fillRandomlyAppsGetLeaderboardExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "apps.getLeaderboard", params.Params(), expectedJSON))
@@ -184,7 +185,7 @@ func TestVKAppsGetLeaderboardExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppsGetMiniAppPoliciesRequest(r *requests.AppsGetMiniAppPoliciesRequest) {
-	r.WithAppId(randInt())
+	r.WithAppId(random.RandInt())
 }
 
 func TestVKAppsGetMiniAppPoliciesSuccess(t *testing.T) {
@@ -194,7 +195,7 @@ func TestVKAppsGetMiniAppPoliciesSuccess(t *testing.T) {
 	fillRandomlyAppsGetMiniAppPoliciesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "apps.getMiniAppPolicies", params.Params(), expectedJSON))
@@ -204,7 +205,7 @@ func TestVKAppsGetMiniAppPoliciesSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppsGetScopesRequest(r *requests.AppsGetScopesRequest) {
-	r.WithType(randString())
+	r.WithType(random.RandString())
 }
 
 func TestVKAppsGetScopesSuccess(t *testing.T) {
@@ -214,7 +215,7 @@ func TestVKAppsGetScopesSuccess(t *testing.T) {
 	fillRandomlyAppsGetScopesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "apps.getScopes", params.Params(), expectedJSON))
@@ -224,7 +225,7 @@ func TestVKAppsGetScopesSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppsGetScoreRequest(r *requests.AppsGetScoreRequest) {
-	r.WithUserId(randInt())
+	r.WithUserId(random.RandInt())
 }
 
 func TestVKAppsGetScoreSuccess(t *testing.T) {
@@ -234,7 +235,7 @@ func TestVKAppsGetScoreSuccess(t *testing.T) {
 	fillRandomlyAppsGetScoreResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "apps.getScore", params.Params(), expectedJSON))
@@ -244,8 +245,8 @@ func TestVKAppsGetScoreSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppsPromoHasActiveGiftRequest(r *requests.AppsPromoHasActiveGiftRequest) {
-	r.WithPromoId(randInt())
-	r.WithUserId(randInt())
+	r.WithPromoId(random.RandInt())
+	r.WithUserId(random.RandInt())
 }
 
 func TestVKAppsPromoHasActiveGiftSuccess(t *testing.T) {
@@ -255,7 +256,7 @@ func TestVKAppsPromoHasActiveGiftSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "apps.promoHasActiveGift", params.Params(), expectedJSON))
@@ -265,8 +266,8 @@ func TestVKAppsPromoHasActiveGiftSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppsPromoUseGiftRequest(r *requests.AppsPromoUseGiftRequest) {
-	r.WithPromoId(randInt())
-	r.WithUserId(randInt())
+	r.WithPromoId(random.RandInt())
+	r.WithUserId(random.RandInt())
 }
 
 func TestVKAppsPromoUseGiftSuccess(t *testing.T) {
@@ -276,7 +277,7 @@ func TestVKAppsPromoUseGiftSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "apps.promoUseGift", params.Params(), expectedJSON))
@@ -286,12 +287,12 @@ func TestVKAppsPromoUseGiftSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppsSendRequestRequest(r *requests.AppsSendRequestRequest) {
-	r.WithUserId(randInt())
-	r.WithText(randString())
-	r.WithType(randString())
-	r.WithName(randString())
-	r.WithKey(randString())
-	r.WithSeparate(randBool())
+	r.WithUserId(random.RandInt())
+	r.WithText(random.RandString())
+	r.WithType(random.RandString())
+	r.WithName(random.RandString())
+	r.WithKey(random.RandString())
+	r.WithSeparate(random.RandBool())
 }
 
 func TestVKAppsSendRequestSuccess(t *testing.T) {
@@ -301,7 +302,7 @@ func TestVKAppsSendRequestSuccess(t *testing.T) {
 	fillRandomlyAppsSendRequestResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "apps.sendRequest", params.Params(), expectedJSON))
@@ -309,4 +310,3 @@ func TestVKAppsSendRequestSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

@@ -1,22 +1,24 @@
 package tests
 
+import "github.com/defany/govk/pkg/random"
+
 func (e *apiError) fillRandomly() {
-	subcode := randInt()
-	l := randIntn(maxArrayLength + 1)
+	subcode := random.RandInt()
+	l := random.RandIntn(random.MaxArrayLength + 1)
 	requestParams := make([]RequestParam, l)
 	for i := 0; i < l; i++ {
 		requestParams[i].fillRandomly()
 	}
-	redirectURI := randString()
-	confirmationText := randString()
-	captchaSID := randString()
-	captchaImg := randString()
+	redirectURI := random.RandString()
+	confirmationText := random.RandString()
+	captchaSID := random.RandString()
+	captchaImg := random.RandString()
 
 	*e = apiError{
-		ErrorCode:    randInt(),
+		ErrorCode:    random.RandInt(),
 		ErrorSubcode: &subcode,
-		ErrorMsg:     randString(),
-		ErrorText:    randString(),
+		ErrorMsg:     random.RandString(),
+		ErrorText:    random.RandString(),
 		ReqParams:    requestParams,
 		RedirURI:     &redirectURI,
 		ConfirmText:  &confirmationText,
@@ -26,6 +28,6 @@ func (e *apiError) fillRandomly() {
 }
 
 func (p *RequestParam) fillRandomly() {
-	p.Key = randString()
-	p.Value = randString()
+	p.Key = random.RandString()
+	p.Value = random.RandString()
 }

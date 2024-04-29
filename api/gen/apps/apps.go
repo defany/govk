@@ -4,6 +4,7 @@ package requests
 
 import (
 	"github.com/defany/govk/api"
+	"github.com/defany/govk/api/gen/models"
 )
 
 type Apps struct {
@@ -16,3 +17,558 @@ func NewApps(api *api.API) *Apps {
 	}
 }
 
+// AppsDeleteAppRequests Deletes all request notifications from the current app.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/apps.deleteAppRequests
+func (a *Apps) AppsDeleteAppRequests(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](a.api)
+
+	res, err := req.Execute("apps.deleteAppRequests", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AppsGet Returns applications data.
+type AppsGetRequest api.Params
+
+func NewAppsGetRequest() AppsGetRequest {
+	params := make(AppsGetRequest, 8)
+	return params
+}
+
+func (a AppsGetRequest) WithAppId(a_app_id int) AppsGetRequest {
+	a["app_id"] = a_app_id
+	return a
+}
+
+func (a AppsGetRequest) WithAppIds(a_app_ids []string) AppsGetRequest {
+	a["app_ids"] = a_app_ids
+	return a
+}
+
+func (a AppsGetRequest) WithPlatform(a_platform string) AppsGetRequest {
+	a["platform"] = a_platform
+	return a
+}
+
+func (a AppsGetRequest) WithExtended(a_extended bool) AppsGetRequest {
+	a["extended"] = a_extended
+	return a
+}
+
+func (a AppsGetRequest) WithReturnFriends(a_return_friends bool) AppsGetRequest {
+	a["return_friends"] = a_return_friends
+	return a
+}
+
+func (a AppsGetRequest) WithFields(a_fields []models.UsersFields) AppsGetRequest {
+	a["fields"] = a_fields
+	return a
+}
+
+func (a AppsGetRequest) WithNameCase(a_name_case string) AppsGetRequest {
+	a["name_case"] = a_name_case
+	return a
+}
+
+func (a AppsGetRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/apps.get
+func (a *Apps) AppsGet(params ...api.MethodParams) (resp models.AppsGetResponse, err error) {
+	req := api.NewRequest[models.AppsGetResponse](a.api)
+
+	res, err := req.Execute("apps.get", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AppsGetCatalog Returns a list of applications (apps) available to users in the App Catalog.
+type AppsGetCatalogRequest api.Params
+
+func NewAppsGetCatalogRequest() AppsGetCatalogRequest {
+	params := make(AppsGetCatalogRequest, 12)
+	return params
+}
+
+func (a AppsGetCatalogRequest) WithSort(a_sort string) AppsGetCatalogRequest {
+	a["sort"] = a_sort
+	return a
+}
+
+func (a AppsGetCatalogRequest) WithOffset(a_offset int) AppsGetCatalogRequest {
+	a["offset"] = a_offset
+	return a
+}
+
+func (a AppsGetCatalogRequest) WithCount(a_count int) AppsGetCatalogRequest {
+	a["count"] = a_count
+	return a
+}
+
+func (a AppsGetCatalogRequest) WithPlatform(a_platform string) AppsGetCatalogRequest {
+	a["platform"] = a_platform
+	return a
+}
+
+func (a AppsGetCatalogRequest) WithExtended(a_extended bool) AppsGetCatalogRequest {
+	a["extended"] = a_extended
+	return a
+}
+
+func (a AppsGetCatalogRequest) WithReturnFriends(a_return_friends bool) AppsGetCatalogRequest {
+	a["return_friends"] = a_return_friends
+	return a
+}
+
+func (a AppsGetCatalogRequest) WithFields(a_fields []models.UsersFields) AppsGetCatalogRequest {
+	a["fields"] = a_fields
+	return a
+}
+
+func (a AppsGetCatalogRequest) WithNameCase(a_name_case string) AppsGetCatalogRequest {
+	a["name_case"] = a_name_case
+	return a
+}
+
+func (a AppsGetCatalogRequest) WithQ(a_q string) AppsGetCatalogRequest {
+	a["q"] = a_q
+	return a
+}
+
+func (a AppsGetCatalogRequest) WithGenreId(a_genre_id int) AppsGetCatalogRequest {
+	a["genre_id"] = a_genre_id
+	return a
+}
+
+func (a AppsGetCatalogRequest) WithFilter(a_filter string) AppsGetCatalogRequest {
+	a["filter"] = a_filter
+	return a
+}
+
+func (a AppsGetCatalogRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/apps.getCatalog
+func (a *Apps) AppsGetCatalog(params ...api.MethodParams) (resp models.AppsGetCatalogResponse, err error) {
+	req := api.NewRequest[models.AppsGetCatalogResponse](a.api)
+
+	res, err := req.Execute("apps.getCatalog", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AppsGetFriendsList Creates friends list for requests and invites in current app.
+type AppsGetFriendsListRequest api.Params
+
+func NewAppsGetFriendsListRequest() AppsGetFriendsListRequest {
+	params := make(AppsGetFriendsListRequest, 7)
+	return params
+}
+
+func (a AppsGetFriendsListRequest) WithExtended(a_extended bool) AppsGetFriendsListRequest {
+	a["extended"] = a_extended
+	return a
+}
+
+func (a AppsGetFriendsListRequest) WithCount(a_count int) AppsGetFriendsListRequest {
+	a["count"] = a_count
+	return a
+}
+
+func (a AppsGetFriendsListRequest) WithOffset(a_offset int) AppsGetFriendsListRequest {
+	a["offset"] = a_offset
+	return a
+}
+
+func (a AppsGetFriendsListRequest) WithType(a_type string) AppsGetFriendsListRequest {
+	a["type"] = a_type
+	return a
+}
+
+func (a AppsGetFriendsListRequest) WithFields(a_fields []models.UsersFields) AppsGetFriendsListRequest {
+	a["fields"] = a_fields
+	return a
+}
+
+func (a AppsGetFriendsListRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/apps.getFriendsList
+func (a *Apps) AppsGetFriendsList(params ...api.MethodParams) (resp models.AppsGetFriendsListResponse, err error) {
+	req := api.NewRequest[models.AppsGetFriendsListResponse](a.api)
+
+	res, err := req.Execute("apps.getFriendsList", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AppsGetFriendsListExtended Creates friends list for requests and invites in current app.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/apps.getFriendsList
+func (a *Apps) AppsGetFriendsListExtended(params ...api.MethodParams) (resp models.AppsGetFriendsListExtendedResponse, err error) {
+	req := api.NewRequest[models.AppsGetFriendsListExtendedResponse](a.api)
+
+	res, err := req.Execute("apps.getFriendsList", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AppsGetLeaderboard Returns players rating in the game.
+type AppsGetLeaderboardRequest api.Params
+
+func NewAppsGetLeaderboardRequest() AppsGetLeaderboardRequest {
+	params := make(AppsGetLeaderboardRequest, 5)
+	return params
+}
+
+func (a AppsGetLeaderboardRequest) WithType(a_type string) AppsGetLeaderboardRequest {
+	a["type"] = a_type
+	return a
+}
+
+func (a AppsGetLeaderboardRequest) WithGlobal(a_global bool) AppsGetLeaderboardRequest {
+	a["global"] = a_global
+	return a
+}
+
+func (a AppsGetLeaderboardRequest) WithExtended(a_extended bool) AppsGetLeaderboardRequest {
+	a["extended"] = a_extended
+	return a
+}
+
+func (a AppsGetLeaderboardRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/apps.getLeaderboard
+func (a *Apps) AppsGetLeaderboard(params ...api.MethodParams) (resp models.AppsGetLeaderboardResponse, err error) {
+	req := api.NewRequest[models.AppsGetLeaderboardResponse](a.api)
+
+	res, err := req.Execute("apps.getLeaderboard", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AppsGetLeaderboardExtended Returns players rating in the game.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/apps.getLeaderboard
+func (a *Apps) AppsGetLeaderboardExtended(params ...api.MethodParams) (resp models.AppsGetLeaderboardExtendedResponse, err error) {
+	req := api.NewRequest[models.AppsGetLeaderboardExtendedResponse](a.api)
+
+	res, err := req.Execute("apps.getLeaderboard", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AppsGetMiniAppPolicies Returns policies and terms given to a mini app.
+type AppsGetMiniAppPoliciesRequest api.Params
+
+func NewAppsGetMiniAppPoliciesRequest() AppsGetMiniAppPoliciesRequest {
+	params := make(AppsGetMiniAppPoliciesRequest, 2)
+	return params
+}
+
+func (a AppsGetMiniAppPoliciesRequest) WithAppId(a_app_id int) AppsGetMiniAppPoliciesRequest {
+	a["app_id"] = a_app_id
+	return a
+}
+
+func (a AppsGetMiniAppPoliciesRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/apps.getMiniAppPolicies
+func (a *Apps) AppsGetMiniAppPolicies(params ...api.MethodParams) (resp models.AppsGetMiniAppPoliciesResponse, err error) {
+	req := api.NewRequest[models.AppsGetMiniAppPoliciesResponse](a.api)
+
+	res, err := req.Execute("apps.getMiniAppPolicies", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AppsGetScopes Returns scopes for auth
+type AppsGetScopesRequest api.Params
+
+func NewAppsGetScopesRequest() AppsGetScopesRequest {
+	params := make(AppsGetScopesRequest, 2)
+	return params
+}
+
+func (a AppsGetScopesRequest) WithType(a_type string) AppsGetScopesRequest {
+	a["type"] = a_type
+	return a
+}
+
+func (a AppsGetScopesRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/apps.getScopes
+func (a *Apps) AppsGetScopes(params ...api.MethodParams) (resp models.AppsGetScopesResponse, err error) {
+	req := api.NewRequest[models.AppsGetScopesResponse](a.api)
+
+	res, err := req.Execute("apps.getScopes", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AppsGetScore Returns user score in app
+type AppsGetScoreRequest api.Params
+
+func NewAppsGetScoreRequest() AppsGetScoreRequest {
+	params := make(AppsGetScoreRequest, 2)
+	return params
+}
+
+func (a AppsGetScoreRequest) WithUserId(a_user_id int) AppsGetScoreRequest {
+	a["user_id"] = a_user_id
+	return a
+}
+
+func (a AppsGetScoreRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/apps.getScore
+func (a *Apps) AppsGetScore(params ...api.MethodParams) (resp models.AppsGetScoreResponse, err error) {
+	req := api.NewRequest[models.AppsGetScoreResponse](a.api)
+
+	res, err := req.Execute("apps.getScore", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AppsPromoHasActiveGift ...
+type AppsPromoHasActiveGiftRequest api.Params
+
+func NewAppsPromoHasActiveGiftRequest() AppsPromoHasActiveGiftRequest {
+	params := make(AppsPromoHasActiveGiftRequest, 3)
+	return params
+}
+
+func (a AppsPromoHasActiveGiftRequest) WithPromoId(a_promo_id int) AppsPromoHasActiveGiftRequest {
+	a["promo_id"] = a_promo_id
+	return a
+}
+
+func (a AppsPromoHasActiveGiftRequest) WithUserId(a_user_id int) AppsPromoHasActiveGiftRequest {
+	a["user_id"] = a_user_id
+	return a
+}
+
+func (a AppsPromoHasActiveGiftRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, service ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ActionFailed ]
+//
+// https://dev.vk.com/method/apps.promoHasActiveGift
+func (a *Apps) AppsPromoHasActiveGift(params ...api.MethodParams) (resp models.BaseBoolResponse, err error) {
+	req := api.NewRequest[models.BaseBoolResponse](a.api)
+
+	res, err := req.Execute("apps.promoHasActiveGift", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AppsPromoUseGift ...
+type AppsPromoUseGiftRequest api.Params
+
+func NewAppsPromoUseGiftRequest() AppsPromoUseGiftRequest {
+	params := make(AppsPromoUseGiftRequest, 3)
+	return params
+}
+
+func (a AppsPromoUseGiftRequest) WithPromoId(a_promo_id int) AppsPromoUseGiftRequest {
+	a["promo_id"] = a_promo_id
+	return a
+}
+
+func (a AppsPromoUseGiftRequest) WithUserId(a_user_id int) AppsPromoUseGiftRequest {
+	a["user_id"] = a_user_id
+	return a
+}
+
+func (a AppsPromoUseGiftRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, service ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_ActionFailed ]
+//
+// https://dev.vk.com/method/apps.promoUseGift
+func (a *Apps) AppsPromoUseGift(params ...api.MethodParams) (resp models.BaseBoolResponse, err error) {
+	req := api.NewRequest[models.BaseBoolResponse](a.api)
+
+	res, err := req.Execute("apps.promoUseGift", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// AppsSendRequest Sends a request to another user in an app that uses VK authorization.
+type AppsSendRequestRequest api.Params
+
+func NewAppsSendRequestRequest() AppsSendRequestRequest {
+	params := make(AppsSendRequestRequest, 7)
+	return params
+}
+
+func (a AppsSendRequestRequest) WithUserId(a_user_id int) AppsSendRequestRequest {
+	a["user_id"] = a_user_id
+	return a
+}
+
+func (a AppsSendRequestRequest) WithText(a_text string) AppsSendRequestRequest {
+	a["text"] = a_text
+	return a
+}
+
+func (a AppsSendRequestRequest) WithType(a_type string) AppsSendRequestRequest {
+	a["type"] = a_type
+	return a
+}
+
+func (a AppsSendRequestRequest) WithName(a_name string) AppsSendRequestRequest {
+	a["name"] = a_name
+	return a
+}
+
+func (a AppsSendRequestRequest) WithKey(a_key string) AppsSendRequestRequest {
+	a["key"] = a_key
+	return a
+}
+
+func (a AppsSendRequestRequest) WithSeparate(a_separate bool) AppsSendRequestRequest {
+	a["separate"] = a_separate
+	return a
+}
+
+func (a AppsSendRequestRequest) Params() api.Params {
+	return api.Params(a)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/apps.sendRequest
+func (a *Apps) AppsSendRequest(params ...api.MethodParams) (resp models.AppsSendRequestResponse, err error) {
+	req := api.NewRequest[models.AppsSendRequestResponse](a.api)
+
+	res, err := req.Execute("apps.sendRequest", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}

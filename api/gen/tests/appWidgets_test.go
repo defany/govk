@@ -3,17 +3,18 @@
 package tests
 
 import (
-	"github.com/defany/govk/api/gen/models"
+	"encoding/json"
 	"github.com/defany/govk/api/gen/appwidgets"
+	"github.com/defany/govk/api/gen/models"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyAppWidgetsGetAppImageUploadServerRequest(r *requests.AppWidgetsGetAppImageUploadServerRequest) {
-	r.WithImageType(randString())
+	r.WithImageType(random.RandString())
 }
 
 func TestVKAppWidgetsGetAppImageUploadServerSuccess(t *testing.T) {
@@ -23,7 +24,7 @@ func TestVKAppWidgetsGetAppImageUploadServerSuccess(t *testing.T) {
 	fillRandomlyAppWidgetsGetAppImageUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "appWidgets.getAppImageUploadServer", params.Params(), expectedJSON))
@@ -33,9 +34,9 @@ func TestVKAppWidgetsGetAppImageUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppWidgetsGetAppImagesRequest(r *requests.AppWidgetsGetAppImagesRequest) {
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithImageType(randString())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithImageType(random.RandString())
 }
 
 func TestVKAppWidgetsGetAppImagesSuccess(t *testing.T) {
@@ -45,7 +46,7 @@ func TestVKAppWidgetsGetAppImagesSuccess(t *testing.T) {
 	fillRandomlyAppWidgetsGetAppImagesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "appWidgets.getAppImages", params.Params(), expectedJSON))
@@ -55,7 +56,7 @@ func TestVKAppWidgetsGetAppImagesSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppWidgetsGetGroupImageUploadServerRequest(r *requests.AppWidgetsGetGroupImageUploadServerRequest) {
-	r.WithImageType(randString())
+	r.WithImageType(random.RandString())
 }
 
 func TestVKAppWidgetsGetGroupImageUploadServerSuccess(t *testing.T) {
@@ -65,7 +66,7 @@ func TestVKAppWidgetsGetGroupImageUploadServerSuccess(t *testing.T) {
 	fillRandomlyAppWidgetsGetGroupImageUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "appWidgets.getGroupImageUploadServer", params.Params(), expectedJSON))
@@ -75,9 +76,9 @@ func TestVKAppWidgetsGetGroupImageUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppWidgetsGetGroupImagesRequest(r *requests.AppWidgetsGetGroupImagesRequest) {
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithImageType(randString())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithImageType(random.RandString())
 }
 
 func TestVKAppWidgetsGetGroupImagesSuccess(t *testing.T) {
@@ -87,7 +88,7 @@ func TestVKAppWidgetsGetGroupImagesSuccess(t *testing.T) {
 	fillRandomlyAppWidgetsGetGroupImagesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "appWidgets.getGroupImages", params.Params(), expectedJSON))
@@ -97,8 +98,8 @@ func TestVKAppWidgetsGetGroupImagesSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppWidgetsGetImagesByIdRequest(r *requests.AppWidgetsGetImagesByIdRequest) {
-	lImages := randIntn(maxArrayLength + 1)
-	r.WithImages(randStringArr(lImages))
+	lImages := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithImages(random.RandStringArr(lImages))
 }
 
 func TestVKAppWidgetsGetImagesByIdSuccess(t *testing.T) {
@@ -108,7 +109,7 @@ func TestVKAppWidgetsGetImagesByIdSuccess(t *testing.T) {
 	fillRandomlyAppWidgetsGetImagesByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "appWidgets.getImagesById", params.Params(), expectedJSON))
@@ -118,8 +119,8 @@ func TestVKAppWidgetsGetImagesByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppWidgetsSaveAppImageRequest(r *requests.AppWidgetsSaveAppImageRequest) {
-	r.WithHash(randString())
-	r.WithImage(randString())
+	r.WithHash(random.RandString())
+	r.WithImage(random.RandString())
 }
 
 func TestVKAppWidgetsSaveAppImageSuccess(t *testing.T) {
@@ -129,7 +130,7 @@ func TestVKAppWidgetsSaveAppImageSuccess(t *testing.T) {
 	fillRandomlyAppWidgetsSaveAppImageResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "appWidgets.saveAppImage", params.Params(), expectedJSON))
@@ -139,8 +140,8 @@ func TestVKAppWidgetsSaveAppImageSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppWidgetsSaveGroupImageRequest(r *requests.AppWidgetsSaveGroupImageRequest) {
-	r.WithHash(randString())
-	r.WithImage(randString())
+	r.WithHash(random.RandString())
+	r.WithImage(random.RandString())
 }
 
 func TestVKAppWidgetsSaveGroupImageSuccess(t *testing.T) {
@@ -150,7 +151,7 @@ func TestVKAppWidgetsSaveGroupImageSuccess(t *testing.T) {
 	fillRandomlyAppWidgetsSaveGroupImageResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "appWidgets.saveGroupImage", params.Params(), expectedJSON))
@@ -160,8 +161,8 @@ func TestVKAppWidgetsSaveGroupImageSuccess(t *testing.T) {
 }
 
 func fillRandomlyAppWidgetsUpdateRequest(r *requests.AppWidgetsUpdateRequest) {
-	r.WithCode(randString())
-	r.WithType(randString())
+	r.WithCode(random.RandString())
+	r.WithType(random.RandString())
 }
 
 func TestVKAppWidgetsUpdateSuccess(t *testing.T) {
@@ -171,7 +172,7 @@ func TestVKAppWidgetsUpdateSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "appWidgets.update", params.Params(), expectedJSON))
@@ -179,4 +180,3 @@ func TestVKAppWidgetsUpdateSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

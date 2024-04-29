@@ -3,18 +3,19 @@
 package tests
 
 import (
-	"github.com/defany/govk/api/gen/models"
+	"encoding/json"
 	"github.com/defany/govk/api/gen/auth"
+	"github.com/defany/govk/api/gen/models"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyAuthRestoreRequest(r *requests.AuthRestoreRequest) {
-	r.WithPhone(randString())
-	r.WithLastName(randString())
+	r.WithPhone(random.RandString())
+	r.WithLastName(random.RandString())
 }
 
 func TestVKAuthRestoreSuccess(t *testing.T) {
@@ -24,7 +25,7 @@ func TestVKAuthRestoreSuccess(t *testing.T) {
 	fillRandomlyAuthRestoreResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "auth.restore", params.Params(), expectedJSON))
@@ -32,4 +33,3 @@ func TestVKAuthRestoreSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

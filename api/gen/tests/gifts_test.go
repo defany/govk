@@ -3,19 +3,20 @@
 package tests
 
 import (
-	"github.com/defany/govk/api/gen/models"
+	"encoding/json"
 	"github.com/defany/govk/api/gen/gifts"
+	"github.com/defany/govk/api/gen/models"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyGiftsGetRequest(r *requests.GiftsGetRequest) {
-	r.WithUserId(randInt())
-	r.WithCount(randInt())
-	r.WithOffset(randInt())
+	r.WithUserId(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithOffset(random.RandInt())
 }
 
 func TestVKGiftsGetSuccess(t *testing.T) {
@@ -25,7 +26,7 @@ func TestVKGiftsGetSuccess(t *testing.T) {
 	fillRandomlyGiftsGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "gifts.get", params.Params(), expectedJSON))
@@ -33,4 +34,3 @@ func TestVKGiftsGetSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

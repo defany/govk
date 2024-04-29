@@ -3,17 +3,18 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/wall"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyWallCheckCopyrightLinkRequest(r *requests.WallCheckCopyrightLinkRequest) {
-	r.WithLink(randString())
+	r.WithLink(random.RandString())
 }
 
 func TestVKWallCheckCopyrightLinkSuccess(t *testing.T) {
@@ -23,7 +24,7 @@ func TestVKWallCheckCopyrightLinkSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.checkCopyrightLink", params.Params(), expectedJSON))
@@ -33,8 +34,8 @@ func TestVKWallCheckCopyrightLinkSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallCloseCommentsRequest(r *requests.WallCloseCommentsRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPostId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithPostId(random.RandInt())
 }
 
 func TestVKWallCloseCommentsSuccess(t *testing.T) {
@@ -44,7 +45,7 @@ func TestVKWallCloseCommentsSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.closeComments", params.Params(), expectedJSON))
@@ -54,15 +55,15 @@ func TestVKWallCloseCommentsSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallCreateCommentRequest(r *requests.WallCreateCommentRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPostId(randInt())
-	r.WithFromGroup(randInt())
-	r.WithMessage(randString())
-	r.WithReplyToComment(randInt())
-	lAttachments := randIntn(maxArrayLength + 1)
-	r.WithAttachments(randStringArr(lAttachments))
-	r.WithStickerId(randInt())
-	r.WithGuid(randString())
+	r.WithOwnerId(random.RandInt())
+	r.WithPostId(random.RandInt())
+	r.WithFromGroup(random.RandInt())
+	r.WithMessage(random.RandString())
+	r.WithReplyToComment(random.RandInt())
+	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAttachments(random.RandStringArr(lAttachments))
+	r.WithStickerId(random.RandInt())
+	r.WithGuid(random.RandString())
 }
 
 func TestVKWallCreateCommentSuccess(t *testing.T) {
@@ -72,7 +73,7 @@ func TestVKWallCreateCommentSuccess(t *testing.T) {
 	fillRandomlyWallCreateCommentResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.createComment", params.Params(), expectedJSON))
@@ -82,8 +83,8 @@ func TestVKWallCreateCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallDeleteRequest(r *requests.WallDeleteRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPostId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithPostId(random.RandInt())
 }
 
 func TestVKWallDeleteSuccess(t *testing.T) {
@@ -93,7 +94,7 @@ func TestVKWallDeleteSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.delete", params.Params(), expectedJSON))
@@ -103,8 +104,8 @@ func TestVKWallDeleteSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallDeleteCommentRequest(r *requests.WallDeleteCommentRequest) {
-	r.WithOwnerId(randInt())
-	r.WithCommentId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithCommentId(random.RandInt())
 }
 
 func TestVKWallDeleteCommentSuccess(t *testing.T) {
@@ -114,7 +115,7 @@ func TestVKWallDeleteCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.deleteComment", params.Params(), expectedJSON))
@@ -124,26 +125,26 @@ func TestVKWallDeleteCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallEditRequest(r *requests.WallEditRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPostId(randInt())
-	r.WithFriendsOnly(randBool())
-	r.WithMessage(randString())
-	lAttachments := randIntn(maxArrayLength + 1)
-	r.WithAttachments(randStringArr(lAttachments))
-	r.WithServices(randString())
-	r.WithSigned(randBool())
-	r.WithPublishDate(randInt())
-	r.WithLat(randFloat())
-	r.WithLong(randFloat())
-	r.WithPlaceId(randInt())
-	r.WithMarkAsAds(randBool())
-	r.WithCloseComments(randBool())
-	r.WithDonutPaidDuration(randInt())
-	r.WithPosterBkgId(randInt())
-	r.WithPosterBkgOwnerId(randInt())
-	r.WithPosterBkgAccessHash(randString())
-	r.WithCopyright(randString())
-	r.WithTopicId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithPostId(random.RandInt())
+	r.WithFriendsOnly(random.RandBool())
+	r.WithMessage(random.RandString())
+	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAttachments(random.RandStringArr(lAttachments))
+	r.WithServices(random.RandString())
+	r.WithSigned(random.RandBool())
+	r.WithPublishDate(random.RandInt())
+	r.WithLat(random.RandFloat())
+	r.WithLong(random.RandFloat())
+	r.WithPlaceId(random.RandInt())
+	r.WithMarkAsAds(random.RandBool())
+	r.WithCloseComments(random.RandBool())
+	r.WithDonutPaidDuration(random.RandInt())
+	r.WithPosterBkgId(random.RandInt())
+	r.WithPosterBkgOwnerId(random.RandInt())
+	r.WithPosterBkgAccessHash(random.RandString())
+	r.WithCopyright(random.RandString())
+	r.WithTopicId(random.RandInt())
 }
 
 func TestVKWallEditSuccess(t *testing.T) {
@@ -153,7 +154,7 @@ func TestVKWallEditSuccess(t *testing.T) {
 	fillRandomlyWallEditResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.edit", params.Params(), expectedJSON))
@@ -163,19 +164,19 @@ func TestVKWallEditSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallEditAdsStealthRequest(r *requests.WallEditAdsStealthRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPostId(randInt())
-	r.WithMessage(randString())
-	lAttachments := randIntn(maxArrayLength + 1)
-	r.WithAttachments(randStringArr(lAttachments))
-	r.WithSigned(randBool())
-	r.WithLat(randFloat())
-	r.WithLong(randFloat())
-	r.WithPlaceId(randInt())
-	r.WithLinkButton(randString())
-	r.WithLinkTitle(randString())
-	r.WithLinkImage(randString())
-	r.WithLinkVideo(randString())
+	r.WithOwnerId(random.RandInt())
+	r.WithPostId(random.RandInt())
+	r.WithMessage(random.RandString())
+	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAttachments(random.RandStringArr(lAttachments))
+	r.WithSigned(random.RandBool())
+	r.WithLat(random.RandFloat())
+	r.WithLong(random.RandFloat())
+	r.WithPlaceId(random.RandInt())
+	r.WithLinkButton(random.RandString())
+	r.WithLinkTitle(random.RandString())
+	r.WithLinkImage(random.RandString())
+	r.WithLinkVideo(random.RandString())
 }
 
 func TestVKWallEditAdsStealthSuccess(t *testing.T) {
@@ -185,7 +186,7 @@ func TestVKWallEditAdsStealthSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.editAdsStealth", params.Params(), expectedJSON))
@@ -195,11 +196,11 @@ func TestVKWallEditAdsStealthSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallEditCommentRequest(r *requests.WallEditCommentRequest) {
-	r.WithOwnerId(randInt())
-	r.WithCommentId(randInt())
-	r.WithMessage(randString())
-	lAttachments := randIntn(maxArrayLength + 1)
-	r.WithAttachments(randStringArr(lAttachments))
+	r.WithOwnerId(random.RandInt())
+	r.WithCommentId(random.RandInt())
+	r.WithMessage(random.RandString())
+	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAttachments(random.RandStringArr(lAttachments))
 }
 
 func TestVKWallEditCommentSuccess(t *testing.T) {
@@ -209,7 +210,7 @@ func TestVKWallEditCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.editComment", params.Params(), expectedJSON))
@@ -219,16 +220,16 @@ func TestVKWallEditCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallGetRequest(r *requests.WallGetRequest) {
-	r.WithOwnerId(randInt())
-	r.WithDomain(randString())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithDomain(random.RandString())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 	Filter := new(models.WallGetFilter)
 	fillRandomlyWallGetFilter(Filter)
 	r.WithFilter(*Filter)
-	r.WithExtended(randBool())
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -244,7 +245,7 @@ func TestVKWallGetSuccess(t *testing.T) {
 	fillRandomlyWallGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.get", params.Params(), expectedJSON))
@@ -261,7 +262,7 @@ func TestVKWallGetExtendedSuccess(t *testing.T) {
 	fillRandomlyWallGetExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.get", params.Params(), expectedJSON))
@@ -271,12 +272,12 @@ func TestVKWallGetExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallGetByIdRequest(r *requests.WallGetByIdRequest) {
-	lPosts := randIntn(maxArrayLength + 1)
-	r.WithPosts(randStringArr(lPosts))
-	r.WithExtended(randBool())
-	r.WithCopyHistoryDepth(randInt())
+	lPosts := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithPosts(random.RandStringArr(lPosts))
+	r.WithExtended(random.RandBool())
+	r.WithCopyHistoryDepth(random.RandInt())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -292,7 +293,7 @@ func TestVKWallGetByIdSuccess(t *testing.T) {
 	fillRandomlyWallGetByIdLegacyResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.getById", params.Params(), expectedJSON))
@@ -309,7 +310,7 @@ func TestVKWallGetByIdExtendedSuccess(t *testing.T) {
 	fillRandomlyWallGetByIdExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.getById", params.Params(), expectedJSON))
@@ -319,11 +320,11 @@ func TestVKWallGetByIdExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallGetCommentRequest(r *requests.WallGetCommentRequest) {
-	r.WithOwnerId(randInt())
-	r.WithCommentId(randInt())
-	r.WithExtended(randBool())
+	r.WithOwnerId(random.RandInt())
+	r.WithCommentId(random.RandInt())
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -339,7 +340,7 @@ func TestVKWallGetCommentSuccess(t *testing.T) {
 	fillRandomlyWallGetCommentResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.getComment", params.Params(), expectedJSON))
@@ -356,7 +357,7 @@ func TestVKWallGetCommentExtendedSuccess(t *testing.T) {
 	fillRandomlyWallGetCommentExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.getComment", params.Params(), expectedJSON))
@@ -366,24 +367,24 @@ func TestVKWallGetCommentExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallGetCommentsRequest(r *requests.WallGetCommentsRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPostId(randInt())
-	r.WithNeedLikes(randBool())
-	r.WithStartCommentId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithSort(randString())
-	r.WithPreviewLength(randInt())
-	r.WithExtended(randBool())
+	r.WithOwnerId(random.RandInt())
+	r.WithPostId(random.RandInt())
+	r.WithNeedLikes(random.RandBool())
+	r.WithStartCommentId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithSort(random.RandString())
+	r.WithPreviewLength(random.RandInt())
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithCommentId(randInt())
-	r.WithThreadItemsCount(randInt())
+	r.WithCommentId(random.RandInt())
+	r.WithThreadItemsCount(random.RandInt())
 }
 
 func TestVKWallGetCommentsSuccess(t *testing.T) {
@@ -394,7 +395,7 @@ func TestVKWallGetCommentsSuccess(t *testing.T) {
 	fillRandomlyWallGetCommentsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.getComments", params.Params(), expectedJSON))
@@ -411,7 +412,7 @@ func TestVKWallGetCommentsExtendedSuccess(t *testing.T) {
 	fillRandomlyWallGetCommentsExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.getComments", params.Params(), expectedJSON))
@@ -421,10 +422,10 @@ func TestVKWallGetCommentsExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallGetRepostsRequest(r *requests.WallGetRepostsRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPostId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithPostId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKWallGetRepostsSuccess(t *testing.T) {
@@ -434,7 +435,7 @@ func TestVKWallGetRepostsSuccess(t *testing.T) {
 	fillRandomlyWallGetRepostsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.getReposts", params.Params(), expectedJSON))
@@ -444,8 +445,8 @@ func TestVKWallGetRepostsSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallOpenCommentsRequest(r *requests.WallOpenCommentsRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPostId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithPostId(random.RandInt())
 }
 
 func TestVKWallOpenCommentsSuccess(t *testing.T) {
@@ -455,7 +456,7 @@ func TestVKWallOpenCommentsSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.openComments", params.Params(), expectedJSON))
@@ -465,8 +466,8 @@ func TestVKWallOpenCommentsSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallPinRequest(r *requests.WallPinRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPostId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithPostId(random.RandInt())
 }
 
 func TestVKWallPinSuccess(t *testing.T) {
@@ -476,7 +477,7 @@ func TestVKWallPinSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.pin", params.Params(), expectedJSON))
@@ -486,26 +487,26 @@ func TestVKWallPinSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallPostRequest(r *requests.WallPostRequest) {
-	r.WithOwnerId(randInt())
-	r.WithFriendsOnly(randBool())
-	r.WithFromGroup(randBool())
-	r.WithMessage(randString())
-	lAttachments := randIntn(maxArrayLength + 1)
-	r.WithAttachments(randStringArr(lAttachments))
-	r.WithServices(randString())
-	r.WithSigned(randBool())
-	r.WithPublishDate(randInt())
-	r.WithLat(randFloat())
-	r.WithLong(randFloat())
-	r.WithPlaceId(randInt())
-	r.WithPostId(randInt())
-	r.WithGuid(randString())
-	r.WithMarkAsAds(randBool())
-	r.WithCloseComments(randBool())
-	r.WithDonutPaidDuration(randInt())
-	r.WithMuteNotifications(randBool())
-	r.WithCopyright(randString())
-	r.WithTopicId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithFriendsOnly(random.RandBool())
+	r.WithFromGroup(random.RandBool())
+	r.WithMessage(random.RandString())
+	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAttachments(random.RandStringArr(lAttachments))
+	r.WithServices(random.RandString())
+	r.WithSigned(random.RandBool())
+	r.WithPublishDate(random.RandInt())
+	r.WithLat(random.RandFloat())
+	r.WithLong(random.RandFloat())
+	r.WithPlaceId(random.RandInt())
+	r.WithPostId(random.RandInt())
+	r.WithGuid(random.RandString())
+	r.WithMarkAsAds(random.RandBool())
+	r.WithCloseComments(random.RandBool())
+	r.WithDonutPaidDuration(random.RandInt())
+	r.WithMuteNotifications(random.RandBool())
+	r.WithCopyright(random.RandString())
+	r.WithTopicId(random.RandInt())
 }
 
 func TestVKWallPostSuccess(t *testing.T) {
@@ -515,7 +516,7 @@ func TestVKWallPostSuccess(t *testing.T) {
 	fillRandomlyWallPostResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.post", params.Params(), expectedJSON))
@@ -525,19 +526,19 @@ func TestVKWallPostSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallPostAdsStealthRequest(r *requests.WallPostAdsStealthRequest) {
-	r.WithOwnerId(randInt())
-	r.WithMessage(randString())
-	lAttachments := randIntn(maxArrayLength + 1)
-	r.WithAttachments(randStringArr(lAttachments))
-	r.WithSigned(randBool())
-	r.WithLat(randFloat())
-	r.WithLong(randFloat())
-	r.WithPlaceId(randInt())
-	r.WithGuid(randString())
-	r.WithLinkButton(randString())
-	r.WithLinkTitle(randString())
-	r.WithLinkImage(randString())
-	r.WithLinkVideo(randString())
+	r.WithOwnerId(random.RandInt())
+	r.WithMessage(random.RandString())
+	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAttachments(random.RandStringArr(lAttachments))
+	r.WithSigned(random.RandBool())
+	r.WithLat(random.RandFloat())
+	r.WithLong(random.RandFloat())
+	r.WithPlaceId(random.RandInt())
+	r.WithGuid(random.RandString())
+	r.WithLinkButton(random.RandString())
+	r.WithLinkTitle(random.RandString())
+	r.WithLinkImage(random.RandString())
+	r.WithLinkVideo(random.RandString())
 }
 
 func TestVKWallPostAdsStealthSuccess(t *testing.T) {
@@ -547,7 +548,7 @@ func TestVKWallPostAdsStealthSuccess(t *testing.T) {
 	fillRandomlyWallPostAdsStealthResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.postAdsStealth", params.Params(), expectedJSON))
@@ -557,9 +558,9 @@ func TestVKWallPostAdsStealthSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallReportCommentRequest(r *requests.WallReportCommentRequest) {
-	r.WithOwnerId(randInt())
-	r.WithCommentId(randInt())
-	r.WithReason(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithCommentId(random.RandInt())
+	r.WithReason(random.RandInt())
 }
 
 func TestVKWallReportCommentSuccess(t *testing.T) {
@@ -569,7 +570,7 @@ func TestVKWallReportCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.reportComment", params.Params(), expectedJSON))
@@ -579,9 +580,9 @@ func TestVKWallReportCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallReportPostRequest(r *requests.WallReportPostRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPostId(randInt())
-	r.WithReason(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithPostId(random.RandInt())
+	r.WithReason(random.RandInt())
 }
 
 func TestVKWallReportPostSuccess(t *testing.T) {
@@ -591,7 +592,7 @@ func TestVKWallReportPostSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.reportPost", params.Params(), expectedJSON))
@@ -601,11 +602,11 @@ func TestVKWallReportPostSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallRepostRequest(r *requests.WallRepostRequest) {
-	r.WithObject(randString())
-	r.WithMessage(randString())
-	r.WithGroupId(randInt())
-	r.WithMarkAsAds(randBool())
-	r.WithMuteNotifications(randBool())
+	r.WithObject(random.RandString())
+	r.WithMessage(random.RandString())
+	r.WithGroupId(random.RandInt())
+	r.WithMarkAsAds(random.RandBool())
+	r.WithMuteNotifications(random.RandBool())
 }
 
 func TestVKWallRepostSuccess(t *testing.T) {
@@ -615,7 +616,7 @@ func TestVKWallRepostSuccess(t *testing.T) {
 	fillRandomlyWallRepostResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.repost", params.Params(), expectedJSON))
@@ -625,8 +626,8 @@ func TestVKWallRepostSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallRestoreRequest(r *requests.WallRestoreRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPostId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithPostId(random.RandInt())
 }
 
 func TestVKWallRestoreSuccess(t *testing.T) {
@@ -636,7 +637,7 @@ func TestVKWallRestoreSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.restore", params.Params(), expectedJSON))
@@ -646,8 +647,8 @@ func TestVKWallRestoreSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallRestoreCommentRequest(r *requests.WallRestoreCommentRequest) {
-	r.WithOwnerId(randInt())
-	r.WithCommentId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithCommentId(random.RandInt())
 }
 
 func TestVKWallRestoreCommentSuccess(t *testing.T) {
@@ -657,7 +658,7 @@ func TestVKWallRestoreCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.restoreComment", params.Params(), expectedJSON))
@@ -667,15 +668,15 @@ func TestVKWallRestoreCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallSearchRequest(r *requests.WallSearchRequest) {
-	r.WithOwnerId(randInt())
-	r.WithDomain(randString())
-	r.WithQuery(randString())
-	r.WithOwnersOnly(randBool())
-	r.WithCount(randInt())
-	r.WithOffset(randInt())
-	r.WithExtended(randBool())
+	r.WithOwnerId(random.RandInt())
+	r.WithDomain(random.RandString())
+	r.WithQuery(random.RandString())
+	r.WithOwnersOnly(random.RandBool())
+	r.WithCount(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -691,7 +692,7 @@ func TestVKWallSearchSuccess(t *testing.T) {
 	fillRandomlyWallSearchResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.search", params.Params(), expectedJSON))
@@ -708,7 +709,7 @@ func TestVKWallSearchExtendedSuccess(t *testing.T) {
 	fillRandomlyWallSearchExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.search", params.Params(), expectedJSON))
@@ -718,8 +719,8 @@ func TestVKWallSearchExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyWallUnpinRequest(r *requests.WallUnpinRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPostId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithPostId(random.RandInt())
 }
 
 func TestVKWallUnpinSuccess(t *testing.T) {
@@ -729,7 +730,7 @@ func TestVKWallUnpinSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "wall.unpin", params.Params(), expectedJSON))
@@ -737,4 +738,3 @@ func TestVKWallUnpinSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

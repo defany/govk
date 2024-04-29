@@ -3,18 +3,19 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/store"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyStoreAddStickersToFavoriteRequest(r *requests.StoreAddStickersToFavoriteRequest) {
-	lStickerIds := randIntn(maxArrayLength + 1)
-	r.WithStickerIds(randIntArr(lStickerIds))
+	lStickerIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithStickerIds(random.RandIntArr(lStickerIds))
 }
 
 func TestVKStoreAddStickersToFavoriteSuccess(t *testing.T) {
@@ -24,7 +25,7 @@ func TestVKStoreAddStickersToFavoriteSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "store.addStickersToFavorite", params.Params(), expectedJSON))
@@ -38,7 +39,7 @@ func TestVKStoreGetFavoriteStickersSuccess(t *testing.T) {
 	fillRandomlyStoreGetFavoriteStickersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "store.getFavoriteStickers", nil, expectedJSON))
@@ -48,14 +49,14 @@ func TestVKStoreGetFavoriteStickersSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoreGetProductsRequest(r *requests.StoreGetProductsRequest) {
-	r.WithType(randString())
-	r.WithMerchant(randString())
-	r.WithSection(randString())
-	lProductIds := randIntn(maxArrayLength + 1)
-	r.WithProductIds(randIntArr(lProductIds))
-	lFilters := randIntn(maxArrayLength + 1)
-	r.WithFilters(randStringArr(lFilters))
-	r.WithExtended(randBool())
+	r.WithType(random.RandString())
+	r.WithMerchant(random.RandString())
+	r.WithSection(random.RandString())
+	lProductIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithProductIds(random.RandIntArr(lProductIds))
+	lFilters := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithFilters(random.RandStringArr(lFilters))
+	r.WithExtended(random.RandBool())
 }
 
 func TestVKStoreGetProductsSuccess(t *testing.T) {
@@ -65,7 +66,7 @@ func TestVKStoreGetProductsSuccess(t *testing.T) {
 	fillRandomlyStoreGetProductsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "store.getProducts", params.Params(), expectedJSON))
@@ -75,13 +76,13 @@ func TestVKStoreGetProductsSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoreGetStickersKeywordsRequest(r *requests.StoreGetStickersKeywordsRequest) {
-	lStickersIds := randIntn(maxArrayLength + 1)
-	r.WithStickersIds(randIntArr(lStickersIds))
-	lProductsIds := randIntn(maxArrayLength + 1)
-	r.WithProductsIds(randIntArr(lProductsIds))
-	r.WithAliases(randBool())
-	r.WithAllProducts(randBool())
-	r.WithNeedStickers(randBool())
+	lStickersIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithStickersIds(random.RandIntArr(lStickersIds))
+	lProductsIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithProductsIds(random.RandIntArr(lProductsIds))
+	r.WithAliases(random.RandBool())
+	r.WithAllProducts(random.RandBool())
+	r.WithNeedStickers(random.RandBool())
 }
 
 func TestVKStoreGetStickersKeywordsSuccess(t *testing.T) {
@@ -91,7 +92,7 @@ func TestVKStoreGetStickersKeywordsSuccess(t *testing.T) {
 	fillRandomlyStoreGetStickersKeywordsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "store.getStickersKeywords", params.Params(), expectedJSON))
@@ -101,8 +102,8 @@ func TestVKStoreGetStickersKeywordsSuccess(t *testing.T) {
 }
 
 func fillRandomlyStoreRemoveStickersFromFavoriteRequest(r *requests.StoreRemoveStickersFromFavoriteRequest) {
-	lStickerIds := randIntn(maxArrayLength + 1)
-	r.WithStickerIds(randIntArr(lStickerIds))
+	lStickerIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithStickerIds(random.RandIntArr(lStickerIds))
 }
 
 func TestVKStoreRemoveStickersFromFavoriteSuccess(t *testing.T) {
@@ -112,7 +113,7 @@ func TestVKStoreRemoveStickersFromFavoriteSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "store.removeStickersFromFavorite", params.Params(), expectedJSON))
@@ -120,4 +121,3 @@ func TestVKStoreRemoveStickersFromFavoriteSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

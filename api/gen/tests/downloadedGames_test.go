@@ -3,17 +3,18 @@
 package tests
 
 import (
-	"github.com/defany/govk/api/gen/models"
+	"encoding/json"
 	"github.com/defany/govk/api/gen/downloadedgames"
+	"github.com/defany/govk/api/gen/models"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyDownloadedGamesGetPaidStatusRequest(r *requests.DownloadedGamesGetPaidStatusRequest) {
-	r.WithUserId(randInt())
+	r.WithUserId(random.RandInt())
 }
 
 func TestVKDownloadedGamesGetPaidStatusSuccess(t *testing.T) {
@@ -23,7 +24,7 @@ func TestVKDownloadedGamesGetPaidStatusSuccess(t *testing.T) {
 	fillRandomlyDownloadedGamesPaidStatusResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "downloadedGames.getPaidStatus", params.Params(), expectedJSON))
@@ -31,4 +32,3 @@ func TestVKDownloadedGamesGetPaidStatusSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

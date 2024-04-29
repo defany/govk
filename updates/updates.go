@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/defany/govk/api"
-	apiModel "github.com/defany/govk/api/model"
+	apiModel "github.com/defany/govk/api/apiModel"
 	"github.com/defany/govk/updates/model/longpoll"
 	"github.com/goccy/go-json"
 	"io"

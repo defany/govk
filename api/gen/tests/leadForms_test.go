@@ -3,32 +3,33 @@
 package tests
 
 import (
-	"github.com/defany/govk/api/gen/models"
+	"encoding/json"
 	"github.com/defany/govk/api/gen/leadforms"
+	"github.com/defany/govk/api/gen/models"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyLeadFormsCreateRequest(r *requests.LeadFormsCreateRequest) {
-	r.WithGroupId(randInt())
-	r.WithName(randString())
-	r.WithTitle(randString())
-	r.WithDescription(randString())
-	r.WithQuestions(randString())
-	r.WithPolicyLinkUrl(randString())
-	r.WithPhoto(randString())
-	r.WithConfirmation(randString())
-	r.WithSiteLinkUrl(randString())
-	r.WithActive(randBool())
-	r.WithOncePerUser(randBool())
-	r.WithPixelCode(randString())
-	lNotifyAdmins := randIntn(maxArrayLength + 1)
-	r.WithNotifyAdmins(randIntArr(lNotifyAdmins))
-	lNotifyEmails := randIntn(maxArrayLength + 1)
-	r.WithNotifyEmails(randStringArr(lNotifyEmails))
+	r.WithGroupId(random.RandInt())
+	r.WithName(random.RandString())
+	r.WithTitle(random.RandString())
+	r.WithDescription(random.RandString())
+	r.WithQuestions(random.RandString())
+	r.WithPolicyLinkUrl(random.RandString())
+	r.WithPhoto(random.RandString())
+	r.WithConfirmation(random.RandString())
+	r.WithSiteLinkUrl(random.RandString())
+	r.WithActive(random.RandBool())
+	r.WithOncePerUser(random.RandBool())
+	r.WithPixelCode(random.RandString())
+	lNotifyAdmins := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithNotifyAdmins(random.RandIntArr(lNotifyAdmins))
+	lNotifyEmails := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithNotifyEmails(random.RandStringArr(lNotifyEmails))
 }
 
 func TestVKLeadFormsCreateSuccess(t *testing.T) {
@@ -38,7 +39,7 @@ func TestVKLeadFormsCreateSuccess(t *testing.T) {
 	fillRandomlyLeadFormsCreateResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "leadForms.create", params.Params(), expectedJSON))
@@ -48,8 +49,8 @@ func TestVKLeadFormsCreateSuccess(t *testing.T) {
 }
 
 func fillRandomlyLeadFormsDeleteRequest(r *requests.LeadFormsDeleteRequest) {
-	r.WithGroupId(randInt())
-	r.WithFormId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithFormId(random.RandInt())
 }
 
 func TestVKLeadFormsDeleteSuccess(t *testing.T) {
@@ -59,7 +60,7 @@ func TestVKLeadFormsDeleteSuccess(t *testing.T) {
 	fillRandomlyLeadFormsDeleteResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "leadForms.delete", params.Params(), expectedJSON))
@@ -69,8 +70,8 @@ func TestVKLeadFormsDeleteSuccess(t *testing.T) {
 }
 
 func fillRandomlyLeadFormsGetRequest(r *requests.LeadFormsGetRequest) {
-	r.WithGroupId(randInt())
-	r.WithFormId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithFormId(random.RandInt())
 }
 
 func TestVKLeadFormsGetSuccess(t *testing.T) {
@@ -80,7 +81,7 @@ func TestVKLeadFormsGetSuccess(t *testing.T) {
 	fillRandomlyLeadFormsGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "leadForms.get", params.Params(), expectedJSON))
@@ -90,10 +91,10 @@ func TestVKLeadFormsGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyLeadFormsGetLeadsRequest(r *requests.LeadFormsGetLeadsRequest) {
-	r.WithGroupId(randInt())
-	r.WithFormId(randInt())
-	r.WithLimit(randInt())
-	r.WithNextPageToken(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithFormId(random.RandInt())
+	r.WithLimit(random.RandInt())
+	r.WithNextPageToken(random.RandString())
 }
 
 func TestVKLeadFormsGetLeadsSuccess(t *testing.T) {
@@ -103,7 +104,7 @@ func TestVKLeadFormsGetLeadsSuccess(t *testing.T) {
 	fillRandomlyLeadFormsGetLeadsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "leadForms.getLeads", params.Params(), expectedJSON))
@@ -117,7 +118,7 @@ func TestVKLeadFormsGetUploadURLSuccess(t *testing.T) {
 	fillRandomlyLeadFormsUploadUrlResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "leadForms.getUploadURL", nil, expectedJSON))
@@ -127,7 +128,7 @@ func TestVKLeadFormsGetUploadURLSuccess(t *testing.T) {
 }
 
 func fillRandomlyLeadFormsListRequest(r *requests.LeadFormsListRequest) {
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKLeadFormsListSuccess(t *testing.T) {
@@ -137,7 +138,7 @@ func TestVKLeadFormsListSuccess(t *testing.T) {
 	fillRandomlyLeadFormsListResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "leadForms.list", params.Params(), expectedJSON))
@@ -147,23 +148,23 @@ func TestVKLeadFormsListSuccess(t *testing.T) {
 }
 
 func fillRandomlyLeadFormsUpdateRequest(r *requests.LeadFormsUpdateRequest) {
-	r.WithGroupId(randInt())
-	r.WithFormId(randInt())
-	r.WithName(randString())
-	r.WithTitle(randString())
-	r.WithDescription(randString())
-	r.WithQuestions(randString())
-	r.WithPolicyLinkUrl(randString())
-	r.WithPhoto(randString())
-	r.WithConfirmation(randString())
-	r.WithSiteLinkUrl(randString())
-	r.WithActive(randBool())
-	r.WithOncePerUser(randBool())
-	r.WithPixelCode(randString())
-	lNotifyAdmins := randIntn(maxArrayLength + 1)
-	r.WithNotifyAdmins(randIntArr(lNotifyAdmins))
-	lNotifyEmails := randIntn(maxArrayLength + 1)
-	r.WithNotifyEmails(randStringArr(lNotifyEmails))
+	r.WithGroupId(random.RandInt())
+	r.WithFormId(random.RandInt())
+	r.WithName(random.RandString())
+	r.WithTitle(random.RandString())
+	r.WithDescription(random.RandString())
+	r.WithQuestions(random.RandString())
+	r.WithPolicyLinkUrl(random.RandString())
+	r.WithPhoto(random.RandString())
+	r.WithConfirmation(random.RandString())
+	r.WithSiteLinkUrl(random.RandString())
+	r.WithActive(random.RandBool())
+	r.WithOncePerUser(random.RandBool())
+	r.WithPixelCode(random.RandString())
+	lNotifyAdmins := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithNotifyAdmins(random.RandIntArr(lNotifyAdmins))
+	lNotifyEmails := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithNotifyEmails(random.RandStringArr(lNotifyEmails))
 }
 
 func TestVKLeadFormsUpdateSuccess(t *testing.T) {
@@ -173,7 +174,7 @@ func TestVKLeadFormsUpdateSuccess(t *testing.T) {
 	fillRandomlyLeadFormsCreateResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "leadForms.update", params.Params(), expectedJSON))
@@ -181,4 +182,3 @@ func TestVKLeadFormsUpdateSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

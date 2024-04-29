@@ -3,18 +3,19 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/status"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyStatusGetRequest(r *requests.StatusGetRequest) {
-	r.WithUserId(randInt())
-	r.WithGroupId(randInt())
+	r.WithUserId(random.RandInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKStatusGetSuccess(t *testing.T) {
@@ -24,7 +25,7 @@ func TestVKStatusGetSuccess(t *testing.T) {
 	fillRandomlyStatusGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "status.get", params.Params(), expectedJSON))
@@ -34,8 +35,8 @@ func TestVKStatusGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyStatusSetRequest(r *requests.StatusSetRequest) {
-	r.WithText(randString())
-	r.WithGroupId(randInt())
+	r.WithText(random.RandString())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKStatusSetSuccess(t *testing.T) {
@@ -45,7 +46,7 @@ func TestVKStatusSetSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "status.set", params.Params(), expectedJSON))
@@ -53,4 +54,3 @@ func TestVKStatusSetSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

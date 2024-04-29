@@ -3,22 +3,23 @@
 package tests
 
 import (
-	"github.com/defany/govk/api/gen/models"
+	"encoding/json"
 	"github.com/defany/govk/api/gen/board"
+	"github.com/defany/govk/api/gen/models"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyBoardAddTopicRequest(r *requests.BoardAddTopicRequest) {
-	r.WithGroupId(randInt())
-	r.WithTitle(randString())
-	r.WithText(randString())
-	r.WithFromGroup(randBool())
-	lAttachments := randIntn(maxArrayLength + 1)
-	r.WithAttachments(randStringArr(lAttachments))
+	r.WithGroupId(random.RandInt())
+	r.WithTitle(random.RandString())
+	r.WithText(random.RandString())
+	r.WithFromGroup(random.RandBool())
+	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAttachments(random.RandStringArr(lAttachments))
 }
 
 func TestVKBoardAddTopicSuccess(t *testing.T) {
@@ -28,7 +29,7 @@ func TestVKBoardAddTopicSuccess(t *testing.T) {
 	fillRandomlyBoardAddTopicResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.addTopic", params.Params(), expectedJSON))
@@ -38,8 +39,8 @@ func TestVKBoardAddTopicSuccess(t *testing.T) {
 }
 
 func fillRandomlyBoardCloseTopicRequest(r *requests.BoardCloseTopicRequest) {
-	r.WithGroupId(randInt())
-	r.WithTopicId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithTopicId(random.RandInt())
 }
 
 func TestVKBoardCloseTopicSuccess(t *testing.T) {
@@ -49,7 +50,7 @@ func TestVKBoardCloseTopicSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.closeTopic", params.Params(), expectedJSON))
@@ -59,14 +60,14 @@ func TestVKBoardCloseTopicSuccess(t *testing.T) {
 }
 
 func fillRandomlyBoardCreateCommentRequest(r *requests.BoardCreateCommentRequest) {
-	r.WithGroupId(randInt())
-	r.WithTopicId(randInt())
-	r.WithMessage(randString())
-	lAttachments := randIntn(maxArrayLength + 1)
-	r.WithAttachments(randStringArr(lAttachments))
-	r.WithFromGroup(randBool())
-	r.WithStickerId(randInt())
-	r.WithGuid(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithTopicId(random.RandInt())
+	r.WithMessage(random.RandString())
+	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAttachments(random.RandStringArr(lAttachments))
+	r.WithFromGroup(random.RandBool())
+	r.WithStickerId(random.RandInt())
+	r.WithGuid(random.RandString())
 }
 
 func TestVKBoardCreateCommentSuccess(t *testing.T) {
@@ -76,7 +77,7 @@ func TestVKBoardCreateCommentSuccess(t *testing.T) {
 	fillRandomlyBoardCreateCommentResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.createComment", params.Params(), expectedJSON))
@@ -86,9 +87,9 @@ func TestVKBoardCreateCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyBoardDeleteCommentRequest(r *requests.BoardDeleteCommentRequest) {
-	r.WithGroupId(randInt())
-	r.WithTopicId(randInt())
-	r.WithCommentId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithTopicId(random.RandInt())
+	r.WithCommentId(random.RandInt())
 }
 
 func TestVKBoardDeleteCommentSuccess(t *testing.T) {
@@ -98,7 +99,7 @@ func TestVKBoardDeleteCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.deleteComment", params.Params(), expectedJSON))
@@ -108,8 +109,8 @@ func TestVKBoardDeleteCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyBoardDeleteTopicRequest(r *requests.BoardDeleteTopicRequest) {
-	r.WithGroupId(randInt())
-	r.WithTopicId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithTopicId(random.RandInt())
 }
 
 func TestVKBoardDeleteTopicSuccess(t *testing.T) {
@@ -119,7 +120,7 @@ func TestVKBoardDeleteTopicSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.deleteTopic", params.Params(), expectedJSON))
@@ -129,12 +130,12 @@ func TestVKBoardDeleteTopicSuccess(t *testing.T) {
 }
 
 func fillRandomlyBoardEditCommentRequest(r *requests.BoardEditCommentRequest) {
-	r.WithGroupId(randInt())
-	r.WithTopicId(randInt())
-	r.WithCommentId(randInt())
-	r.WithMessage(randString())
-	lAttachments := randIntn(maxArrayLength + 1)
-	r.WithAttachments(randStringArr(lAttachments))
+	r.WithGroupId(random.RandInt())
+	r.WithTopicId(random.RandInt())
+	r.WithCommentId(random.RandInt())
+	r.WithMessage(random.RandString())
+	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAttachments(random.RandStringArr(lAttachments))
 }
 
 func TestVKBoardEditCommentSuccess(t *testing.T) {
@@ -144,7 +145,7 @@ func TestVKBoardEditCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.editComment", params.Params(), expectedJSON))
@@ -154,9 +155,9 @@ func TestVKBoardEditCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyBoardEditTopicRequest(r *requests.BoardEditTopicRequest) {
-	r.WithGroupId(randInt())
-	r.WithTopicId(randInt())
-	r.WithTitle(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithTopicId(random.RandInt())
+	r.WithTitle(random.RandString())
 }
 
 func TestVKBoardEditTopicSuccess(t *testing.T) {
@@ -166,7 +167,7 @@ func TestVKBoardEditTopicSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.editTopic", params.Params(), expectedJSON))
@@ -176,8 +177,8 @@ func TestVKBoardEditTopicSuccess(t *testing.T) {
 }
 
 func fillRandomlyBoardFixTopicRequest(r *requests.BoardFixTopicRequest) {
-	r.WithGroupId(randInt())
-	r.WithTopicId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithTopicId(random.RandInt())
 }
 
 func TestVKBoardFixTopicSuccess(t *testing.T) {
@@ -187,7 +188,7 @@ func TestVKBoardFixTopicSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.fixTopic", params.Params(), expectedJSON))
@@ -197,14 +198,14 @@ func TestVKBoardFixTopicSuccess(t *testing.T) {
 }
 
 func fillRandomlyBoardGetCommentsRequest(r *requests.BoardGetCommentsRequest) {
-	r.WithGroupId(randInt())
-	r.WithTopicId(randInt())
-	r.WithNeedLikes(randBool())
-	r.WithStartCommentId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithExtended(randBool())
-	r.WithSort(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithTopicId(random.RandInt())
+	r.WithNeedLikes(random.RandBool())
+	r.WithStartCommentId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithExtended(random.RandBool())
+	r.WithSort(random.RandString())
 }
 
 func TestVKBoardGetCommentsSuccess(t *testing.T) {
@@ -215,7 +216,7 @@ func TestVKBoardGetCommentsSuccess(t *testing.T) {
 	fillRandomlyBoardGetCommentsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.getComments", params.Params(), expectedJSON))
@@ -232,7 +233,7 @@ func TestVKBoardGetCommentsExtendedSuccess(t *testing.T) {
 	fillRandomlyBoardGetCommentsExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.getComments", params.Params(), expectedJSON))
@@ -242,15 +243,15 @@ func TestVKBoardGetCommentsExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyBoardGetTopicsRequest(r *requests.BoardGetTopicsRequest) {
-	r.WithGroupId(randInt())
-	lTopicIds := randIntn(maxArrayLength + 1)
-	r.WithTopicIds(randIntArr(lTopicIds))
-	r.WithOrder(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithExtended(randBool())
-	r.WithPreview(randInt())
-	r.WithPreviewLength(randInt())
+	r.WithGroupId(random.RandInt())
+	lTopicIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithTopicIds(random.RandIntArr(lTopicIds))
+	r.WithOrder(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithExtended(random.RandBool())
+	r.WithPreview(random.RandInt())
+	r.WithPreviewLength(random.RandInt())
 }
 
 func TestVKBoardGetTopicsSuccess(t *testing.T) {
@@ -261,7 +262,7 @@ func TestVKBoardGetTopicsSuccess(t *testing.T) {
 	fillRandomlyBoardGetTopicsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.getTopics", params.Params(), expectedJSON))
@@ -278,7 +279,7 @@ func TestVKBoardGetTopicsExtendedSuccess(t *testing.T) {
 	fillRandomlyBoardGetTopicsExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.getTopics", params.Params(), expectedJSON))
@@ -288,8 +289,8 @@ func TestVKBoardGetTopicsExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyBoardOpenTopicRequest(r *requests.BoardOpenTopicRequest) {
-	r.WithGroupId(randInt())
-	r.WithTopicId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithTopicId(random.RandInt())
 }
 
 func TestVKBoardOpenTopicSuccess(t *testing.T) {
@@ -299,7 +300,7 @@ func TestVKBoardOpenTopicSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.openTopic", params.Params(), expectedJSON))
@@ -309,9 +310,9 @@ func TestVKBoardOpenTopicSuccess(t *testing.T) {
 }
 
 func fillRandomlyBoardRestoreCommentRequest(r *requests.BoardRestoreCommentRequest) {
-	r.WithGroupId(randInt())
-	r.WithTopicId(randInt())
-	r.WithCommentId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithTopicId(random.RandInt())
+	r.WithCommentId(random.RandInt())
 }
 
 func TestVKBoardRestoreCommentSuccess(t *testing.T) {
@@ -321,7 +322,7 @@ func TestVKBoardRestoreCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.restoreComment", params.Params(), expectedJSON))
@@ -331,8 +332,8 @@ func TestVKBoardRestoreCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyBoardUnfixTopicRequest(r *requests.BoardUnfixTopicRequest) {
-	r.WithGroupId(randInt())
-	r.WithTopicId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithTopicId(random.RandInt())
 }
 
 func TestVKBoardUnfixTopicSuccess(t *testing.T) {
@@ -342,7 +343,7 @@ func TestVKBoardUnfixTopicSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "board.unfixTopic", params.Params(), expectedJSON))
@@ -350,4 +351,3 @@ func TestVKBoardUnfixTopicSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

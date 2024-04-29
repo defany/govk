@@ -3,17 +3,18 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/pages"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyPagesClearCacheRequest(r *requests.PagesClearCacheRequest) {
-	r.WithUrl(randString())
+	r.WithUrl(random.RandString())
 }
 
 func TestVKPagesClearCacheSuccess(t *testing.T) {
@@ -23,7 +24,7 @@ func TestVKPagesClearCacheSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "pages.clearCache", params.Params(), expectedJSON))
@@ -33,13 +34,13 @@ func TestVKPagesClearCacheSuccess(t *testing.T) {
 }
 
 func fillRandomlyPagesGetRequest(r *requests.PagesGetRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPageId(randInt())
-	r.WithGlobal(randBool())
-	r.WithSitePreview(randBool())
-	r.WithTitle(randString())
-	r.WithNeedSource(randBool())
-	r.WithNeedHtml(randBool())
+	r.WithOwnerId(random.RandInt())
+	r.WithPageId(random.RandInt())
+	r.WithGlobal(random.RandBool())
+	r.WithSitePreview(random.RandBool())
+	r.WithTitle(random.RandString())
+	r.WithNeedSource(random.RandBool())
+	r.WithNeedHtml(random.RandBool())
 }
 
 func TestVKPagesGetSuccess(t *testing.T) {
@@ -49,7 +50,7 @@ func TestVKPagesGetSuccess(t *testing.T) {
 	fillRandomlyPagesGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "pages.get", params.Params(), expectedJSON))
@@ -59,9 +60,9 @@ func TestVKPagesGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyPagesGetHistoryRequest(r *requests.PagesGetHistoryRequest) {
-	r.WithPageId(randInt())
-	r.WithGroupId(randInt())
-	r.WithUserId(randInt())
+	r.WithPageId(random.RandInt())
+	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.RandInt())
 }
 
 func TestVKPagesGetHistorySuccess(t *testing.T) {
@@ -71,7 +72,7 @@ func TestVKPagesGetHistorySuccess(t *testing.T) {
 	fillRandomlyPagesGetHistoryResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "pages.getHistory", params.Params(), expectedJSON))
@@ -81,7 +82,7 @@ func TestVKPagesGetHistorySuccess(t *testing.T) {
 }
 
 func fillRandomlyPagesGetTitlesRequest(r *requests.PagesGetTitlesRequest) {
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKPagesGetTitlesSuccess(t *testing.T) {
@@ -91,7 +92,7 @@ func TestVKPagesGetTitlesSuccess(t *testing.T) {
 	fillRandomlyPagesGetTitlesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "pages.getTitles", params.Params(), expectedJSON))
@@ -101,10 +102,10 @@ func TestVKPagesGetTitlesSuccess(t *testing.T) {
 }
 
 func fillRandomlyPagesGetVersionRequest(r *requests.PagesGetVersionRequest) {
-	r.WithVersionId(randInt())
-	r.WithGroupId(randInt())
-	r.WithUserId(randInt())
-	r.WithNeedHtml(randBool())
+	r.WithVersionId(random.RandInt())
+	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.RandInt())
+	r.WithNeedHtml(random.RandBool())
 }
 
 func TestVKPagesGetVersionSuccess(t *testing.T) {
@@ -114,7 +115,7 @@ func TestVKPagesGetVersionSuccess(t *testing.T) {
 	fillRandomlyPagesGetVersionResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "pages.getVersion", params.Params(), expectedJSON))
@@ -124,8 +125,8 @@ func TestVKPagesGetVersionSuccess(t *testing.T) {
 }
 
 func fillRandomlyPagesParseWikiRequest(r *requests.PagesParseWikiRequest) {
-	r.WithText(randString())
-	r.WithGroupId(randInt())
+	r.WithText(random.RandString())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKPagesParseWikiSuccess(t *testing.T) {
@@ -135,7 +136,7 @@ func TestVKPagesParseWikiSuccess(t *testing.T) {
 	fillRandomlyPagesParseWikiResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "pages.parseWiki", params.Params(), expectedJSON))
@@ -145,11 +146,11 @@ func TestVKPagesParseWikiSuccess(t *testing.T) {
 }
 
 func fillRandomlyPagesSaveRequest(r *requests.PagesSaveRequest) {
-	r.WithText(randString())
-	r.WithPageId(randInt())
-	r.WithGroupId(randInt())
-	r.WithUserId(randInt())
-	r.WithTitle(randString())
+	r.WithText(random.RandString())
+	r.WithPageId(random.RandInt())
+	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.RandInt())
+	r.WithTitle(random.RandString())
 }
 
 func TestVKPagesSaveSuccess(t *testing.T) {
@@ -159,7 +160,7 @@ func TestVKPagesSaveSuccess(t *testing.T) {
 	fillRandomlyPagesSaveResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "pages.save", params.Params(), expectedJSON))
@@ -169,11 +170,11 @@ func TestVKPagesSaveSuccess(t *testing.T) {
 }
 
 func fillRandomlyPagesSaveAccessRequest(r *requests.PagesSaveAccessRequest) {
-	r.WithPageId(randInt())
-	r.WithGroupId(randInt())
-	r.WithUserId(randInt())
-	r.WithView(randInt())
-	r.WithEdit(randInt())
+	r.WithPageId(random.RandInt())
+	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.RandInt())
+	r.WithView(random.RandInt())
+	r.WithEdit(random.RandInt())
 }
 
 func TestVKPagesSaveAccessSuccess(t *testing.T) {
@@ -183,7 +184,7 @@ func TestVKPagesSaveAccessSuccess(t *testing.T) {
 	fillRandomlyPagesSaveAccessResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "pages.saveAccess", params.Params(), expectedJSON))
@@ -191,4 +192,3 @@ func TestVKPagesSaveAccessSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

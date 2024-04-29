@@ -3,19 +3,20 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/secure"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlySecureAddAppEventRequest(r *requests.SecureAddAppEventRequest) {
-	r.WithUserId(randInt())
-	r.WithActivityId(randInt())
-	r.WithValue(randInt())
+	r.WithUserId(random.RandInt())
+	r.WithActivityId(random.RandInt())
+	r.WithValue(random.RandInt())
 }
 
 func TestVKSecureAddAppEventSuccess(t *testing.T) {
@@ -25,7 +26,7 @@ func TestVKSecureAddAppEventSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "secure.addAppEvent", params.Params(), expectedJSON))
@@ -35,8 +36,8 @@ func TestVKSecureAddAppEventSuccess(t *testing.T) {
 }
 
 func fillRandomlySecureCheckTokenRequest(r *requests.SecureCheckTokenRequest) {
-	r.WithToken(randString())
-	r.WithIp(randString())
+	r.WithToken(random.RandString())
+	r.WithIp(random.RandString())
 }
 
 func TestVKSecureCheckTokenSuccess(t *testing.T) {
@@ -46,7 +47,7 @@ func TestVKSecureCheckTokenSuccess(t *testing.T) {
 	fillRandomlySecureCheckTokenResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "secure.checkToken", params.Params(), expectedJSON))
@@ -60,7 +61,7 @@ func TestVKSecureGetAppBalanceSuccess(t *testing.T) {
 	fillRandomlySecureGetAppBalanceResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "secure.getAppBalance", nil, expectedJSON))
@@ -70,10 +71,10 @@ func TestVKSecureGetAppBalanceSuccess(t *testing.T) {
 }
 
 func fillRandomlySecureGetSMSHistoryRequest(r *requests.SecureGetSMSHistoryRequest) {
-	r.WithUserId(randInt())
-	r.WithDateFrom(randInt())
-	r.WithDateTo(randInt())
-	r.WithLimit(randInt())
+	r.WithUserId(random.RandInt())
+	r.WithDateFrom(random.RandInt())
+	r.WithDateTo(random.RandInt())
+	r.WithLimit(random.RandInt())
 }
 
 func TestVKSecureGetSMSHistorySuccess(t *testing.T) {
@@ -83,7 +84,7 @@ func TestVKSecureGetSMSHistorySuccess(t *testing.T) {
 	fillRandomlySecureGetSMSHistoryResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "secure.getSMSHistory", params.Params(), expectedJSON))
@@ -93,12 +94,12 @@ func TestVKSecureGetSMSHistorySuccess(t *testing.T) {
 }
 
 func fillRandomlySecureGetTransactionsHistoryRequest(r *requests.SecureGetTransactionsHistoryRequest) {
-	r.WithType(randInt())
-	r.WithUidFrom(randInt())
-	r.WithUidTo(randInt())
-	r.WithDateFrom(randInt())
-	r.WithDateTo(randInt())
-	r.WithLimit(randInt())
+	r.WithType(random.RandInt())
+	r.WithUidFrom(random.RandInt())
+	r.WithUidTo(random.RandInt())
+	r.WithDateFrom(random.RandInt())
+	r.WithDateTo(random.RandInt())
+	r.WithLimit(random.RandInt())
 }
 
 func TestVKSecureGetTransactionsHistorySuccess(t *testing.T) {
@@ -108,7 +109,7 @@ func TestVKSecureGetTransactionsHistorySuccess(t *testing.T) {
 	fillRandomlySecureGetTransactionsHistoryResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "secure.getTransactionsHistory", params.Params(), expectedJSON))
@@ -118,8 +119,8 @@ func TestVKSecureGetTransactionsHistorySuccess(t *testing.T) {
 }
 
 func fillRandomlySecureGetUserLevelRequest(r *requests.SecureGetUserLevelRequest) {
-	lUserIds := randIntn(maxArrayLength + 1)
-	r.WithUserIds(randIntArr(lUserIds))
+	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithUserIds(random.RandIntArr(lUserIds))
 }
 
 func TestVKSecureGetUserLevelSuccess(t *testing.T) {
@@ -129,7 +130,7 @@ func TestVKSecureGetUserLevelSuccess(t *testing.T) {
 	fillRandomlySecureGetUserLevelResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "secure.getUserLevel", params.Params(), expectedJSON))
@@ -139,9 +140,9 @@ func TestVKSecureGetUserLevelSuccess(t *testing.T) {
 }
 
 func fillRandomlySecureGiveEventStickerRequest(r *requests.SecureGiveEventStickerRequest) {
-	lUserIds := randIntn(maxArrayLength + 1)
-	r.WithUserIds(randIntArr(lUserIds))
-	r.WithAchievementId(randInt())
+	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithUserIds(random.RandIntArr(lUserIds))
+	r.WithAchievementId(random.RandInt())
 }
 
 func TestVKSecureGiveEventStickerSuccess(t *testing.T) {
@@ -151,7 +152,7 @@ func TestVKSecureGiveEventStickerSuccess(t *testing.T) {
 	fillRandomlySecureGiveEventStickerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "secure.giveEventSticker", params.Params(), expectedJSON))
@@ -161,10 +162,10 @@ func TestVKSecureGiveEventStickerSuccess(t *testing.T) {
 }
 
 func fillRandomlySecureSendNotificationRequest(r *requests.SecureSendNotificationRequest) {
-	lUserIds := randIntn(maxArrayLength + 1)
-	r.WithUserIds(randIntArr(lUserIds))
-	r.WithUserId(randInt())
-	r.WithMessage(randString())
+	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithUserIds(random.RandIntArr(lUserIds))
+	r.WithUserId(random.RandInt())
+	r.WithMessage(random.RandString())
 }
 
 func TestVKSecureSendNotificationSuccess(t *testing.T) {
@@ -174,7 +175,7 @@ func TestVKSecureSendNotificationSuccess(t *testing.T) {
 	fillRandomlySecureSendNotificationResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "secure.sendNotification", params.Params(), expectedJSON))
@@ -184,8 +185,8 @@ func TestVKSecureSendNotificationSuccess(t *testing.T) {
 }
 
 func fillRandomlySecureSendSMSNotificationRequest(r *requests.SecureSendSMSNotificationRequest) {
-	r.WithUserId(randInt())
-	r.WithMessage(randString())
+	r.WithUserId(random.RandInt())
+	r.WithMessage(random.RandString())
 }
 
 func TestVKSecureSendSMSNotificationSuccess(t *testing.T) {
@@ -195,7 +196,7 @@ func TestVKSecureSendSMSNotificationSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "secure.sendSMSNotification", params.Params(), expectedJSON))
@@ -205,11 +206,11 @@ func TestVKSecureSendSMSNotificationSuccess(t *testing.T) {
 }
 
 func fillRandomlySecureSetCounterRequest(r *requests.SecureSetCounterRequest) {
-	lCounters := randIntn(maxArrayLength + 1)
-	r.WithCounters(randStringArr(lCounters))
-	r.WithUserId(randInt())
-	r.WithCounter(randInt())
-	r.WithIncrement(randBool())
+	lCounters := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithCounters(random.RandStringArr(lCounters))
+	r.WithUserId(random.RandInt())
+	r.WithCounter(random.RandInt())
+	r.WithIncrement(random.RandBool())
 }
 
 func TestVKSecureSetCounterSuccess(t *testing.T) {
@@ -219,7 +220,7 @@ func TestVKSecureSetCounterSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "secure.setCounter", params.Params(), expectedJSON))
@@ -229,11 +230,11 @@ func TestVKSecureSetCounterSuccess(t *testing.T) {
 }
 
 func fillRandomlySecureSetCounterCountersRequest(r *requests.SecureSetCounterCountersRequest) {
-	lCounters := randIntn(maxArrayLength + 1)
-	r.WithCounters(randStringArr(lCounters))
-	r.WithUserId(randInt())
-	r.WithCounter(randInt())
-	r.WithIncrement(randBool())
+	lCounters := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithCounters(random.RandStringArr(lCounters))
+	r.WithUserId(random.RandInt())
+	r.WithCounter(random.RandInt())
+	r.WithIncrement(random.RandBool())
 }
 
 func TestVKSecureSetCounterCountersSuccess(t *testing.T) {
@@ -243,7 +244,7 @@ func TestVKSecureSetCounterCountersSuccess(t *testing.T) {
 	fillRandomlySecureSetCounterArrayResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "secure.setCounter", params.Params(), expectedJSON))
@@ -253,11 +254,11 @@ func TestVKSecureSetCounterCountersSuccess(t *testing.T) {
 }
 
 func fillRandomlySecureSetCounterNotSecureRequest(r *requests.SecureSetCounterNotSecureRequest) {
-	lCounters := randIntn(maxArrayLength + 1)
-	r.WithCounters(randStringArr(lCounters))
-	r.WithUserId(randInt())
-	r.WithCounter(randInt())
-	r.WithIncrement(randBool())
+	lCounters := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithCounters(random.RandStringArr(lCounters))
+	r.WithUserId(random.RandInt())
+	r.WithCounter(random.RandInt())
+	r.WithIncrement(random.RandBool())
 }
 
 func TestVKSecureSetCounterNotSecureSuccess(t *testing.T) {
@@ -267,7 +268,7 @@ func TestVKSecureSetCounterNotSecureSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "setCounter", params.Params(), expectedJSON))
@@ -275,4 +276,3 @@ func TestVKSecureSetCounterNotSecureSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

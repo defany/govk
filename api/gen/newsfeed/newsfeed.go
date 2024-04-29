@@ -4,6 +4,7 @@ package requests
 
 import (
 	"github.com/defany/govk/api"
+	"github.com/defany/govk/api/gen/models"
 )
 
 type Newsfeed struct {
@@ -16,3 +17,841 @@ func NewNewsfeed(api *api.API) *Newsfeed {
 	}
 }
 
+// NewsfeedAddBan Prevents news from specified users and communities from appearing in the current user's newsfeed.
+type NewsfeedAddBanRequest api.Params
+
+func NewNewsfeedAddBanRequest() NewsfeedAddBanRequest {
+	params := make(NewsfeedAddBanRequest, 3)
+	return params
+}
+
+func (n NewsfeedAddBanRequest) WithUserIds(n_user_ids []int) NewsfeedAddBanRequest {
+	n["user_ids"] = n_user_ids
+	return n
+}
+
+func (n NewsfeedAddBanRequest) WithGroupIds(n_group_ids []int) NewsfeedAddBanRequest {
+	n["group_ids"] = n_group_ids
+	return n
+}
+
+func (n NewsfeedAddBanRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.addBan
+func (n *Newsfeed) NewsfeedAddBan(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](n.api)
+
+	res, err := req.Execute("newsfeed.addBan", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedDeleteBan Allows news from previously banned users and communities to be shown in the current user's newsfeed.
+type NewsfeedDeleteBanRequest api.Params
+
+func NewNewsfeedDeleteBanRequest() NewsfeedDeleteBanRequest {
+	params := make(NewsfeedDeleteBanRequest, 3)
+	return params
+}
+
+func (n NewsfeedDeleteBanRequest) WithUserIds(n_user_ids []int) NewsfeedDeleteBanRequest {
+	n["user_ids"] = n_user_ids
+	return n
+}
+
+func (n NewsfeedDeleteBanRequest) WithGroupIds(n_group_ids []int) NewsfeedDeleteBanRequest {
+	n["group_ids"] = n_group_ids
+	return n
+}
+
+func (n NewsfeedDeleteBanRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.deleteBan
+func (n *Newsfeed) NewsfeedDeleteBan(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](n.api)
+
+	res, err := req.Execute("newsfeed.deleteBan", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedDeleteList ...
+type NewsfeedDeleteListRequest api.Params
+
+func NewNewsfeedDeleteListRequest() NewsfeedDeleteListRequest {
+	params := make(NewsfeedDeleteListRequest, 2)
+	return params
+}
+
+func (n NewsfeedDeleteListRequest) WithListId(n_list_id int) NewsfeedDeleteListRequest {
+	n["list_id"] = n_list_id
+	return n
+}
+
+func (n NewsfeedDeleteListRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.deleteList
+func (n *Newsfeed) NewsfeedDeleteList(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](n.api)
+
+	res, err := req.Execute("newsfeed.deleteList", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedGet Returns data required to show newsfeed for the current user.
+type NewsfeedGetRequest api.Params
+
+func NewNewsfeedGetRequest() NewsfeedGetRequest {
+	params := make(NewsfeedGetRequest, 11)
+	return params
+}
+
+func (n NewsfeedGetRequest) WithFilters(n_filters []models.NewsfeedNewsfeedItemType) NewsfeedGetRequest {
+	n["filters"] = n_filters
+	return n
+}
+
+func (n NewsfeedGetRequest) WithReturnBanned(n_return_banned bool) NewsfeedGetRequest {
+	n["return_banned"] = n_return_banned
+	return n
+}
+
+func (n NewsfeedGetRequest) WithStartTime(n_start_time int) NewsfeedGetRequest {
+	n["start_time"] = n_start_time
+	return n
+}
+
+func (n NewsfeedGetRequest) WithEndTime(n_end_time int) NewsfeedGetRequest {
+	n["end_time"] = n_end_time
+	return n
+}
+
+func (n NewsfeedGetRequest) WithMaxPhotos(n_max_photos int) NewsfeedGetRequest {
+	n["max_photos"] = n_max_photos
+	return n
+}
+
+func (n NewsfeedGetRequest) WithSourceIds(n_source_ids string) NewsfeedGetRequest {
+	n["source_ids"] = n_source_ids
+	return n
+}
+
+func (n NewsfeedGetRequest) WithStartFrom(n_start_from string) NewsfeedGetRequest {
+	n["start_from"] = n_start_from
+	return n
+}
+
+func (n NewsfeedGetRequest) WithCount(n_count int) NewsfeedGetRequest {
+	n["count"] = n_count
+	return n
+}
+
+func (n NewsfeedGetRequest) WithFields(n_fields []models.BaseUserGroupFields) NewsfeedGetRequest {
+	n["fields"] = n_fields
+	return n
+}
+
+func (n NewsfeedGetRequest) WithSection(n_section string) NewsfeedGetRequest {
+	n["section"] = n_section
+	return n
+}
+
+func (n NewsfeedGetRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.get
+func (n *Newsfeed) NewsfeedGet(params ...api.MethodParams) (resp models.NewsfeedGenericResponse, err error) {
+	req := api.NewRequest[models.NewsfeedGenericResponse](n.api)
+
+	res, err := req.Execute("newsfeed.get", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedGetBanned Returns a list of users and communities banned from the current user's newsfeed.
+type NewsfeedGetBannedRequest api.Params
+
+func NewNewsfeedGetBannedRequest() NewsfeedGetBannedRequest {
+	params := make(NewsfeedGetBannedRequest, 5)
+	return params
+}
+
+func (n NewsfeedGetBannedRequest) WithExtended(n_extended bool) NewsfeedGetBannedRequest {
+	n["extended"] = n_extended
+	return n
+}
+
+func (n NewsfeedGetBannedRequest) WithFields(n_fields []models.UsersFields) NewsfeedGetBannedRequest {
+	n["fields"] = n_fields
+	return n
+}
+
+func (n NewsfeedGetBannedRequest) WithNameCase(n_name_case string) NewsfeedGetBannedRequest {
+	n["name_case"] = n_name_case
+	return n
+}
+
+func (n NewsfeedGetBannedRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.getBanned
+func (n *Newsfeed) NewsfeedGetBanned(params ...api.MethodParams) (resp models.NewsfeedGetBannedResponse, err error) {
+	req := api.NewRequest[models.NewsfeedGetBannedResponse](n.api)
+
+	res, err := req.Execute("newsfeed.getBanned", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedGetBannedExtended Returns a list of users and communities banned from the current user's newsfeed.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.getBanned
+func (n *Newsfeed) NewsfeedGetBannedExtended(params ...api.MethodParams) (resp models.NewsfeedGetBannedExtendedResponse, err error) {
+	req := api.NewRequest[models.NewsfeedGetBannedExtendedResponse](n.api)
+
+	res, err := req.Execute("newsfeed.getBanned", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedGetComments Returns a list of comments in the current user's newsfeed.
+type NewsfeedGetCommentsRequest api.Params
+
+func NewNewsfeedGetCommentsRequest() NewsfeedGetCommentsRequest {
+	params := make(NewsfeedGetCommentsRequest, 9)
+	return params
+}
+
+func (n NewsfeedGetCommentsRequest) WithCount(n_count int) NewsfeedGetCommentsRequest {
+	n["count"] = n_count
+	return n
+}
+
+func (n NewsfeedGetCommentsRequest) WithFilters(n_filters []models.NewsfeedCommentsFilters) NewsfeedGetCommentsRequest {
+	n["filters"] = n_filters
+	return n
+}
+
+func (n NewsfeedGetCommentsRequest) WithReposts(n_reposts string) NewsfeedGetCommentsRequest {
+	n["reposts"] = n_reposts
+	return n
+}
+
+func (n NewsfeedGetCommentsRequest) WithStartTime(n_start_time int) NewsfeedGetCommentsRequest {
+	n["start_time"] = n_start_time
+	return n
+}
+
+func (n NewsfeedGetCommentsRequest) WithEndTime(n_end_time int) NewsfeedGetCommentsRequest {
+	n["end_time"] = n_end_time
+	return n
+}
+
+func (n NewsfeedGetCommentsRequest) WithLastCommentsCount(n_last_comments_count int) NewsfeedGetCommentsRequest {
+	n["last_comments_count"] = n_last_comments_count
+	return n
+}
+
+func (n NewsfeedGetCommentsRequest) WithStartFrom(n_start_from string) NewsfeedGetCommentsRequest {
+	n["start_from"] = n_start_from
+	return n
+}
+
+func (n NewsfeedGetCommentsRequest) WithFields(n_fields []models.BaseUserGroupFields) NewsfeedGetCommentsRequest {
+	n["fields"] = n_fields
+	return n
+}
+
+func (n NewsfeedGetCommentsRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.getComments
+func (n *Newsfeed) NewsfeedGetComments(params ...api.MethodParams) (resp models.NewsfeedGetCommentsResponse, err error) {
+	req := api.NewRequest[models.NewsfeedGetCommentsResponse](n.api)
+
+	res, err := req.Execute("newsfeed.getComments", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedGetLists Returns a list of newsfeeds followed by the current user.
+type NewsfeedGetListsRequest api.Params
+
+func NewNewsfeedGetListsRequest() NewsfeedGetListsRequest {
+	params := make(NewsfeedGetListsRequest, 4)
+	return params
+}
+
+func (n NewsfeedGetListsRequest) WithListIds(n_list_ids []int) NewsfeedGetListsRequest {
+	n["list_ids"] = n_list_ids
+	return n
+}
+
+func (n NewsfeedGetListsRequest) WithExtended(n_extended bool) NewsfeedGetListsRequest {
+	n["extended"] = n_extended
+	return n
+}
+
+func (n NewsfeedGetListsRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.getLists
+func (n *Newsfeed) NewsfeedGetLists(params ...api.MethodParams) (resp models.NewsfeedGetListsResponse, err error) {
+	req := api.NewRequest[models.NewsfeedGetListsResponse](n.api)
+
+	res, err := req.Execute("newsfeed.getLists", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedGetListsExtended Returns a list of newsfeeds followed by the current user.
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.getLists
+func (n *Newsfeed) NewsfeedGetListsExtended(params ...api.MethodParams) (resp models.NewsfeedGetListsExtendedResponse, err error) {
+	req := api.NewRequest[models.NewsfeedGetListsExtendedResponse](n.api)
+
+	res, err := req.Execute("newsfeed.getLists", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedGetMentions Returns a list of posts on user walls in which the current user is mentioned.
+type NewsfeedGetMentionsRequest api.Params
+
+func NewNewsfeedGetMentionsRequest() NewsfeedGetMentionsRequest {
+	params := make(NewsfeedGetMentionsRequest, 6)
+	return params
+}
+
+func (n NewsfeedGetMentionsRequest) WithOwnerId(n_owner_id int) NewsfeedGetMentionsRequest {
+	n["owner_id"] = n_owner_id
+	return n
+}
+
+func (n NewsfeedGetMentionsRequest) WithStartTime(n_start_time int) NewsfeedGetMentionsRequest {
+	n["start_time"] = n_start_time
+	return n
+}
+
+func (n NewsfeedGetMentionsRequest) WithEndTime(n_end_time int) NewsfeedGetMentionsRequest {
+	n["end_time"] = n_end_time
+	return n
+}
+
+func (n NewsfeedGetMentionsRequest) WithOffset(n_offset int) NewsfeedGetMentionsRequest {
+	n["offset"] = n_offset
+	return n
+}
+
+func (n NewsfeedGetMentionsRequest) WithCount(n_count int) NewsfeedGetMentionsRequest {
+	n["count"] = n_count
+	return n
+}
+
+func (n NewsfeedGetMentionsRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.getMentions
+func (n *Newsfeed) NewsfeedGetMentions(params ...api.MethodParams) (resp models.NewsfeedGetMentionsResponse, err error) {
+	req := api.NewRequest[models.NewsfeedGetMentionsResponse](n.api)
+
+	res, err := req.Execute("newsfeed.getMentions", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedGetRecommended , Returns a list of newsfeeds recommended to the current user.
+type NewsfeedGetRecommendedRequest api.Params
+
+func NewNewsfeedGetRecommendedRequest() NewsfeedGetRecommendedRequest {
+	params := make(NewsfeedGetRecommendedRequest, 7)
+	return params
+}
+
+func (n NewsfeedGetRecommendedRequest) WithStartTime(n_start_time int) NewsfeedGetRecommendedRequest {
+	n["start_time"] = n_start_time
+	return n
+}
+
+func (n NewsfeedGetRecommendedRequest) WithEndTime(n_end_time int) NewsfeedGetRecommendedRequest {
+	n["end_time"] = n_end_time
+	return n
+}
+
+func (n NewsfeedGetRecommendedRequest) WithMaxPhotos(n_max_photos int) NewsfeedGetRecommendedRequest {
+	n["max_photos"] = n_max_photos
+	return n
+}
+
+func (n NewsfeedGetRecommendedRequest) WithStartFrom(n_start_from string) NewsfeedGetRecommendedRequest {
+	n["start_from"] = n_start_from
+	return n
+}
+
+func (n NewsfeedGetRecommendedRequest) WithCount(n_count int) NewsfeedGetRecommendedRequest {
+	n["count"] = n_count
+	return n
+}
+
+func (n NewsfeedGetRecommendedRequest) WithFields(n_fields []models.BaseUserGroupFields) NewsfeedGetRecommendedRequest {
+	n["fields"] = n_fields
+	return n
+}
+
+func (n NewsfeedGetRecommendedRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.getRecommended
+func (n *Newsfeed) NewsfeedGetRecommended(params ...api.MethodParams) (resp models.NewsfeedGenericResponse, err error) {
+	req := api.NewRequest[models.NewsfeedGenericResponse](n.api)
+
+	res, err := req.Execute("newsfeed.getRecommended", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedGetSuggestedSources Returns communities and users that current user is suggested to follow.
+type NewsfeedGetSuggestedSourcesRequest api.Params
+
+func NewNewsfeedGetSuggestedSourcesRequest() NewsfeedGetSuggestedSourcesRequest {
+	params := make(NewsfeedGetSuggestedSourcesRequest, 5)
+	return params
+}
+
+func (n NewsfeedGetSuggestedSourcesRequest) WithOffset(n_offset int) NewsfeedGetSuggestedSourcesRequest {
+	n["offset"] = n_offset
+	return n
+}
+
+func (n NewsfeedGetSuggestedSourcesRequest) WithCount(n_count int) NewsfeedGetSuggestedSourcesRequest {
+	n["count"] = n_count
+	return n
+}
+
+func (n NewsfeedGetSuggestedSourcesRequest) WithShuffle(n_shuffle bool) NewsfeedGetSuggestedSourcesRequest {
+	n["shuffle"] = n_shuffle
+	return n
+}
+
+func (n NewsfeedGetSuggestedSourcesRequest) WithFields(n_fields []models.BaseUserGroupFields) NewsfeedGetSuggestedSourcesRequest {
+	n["fields"] = n_fields
+	return n
+}
+
+func (n NewsfeedGetSuggestedSourcesRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.getSuggestedSources
+func (n *Newsfeed) NewsfeedGetSuggestedSources(params ...api.MethodParams) (resp models.NewsfeedGetSuggestedSourcesResponse, err error) {
+	req := api.NewRequest[models.NewsfeedGetSuggestedSourcesResponse](n.api)
+
+	res, err := req.Execute("newsfeed.getSuggestedSources", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedIgnoreItem Hides an item from the newsfeed.
+type NewsfeedIgnoreItemRequest api.Params
+
+func NewNewsfeedIgnoreItemRequest() NewsfeedIgnoreItemRequest {
+	params := make(NewsfeedIgnoreItemRequest, 4)
+	return params
+}
+
+func (n NewsfeedIgnoreItemRequest) WithType(n_type models.NewsfeedIgnoreItemType) NewsfeedIgnoreItemRequest {
+	n["type"] = n_type
+	return n
+}
+
+func (n NewsfeedIgnoreItemRequest) WithOwnerId(n_owner_id int) NewsfeedIgnoreItemRequest {
+	n["owner_id"] = n_owner_id
+	return n
+}
+
+func (n NewsfeedIgnoreItemRequest) WithItemId(n_item_id int) NewsfeedIgnoreItemRequest {
+	n["item_id"] = n_item_id
+	return n
+}
+
+func (n NewsfeedIgnoreItemRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.ignoreItem
+func (n *Newsfeed) NewsfeedIgnoreItem(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](n.api)
+
+	res, err := req.Execute("newsfeed.ignoreItem", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedSaveList Creates and edits user newsfeed lists
+type NewsfeedSaveListRequest api.Params
+
+func NewNewsfeedSaveListRequest() NewsfeedSaveListRequest {
+	params := make(NewsfeedSaveListRequest, 5)
+	return params
+}
+
+func (n NewsfeedSaveListRequest) WithListId(n_list_id int) NewsfeedSaveListRequest {
+	n["list_id"] = n_list_id
+	return n
+}
+
+func (n NewsfeedSaveListRequest) WithTitle(n_title string) NewsfeedSaveListRequest {
+	n["title"] = n_title
+	return n
+}
+
+func (n NewsfeedSaveListRequest) WithSourceIds(n_source_ids []int) NewsfeedSaveListRequest {
+	n["source_ids"] = n_source_ids
+	return n
+}
+
+func (n NewsfeedSaveListRequest) WithNoReposts(n_no_reposts bool) NewsfeedSaveListRequest {
+	n["no_reposts"] = n_no_reposts
+	return n
+}
+
+func (n NewsfeedSaveListRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_TooManyLists ]
+//
+// https://dev.vk.com/method/newsfeed.saveList
+func (n *Newsfeed) NewsfeedSaveList(params ...api.MethodParams) (resp models.NewsfeedSaveListResponse, err error) {
+	req := api.NewRequest[models.NewsfeedSaveListResponse](n.api)
+
+	res, err := req.Execute("newsfeed.saveList", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedSearch Returns search results by statuses.
+type NewsfeedSearchRequest api.Params
+
+func NewNewsfeedSearchRequest() NewsfeedSearchRequest {
+	params := make(NewsfeedSearchRequest, 11)
+	return params
+}
+
+func (n NewsfeedSearchRequest) WithQ(n_q string) NewsfeedSearchRequest {
+	n["q"] = n_q
+	return n
+}
+
+func (n NewsfeedSearchRequest) WithExtended(n_extended bool) NewsfeedSearchRequest {
+	n["extended"] = n_extended
+	return n
+}
+
+func (n NewsfeedSearchRequest) WithCount(n_count int) NewsfeedSearchRequest {
+	n["count"] = n_count
+	return n
+}
+
+func (n NewsfeedSearchRequest) WithLatitude(n_latitude float64) NewsfeedSearchRequest {
+	n["latitude"] = n_latitude
+	return n
+}
+
+func (n NewsfeedSearchRequest) WithLongitude(n_longitude float64) NewsfeedSearchRequest {
+	n["longitude"] = n_longitude
+	return n
+}
+
+func (n NewsfeedSearchRequest) WithStartTime(n_start_time int) NewsfeedSearchRequest {
+	n["start_time"] = n_start_time
+	return n
+}
+
+func (n NewsfeedSearchRequest) WithEndTime(n_end_time int) NewsfeedSearchRequest {
+	n["end_time"] = n_end_time
+	return n
+}
+
+func (n NewsfeedSearchRequest) WithStartFrom(n_start_from string) NewsfeedSearchRequest {
+	n["start_from"] = n_start_from
+	return n
+}
+
+func (n NewsfeedSearchRequest) WithFields(n_fields []models.BaseUserGroupFields) NewsfeedSearchRequest {
+	n["fields"] = n_fields
+	return n
+}
+
+func (n NewsfeedSearchRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.search
+func (n *Newsfeed) NewsfeedSearch(params ...api.MethodParams) (resp models.NewsfeedSearchResponse, err error) {
+	req := api.NewRequest[models.NewsfeedSearchResponse](n.api)
+
+	res, err := req.Execute("newsfeed.search", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedSearchExtended Returns search results by statuses.
+// May execute with listed access token types:
+//
+//	[ user, service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.search
+func (n *Newsfeed) NewsfeedSearchExtended(params ...api.MethodParams) (resp models.NewsfeedSearchExtendedResponse, err error) {
+	req := api.NewRequest[models.NewsfeedSearchExtendedResponse](n.api)
+
+	res, err := req.Execute("newsfeed.search", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedUnignoreItem Returns a hidden item to the newsfeed.
+type NewsfeedUnignoreItemRequest api.Params
+
+func NewNewsfeedUnignoreItemRequest() NewsfeedUnignoreItemRequest {
+	params := make(NewsfeedUnignoreItemRequest, 5)
+	return params
+}
+
+func (n NewsfeedUnignoreItemRequest) WithType(n_type models.NewsfeedIgnoreItemType) NewsfeedUnignoreItemRequest {
+	n["type"] = n_type
+	return n
+}
+
+func (n NewsfeedUnignoreItemRequest) WithOwnerId(n_owner_id int) NewsfeedUnignoreItemRequest {
+	n["owner_id"] = n_owner_id
+	return n
+}
+
+func (n NewsfeedUnignoreItemRequest) WithItemId(n_item_id int) NewsfeedUnignoreItemRequest {
+	n["item_id"] = n_item_id
+	return n
+}
+
+func (n NewsfeedUnignoreItemRequest) WithTrackCode(n_track_code string) NewsfeedUnignoreItemRequest {
+	n["track_code"] = n_track_code
+	return n
+}
+
+func (n NewsfeedUnignoreItemRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.unignoreItem
+func (n *Newsfeed) NewsfeedUnignoreItem(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](n.api)
+
+	res, err := req.Execute("newsfeed.unignoreItem", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// NewsfeedUnsubscribe Unsubscribes the current user from specified newsfeeds.
+type NewsfeedUnsubscribeRequest api.Params
+
+func NewNewsfeedUnsubscribeRequest() NewsfeedUnsubscribeRequest {
+	params := make(NewsfeedUnsubscribeRequest, 4)
+	return params
+}
+
+func (n NewsfeedUnsubscribeRequest) WithType(n_type string) NewsfeedUnsubscribeRequest {
+	n["type"] = n_type
+	return n
+}
+
+func (n NewsfeedUnsubscribeRequest) WithOwnerId(n_owner_id int) NewsfeedUnsubscribeRequest {
+	n["owner_id"] = n_owner_id
+	return n
+}
+
+func (n NewsfeedUnsubscribeRequest) WithItemId(n_item_id int) NewsfeedUnsubscribeRequest {
+	n["item_id"] = n_item_id
+	return n
+}
+
+func (n NewsfeedUnsubscribeRequest) Params() api.Params {
+	return api.Params(n)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/newsfeed.unsubscribe
+func (n *Newsfeed) NewsfeedUnsubscribe(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](n.api)
+
+	res, err := req.Execute("newsfeed.unsubscribe", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}

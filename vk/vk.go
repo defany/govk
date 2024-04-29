@@ -2,6 +2,7 @@ package govk
 
 import (
 	"github.com/defany/govk/api"
+	apiModel "github.com/defany/govk/api/apiModel"
 	accountReqs "github.com/defany/govk/api/gen/account"
 	adsReqs "github.com/defany/govk/api/gen/ads"
 	adswebReqs "github.com/defany/govk/api/gen/adsweb"
@@ -43,7 +44,6 @@ import (
 	videoReqs "github.com/defany/govk/api/gen/video"
 	wallReqs "github.com/defany/govk/api/gen/wall"
 	widgetsReqs "github.com/defany/govk/api/gen/widgets"
-	apiModel "github.com/defany/govk/api/model"
 	"github.com/defany/govk/updates"
 )
 

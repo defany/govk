@@ -4,6 +4,7 @@ package requests
 
 import (
 	"github.com/defany/govk/api"
+	"github.com/defany/govk/api/gen/models"
 )
 
 type Users struct {
@@ -16,3 +17,411 @@ func NewUsers(api *api.API) *Users {
 	}
 }
 
+// UsersGet Returns detailed information on users.
+type UsersGetRequest api.Params
+
+func NewUsersGetRequest() UsersGetRequest {
+	params := make(UsersGetRequest, 4)
+	return params
+}
+
+func (u UsersGetRequest) WithUserIds(u_user_ids []string) UsersGetRequest {
+	u["user_ids"] = u_user_ids
+	return u
+}
+
+func (u UsersGetRequest) WithFields(u_fields []models.UsersFields) UsersGetRequest {
+	u["fields"] = u_fields
+	return u
+}
+
+func (u UsersGetRequest) WithNameCase(u_name_case string) UsersGetRequest {
+	u["name_case"] = u_name_case
+	return u
+}
+
+func (u UsersGetRequest) Params() api.Params {
+	return api.Params(u)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, group, service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/users.get
+func (u *Users) UsersGet(params ...api.MethodParams) (resp models.UsersGetResponse, err error) {
+	req := api.NewRequest[models.UsersGetResponse](u.api)
+
+	res, err := req.Execute("users.get", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// UsersGetFollowers Returns a list of IDs of followers of the user in question, sorted by date added, most recent first.
+type UsersGetFollowersRequest api.Params
+
+func NewUsersGetFollowersRequest() UsersGetFollowersRequest {
+	params := make(UsersGetFollowersRequest, 6)
+	return params
+}
+
+func (u UsersGetFollowersRequest) WithUserId(u_user_id int) UsersGetFollowersRequest {
+	u["user_id"] = u_user_id
+	return u
+}
+
+func (u UsersGetFollowersRequest) WithOffset(u_offset int) UsersGetFollowersRequest {
+	u["offset"] = u_offset
+	return u
+}
+
+func (u UsersGetFollowersRequest) WithCount(u_count int) UsersGetFollowersRequest {
+	u["count"] = u_count
+	return u
+}
+
+func (u UsersGetFollowersRequest) WithFields(u_fields []models.UsersFields) UsersGetFollowersRequest {
+	u["fields"] = u_fields
+	return u
+}
+
+func (u UsersGetFollowersRequest) WithNameCase(u_name_case string) UsersGetFollowersRequest {
+	u["name_case"] = u_name_case
+	return u
+}
+
+func (u UsersGetFollowersRequest) Params() api.Params {
+	return api.Params(u)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/users.getFollowers
+func (u *Users) UsersGetFollowers(params ...api.MethodParams) (resp models.UsersGetFollowersResponse, err error) {
+	req := api.NewRequest[models.UsersGetFollowersResponse](u.api)
+
+	res, err := req.Execute("users.getFollowers", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// UsersGetSubscriptions Returns a list of IDs of users and communities followed by the user.
+type UsersGetSubscriptionsRequest api.Params
+
+func NewUsersGetSubscriptionsRequest() UsersGetSubscriptionsRequest {
+	params := make(UsersGetSubscriptionsRequest, 7)
+	return params
+}
+
+func (u UsersGetSubscriptionsRequest) WithUserId(u_user_id int) UsersGetSubscriptionsRequest {
+	u["user_id"] = u_user_id
+	return u
+}
+
+func (u UsersGetSubscriptionsRequest) WithExtended(u_extended bool) UsersGetSubscriptionsRequest {
+	u["extended"] = u_extended
+	return u
+}
+
+func (u UsersGetSubscriptionsRequest) WithOffset(u_offset int) UsersGetSubscriptionsRequest {
+	u["offset"] = u_offset
+	return u
+}
+
+func (u UsersGetSubscriptionsRequest) WithCount(u_count int) UsersGetSubscriptionsRequest {
+	u["count"] = u_count
+	return u
+}
+
+func (u UsersGetSubscriptionsRequest) WithFields(u_fields []models.UsersFields) UsersGetSubscriptionsRequest {
+	u["fields"] = u_fields
+	return u
+}
+
+func (u UsersGetSubscriptionsRequest) Params() api.Params {
+	return api.Params(u)
+}
+
+// May execute with listed access token types:
+//
+//	[ user, service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/users.getSubscriptions
+func (u *Users) UsersGetSubscriptions(params ...api.MethodParams) (resp models.UsersGetSubscriptionsResponse, err error) {
+	req := api.NewRequest[models.UsersGetSubscriptionsResponse](u.api)
+
+	res, err := req.Execute("users.getSubscriptions", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// UsersGetSubscriptionsExtended Returns a list of IDs of users and communities followed by the user.
+// May execute with listed access token types:
+//
+//	[ user, service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/users.getSubscriptions
+func (u *Users) UsersGetSubscriptionsExtended(params ...api.MethodParams) (resp models.UsersGetSubscriptionsExtendedResponse, err error) {
+	req := api.NewRequest[models.UsersGetSubscriptionsExtendedResponse](u.api)
+
+	res, err := req.Execute("users.getSubscriptions", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// UsersReport Reports (submits a complain about) a user.
+type UsersReportRequest api.Params
+
+func NewUsersReportRequest() UsersReportRequest {
+	params := make(UsersReportRequest, 4)
+	return params
+}
+
+func (u UsersReportRequest) WithUserId(u_user_id int) UsersReportRequest {
+	u["user_id"] = u_user_id
+	return u
+}
+
+func (u UsersReportRequest) WithType(u_type string) UsersReportRequest {
+	u["type"] = u_type
+	return u
+}
+
+func (u UsersReportRequest) WithComment(u_comment string) UsersReportRequest {
+	u["comment"] = u_comment
+	return u
+}
+
+func (u UsersReportRequest) Params() api.Params {
+	return api.Params(u)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/users.report
+func (u *Users) UsersReport(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](u.api)
+
+	res, err := req.Execute("users.report", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// UsersSearch Returns a list of users matching the search criteria.
+type UsersSearchRequest api.Params
+
+func NewUsersSearchRequest() UsersSearchRequest {
+	params := make(UsersSearchRequest, 33)
+	return params
+}
+
+func (u UsersSearchRequest) WithQ(u_q string) UsersSearchRequest {
+	u["q"] = u_q
+	return u
+}
+
+func (u UsersSearchRequest) WithSort(u_sort int) UsersSearchRequest {
+	u["sort"] = u_sort
+	return u
+}
+
+func (u UsersSearchRequest) WithOffset(u_offset int) UsersSearchRequest {
+	u["offset"] = u_offset
+	return u
+}
+
+func (u UsersSearchRequest) WithCount(u_count int) UsersSearchRequest {
+	u["count"] = u_count
+	return u
+}
+
+func (u UsersSearchRequest) WithFields(u_fields []models.UsersFields) UsersSearchRequest {
+	u["fields"] = u_fields
+	return u
+}
+
+func (u UsersSearchRequest) WithCity(u_city int) UsersSearchRequest {
+	u["city"] = u_city
+	return u
+}
+
+func (u UsersSearchRequest) WithCountry(u_country int) UsersSearchRequest {
+	u["country"] = u_country
+	return u
+}
+
+func (u UsersSearchRequest) WithHometown(u_hometown string) UsersSearchRequest {
+	u["hometown"] = u_hometown
+	return u
+}
+
+func (u UsersSearchRequest) WithUniversityCountry(u_university_country int) UsersSearchRequest {
+	u["university_country"] = u_university_country
+	return u
+}
+
+func (u UsersSearchRequest) WithUniversity(u_university int) UsersSearchRequest {
+	u["university"] = u_university
+	return u
+}
+
+func (u UsersSearchRequest) WithUniversityYear(u_university_year int) UsersSearchRequest {
+	u["university_year"] = u_university_year
+	return u
+}
+
+func (u UsersSearchRequest) WithUniversityFaculty(u_university_faculty int) UsersSearchRequest {
+	u["university_faculty"] = u_university_faculty
+	return u
+}
+
+func (u UsersSearchRequest) WithUniversityChair(u_university_chair int) UsersSearchRequest {
+	u["university_chair"] = u_university_chair
+	return u
+}
+
+func (u UsersSearchRequest) WithSex(u_sex int) UsersSearchRequest {
+	u["sex"] = u_sex
+	return u
+}
+
+func (u UsersSearchRequest) WithStatus(u_status int) UsersSearchRequest {
+	u["status"] = u_status
+	return u
+}
+
+func (u UsersSearchRequest) WithAgeFrom(u_age_from int) UsersSearchRequest {
+	u["age_from"] = u_age_from
+	return u
+}
+
+func (u UsersSearchRequest) WithAgeTo(u_age_to int) UsersSearchRequest {
+	u["age_to"] = u_age_to
+	return u
+}
+
+func (u UsersSearchRequest) WithBirthDay(u_birth_day int) UsersSearchRequest {
+	u["birth_day"] = u_birth_day
+	return u
+}
+
+func (u UsersSearchRequest) WithBirthMonth(u_birth_month int) UsersSearchRequest {
+	u["birth_month"] = u_birth_month
+	return u
+}
+
+func (u UsersSearchRequest) WithBirthYear(u_birth_year int) UsersSearchRequest {
+	u["birth_year"] = u_birth_year
+	return u
+}
+
+func (u UsersSearchRequest) WithOnline(u_online bool) UsersSearchRequest {
+	u["online"] = u_online
+	return u
+}
+
+func (u UsersSearchRequest) WithHasPhoto(u_has_photo bool) UsersSearchRequest {
+	u["has_photo"] = u_has_photo
+	return u
+}
+
+func (u UsersSearchRequest) WithSchoolCountry(u_school_country int) UsersSearchRequest {
+	u["school_country"] = u_school_country
+	return u
+}
+
+func (u UsersSearchRequest) WithSchoolCity(u_school_city int) UsersSearchRequest {
+	u["school_city"] = u_school_city
+	return u
+}
+
+func (u UsersSearchRequest) WithSchoolClass(u_school_class int) UsersSearchRequest {
+	u["school_class"] = u_school_class
+	return u
+}
+
+func (u UsersSearchRequest) WithSchool(u_school int) UsersSearchRequest {
+	u["school"] = u_school
+	return u
+}
+
+func (u UsersSearchRequest) WithSchoolYear(u_school_year int) UsersSearchRequest {
+	u["school_year"] = u_school_year
+	return u
+}
+
+func (u UsersSearchRequest) WithReligion(u_religion string) UsersSearchRequest {
+	u["religion"] = u_religion
+	return u
+}
+
+func (u UsersSearchRequest) WithCompany(u_company string) UsersSearchRequest {
+	u["company"] = u_company
+	return u
+}
+
+func (u UsersSearchRequest) WithPosition(u_position string) UsersSearchRequest {
+	u["position"] = u_position
+	return u
+}
+
+func (u UsersSearchRequest) WithGroupId(u_group_id int) UsersSearchRequest {
+	u["group_id"] = u_group_id
+	return u
+}
+
+func (u UsersSearchRequest) WithFromList(u_from_list []string) UsersSearchRequest {
+	u["from_list"] = u_from_list
+	return u
+}
+
+func (u UsersSearchRequest) Params() api.Params {
+	return api.Params(u)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/users.search
+func (u *Users) UsersSearch(params ...api.MethodParams) (resp models.UsersSearchResponse, err error) {
+	req := api.NewRequest[models.UsersSearchResponse](u.api)
+
+	res, err := req.Execute("users.search", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}

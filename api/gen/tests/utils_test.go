@@ -3,17 +3,18 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/utils"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyUtilsCheckLinkRequest(r *requests.UtilsCheckLinkRequest) {
-	r.WithUrl(randString())
+	r.WithUrl(random.RandString())
 }
 
 func TestVKUtilsCheckLinkSuccess(t *testing.T) {
@@ -23,7 +24,7 @@ func TestVKUtilsCheckLinkSuccess(t *testing.T) {
 	fillRandomlyUtilsCheckLinkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "utils.checkLink", params.Params(), expectedJSON))
@@ -33,7 +34,7 @@ func TestVKUtilsCheckLinkSuccess(t *testing.T) {
 }
 
 func fillRandomlyUtilsDeleteFromLastShortenedRequest(r *requests.UtilsDeleteFromLastShortenedRequest) {
-	r.WithKey(randString())
+	r.WithKey(random.RandString())
 }
 
 func TestVKUtilsDeleteFromLastShortenedSuccess(t *testing.T) {
@@ -43,7 +44,7 @@ func TestVKUtilsDeleteFromLastShortenedSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "utils.deleteFromLastShortened", params.Params(), expectedJSON))
@@ -53,8 +54,8 @@ func TestVKUtilsDeleteFromLastShortenedSuccess(t *testing.T) {
 }
 
 func fillRandomlyUtilsGetLastShortenedLinksRequest(r *requests.UtilsGetLastShortenedLinksRequest) {
-	r.WithCount(randInt())
-	r.WithOffset(randInt())
+	r.WithCount(random.RandInt())
+	r.WithOffset(random.RandInt())
 }
 
 func TestVKUtilsGetLastShortenedLinksSuccess(t *testing.T) {
@@ -64,7 +65,7 @@ func TestVKUtilsGetLastShortenedLinksSuccess(t *testing.T) {
 	fillRandomlyUtilsGetLastShortenedLinksResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "utils.getLastShortenedLinks", params.Params(), expectedJSON))
@@ -74,12 +75,12 @@ func TestVKUtilsGetLastShortenedLinksSuccess(t *testing.T) {
 }
 
 func fillRandomlyUtilsGetLinkStatsRequest(r *requests.UtilsGetLinkStatsRequest) {
-	r.WithKey(randString())
-	r.WithSource(randString())
-	r.WithAccessKey(randString())
-	r.WithInterval(randString())
-	r.WithIntervalsCount(randInt())
-	r.WithExtended(randBool())
+	r.WithKey(random.RandString())
+	r.WithSource(random.RandString())
+	r.WithAccessKey(random.RandString())
+	r.WithInterval(random.RandString())
+	r.WithIntervalsCount(random.RandInt())
+	r.WithExtended(random.RandBool())
 }
 
 func TestVKUtilsGetLinkStatsSuccess(t *testing.T) {
@@ -90,7 +91,7 @@ func TestVKUtilsGetLinkStatsSuccess(t *testing.T) {
 	fillRandomlyUtilsGetLinkStatsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "utils.getLinkStats", params.Params(), expectedJSON))
@@ -107,7 +108,7 @@ func TestVKUtilsGetLinkStatsExtendedSuccess(t *testing.T) {
 	fillRandomlyUtilsGetLinkStatsExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "utils.getLinkStats", params.Params(), expectedJSON))
@@ -121,7 +122,7 @@ func TestVKUtilsGetServerTimeSuccess(t *testing.T) {
 	fillRandomlyUtilsGetServerTimeResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "utils.getServerTime", nil, expectedJSON))
@@ -131,8 +132,8 @@ func TestVKUtilsGetServerTimeSuccess(t *testing.T) {
 }
 
 func fillRandomlyUtilsGetShortLinkRequest(r *requests.UtilsGetShortLinkRequest) {
-	r.WithUrl(randString())
-	r.WithPrivate(randBool())
+	r.WithUrl(random.RandString())
+	r.WithPrivate(random.RandBool())
 }
 
 func TestVKUtilsGetShortLinkSuccess(t *testing.T) {
@@ -142,7 +143,7 @@ func TestVKUtilsGetShortLinkSuccess(t *testing.T) {
 	fillRandomlyUtilsGetShortLinkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "utils.getShortLink", params.Params(), expectedJSON))
@@ -152,7 +153,7 @@ func TestVKUtilsGetShortLinkSuccess(t *testing.T) {
 }
 
 func fillRandomlyUtilsResolveScreenNameRequest(r *requests.UtilsResolveScreenNameRequest) {
-	r.WithScreenName(randString())
+	r.WithScreenName(random.RandString())
 }
 
 func TestVKUtilsResolveScreenNameSuccess(t *testing.T) {
@@ -162,7 +163,7 @@ func TestVKUtilsResolveScreenNameSuccess(t *testing.T) {
 	fillRandomlyUtilsResolveScreenNameResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "utils.resolveScreenName", params.Params(), expectedJSON))
@@ -170,4 +171,3 @@ func TestVKUtilsResolveScreenNameSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

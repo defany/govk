@@ -3,26 +3,27 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/users"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyUsersGetRequest(r *requests.UsersGetRequest) {
-	lUserIds := randIntn(maxArrayLength + 1)
-	r.WithUserIds(randStringArr(lUserIds))
+	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithUserIds(random.RandStringArr(lUserIds))
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithNameCase(randString())
+	r.WithNameCase(random.RandString())
 }
 
 func TestVKUsersGetSuccess(t *testing.T) {
@@ -32,7 +33,7 @@ func TestVKUsersGetSuccess(t *testing.T) {
 	fillRandomlyUsersGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "users.get", params.Params(), expectedJSON))
@@ -42,17 +43,17 @@ func TestVKUsersGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyUsersGetFollowersRequest(r *requests.UsersGetFollowersRequest) {
-	r.WithUserId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithUserId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithNameCase(randString())
+	r.WithNameCase(random.RandString())
 }
 
 func TestVKUsersGetFollowersSuccess(t *testing.T) {
@@ -62,7 +63,7 @@ func TestVKUsersGetFollowersSuccess(t *testing.T) {
 	fillRandomlyUsersGetFollowersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "users.getFollowers", params.Params(), expectedJSON))
@@ -72,12 +73,12 @@ func TestVKUsersGetFollowersSuccess(t *testing.T) {
 }
 
 func fillRandomlyUsersGetSubscriptionsRequest(r *requests.UsersGetSubscriptionsRequest) {
-	r.WithUserId(randInt())
-	r.WithExtended(randBool())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithUserId(random.RandInt())
+	r.WithExtended(random.RandBool())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
@@ -93,7 +94,7 @@ func TestVKUsersGetSubscriptionsSuccess(t *testing.T) {
 	fillRandomlyUsersGetSubscriptionsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "users.getSubscriptions", params.Params(), expectedJSON))
@@ -110,7 +111,7 @@ func TestVKUsersGetSubscriptionsExtendedSuccess(t *testing.T) {
 	fillRandomlyUsersGetSubscriptionsExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "users.getSubscriptions", params.Params(), expectedJSON))
@@ -120,9 +121,9 @@ func TestVKUsersGetSubscriptionsExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyUsersReportRequest(r *requests.UsersReportRequest) {
-	r.WithUserId(randInt())
-	r.WithType(randString())
-	r.WithComment(randString())
+	r.WithUserId(random.RandInt())
+	r.WithType(random.RandString())
+	r.WithComment(random.RandString())
 }
 
 func TestVKUsersReportSuccess(t *testing.T) {
@@ -132,7 +133,7 @@ func TestVKUsersReportSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "users.report", params.Params(), expectedJSON))
@@ -142,45 +143,45 @@ func TestVKUsersReportSuccess(t *testing.T) {
 }
 
 func fillRandomlyUsersSearchRequest(r *requests.UsersSearchRequest) {
-	r.WithQ(randString())
-	r.WithSort(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithQ(random.RandString())
+	r.WithSort(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithCity(randInt())
-	r.WithCountry(randInt())
-	r.WithHometown(randString())
-	r.WithUniversityCountry(randInt())
-	r.WithUniversity(randInt())
-	r.WithUniversityYear(randInt())
-	r.WithUniversityFaculty(randInt())
-	r.WithUniversityChair(randInt())
-	r.WithSex(randInt())
-	r.WithStatus(randInt())
-	r.WithAgeFrom(randInt())
-	r.WithAgeTo(randInt())
-	r.WithBirthDay(randInt())
-	r.WithBirthMonth(randInt())
-	r.WithBirthYear(randInt())
-	r.WithOnline(randBool())
-	r.WithHasPhoto(randBool())
-	r.WithSchoolCountry(randInt())
-	r.WithSchoolCity(randInt())
-	r.WithSchoolClass(randInt())
-	r.WithSchool(randInt())
-	r.WithSchoolYear(randInt())
-	r.WithReligion(randString())
-	r.WithCompany(randString())
-	r.WithPosition(randString())
-	r.WithGroupId(randInt())
-	lFromList := randIntn(maxArrayLength + 1)
-	r.WithFromList(randStringArr(lFromList))
+	r.WithCity(random.RandInt())
+	r.WithCountry(random.RandInt())
+	r.WithHometown(random.RandString())
+	r.WithUniversityCountry(random.RandInt())
+	r.WithUniversity(random.RandInt())
+	r.WithUniversityYear(random.RandInt())
+	r.WithUniversityFaculty(random.RandInt())
+	r.WithUniversityChair(random.RandInt())
+	r.WithSex(random.RandInt())
+	r.WithStatus(random.RandInt())
+	r.WithAgeFrom(random.RandInt())
+	r.WithAgeTo(random.RandInt())
+	r.WithBirthDay(random.RandInt())
+	r.WithBirthMonth(random.RandInt())
+	r.WithBirthYear(random.RandInt())
+	r.WithOnline(random.RandBool())
+	r.WithHasPhoto(random.RandBool())
+	r.WithSchoolCountry(random.RandInt())
+	r.WithSchoolCity(random.RandInt())
+	r.WithSchoolClass(random.RandInt())
+	r.WithSchool(random.RandInt())
+	r.WithSchoolYear(random.RandInt())
+	r.WithReligion(random.RandString())
+	r.WithCompany(random.RandString())
+	r.WithPosition(random.RandString())
+	r.WithGroupId(random.RandInt())
+	lFromList := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithFromList(random.RandStringArr(lFromList))
 }
 
 func TestVKUsersSearchSuccess(t *testing.T) {
@@ -190,7 +191,7 @@ func TestVKUsersSearchSuccess(t *testing.T) {
 	fillRandomlyUsersSearchResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "users.search", params.Params(), expectedJSON))
@@ -198,4 +199,3 @@ func TestVKUsersSearchSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

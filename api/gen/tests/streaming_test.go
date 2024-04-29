@@ -3,13 +3,14 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/streaming"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func TestVKStreamingGetServerUrlSuccess(t *testing.T) {
@@ -17,7 +18,7 @@ func TestVKStreamingGetServerUrlSuccess(t *testing.T) {
 	fillRandomlyStreamingGetServerUrlResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "streaming.getServerUrl", nil, expectedJSON))
@@ -27,7 +28,7 @@ func TestVKStreamingGetServerUrlSuccess(t *testing.T) {
 }
 
 func fillRandomlyStreamingSetSettingsRequest(r *requests.StreamingSetSettingsRequest) {
-	r.WithMonthlyTier(randString())
+	r.WithMonthlyTier(random.RandString())
 }
 
 func TestVKStreamingSetSettingsSuccess(t *testing.T) {
@@ -37,7 +38,7 @@ func TestVKStreamingSetSettingsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "streaming.setSettings", params.Params(), expectedJSON))
@@ -45,4 +46,3 @@ func TestVKStreamingSetSettingsSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

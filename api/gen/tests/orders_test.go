@@ -3,19 +3,20 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/orders"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyOrdersCancelSubscriptionRequest(r *requests.OrdersCancelSubscriptionRequest) {
-	r.WithUserId(randInt())
-	r.WithSubscriptionId(randInt())
-	r.WithPendingCancel(randBool())
+	r.WithUserId(random.RandInt())
+	r.WithSubscriptionId(random.RandInt())
+	r.WithPendingCancel(random.RandBool())
 }
 
 func TestVKOrdersCancelSubscriptionSuccess(t *testing.T) {
@@ -25,7 +26,7 @@ func TestVKOrdersCancelSubscriptionSuccess(t *testing.T) {
 	fillRandomlyOrdersCancelSubscriptionResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "orders.cancelSubscription", params.Params(), expectedJSON))
@@ -35,10 +36,10 @@ func TestVKOrdersCancelSubscriptionSuccess(t *testing.T) {
 }
 
 func fillRandomlyOrdersChangeStateRequest(r *requests.OrdersChangeStateRequest) {
-	r.WithOrderId(randInt())
-	r.WithAction(randString())
-	r.WithAppOrderId(randInt())
-	r.WithTestMode(randBool())
+	r.WithOrderId(random.RandInt())
+	r.WithAction(random.RandString())
+	r.WithAppOrderId(random.RandInt())
+	r.WithTestMode(random.RandBool())
 }
 
 func TestVKOrdersChangeStateSuccess(t *testing.T) {
@@ -48,7 +49,7 @@ func TestVKOrdersChangeStateSuccess(t *testing.T) {
 	fillRandomlyOrdersChangeStateResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "orders.changeState", params.Params(), expectedJSON))
@@ -58,9 +59,9 @@ func TestVKOrdersChangeStateSuccess(t *testing.T) {
 }
 
 func fillRandomlyOrdersGetRequest(r *requests.OrdersGetRequest) {
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithTestMode(randBool())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithTestMode(random.RandBool())
 }
 
 func TestVKOrdersGetSuccess(t *testing.T) {
@@ -70,7 +71,7 @@ func TestVKOrdersGetSuccess(t *testing.T) {
 	fillRandomlyOrdersGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "orders.get", params.Params(), expectedJSON))
@@ -80,9 +81,9 @@ func TestVKOrdersGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyOrdersGetAmountRequest(r *requests.OrdersGetAmountRequest) {
-	r.WithUserId(randInt())
-	lVotes := randIntn(maxArrayLength + 1)
-	r.WithVotes(randStringArr(lVotes))
+	r.WithUserId(random.RandInt())
+	lVotes := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithVotes(random.RandStringArr(lVotes))
 }
 
 func TestVKOrdersGetAmountSuccess(t *testing.T) {
@@ -92,7 +93,7 @@ func TestVKOrdersGetAmountSuccess(t *testing.T) {
 	fillRandomlyOrdersGetAmountResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "orders.getAmount", params.Params(), expectedJSON))
@@ -102,10 +103,10 @@ func TestVKOrdersGetAmountSuccess(t *testing.T) {
 }
 
 func fillRandomlyOrdersGetByIdRequest(r *requests.OrdersGetByIdRequest) {
-	r.WithOrderId(randInt())
-	lOrderIds := randIntn(maxArrayLength + 1)
-	r.WithOrderIds(randIntArr(lOrderIds))
-	r.WithTestMode(randBool())
+	r.WithOrderId(random.RandInt())
+	lOrderIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithOrderIds(random.RandIntArr(lOrderIds))
+	r.WithTestMode(random.RandBool())
 }
 
 func TestVKOrdersGetByIdSuccess(t *testing.T) {
@@ -115,7 +116,7 @@ func TestVKOrdersGetByIdSuccess(t *testing.T) {
 	fillRandomlyOrdersGetByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "orders.getById", params.Params(), expectedJSON))
@@ -125,8 +126,8 @@ func TestVKOrdersGetByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyOrdersGetUserSubscriptionByIdRequest(r *requests.OrdersGetUserSubscriptionByIdRequest) {
-	r.WithUserId(randInt())
-	r.WithSubscriptionId(randInt())
+	r.WithUserId(random.RandInt())
+	r.WithSubscriptionId(random.RandInt())
 }
 
 func TestVKOrdersGetUserSubscriptionByIdSuccess(t *testing.T) {
@@ -136,7 +137,7 @@ func TestVKOrdersGetUserSubscriptionByIdSuccess(t *testing.T) {
 	fillRandomlyOrdersGetUserSubscriptionByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "orders.getUserSubscriptionById", params.Params(), expectedJSON))
@@ -146,7 +147,7 @@ func TestVKOrdersGetUserSubscriptionByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyOrdersGetUserSubscriptionsRequest(r *requests.OrdersGetUserSubscriptionsRequest) {
-	r.WithUserId(randInt())
+	r.WithUserId(random.RandInt())
 }
 
 func TestVKOrdersGetUserSubscriptionsSuccess(t *testing.T) {
@@ -156,7 +157,7 @@ func TestVKOrdersGetUserSubscriptionsSuccess(t *testing.T) {
 	fillRandomlyOrdersGetUserSubscriptionsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "orders.getUserSubscriptions", params.Params(), expectedJSON))
@@ -166,9 +167,9 @@ func TestVKOrdersGetUserSubscriptionsSuccess(t *testing.T) {
 }
 
 func fillRandomlyOrdersUpdateSubscriptionRequest(r *requests.OrdersUpdateSubscriptionRequest) {
-	r.WithUserId(randInt())
-	r.WithSubscriptionId(randInt())
-	r.WithPrice(randInt())
+	r.WithUserId(random.RandInt())
+	r.WithSubscriptionId(random.RandInt())
+	r.WithPrice(random.RandInt())
 }
 
 func TestVKOrdersUpdateSubscriptionSuccess(t *testing.T) {
@@ -178,7 +179,7 @@ func TestVKOrdersUpdateSubscriptionSuccess(t *testing.T) {
 	fillRandomlyOrdersUpdateSubscriptionResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "orders.updateSubscription", params.Params(), expectedJSON))
@@ -186,4 +187,3 @@ func TestVKOrdersUpdateSubscriptionSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

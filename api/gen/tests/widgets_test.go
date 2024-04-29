@@ -3,29 +3,30 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/widgets"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyWidgetsGetCommentsRequest(r *requests.WidgetsGetCommentsRequest) {
-	r.WithWidgetApiId(randInt())
-	r.WithUrl(randString())
-	r.WithPageId(randString())
-	r.WithOrder(randString())
+	r.WithWidgetApiId(random.RandInt())
+	r.WithUrl(random.RandString())
+	r.WithPageId(random.RandString())
+	r.WithOrder(random.RandString())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKWidgetsGetCommentsSuccess(t *testing.T) {
@@ -35,7 +36,7 @@ func TestVKWidgetsGetCommentsSuccess(t *testing.T) {
 	fillRandomlyWidgetsGetCommentsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "widgets.getComments", params.Params(), expectedJSON))
@@ -45,11 +46,11 @@ func TestVKWidgetsGetCommentsSuccess(t *testing.T) {
 }
 
 func fillRandomlyWidgetsGetPagesRequest(r *requests.WidgetsGetPagesRequest) {
-	r.WithWidgetApiId(randInt())
-	r.WithOrder(randString())
-	r.WithPeriod(randString())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithWidgetApiId(random.RandInt())
+	r.WithOrder(random.RandString())
+	r.WithPeriod(random.RandString())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKWidgetsGetPagesSuccess(t *testing.T) {
@@ -59,7 +60,7 @@ func TestVKWidgetsGetPagesSuccess(t *testing.T) {
 	fillRandomlyWidgetsGetPagesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "widgets.getPages", params.Params(), expectedJSON))
@@ -67,4 +68,3 @@ func TestVKWidgetsGetPagesSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

@@ -3,21 +3,22 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/polls"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyPollsAddVoteRequest(r *requests.PollsAddVoteRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPollId(randInt())
-	lAnswerIds := randIntn(maxArrayLength + 1)
-	r.WithAnswerIds(randIntArr(lAnswerIds))
-	r.WithIsBoard(randBool())
+	r.WithOwnerId(random.RandInt())
+	r.WithPollId(random.RandInt())
+	lAnswerIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAnswerIds(random.RandIntArr(lAnswerIds))
+	r.WithIsBoard(random.RandBool())
 }
 
 func TestVKPollsAddVoteSuccess(t *testing.T) {
@@ -27,7 +28,7 @@ func TestVKPollsAddVoteSuccess(t *testing.T) {
 	fillRandomlyPollsAddVoteResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "polls.addVote", params.Params(), expectedJSON))
@@ -37,16 +38,16 @@ func TestVKPollsAddVoteSuccess(t *testing.T) {
 }
 
 func fillRandomlyPollsCreateRequest(r *requests.PollsCreateRequest) {
-	r.WithQuestion(randString())
-	r.WithIsAnonymous(randBool())
-	r.WithIsMultiple(randBool())
-	r.WithEndDate(randInt())
-	r.WithOwnerId(randInt())
-	r.WithAppId(randInt())
-	r.WithAddAnswers(randString())
-	r.WithPhotoId(randInt())
-	r.WithBackgroundId(randInt())
-	r.WithDisableUnvote(randBool())
+	r.WithQuestion(random.RandString())
+	r.WithIsAnonymous(random.RandBool())
+	r.WithIsMultiple(random.RandBool())
+	r.WithEndDate(random.RandInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithAppId(random.RandInt())
+	r.WithAddAnswers(random.RandString())
+	r.WithPhotoId(random.RandInt())
+	r.WithBackgroundId(random.RandInt())
+	r.WithDisableUnvote(random.RandBool())
 }
 
 func TestVKPollsCreateSuccess(t *testing.T) {
@@ -56,7 +57,7 @@ func TestVKPollsCreateSuccess(t *testing.T) {
 	fillRandomlyPollsCreateResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "polls.create", params.Params(), expectedJSON))
@@ -66,10 +67,10 @@ func TestVKPollsCreateSuccess(t *testing.T) {
 }
 
 func fillRandomlyPollsDeleteVoteRequest(r *requests.PollsDeleteVoteRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPollId(randInt())
-	r.WithAnswerId(randInt())
-	r.WithIsBoard(randBool())
+	r.WithOwnerId(random.RandInt())
+	r.WithPollId(random.RandInt())
+	r.WithAnswerId(random.RandInt())
+	r.WithIsBoard(random.RandBool())
 }
 
 func TestVKPollsDeleteVoteSuccess(t *testing.T) {
@@ -79,7 +80,7 @@ func TestVKPollsDeleteVoteSuccess(t *testing.T) {
 	fillRandomlyPollsDeleteVoteResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "polls.deleteVote", params.Params(), expectedJSON))
@@ -89,15 +90,15 @@ func TestVKPollsDeleteVoteSuccess(t *testing.T) {
 }
 
 func fillRandomlyPollsEditRequest(r *requests.PollsEditRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPollId(randInt())
-	r.WithQuestion(randString())
-	r.WithAddAnswers(randString())
-	r.WithEditAnswers(randString())
-	r.WithDeleteAnswers(randString())
-	r.WithEndDate(randInt())
-	r.WithPhotoId(randInt())
-	r.WithBackgroundId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithPollId(random.RandInt())
+	r.WithQuestion(random.RandString())
+	r.WithAddAnswers(random.RandString())
+	r.WithEditAnswers(random.RandString())
+	r.WithDeleteAnswers(random.RandString())
+	r.WithEndDate(random.RandInt())
+	r.WithPhotoId(random.RandInt())
+	r.WithBackgroundId(random.RandInt())
 }
 
 func TestVKPollsEditSuccess(t *testing.T) {
@@ -107,7 +108,7 @@ func TestVKPollsEditSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "polls.edit", params.Params(), expectedJSON))
@@ -121,7 +122,7 @@ func TestVKPollsGetBackgroundsSuccess(t *testing.T) {
 	fillRandomlyPollsGetBackgroundsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "polls.getBackgrounds", nil, expectedJSON))
@@ -131,14 +132,14 @@ func TestVKPollsGetBackgroundsSuccess(t *testing.T) {
 }
 
 func fillRandomlyPollsGetByIdRequest(r *requests.PollsGetByIdRequest) {
-	r.WithOwnerId(randInt())
-	r.WithIsBoard(randBool())
-	r.WithPollId(randInt())
-	r.WithExtended(randBool())
-	r.WithFriendsCount(randInt())
-	lFields := randIntn(maxArrayLength + 1)
-	r.WithFields(randStringArr(lFields))
-	r.WithNameCase(randString())
+	r.WithOwnerId(random.RandInt())
+	r.WithIsBoard(random.RandBool())
+	r.WithPollId(random.RandInt())
+	r.WithExtended(random.RandBool())
+	r.WithFriendsCount(random.RandInt())
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithFields(random.RandStringArr(lFields))
+	r.WithNameCase(random.RandString())
 }
 
 func TestVKPollsGetByIdSuccess(t *testing.T) {
@@ -148,7 +149,7 @@ func TestVKPollsGetByIdSuccess(t *testing.T) {
 	fillRandomlyPollsGetByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "polls.getById", params.Params(), expectedJSON))
@@ -158,7 +159,7 @@ func TestVKPollsGetByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyPollsGetPhotoUploadServerRequest(r *requests.PollsGetPhotoUploadServerRequest) {
-	r.WithOwnerId(randInt())
+	r.WithOwnerId(random.RandInt())
 }
 
 func TestVKPollsGetPhotoUploadServerSuccess(t *testing.T) {
@@ -168,7 +169,7 @@ func TestVKPollsGetPhotoUploadServerSuccess(t *testing.T) {
 	fillRandomlyBaseGetUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "polls.getPhotoUploadServer", params.Params(), expectedJSON))
@@ -178,22 +179,22 @@ func TestVKPollsGetPhotoUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyPollsGetVotersRequest(r *requests.PollsGetVotersRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPollId(randInt())
-	lAnswerIds := randIntn(maxArrayLength + 1)
-	r.WithAnswerIds(randIntArr(lAnswerIds))
-	r.WithIsBoard(randBool())
-	r.WithFriendsOnly(randBool())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithPollId(random.RandInt())
+	lAnswerIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAnswerIds(random.RandIntArr(lAnswerIds))
+	r.WithIsBoard(random.RandBool())
+	r.WithFriendsOnly(random.RandBool())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithNameCase(randString())
+	r.WithNameCase(random.RandString())
 }
 
 func TestVKPollsGetVotersSuccess(t *testing.T) {
@@ -203,7 +204,7 @@ func TestVKPollsGetVotersSuccess(t *testing.T) {
 	fillRandomlyPollsGetVotersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "polls.getVoters", params.Params(), expectedJSON))
@@ -213,8 +214,8 @@ func TestVKPollsGetVotersSuccess(t *testing.T) {
 }
 
 func fillRandomlyPollsSavePhotoRequest(r *requests.PollsSavePhotoRequest) {
-	r.WithPhoto(randString())
-	r.WithHash(randString())
+	r.WithPhoto(random.RandString())
+	r.WithHash(random.RandString())
 }
 
 func TestVKPollsSavePhotoSuccess(t *testing.T) {
@@ -224,7 +225,7 @@ func TestVKPollsSavePhotoSuccess(t *testing.T) {
 	fillRandomlyPollsSavePhotoResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "polls.savePhoto", params.Params(), expectedJSON))
@@ -232,4 +233,3 @@ func TestVKPollsSavePhotoSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

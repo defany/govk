@@ -3,21 +3,22 @@
 package tests
 
 import (
-	"github.com/defany/govk/api/gen/models"
+	"encoding/json"
 	"github.com/defany/govk/api/gen/donut"
+	"github.com/defany/govk/api/gen/models"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyDonutGetFriendsRequest(r *requests.DonutGetFriendsRequest) {
-	r.WithOwnerId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	lFields := randIntn(maxArrayLength + 1)
-	r.WithFields(randStringArr(lFields))
+	r.WithOwnerId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithFields(random.RandStringArr(lFields))
 }
 
 func TestVKDonutGetFriendsSuccess(t *testing.T) {
@@ -27,7 +28,7 @@ func TestVKDonutGetFriendsSuccess(t *testing.T) {
 	fillRandomlyGroupsGetMembersFieldsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "donut.getFriends", params.Params(), expectedJSON))
@@ -37,7 +38,7 @@ func TestVKDonutGetFriendsSuccess(t *testing.T) {
 }
 
 func fillRandomlyDonutGetSubscriptionRequest(r *requests.DonutGetSubscriptionRequest) {
-	r.WithOwnerId(randInt())
+	r.WithOwnerId(random.RandInt())
 }
 
 func TestVKDonutGetSubscriptionSuccess(t *testing.T) {
@@ -47,7 +48,7 @@ func TestVKDonutGetSubscriptionSuccess(t *testing.T) {
 	fillRandomlyDonutGetSubscriptionResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "donut.getSubscription", params.Params(), expectedJSON))
@@ -58,14 +59,14 @@ func TestVKDonutGetSubscriptionSuccess(t *testing.T) {
 
 func fillRandomlyDonutGetSubscriptionsRequest(r *requests.DonutGetSubscriptionsRequest) {
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKDonutGetSubscriptionsSuccess(t *testing.T) {
@@ -75,7 +76,7 @@ func TestVKDonutGetSubscriptionsSuccess(t *testing.T) {
 	fillRandomlyDonutGetSubscriptionsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "donut.getSubscriptions", params.Params(), expectedJSON))
@@ -85,7 +86,7 @@ func TestVKDonutGetSubscriptionsSuccess(t *testing.T) {
 }
 
 func fillRandomlyDonutIsDonRequest(r *requests.DonutIsDonRequest) {
-	r.WithOwnerId(randInt())
+	r.WithOwnerId(random.RandInt())
 }
 
 func TestVKDonutIsDonSuccess(t *testing.T) {
@@ -95,7 +96,7 @@ func TestVKDonutIsDonSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "donut.isDon", params.Params(), expectedJSON))
@@ -103,4 +104,3 @@ func TestVKDonutIsDonSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

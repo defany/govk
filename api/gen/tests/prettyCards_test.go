@@ -3,23 +3,24 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/prettycards"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyPrettyCardsCreateRequest(r *requests.PrettyCardsCreateRequest) {
-	r.WithOwnerId(randInt())
-	r.WithPhoto(randString())
-	r.WithTitle(randString())
-	r.WithLink(randString())
-	r.WithPrice(randString())
-	r.WithPriceOld(randString())
-	r.WithButton(randString())
+	r.WithOwnerId(random.RandInt())
+	r.WithPhoto(random.RandString())
+	r.WithTitle(random.RandString())
+	r.WithLink(random.RandString())
+	r.WithPrice(random.RandString())
+	r.WithPriceOld(random.RandString())
+	r.WithButton(random.RandString())
 }
 
 func TestVKPrettyCardsCreateSuccess(t *testing.T) {
@@ -29,7 +30,7 @@ func TestVKPrettyCardsCreateSuccess(t *testing.T) {
 	fillRandomlyPrettyCardsCreateResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "prettyCards.create", params.Params(), expectedJSON))
@@ -39,8 +40,8 @@ func TestVKPrettyCardsCreateSuccess(t *testing.T) {
 }
 
 func fillRandomlyPrettyCardsDeleteRequest(r *requests.PrettyCardsDeleteRequest) {
-	r.WithOwnerId(randInt())
-	r.WithCardId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithCardId(random.RandInt())
 }
 
 func TestVKPrettyCardsDeleteSuccess(t *testing.T) {
@@ -50,7 +51,7 @@ func TestVKPrettyCardsDeleteSuccess(t *testing.T) {
 	fillRandomlyPrettyCardsDeleteResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "prettyCards.delete", params.Params(), expectedJSON))
@@ -60,14 +61,14 @@ func TestVKPrettyCardsDeleteSuccess(t *testing.T) {
 }
 
 func fillRandomlyPrettyCardsEditRequest(r *requests.PrettyCardsEditRequest) {
-	r.WithOwnerId(randInt())
-	r.WithCardId(randInt())
-	r.WithPhoto(randString())
-	r.WithTitle(randString())
-	r.WithLink(randString())
-	r.WithPrice(randString())
-	r.WithPriceOld(randString())
-	r.WithButton(randString())
+	r.WithOwnerId(random.RandInt())
+	r.WithCardId(random.RandInt())
+	r.WithPhoto(random.RandString())
+	r.WithTitle(random.RandString())
+	r.WithLink(random.RandString())
+	r.WithPrice(random.RandString())
+	r.WithPriceOld(random.RandString())
+	r.WithButton(random.RandString())
 }
 
 func TestVKPrettyCardsEditSuccess(t *testing.T) {
@@ -77,7 +78,7 @@ func TestVKPrettyCardsEditSuccess(t *testing.T) {
 	fillRandomlyPrettyCardsEditResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "prettyCards.edit", params.Params(), expectedJSON))
@@ -87,9 +88,9 @@ func TestVKPrettyCardsEditSuccess(t *testing.T) {
 }
 
 func fillRandomlyPrettyCardsGetRequest(r *requests.PrettyCardsGetRequest) {
-	r.WithOwnerId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKPrettyCardsGetSuccess(t *testing.T) {
@@ -99,7 +100,7 @@ func TestVKPrettyCardsGetSuccess(t *testing.T) {
 	fillRandomlyPrettyCardsGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "prettyCards.get", params.Params(), expectedJSON))
@@ -109,9 +110,9 @@ func TestVKPrettyCardsGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyPrettyCardsGetByIdRequest(r *requests.PrettyCardsGetByIdRequest) {
-	r.WithOwnerId(randInt())
-	lCardIds := randIntn(maxArrayLength + 1)
-	r.WithCardIds(randIntArr(lCardIds))
+	r.WithOwnerId(random.RandInt())
+	lCardIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithCardIds(random.RandIntArr(lCardIds))
 }
 
 func TestVKPrettyCardsGetByIdSuccess(t *testing.T) {
@@ -121,7 +122,7 @@ func TestVKPrettyCardsGetByIdSuccess(t *testing.T) {
 	fillRandomlyPrettyCardsGetByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "prettyCards.getById", params.Params(), expectedJSON))
@@ -135,7 +136,7 @@ func TestVKPrettyCardsGetUploadURLSuccess(t *testing.T) {
 	fillRandomlyPrettyCardsGetUploadURLResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "prettyCards.getUploadURL", nil, expectedJSON))
@@ -143,4 +144,3 @@ func TestVKPrettyCardsGetUploadURLSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

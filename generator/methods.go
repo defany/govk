@@ -49,21 +49,12 @@ func GenerateMethods(methodsRaw []byte) {
 		if err != nil {
 			panic(err.Error())
 		}
-		if _, err := os.Stat(dir + "/" + strings.Split(genner.GetName(), ".")[0] + ".go"); errors.Is(err, os.ErrNotExist) {
-			f, err := os.OpenFile(dir+"/"+strings.Split(genner.GetName(), ".")[0]+".go", os.O_CREATE|os.O_APPEND, os.ModePerm)
-			if err != nil {
-				panic(err.Error())
-			}
-			writeStartFile(f, "requests", "", "github.com/defany/govk/api")
-			writeStartMethodFile(f, strings.Split(genner.GetName(), ".")[0])
-		}
-
 		if _, err := os.Stat("api/gen/tests/" + strings.Split(genner.GetName(), ".")[0] + "_test" + ".go"); errors.Is(err, os.ErrNotExist) {
 			f, err := os.OpenFile("api/gen/tests/"+strings.Split(genner.GetName(), ".")[0]+"_test"+".go", os.O_CREATE|os.O_APPEND, os.ModePerm)
 			if err != nil {
 				panic(err.Error())
 			}
-			writeStartFile(f, "tests", "", "github.com/defany/govk/api/gen/models", fmt.Sprintf("github.com/defany/govk/api/gen/%s", getMethodName(genner.GetName())), "github.com/stretchr/testify/assert", "github.com/stretchr/testify/require", "github.com/defany/govk/vk", "testing", "encoding/json")
+			writeStartFile(f, "tests", "", "github.com/defany/govk/api/gen/models", fmt.Sprintf("github.com/defany/govk/api/gen/%s", getMethodName(genner.GetName())), "github.com/stretchr/testify/assert", "github.com/stretchr/testify/require", "github.com/defany/govk/vk", "testing", "encoding/json", "github.com/defany/govk/pkg/random")
 			fmt.Fprint(f, genner.TestGen())
 		} else {
 			f, err := os.OpenFile("api/gen/tests/"+strings.Split(genner.GetName(), ".")[0]+"_test"+".go", os.O_APPEND, os.ModePerm)
@@ -73,15 +64,16 @@ func GenerateMethods(methodsRaw []byte) {
 			fmt.Fprint(f, genner.TestGen())
 		}
 
-		if _, err := os.Stat(dir + "/" + getFullMethodName(genner.GetName()) + ".go"); errors.Is(err, os.ErrNotExist) {
-			f, err := os.OpenFile(dir+"/"+getFullMethodName(genner.GetName())+".go", os.O_CREATE|os.O_APPEND, os.ModePerm)
+		if _, err := os.Stat(dir + "/" + strings.Split(genner.GetName(), ".")[0] + ".go"); errors.Is(err, os.ErrNotExist) {
+			f, err := os.OpenFile(dir+"/"+strings.Split(genner.GetName(), ".")[0]+".go", os.O_CREATE|os.O_APPEND, os.ModePerm)
 			if err != nil {
 				panic(err.Error())
 			}
 			writeStartFile(f, "requests", "", "github.com/defany/govk/api", "github.com/defany/govk/api/gen/models")
+			writeStartMethodFile(f, strings.Split(genner.GetName(), ".")[0])
 			fmt.Fprint(f, genner.Gen())
 		} else {
-			f, err := os.OpenFile(dir+"/"+getFullMethodName(genner.GetName())+".go", os.O_APPEND, os.ModePerm)
+			f, err := os.OpenFile(dir+"/"+strings.Split(genner.GetName(), ".")[0]+".go", os.O_APPEND, os.ModePerm)
 			if err != nil {
 				panic(err.Error())
 			}
@@ -531,7 +523,7 @@ func (m Method) successTestGen() (testGen string) {
 		testGen += fmt.Sprintf("\texpectedJSON := []byte(%q)", "{}")
 	}
 
-	testGen += "\ttoken := randString()\n"
+	testGen += "\ttoken := random.RandString()\n"
 	testGen += fmt.Sprintf("\tvk, err := govk.NewVK(token)\n")
 	testGen += "\tassert.NoError(t, err)\n"
 	if len(m.Params) > 0 {
@@ -605,7 +597,7 @@ func (m Method) testGenRequest() (testGen string) {
 			if pGenner.Param().ArrayNestingLevel < 1 {
 				fieldsGen += fmt.Sprintf("\tr.With%s(%s)\n", getFullName(pGenner.GetName()), getRandSetter(pGenner.Param().Type))
 			} else {
-				fieldsGen += fmt.Sprintf("\tl%s := randIntn(maxArrayLength + 1)\n", getFullName(pGenner.GetName()))
+				fieldsGen += fmt.Sprintf("\tl%s := random.RandIntn(random.MaxArrayLength + 1)\n", getFullName(pGenner.GetName()))
 				fieldsGen += fmt.Sprintf("\tr.With%s(%sl%[1]s))\n", getFullName(pGenner.GetName()), getRandSetter(getArrayBrackets(pGenner.Param().ArrayNestingLevel)+pGenner.Param().Type))
 			}
 		} else {
@@ -615,7 +607,7 @@ func (m Method) testGenRequest() (testGen string) {
 				fieldsGen += fmt.Sprintf("\tr.With%s(*%[1]s)\n", getFullName(pGenner.GetName()))
 			} else {
 				fieldsGen += fmt.Sprintf("\t%s := new(%smodels.%s)\n", getFullName(pGenner.GetName()), getArrayBrackets(pGenner.Param().ArrayNestingLevel), pGenner.Param().Type)
-				fieldsGen += fmt.Sprintf("\tl%s := randIntn(maxArrayLength + 1)\n", getFullName(pGenner.GetName()))
+				fieldsGen += fmt.Sprintf("\tl%s := random.RandIntn(random.MaxArrayLength + 1)\n", getFullName(pGenner.GetName()))
 				fieldsGen += fmt.Sprintf("\t*%s = make(%smodels.%s, l%[1]s)\n", getFullName(pGenner.GetName()), getArrayBrackets(pGenner.Param().ArrayNestingLevel), pGenner.Param().Type)
 				fieldsGen += fmt.Sprintf("\tfor i0 := 0; i0 < l%[2]s; i0++ {\n\t\tfillRandomly%[1]s(&(*%s)[i0])\n\t}\n", pGenner.Param().Type, getFullName(pGenner.GetName()))
 				fieldsGen += fmt.Sprintf("\tr.With%s(*%[1]s)\n", getFullName(pGenner.GetName()))

@@ -3,27 +3,28 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/stats"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyStatsGetRequest(r *requests.StatsGetRequest) {
-	r.WithGroupId(randInt())
-	r.WithAppId(randInt())
-	r.WithTimestampFrom(randInt())
-	r.WithTimestampTo(randInt())
-	r.WithInterval(randString())
-	r.WithIntervalsCount(randInt())
-	lFilters := randIntn(maxArrayLength + 1)
-	r.WithFilters(randStringArr(lFilters))
-	lStatsGroups := randIntn(maxArrayLength + 1)
-	r.WithStatsGroups(randStringArr(lStatsGroups))
-	r.WithExtended(randBool())
+	r.WithGroupId(random.RandInt())
+	r.WithAppId(random.RandInt())
+	r.WithTimestampFrom(random.RandInt())
+	r.WithTimestampTo(random.RandInt())
+	r.WithInterval(random.RandString())
+	r.WithIntervalsCount(random.RandInt())
+	lFilters := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithFilters(random.RandStringArr(lFilters))
+	lStatsGroups := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithStatsGroups(random.RandStringArr(lStatsGroups))
+	r.WithExtended(random.RandBool())
 }
 
 func TestVKStatsGetSuccess(t *testing.T) {
@@ -33,7 +34,7 @@ func TestVKStatsGetSuccess(t *testing.T) {
 	fillRandomlyStatsGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stats.get", params.Params(), expectedJSON))
@@ -43,9 +44,9 @@ func TestVKStatsGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyStatsGetPostReachRequest(r *requests.StatsGetPostReachRequest) {
-	r.WithOwnerId(randString())
-	lPostIds := randIntn(maxArrayLength + 1)
-	r.WithPostIds(randIntArr(lPostIds))
+	r.WithOwnerId(random.RandString())
+	lPostIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithPostIds(random.RandIntArr(lPostIds))
 }
 
 func TestVKStatsGetPostReachSuccess(t *testing.T) {
@@ -55,7 +56,7 @@ func TestVKStatsGetPostReachSuccess(t *testing.T) {
 	fillRandomlyStatsGetPostReachResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stats.getPostReach", params.Params(), expectedJSON))
@@ -69,7 +70,7 @@ func TestVKStatsTrackVisitorSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "stats.trackVisitor", nil, expectedJSON))
@@ -77,4 +78,3 @@ func TestVKStatsTrackVisitorSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

@@ -3,31 +3,32 @@
 package tests
 
 import (
-	"github.com/defany/govk/api/gen/models"
+	"encoding/json"
 	"github.com/defany/govk/api/gen/groups"
+	"github.com/defany/govk/api/gen/models"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyGroupsAddAddressRequest(r *requests.GroupsAddAddressRequest) {
-	r.WithGroupId(randInt())
-	r.WithTitle(randString())
-	r.WithAddress(randString())
-	r.WithAdditionalAddress(randString())
-	r.WithCountryId(randInt())
-	r.WithCityId(randInt())
-	r.WithMetroId(randInt())
-	r.WithLatitude(randFloat())
-	r.WithLongitude(randFloat())
-	r.WithPhone(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithTitle(random.RandString())
+	r.WithAddress(random.RandString())
+	r.WithAdditionalAddress(random.RandString())
+	r.WithCountryId(random.RandInt())
+	r.WithCityId(random.RandInt())
+	r.WithMetroId(random.RandInt())
+	r.WithLatitude(random.RandFloat())
+	r.WithLongitude(random.RandFloat())
+	r.WithPhone(random.RandString())
 	WorkInfoStatus := new(models.GroupsAddressWorkInfoStatus)
 	fillRandomlyGroupsAddressWorkInfoStatus(WorkInfoStatus)
 	r.WithWorkInfoStatus(*WorkInfoStatus)
-	r.WithTimetable(randString())
-	r.WithIsMainAddress(randBool())
+	r.WithTimetable(random.RandString())
+	r.WithIsMainAddress(random.RandBool())
 }
 
 func TestVKGroupsAddAddressSuccess(t *testing.T) {
@@ -37,7 +38,7 @@ func TestVKGroupsAddAddressSuccess(t *testing.T) {
 	fillRandomlyGroupsAddAddressResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.addAddress", params.Params(), expectedJSON))
@@ -47,10 +48,10 @@ func TestVKGroupsAddAddressSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsAddCallbackServerRequest(r *requests.GroupsAddCallbackServerRequest) {
-	r.WithGroupId(randInt())
-	r.WithUrl(randString())
-	r.WithTitle(randString())
-	r.WithSecretKey(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithUrl(random.RandString())
+	r.WithTitle(random.RandString())
+	r.WithSecretKey(random.RandString())
 }
 
 func TestVKGroupsAddCallbackServerSuccess(t *testing.T) {
@@ -60,7 +61,7 @@ func TestVKGroupsAddCallbackServerSuccess(t *testing.T) {
 	fillRandomlyGroupsAddCallbackServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.addCallbackServer", params.Params(), expectedJSON))
@@ -70,9 +71,9 @@ func TestVKGroupsAddCallbackServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsAddLinkRequest(r *requests.GroupsAddLinkRequest) {
-	r.WithGroupId(randInt())
-	r.WithLink(randString())
-	r.WithText(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithLink(random.RandString())
+	r.WithText(random.RandString())
 }
 
 func TestVKGroupsAddLinkSuccess(t *testing.T) {
@@ -82,7 +83,7 @@ func TestVKGroupsAddLinkSuccess(t *testing.T) {
 	fillRandomlyGroupsAddLinkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.addLink", params.Params(), expectedJSON))
@@ -92,8 +93,8 @@ func TestVKGroupsAddLinkSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsApproveRequestRequest(r *requests.GroupsApproveRequestRequest) {
-	r.WithGroupId(randInt())
-	r.WithUserId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.RandInt())
 }
 
 func TestVKGroupsApproveRequestSuccess(t *testing.T) {
@@ -103,7 +104,7 @@ func TestVKGroupsApproveRequestSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.approveRequest", params.Params(), expectedJSON))
@@ -113,12 +114,12 @@ func TestVKGroupsApproveRequestSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsBanRequest(r *requests.GroupsBanRequest) {
-	r.WithGroupId(randInt())
-	r.WithOwnerId(randInt())
-	r.WithEndDate(randInt())
-	r.WithReason(randInt())
-	r.WithComment(randString())
-	r.WithCommentVisible(randBool())
+	r.WithGroupId(random.RandInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithEndDate(random.RandInt())
+	r.WithReason(random.RandInt())
+	r.WithComment(random.RandString())
+	r.WithCommentVisible(random.RandBool())
 }
 
 func TestVKGroupsBanSuccess(t *testing.T) {
@@ -128,7 +129,7 @@ func TestVKGroupsBanSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.ban", params.Params(), expectedJSON))
@@ -138,12 +139,12 @@ func TestVKGroupsBanSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsCreateRequest(r *requests.GroupsCreateRequest) {
-	r.WithTitle(randString())
-	r.WithDescription(randString())
-	r.WithType(randString())
-	r.WithPublicCategory(randInt())
-	r.WithPublicSubcategory(randInt())
-	r.WithSubtype(randInt())
+	r.WithTitle(random.RandString())
+	r.WithDescription(random.RandString())
+	r.WithType(random.RandString())
+	r.WithPublicCategory(random.RandInt())
+	r.WithPublicSubcategory(random.RandInt())
+	r.WithSubtype(random.RandInt())
 }
 
 func TestVKGroupsCreateSuccess(t *testing.T) {
@@ -153,7 +154,7 @@ func TestVKGroupsCreateSuccess(t *testing.T) {
 	fillRandomlyGroupsCreateResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.create", params.Params(), expectedJSON))
@@ -163,8 +164,8 @@ func TestVKGroupsCreateSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsDeleteAddressRequest(r *requests.GroupsDeleteAddressRequest) {
-	r.WithGroupId(randInt())
-	r.WithAddressId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithAddressId(random.RandInt())
 }
 
 func TestVKGroupsDeleteAddressSuccess(t *testing.T) {
@@ -174,7 +175,7 @@ func TestVKGroupsDeleteAddressSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.deleteAddress", params.Params(), expectedJSON))
@@ -184,8 +185,8 @@ func TestVKGroupsDeleteAddressSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsDeleteCallbackServerRequest(r *requests.GroupsDeleteCallbackServerRequest) {
-	r.WithGroupId(randInt())
-	r.WithServerId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithServerId(random.RandInt())
 }
 
 func TestVKGroupsDeleteCallbackServerSuccess(t *testing.T) {
@@ -195,7 +196,7 @@ func TestVKGroupsDeleteCallbackServerSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.deleteCallbackServer", params.Params(), expectedJSON))
@@ -205,8 +206,8 @@ func TestVKGroupsDeleteCallbackServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsDeleteLinkRequest(r *requests.GroupsDeleteLinkRequest) {
-	r.WithGroupId(randInt())
-	r.WithLinkId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithLinkId(random.RandInt())
 }
 
 func TestVKGroupsDeleteLinkSuccess(t *testing.T) {
@@ -216,7 +217,7 @@ func TestVKGroupsDeleteLinkSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.deleteLink", params.Params(), expectedJSON))
@@ -226,7 +227,7 @@ func TestVKGroupsDeleteLinkSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsDisableOnlineRequest(r *requests.GroupsDisableOnlineRequest) {
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKGroupsDisableOnlineSuccess(t *testing.T) {
@@ -236,7 +237,7 @@ func TestVKGroupsDisableOnlineSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.disableOnline", params.Params(), expectedJSON))
@@ -246,26 +247,26 @@ func TestVKGroupsDisableOnlineSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsEditRequest(r *requests.GroupsEditRequest) {
-	r.WithGroupId(randInt())
-	r.WithTitle(randString())
-	r.WithDescription(randString())
-	r.WithScreenName(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithTitle(random.RandString())
+	r.WithDescription(random.RandString())
+	r.WithScreenName(random.RandString())
 	Access := new(models.GroupsGroupAccess)
 	fillRandomlyGroupsGroupAccess(Access)
 	r.WithAccess(*Access)
-	r.WithWebsite(randString())
+	r.WithWebsite(random.RandString())
 	Subject := new(models.GroupsGroupSubject)
 	fillRandomlyGroupsGroupSubject(Subject)
 	r.WithSubject(*Subject)
-	r.WithEmail(randString())
-	r.WithPhone(randString())
-	r.WithRss(randString())
-	r.WithEventStartDate(randInt())
-	r.WithEventFinishDate(randInt())
-	r.WithEventGroupId(randInt())
-	r.WithPublicCategory(randInt())
-	r.WithPublicSubcategory(randInt())
-	r.WithPublicDate(randString())
+	r.WithEmail(random.RandString())
+	r.WithPhone(random.RandString())
+	r.WithRss(random.RandString())
+	r.WithEventStartDate(random.RandInt())
+	r.WithEventFinishDate(random.RandInt())
+	r.WithEventGroupId(random.RandInt())
+	r.WithPublicCategory(random.RandInt())
+	r.WithPublicSubcategory(random.RandInt())
+	r.WithPublicDate(random.RandString())
 	Wall := new(models.GroupsGroupWall)
 	fillRandomlyGroupsGroupWall(Wall)
 	r.WithWall(*Wall)
@@ -281,41 +282,41 @@ func fillRandomlyGroupsEditRequest(r *requests.GroupsEditRequest) {
 	Audio := new(models.GroupsGroupAudio)
 	fillRandomlyGroupsGroupAudio(Audio)
 	r.WithAudio(*Audio)
-	r.WithLinks(randBool())
-	r.WithEvents(randBool())
-	r.WithPlaces(randBool())
-	r.WithContacts(randBool())
+	r.WithLinks(random.RandBool())
+	r.WithEvents(random.RandBool())
+	r.WithPlaces(random.RandBool())
+	r.WithContacts(random.RandBool())
 	Docs := new(models.GroupsGroupDocs)
 	fillRandomlyGroupsGroupDocs(Docs)
 	r.WithDocs(*Docs)
 	Wiki := new(models.GroupsGroupWiki)
 	fillRandomlyGroupsGroupWiki(Wiki)
 	r.WithWiki(*Wiki)
-	r.WithMessages(randBool())
-	r.WithArticles(randBool())
-	r.WithAddresses(randBool())
+	r.WithMessages(random.RandBool())
+	r.WithArticles(random.RandBool())
+	r.WithAddresses(random.RandBool())
 	AgeLimits := new(models.GroupsGroupAgeLimits)
 	fillRandomlyGroupsGroupAgeLimits(AgeLimits)
 	r.WithAgeLimits(*AgeLimits)
-	r.WithMarket(randBool())
-	r.WithMarketComments(randBool())
-	lMarketCountry := randIntn(maxArrayLength + 1)
-	r.WithMarketCountry(randIntArr(lMarketCountry))
-	lMarketCity := randIntn(maxArrayLength + 1)
-	r.WithMarketCity(randIntArr(lMarketCity))
+	r.WithMarket(random.RandBool())
+	r.WithMarketComments(random.RandBool())
+	lMarketCountry := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithMarketCountry(random.RandIntArr(lMarketCountry))
+	lMarketCity := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithMarketCity(random.RandIntArr(lMarketCity))
 	MarketCurrency := new(models.GroupsGroupMarketCurrency)
 	fillRandomlyGroupsGroupMarketCurrency(MarketCurrency)
 	r.WithMarketCurrency(*MarketCurrency)
-	r.WithMarketContact(randInt())
-	r.WithMarketWiki(randInt())
-	r.WithObsceneFilter(randBool())
-	r.WithObsceneStopwords(randBool())
-	lObsceneWords := randIntn(maxArrayLength + 1)
-	r.WithObsceneWords(randStringArr(lObsceneWords))
-	r.WithMainSection(randInt())
-	r.WithSecondarySection(randInt())
-	r.WithCountry(randInt())
-	r.WithCity(randInt())
+	r.WithMarketContact(random.RandInt())
+	r.WithMarketWiki(random.RandInt())
+	r.WithObsceneFilter(random.RandBool())
+	r.WithObsceneStopwords(random.RandBool())
+	lObsceneWords := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithObsceneWords(random.RandStringArr(lObsceneWords))
+	r.WithMainSection(random.RandInt())
+	r.WithSecondarySection(random.RandInt())
+	r.WithCountry(random.RandInt())
+	r.WithCity(random.RandInt())
 }
 
 func TestVKGroupsEditSuccess(t *testing.T) {
@@ -325,7 +326,7 @@ func TestVKGroupsEditSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.edit", params.Params(), expectedJSON))
@@ -335,22 +336,22 @@ func TestVKGroupsEditSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsEditAddressRequest(r *requests.GroupsEditAddressRequest) {
-	r.WithGroupId(randInt())
-	r.WithAddressId(randInt())
-	r.WithTitle(randString())
-	r.WithAddress(randString())
-	r.WithAdditionalAddress(randString())
-	r.WithCountryId(randInt())
-	r.WithCityId(randInt())
-	r.WithMetroId(randInt())
-	r.WithLatitude(randFloat())
-	r.WithLongitude(randFloat())
-	r.WithPhone(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithAddressId(random.RandInt())
+	r.WithTitle(random.RandString())
+	r.WithAddress(random.RandString())
+	r.WithAdditionalAddress(random.RandString())
+	r.WithCountryId(random.RandInt())
+	r.WithCityId(random.RandInt())
+	r.WithMetroId(random.RandInt())
+	r.WithLatitude(random.RandFloat())
+	r.WithLongitude(random.RandFloat())
+	r.WithPhone(random.RandString())
 	WorkInfoStatus := new(models.GroupsAddressWorkInfoStatus)
 	fillRandomlyGroupsAddressWorkInfoStatus(WorkInfoStatus)
 	r.WithWorkInfoStatus(*WorkInfoStatus)
-	r.WithTimetable(randString())
-	r.WithIsMainAddress(randBool())
+	r.WithTimetable(random.RandString())
+	r.WithIsMainAddress(random.RandBool())
 }
 
 func TestVKGroupsEditAddressSuccess(t *testing.T) {
@@ -360,7 +361,7 @@ func TestVKGroupsEditAddressSuccess(t *testing.T) {
 	fillRandomlyGroupsEditAddressResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.editAddress", params.Params(), expectedJSON))
@@ -370,11 +371,11 @@ func TestVKGroupsEditAddressSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsEditCallbackServerRequest(r *requests.GroupsEditCallbackServerRequest) {
-	r.WithGroupId(randInt())
-	r.WithServerId(randInt())
-	r.WithUrl(randString())
-	r.WithTitle(randString())
-	r.WithSecretKey(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithServerId(random.RandInt())
+	r.WithUrl(random.RandString())
+	r.WithTitle(random.RandString())
+	r.WithSecretKey(random.RandString())
 }
 
 func TestVKGroupsEditCallbackServerSuccess(t *testing.T) {
@@ -384,7 +385,7 @@ func TestVKGroupsEditCallbackServerSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.editCallbackServer", params.Params(), expectedJSON))
@@ -394,9 +395,9 @@ func TestVKGroupsEditCallbackServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsEditLinkRequest(r *requests.GroupsEditLinkRequest) {
-	r.WithGroupId(randInt())
-	r.WithLinkId(randInt())
-	r.WithText(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithLinkId(random.RandInt())
+	r.WithText(random.RandString())
 }
 
 func TestVKGroupsEditLinkSuccess(t *testing.T) {
@@ -406,7 +407,7 @@ func TestVKGroupsEditLinkSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.editLink", params.Params(), expectedJSON))
@@ -416,15 +417,15 @@ func TestVKGroupsEditLinkSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsEditManagerRequest(r *requests.GroupsEditManagerRequest) {
-	r.WithGroupId(randInt())
-	r.WithUserId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.RandInt())
 	Role := new(models.GroupsGroupRole)
 	fillRandomlyGroupsGroupRole(Role)
 	r.WithRole(*Role)
-	r.WithIsContact(randBool())
-	r.WithContactPosition(randString())
-	r.WithContactPhone(randString())
-	r.WithContactEmail(randString())
+	r.WithIsContact(random.RandBool())
+	r.WithContactPosition(random.RandString())
+	r.WithContactPhone(random.RandString())
+	r.WithContactEmail(random.RandString())
 }
 
 func TestVKGroupsEditManagerSuccess(t *testing.T) {
@@ -434,7 +435,7 @@ func TestVKGroupsEditManagerSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.editManager", params.Params(), expectedJSON))
@@ -444,7 +445,7 @@ func TestVKGroupsEditManagerSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsEnableOnlineRequest(r *requests.GroupsEnableOnlineRequest) {
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKGroupsEnableOnlineSuccess(t *testing.T) {
@@ -454,7 +455,7 @@ func TestVKGroupsEnableOnlineSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.enableOnline", params.Params(), expectedJSON))
@@ -464,24 +465,24 @@ func TestVKGroupsEnableOnlineSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetRequest(r *requests.GroupsGetRequest) {
-	r.WithUserId(randInt())
-	r.WithExtended(randBool())
+	r.WithUserId(random.RandInt())
+	r.WithExtended(random.RandBool())
 	Filter := new([]models.GroupsFilter)
-	lFilter := randIntn(maxArrayLength + 1)
+	lFilter := random.RandIntn(random.MaxArrayLength + 1)
 	*Filter = make([]models.GroupsFilter, lFilter)
 	for i0 := 0; i0 < lFilter; i0++ {
 		fillRandomlyGroupsFilter(&(*Filter)[i0])
 	}
 	r.WithFilter(*Filter)
 	Fields := new([]models.GroupsFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.GroupsFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyGroupsFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKGroupsGetSuccess(t *testing.T) {
@@ -492,7 +493,7 @@ func TestVKGroupsGetSuccess(t *testing.T) {
 	fillRandomlyGroupsGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.get", params.Params(), expectedJSON))
@@ -509,7 +510,7 @@ func TestVKGroupsGetExtendedSuccess(t *testing.T) {
 	fillRandomlyGroupsGetObjectExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.get", params.Params(), expectedJSON))
@@ -519,15 +520,15 @@ func TestVKGroupsGetExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetAddressesRequest(r *requests.GroupsGetAddressesRequest) {
-	r.WithGroupId(randInt())
-	lAddressIds := randIntn(maxArrayLength + 1)
-	r.WithAddressIds(randIntArr(lAddressIds))
-	r.WithLatitude(randFloat())
-	r.WithLongitude(randFloat())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithGroupId(random.RandInt())
+	lAddressIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAddressIds(random.RandIntArr(lAddressIds))
+	r.WithLatitude(random.RandFloat())
+	r.WithLongitude(random.RandFloat())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 	Fields := new([]models.AddressesFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.AddressesFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyAddressesFields(&(*Fields)[i0])
@@ -542,7 +543,7 @@ func TestVKGroupsGetAddressesSuccess(t *testing.T) {
 	fillRandomlyGroupsGetAddressesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getAddresses", params.Params(), expectedJSON))
@@ -552,17 +553,17 @@ func TestVKGroupsGetAddressesSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetBannedRequest(r *requests.GroupsGetBannedRequest) {
-	r.WithGroupId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithOwnerId(randInt())
+	r.WithOwnerId(random.RandInt())
 }
 
 func TestVKGroupsGetBannedSuccess(t *testing.T) {
@@ -572,7 +573,7 @@ func TestVKGroupsGetBannedSuccess(t *testing.T) {
 	fillRandomlyGroupsGetBannedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getBanned", params.Params(), expectedJSON))
@@ -582,11 +583,11 @@ func TestVKGroupsGetBannedSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetByIdRequest(r *requests.GroupsGetByIdRequest) {
-	lGroupIds := randIntn(maxArrayLength + 1)
-	r.WithGroupIds(randStringArr(lGroupIds))
-	r.WithGroupId(randString())
+	lGroupIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithGroupIds(random.RandStringArr(lGroupIds))
+	r.WithGroupId(random.RandString())
 	Fields := new([]models.GroupsFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.GroupsFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyGroupsFields(&(*Fields)[i0])
@@ -601,7 +602,7 @@ func TestVKGroupsGetByIdSuccess(t *testing.T) {
 	fillRandomlyGroupsGetByIdObjectLegacyResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getById", params.Params(), expectedJSON))
@@ -611,7 +612,7 @@ func TestVKGroupsGetByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetCallbackConfirmationCodeRequest(r *requests.GroupsGetCallbackConfirmationCodeRequest) {
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKGroupsGetCallbackConfirmationCodeSuccess(t *testing.T) {
@@ -621,7 +622,7 @@ func TestVKGroupsGetCallbackConfirmationCodeSuccess(t *testing.T) {
 	fillRandomlyGroupsGetCallbackConfirmationCodeResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getCallbackConfirmationCode", params.Params(), expectedJSON))
@@ -631,9 +632,9 @@ func TestVKGroupsGetCallbackConfirmationCodeSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetCallbackServersRequest(r *requests.GroupsGetCallbackServersRequest) {
-	r.WithGroupId(randInt())
-	lServerIds := randIntn(maxArrayLength + 1)
-	r.WithServerIds(randIntArr(lServerIds))
+	r.WithGroupId(random.RandInt())
+	lServerIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithServerIds(random.RandIntArr(lServerIds))
 }
 
 func TestVKGroupsGetCallbackServersSuccess(t *testing.T) {
@@ -643,7 +644,7 @@ func TestVKGroupsGetCallbackServersSuccess(t *testing.T) {
 	fillRandomlyGroupsGetCallbackServersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getCallbackServers", params.Params(), expectedJSON))
@@ -653,8 +654,8 @@ func TestVKGroupsGetCallbackServersSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetCallbackSettingsRequest(r *requests.GroupsGetCallbackSettingsRequest) {
-	r.WithGroupId(randInt())
-	r.WithServerId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithServerId(random.RandInt())
 }
 
 func TestVKGroupsGetCallbackSettingsSuccess(t *testing.T) {
@@ -664,7 +665,7 @@ func TestVKGroupsGetCallbackSettingsSuccess(t *testing.T) {
 	fillRandomlyGroupsGetCallbackSettingsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getCallbackSettings", params.Params(), expectedJSON))
@@ -674,8 +675,8 @@ func TestVKGroupsGetCallbackSettingsSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetCatalogRequest(r *requests.GroupsGetCatalogRequest) {
-	r.WithCategoryId(randInt())
-	r.WithSubcategoryId(randInt())
+	r.WithCategoryId(random.RandInt())
+	r.WithSubcategoryId(random.RandInt())
 }
 
 func TestVKGroupsGetCatalogSuccess(t *testing.T) {
@@ -685,7 +686,7 @@ func TestVKGroupsGetCatalogSuccess(t *testing.T) {
 	fillRandomlyGroupsGetCatalogResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getCatalog", params.Params(), expectedJSON))
@@ -695,8 +696,8 @@ func TestVKGroupsGetCatalogSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetCatalogInfoRequest(r *requests.GroupsGetCatalogInfoRequest) {
-	r.WithExtended(randBool())
-	r.WithSubcategories(randBool())
+	r.WithExtended(random.RandBool())
+	r.WithSubcategories(random.RandBool())
 }
 
 func TestVKGroupsGetCatalogInfoSuccess(t *testing.T) {
@@ -707,7 +708,7 @@ func TestVKGroupsGetCatalogInfoSuccess(t *testing.T) {
 	fillRandomlyGroupsGetCatalogInfoResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getCatalogInfo", params.Params(), expectedJSON))
@@ -724,7 +725,7 @@ func TestVKGroupsGetCatalogInfoExtendedSuccess(t *testing.T) {
 	fillRandomlyGroupsGetCatalogInfoExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getCatalogInfo", params.Params(), expectedJSON))
@@ -734,17 +735,17 @@ func TestVKGroupsGetCatalogInfoExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetInvitedUsersRequest(r *requests.GroupsGetInvitedUsersRequest) {
-	r.WithGroupId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithNameCase(randString())
+	r.WithNameCase(random.RandString())
 }
 
 func TestVKGroupsGetInvitedUsersSuccess(t *testing.T) {
@@ -754,7 +755,7 @@ func TestVKGroupsGetInvitedUsersSuccess(t *testing.T) {
 	fillRandomlyGroupsGetInvitedUsersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getInvitedUsers", params.Params(), expectedJSON))
@@ -764,9 +765,9 @@ func TestVKGroupsGetInvitedUsersSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetInvitesRequest(r *requests.GroupsGetInvitesRequest) {
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithExtended(randBool())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithExtended(random.RandBool())
 }
 
 func TestVKGroupsGetInvitesSuccess(t *testing.T) {
@@ -777,7 +778,7 @@ func TestVKGroupsGetInvitesSuccess(t *testing.T) {
 	fillRandomlyGroupsGetInvitesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getInvites", params.Params(), expectedJSON))
@@ -794,7 +795,7 @@ func TestVKGroupsGetInvitesExtendedSuccess(t *testing.T) {
 	fillRandomlyGroupsGetInvitesExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getInvites", params.Params(), expectedJSON))
@@ -804,7 +805,7 @@ func TestVKGroupsGetInvitesExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetLongPollServerRequest(r *requests.GroupsGetLongPollServerRequest) {
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKGroupsGetLongPollServerSuccess(t *testing.T) {
@@ -814,7 +815,7 @@ func TestVKGroupsGetLongPollServerSuccess(t *testing.T) {
 	fillRandomlyGroupsGetLongPollServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getLongPollServer", params.Params(), expectedJSON))
@@ -824,7 +825,7 @@ func TestVKGroupsGetLongPollServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetLongPollSettingsRequest(r *requests.GroupsGetLongPollSettingsRequest) {
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKGroupsGetLongPollSettingsSuccess(t *testing.T) {
@@ -834,7 +835,7 @@ func TestVKGroupsGetLongPollSettingsSuccess(t *testing.T) {
 	fillRandomlyGroupsGetLongPollSettingsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getLongPollSettings", params.Params(), expectedJSON))
@@ -844,18 +845,18 @@ func TestVKGroupsGetLongPollSettingsSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetMembersRequest(r *requests.GroupsGetMembersRequest) {
-	r.WithGroupId(randString())
-	r.WithSort(randString())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithGroupId(random.RandString())
+	r.WithSort(random.RandString())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithFilter(randString())
+	r.WithFilter(random.RandString())
 }
 
 func TestVKGroupsGetMembersSuccess(t *testing.T) {
@@ -865,7 +866,7 @@ func TestVKGroupsGetMembersSuccess(t *testing.T) {
 	fillRandomlyGroupsGetMembersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getMembers", params.Params(), expectedJSON))
@@ -875,11 +876,11 @@ func TestVKGroupsGetMembersSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetRequestsRequest(r *requests.GroupsGetRequestsRequest) {
-	r.WithGroupId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
@@ -894,7 +895,7 @@ func TestVKGroupsGetRequestsSuccess(t *testing.T) {
 	fillRandomlyGroupsGetRequestsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getRequests", params.Params(), expectedJSON))
@@ -904,7 +905,7 @@ func TestVKGroupsGetRequestsSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetSettingsRequest(r *requests.GroupsGetSettingsRequest) {
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKGroupsGetSettingsSuccess(t *testing.T) {
@@ -914,7 +915,7 @@ func TestVKGroupsGetSettingsSuccess(t *testing.T) {
 	fillRandomlyGroupsGetSettingsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getSettings", params.Params(), expectedJSON))
@@ -924,7 +925,7 @@ func TestVKGroupsGetSettingsSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsGetTagListRequest(r *requests.GroupsGetTagListRequest) {
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKGroupsGetTagListSuccess(t *testing.T) {
@@ -934,7 +935,7 @@ func TestVKGroupsGetTagListSuccess(t *testing.T) {
 	fillRandomlyGroupsGetTagListResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getTagList", params.Params(), expectedJSON))
@@ -948,7 +949,7 @@ func TestVKGroupsGetTokenPermissionsSuccess(t *testing.T) {
 	fillRandomlyGroupsGetTokenPermissionsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.getTokenPermissions", nil, expectedJSON))
@@ -958,8 +959,8 @@ func TestVKGroupsGetTokenPermissionsSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsInviteRequest(r *requests.GroupsInviteRequest) {
-	r.WithGroupId(randInt())
-	r.WithUserId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.RandInt())
 }
 
 func TestVKGroupsInviteSuccess(t *testing.T) {
@@ -969,7 +970,7 @@ func TestVKGroupsInviteSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.invite", params.Params(), expectedJSON))
@@ -979,11 +980,11 @@ func TestVKGroupsInviteSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsIsMemberRequest(r *requests.GroupsIsMemberRequest) {
-	r.WithGroupId(randString())
-	r.WithUserId(randInt())
-	lUserIds := randIntn(maxArrayLength + 1)
-	r.WithUserIds(randIntArr(lUserIds))
-	r.WithExtended(randBool())
+	r.WithGroupId(random.RandString())
+	r.WithUserId(random.RandInt())
+	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithUserIds(random.RandIntArr(lUserIds))
+	r.WithExtended(random.RandBool())
 }
 
 func TestVKGroupsIsMemberSuccess(t *testing.T) {
@@ -994,7 +995,7 @@ func TestVKGroupsIsMemberSuccess(t *testing.T) {
 	fillRandomlyGroupsIsMemberResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.isMember", params.Params(), expectedJSON))
@@ -1011,7 +1012,7 @@ func TestVKGroupsIsMemberExtendedSuccess(t *testing.T) {
 	fillRandomlyGroupsIsMemberExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.isMember", params.Params(), expectedJSON))
@@ -1021,11 +1022,11 @@ func TestVKGroupsIsMemberExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsIsMemberUserIDsRequest(r *requests.GroupsIsMemberUserIDsRequest) {
-	r.WithGroupId(randString())
-	r.WithUserId(randInt())
-	lUserIds := randIntn(maxArrayLength + 1)
-	r.WithUserIds(randIntArr(lUserIds))
-	r.WithExtended(randBool())
+	r.WithGroupId(random.RandString())
+	r.WithUserId(random.RandInt())
+	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithUserIds(random.RandIntArr(lUserIds))
+	r.WithExtended(random.RandBool())
 }
 
 func TestVKGroupsIsMemberUserIDsSuccess(t *testing.T) {
@@ -1036,7 +1037,7 @@ func TestVKGroupsIsMemberUserIDsSuccess(t *testing.T) {
 	fillRandomlyGroupsIsMemberUserIdsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.isMember", params.Params(), expectedJSON))
@@ -1053,7 +1054,7 @@ func TestVKGroupsIsMemberExtendedUserIDsSuccess(t *testing.T) {
 	fillRandomlyGroupsIsMemberUserIdsExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.isMember", params.Params(), expectedJSON))
@@ -1063,8 +1064,8 @@ func TestVKGroupsIsMemberExtendedUserIDsSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsJoinRequest(r *requests.GroupsJoinRequest) {
-	r.WithGroupId(randInt())
-	r.WithNotSure(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithNotSure(random.RandString())
 }
 
 func TestVKGroupsJoinSuccess(t *testing.T) {
@@ -1074,7 +1075,7 @@ func TestVKGroupsJoinSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.join", params.Params(), expectedJSON))
@@ -1084,7 +1085,7 @@ func TestVKGroupsJoinSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsLeaveRequest(r *requests.GroupsLeaveRequest) {
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 }
 
 func TestVKGroupsLeaveSuccess(t *testing.T) {
@@ -1094,7 +1095,7 @@ func TestVKGroupsLeaveSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.leave", params.Params(), expectedJSON))
@@ -1104,8 +1105,8 @@ func TestVKGroupsLeaveSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsRemoveUserRequest(r *requests.GroupsRemoveUserRequest) {
-	r.WithGroupId(randInt())
-	r.WithUserId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.RandInt())
 }
 
 func TestVKGroupsRemoveUserSuccess(t *testing.T) {
@@ -1115,7 +1116,7 @@ func TestVKGroupsRemoveUserSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.removeUser", params.Params(), expectedJSON))
@@ -1125,9 +1126,9 @@ func TestVKGroupsRemoveUserSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsReorderLinkRequest(r *requests.GroupsReorderLinkRequest) {
-	r.WithGroupId(randInt())
-	r.WithLinkId(randInt())
-	r.WithAfter(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithLinkId(random.RandInt())
+	r.WithAfter(random.RandInt())
 }
 
 func TestVKGroupsReorderLinkSuccess(t *testing.T) {
@@ -1137,7 +1138,7 @@ func TestVKGroupsReorderLinkSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.reorderLink", params.Params(), expectedJSON))
@@ -1147,15 +1148,15 @@ func TestVKGroupsReorderLinkSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsSearchRequest(r *requests.GroupsSearchRequest) {
-	r.WithQ(randString())
-	r.WithType(randString())
-	r.WithCountryId(randInt())
-	r.WithCityId(randInt())
-	r.WithFuture(randBool())
-	r.WithMarket(randBool())
-	r.WithSort(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithQ(random.RandString())
+	r.WithType(random.RandString())
+	r.WithCountryId(random.RandInt())
+	r.WithCityId(random.RandInt())
+	r.WithFuture(random.RandBool())
+	r.WithMarket(random.RandBool())
+	r.WithSort(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKGroupsSearchSuccess(t *testing.T) {
@@ -1165,7 +1166,7 @@ func TestVKGroupsSearchSuccess(t *testing.T) {
 	fillRandomlyGroupsSearchResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.search", params.Params(), expectedJSON))
@@ -1175,61 +1176,61 @@ func TestVKGroupsSearchSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsSetCallbackSettingsRequest(r *requests.GroupsSetCallbackSettingsRequest) {
-	r.WithGroupId(randInt())
-	r.WithServerId(randInt())
-	r.WithApiVersion(randString())
-	r.WithMessageNew(randBool())
-	r.WithMessageReply(randBool())
-	r.WithMessageAllow(randBool())
-	r.WithMessageEdit(randBool())
-	r.WithMessageDeny(randBool())
-	r.WithMessageTypingState(randBool())
-	r.WithPhotoNew(randBool())
-	r.WithAudioNew(randBool())
-	r.WithVideoNew(randBool())
-	r.WithWallReplyNew(randBool())
-	r.WithWallReplyEdit(randBool())
-	r.WithWallReplyDelete(randBool())
-	r.WithWallReplyRestore(randBool())
-	r.WithWallPostNew(randBool())
-	r.WithWallRepost(randBool())
-	r.WithBoardPostNew(randBool())
-	r.WithBoardPostEdit(randBool())
-	r.WithBoardPostRestore(randBool())
-	r.WithBoardPostDelete(randBool())
-	r.WithPhotoCommentNew(randBool())
-	r.WithPhotoCommentEdit(randBool())
-	r.WithPhotoCommentDelete(randBool())
-	r.WithPhotoCommentRestore(randBool())
-	r.WithVideoCommentNew(randBool())
-	r.WithVideoCommentEdit(randBool())
-	r.WithVideoCommentDelete(randBool())
-	r.WithVideoCommentRestore(randBool())
-	r.WithMarketCommentNew(randBool())
-	r.WithMarketCommentEdit(randBool())
-	r.WithMarketCommentDelete(randBool())
-	r.WithMarketCommentRestore(randBool())
-	r.WithMarketOrderNew(randBool())
-	r.WithMarketOrderEdit(randBool())
-	r.WithPollVoteNew(randBool())
-	r.WithGroupJoin(randBool())
-	r.WithGroupLeave(randBool())
-	r.WithGroupChangeSettings(randBool())
-	r.WithGroupChangePhoto(randBool())
-	r.WithGroupOfficersEdit(randBool())
-	r.WithUserBlock(randBool())
-	r.WithUserUnblock(randBool())
-	r.WithLeadFormsNew(randBool())
-	r.WithLikeAdd(randBool())
-	r.WithLikeRemove(randBool())
-	r.WithMessageEvent(randBool())
-	r.WithDonutSubscriptionCreate(randBool())
-	r.WithDonutSubscriptionProlonged(randBool())
-	r.WithDonutSubscriptionCancelled(randBool())
-	r.WithDonutSubscriptionPriceChanged(randBool())
-	r.WithDonutSubscriptionExpired(randBool())
-	r.WithDonutMoneyWithdraw(randBool())
-	r.WithDonutMoneyWithdrawError(randBool())
+	r.WithGroupId(random.RandInt())
+	r.WithServerId(random.RandInt())
+	r.WithApiVersion(random.RandString())
+	r.WithMessageNew(random.RandBool())
+	r.WithMessageReply(random.RandBool())
+	r.WithMessageAllow(random.RandBool())
+	r.WithMessageEdit(random.RandBool())
+	r.WithMessageDeny(random.RandBool())
+	r.WithMessageTypingState(random.RandBool())
+	r.WithPhotoNew(random.RandBool())
+	r.WithAudioNew(random.RandBool())
+	r.WithVideoNew(random.RandBool())
+	r.WithWallReplyNew(random.RandBool())
+	r.WithWallReplyEdit(random.RandBool())
+	r.WithWallReplyDelete(random.RandBool())
+	r.WithWallReplyRestore(random.RandBool())
+	r.WithWallPostNew(random.RandBool())
+	r.WithWallRepost(random.RandBool())
+	r.WithBoardPostNew(random.RandBool())
+	r.WithBoardPostEdit(random.RandBool())
+	r.WithBoardPostRestore(random.RandBool())
+	r.WithBoardPostDelete(random.RandBool())
+	r.WithPhotoCommentNew(random.RandBool())
+	r.WithPhotoCommentEdit(random.RandBool())
+	r.WithPhotoCommentDelete(random.RandBool())
+	r.WithPhotoCommentRestore(random.RandBool())
+	r.WithVideoCommentNew(random.RandBool())
+	r.WithVideoCommentEdit(random.RandBool())
+	r.WithVideoCommentDelete(random.RandBool())
+	r.WithVideoCommentRestore(random.RandBool())
+	r.WithMarketCommentNew(random.RandBool())
+	r.WithMarketCommentEdit(random.RandBool())
+	r.WithMarketCommentDelete(random.RandBool())
+	r.WithMarketCommentRestore(random.RandBool())
+	r.WithMarketOrderNew(random.RandBool())
+	r.WithMarketOrderEdit(random.RandBool())
+	r.WithPollVoteNew(random.RandBool())
+	r.WithGroupJoin(random.RandBool())
+	r.WithGroupLeave(random.RandBool())
+	r.WithGroupChangeSettings(random.RandBool())
+	r.WithGroupChangePhoto(random.RandBool())
+	r.WithGroupOfficersEdit(random.RandBool())
+	r.WithUserBlock(random.RandBool())
+	r.WithUserUnblock(random.RandBool())
+	r.WithLeadFormsNew(random.RandBool())
+	r.WithLikeAdd(random.RandBool())
+	r.WithLikeRemove(random.RandBool())
+	r.WithMessageEvent(random.RandBool())
+	r.WithDonutSubscriptionCreate(random.RandBool())
+	r.WithDonutSubscriptionProlonged(random.RandBool())
+	r.WithDonutSubscriptionCancelled(random.RandBool())
+	r.WithDonutSubscriptionPriceChanged(random.RandBool())
+	r.WithDonutSubscriptionExpired(random.RandBool())
+	r.WithDonutMoneyWithdraw(random.RandBool())
+	r.WithDonutMoneyWithdrawError(random.RandBool())
 }
 
 func TestVKGroupsSetCallbackSettingsSuccess(t *testing.T) {
@@ -1239,7 +1240,7 @@ func TestVKGroupsSetCallbackSettingsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.setCallbackSettings", params.Params(), expectedJSON))
@@ -1249,58 +1250,58 @@ func TestVKGroupsSetCallbackSettingsSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsSetLongPollSettingsRequest(r *requests.GroupsSetLongPollSettingsRequest) {
-	r.WithGroupId(randInt())
-	r.WithEnabled(randBool())
-	r.WithApiVersion(randString())
-	r.WithMessageNew(randBool())
-	r.WithMessageReply(randBool())
-	r.WithMessageAllow(randBool())
-	r.WithMessageDeny(randBool())
-	r.WithMessageEdit(randBool())
-	r.WithMessageTypingState(randBool())
-	r.WithPhotoNew(randBool())
-	r.WithAudioNew(randBool())
-	r.WithVideoNew(randBool())
-	r.WithWallReplyNew(randBool())
-	r.WithWallReplyEdit(randBool())
-	r.WithWallReplyDelete(randBool())
-	r.WithWallReplyRestore(randBool())
-	r.WithWallPostNew(randBool())
-	r.WithWallRepost(randBool())
-	r.WithBoardPostNew(randBool())
-	r.WithBoardPostEdit(randBool())
-	r.WithBoardPostRestore(randBool())
-	r.WithBoardPostDelete(randBool())
-	r.WithPhotoCommentNew(randBool())
-	r.WithPhotoCommentEdit(randBool())
-	r.WithPhotoCommentDelete(randBool())
-	r.WithPhotoCommentRestore(randBool())
-	r.WithVideoCommentNew(randBool())
-	r.WithVideoCommentEdit(randBool())
-	r.WithVideoCommentDelete(randBool())
-	r.WithVideoCommentRestore(randBool())
-	r.WithMarketCommentNew(randBool())
-	r.WithMarketCommentEdit(randBool())
-	r.WithMarketCommentDelete(randBool())
-	r.WithMarketCommentRestore(randBool())
-	r.WithPollVoteNew(randBool())
-	r.WithGroupJoin(randBool())
-	r.WithGroupLeave(randBool())
-	r.WithGroupChangeSettings(randBool())
-	r.WithGroupChangePhoto(randBool())
-	r.WithGroupOfficersEdit(randBool())
-	r.WithUserBlock(randBool())
-	r.WithUserUnblock(randBool())
-	r.WithLikeAdd(randBool())
-	r.WithLikeRemove(randBool())
-	r.WithMessageEvent(randBool())
-	r.WithDonutSubscriptionCreate(randBool())
-	r.WithDonutSubscriptionProlonged(randBool())
-	r.WithDonutSubscriptionCancelled(randBool())
-	r.WithDonutSubscriptionPriceChanged(randBool())
-	r.WithDonutSubscriptionExpired(randBool())
-	r.WithDonutMoneyWithdraw(randBool())
-	r.WithDonutMoneyWithdrawError(randBool())
+	r.WithGroupId(random.RandInt())
+	r.WithEnabled(random.RandBool())
+	r.WithApiVersion(random.RandString())
+	r.WithMessageNew(random.RandBool())
+	r.WithMessageReply(random.RandBool())
+	r.WithMessageAllow(random.RandBool())
+	r.WithMessageDeny(random.RandBool())
+	r.WithMessageEdit(random.RandBool())
+	r.WithMessageTypingState(random.RandBool())
+	r.WithPhotoNew(random.RandBool())
+	r.WithAudioNew(random.RandBool())
+	r.WithVideoNew(random.RandBool())
+	r.WithWallReplyNew(random.RandBool())
+	r.WithWallReplyEdit(random.RandBool())
+	r.WithWallReplyDelete(random.RandBool())
+	r.WithWallReplyRestore(random.RandBool())
+	r.WithWallPostNew(random.RandBool())
+	r.WithWallRepost(random.RandBool())
+	r.WithBoardPostNew(random.RandBool())
+	r.WithBoardPostEdit(random.RandBool())
+	r.WithBoardPostRestore(random.RandBool())
+	r.WithBoardPostDelete(random.RandBool())
+	r.WithPhotoCommentNew(random.RandBool())
+	r.WithPhotoCommentEdit(random.RandBool())
+	r.WithPhotoCommentDelete(random.RandBool())
+	r.WithPhotoCommentRestore(random.RandBool())
+	r.WithVideoCommentNew(random.RandBool())
+	r.WithVideoCommentEdit(random.RandBool())
+	r.WithVideoCommentDelete(random.RandBool())
+	r.WithVideoCommentRestore(random.RandBool())
+	r.WithMarketCommentNew(random.RandBool())
+	r.WithMarketCommentEdit(random.RandBool())
+	r.WithMarketCommentDelete(random.RandBool())
+	r.WithMarketCommentRestore(random.RandBool())
+	r.WithPollVoteNew(random.RandBool())
+	r.WithGroupJoin(random.RandBool())
+	r.WithGroupLeave(random.RandBool())
+	r.WithGroupChangeSettings(random.RandBool())
+	r.WithGroupChangePhoto(random.RandBool())
+	r.WithGroupOfficersEdit(random.RandBool())
+	r.WithUserBlock(random.RandBool())
+	r.WithUserUnblock(random.RandBool())
+	r.WithLikeAdd(random.RandBool())
+	r.WithLikeRemove(random.RandBool())
+	r.WithMessageEvent(random.RandBool())
+	r.WithDonutSubscriptionCreate(random.RandBool())
+	r.WithDonutSubscriptionProlonged(random.RandBool())
+	r.WithDonutSubscriptionCancelled(random.RandBool())
+	r.WithDonutSubscriptionPriceChanged(random.RandBool())
+	r.WithDonutSubscriptionExpired(random.RandBool())
+	r.WithDonutMoneyWithdraw(random.RandBool())
+	r.WithDonutMoneyWithdrawError(random.RandBool())
 }
 
 func TestVKGroupsSetLongPollSettingsSuccess(t *testing.T) {
@@ -1310,7 +1311,7 @@ func TestVKGroupsSetLongPollSettingsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.setLongPollSettings", params.Params(), expectedJSON))
@@ -1320,11 +1321,11 @@ func TestVKGroupsSetLongPollSettingsSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsSetSettingsRequest(r *requests.GroupsSetSettingsRequest) {
-	r.WithGroupId(randInt())
-	r.WithMessages(randBool())
-	r.WithBotsCapabilities(randBool())
-	r.WithBotsStartButton(randBool())
-	r.WithBotsAddToChat(randBool())
+	r.WithGroupId(random.RandInt())
+	r.WithMessages(random.RandBool())
+	r.WithBotsCapabilities(random.RandBool())
+	r.WithBotsStartButton(random.RandBool())
+	r.WithBotsAddToChat(random.RandBool())
 }
 
 func TestVKGroupsSetSettingsSuccess(t *testing.T) {
@@ -1334,7 +1335,7 @@ func TestVKGroupsSetSettingsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.setSettings", params.Params(), expectedJSON))
@@ -1344,9 +1345,9 @@ func TestVKGroupsSetSettingsSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsSetUserNoteRequest(r *requests.GroupsSetUserNoteRequest) {
-	r.WithGroupId(randInt())
-	r.WithUserId(randInt())
-	r.WithNote(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.RandInt())
+	r.WithNote(random.RandString())
 }
 
 func TestVKGroupsSetUserNoteSuccess(t *testing.T) {
@@ -1356,7 +1357,7 @@ func TestVKGroupsSetUserNoteSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.setUserNote", params.Params(), expectedJSON))
@@ -1366,9 +1367,9 @@ func TestVKGroupsSetUserNoteSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsTagAddRequest(r *requests.GroupsTagAddRequest) {
-	r.WithGroupId(randInt())
-	r.WithTagName(randString())
-	r.WithTagColor(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithTagName(random.RandString())
+	r.WithTagColor(random.RandString())
 }
 
 func TestVKGroupsTagAddSuccess(t *testing.T) {
@@ -1378,7 +1379,7 @@ func TestVKGroupsTagAddSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.tagAdd", params.Params(), expectedJSON))
@@ -1388,10 +1389,10 @@ func TestVKGroupsTagAddSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsTagBindRequest(r *requests.GroupsTagBindRequest) {
-	r.WithGroupId(randInt())
-	r.WithTagId(randInt())
-	r.WithUserId(randInt())
-	r.WithAct(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithTagId(random.RandInt())
+	r.WithUserId(random.RandInt())
+	r.WithAct(random.RandString())
 }
 
 func TestVKGroupsTagBindSuccess(t *testing.T) {
@@ -1401,7 +1402,7 @@ func TestVKGroupsTagBindSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.tagBind", params.Params(), expectedJSON))
@@ -1411,8 +1412,8 @@ func TestVKGroupsTagBindSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsTagDeleteRequest(r *requests.GroupsTagDeleteRequest) {
-	r.WithGroupId(randInt())
-	r.WithTagId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithTagId(random.RandInt())
 }
 
 func TestVKGroupsTagDeleteSuccess(t *testing.T) {
@@ -1422,7 +1423,7 @@ func TestVKGroupsTagDeleteSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.tagDelete", params.Params(), expectedJSON))
@@ -1432,9 +1433,9 @@ func TestVKGroupsTagDeleteSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsTagUpdateRequest(r *requests.GroupsTagUpdateRequest) {
-	r.WithGroupId(randInt())
-	r.WithTagId(randInt())
-	r.WithTagName(randString())
+	r.WithGroupId(random.RandInt())
+	r.WithTagId(random.RandInt())
+	r.WithTagName(random.RandString())
 }
 
 func TestVKGroupsTagUpdateSuccess(t *testing.T) {
@@ -1444,7 +1445,7 @@ func TestVKGroupsTagUpdateSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.tagUpdate", params.Params(), expectedJSON))
@@ -1454,11 +1455,11 @@ func TestVKGroupsTagUpdateSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsToggleMarketRequest(r *requests.GroupsToggleMarketRequest) {
-	r.WithGroupId(randInt())
+	r.WithGroupId(random.RandInt())
 	State := new(models.GroupsMarketState)
 	fillRandomlyGroupsMarketState(State)
 	r.WithState(*State)
-	r.WithRef(randString())
+	r.WithRef(random.RandString())
 }
 
 func TestVKGroupsToggleMarketSuccess(t *testing.T) {
@@ -1468,7 +1469,7 @@ func TestVKGroupsToggleMarketSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.toggleMarket", params.Params(), expectedJSON))
@@ -1478,8 +1479,8 @@ func TestVKGroupsToggleMarketSuccess(t *testing.T) {
 }
 
 func fillRandomlyGroupsUnbanRequest(r *requests.GroupsUnbanRequest) {
-	r.WithGroupId(randInt())
-	r.WithOwnerId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithOwnerId(random.RandInt())
 }
 
 func TestVKGroupsUnbanSuccess(t *testing.T) {
@@ -1489,7 +1490,7 @@ func TestVKGroupsUnbanSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "groups.unban", params.Params(), expectedJSON))
@@ -1497,4 +1498,3 @@ func TestVKGroupsUnbanSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

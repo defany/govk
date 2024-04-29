@@ -4,6 +4,7 @@ package requests
 
 import (
 	"github.com/defany/govk/api"
+	"github.com/defany/govk/api/gen/models"
 )
 
 type LeadForms struct {
@@ -16,3 +17,399 @@ func NewLeadForms(api *api.API) *LeadForms {
 	}
 }
 
+// LeadFormsCreate ...
+type LeadFormsCreateRequest api.Params
+
+func NewLeadFormsCreateRequest() LeadFormsCreateRequest {
+	params := make(LeadFormsCreateRequest, 15)
+	return params
+}
+
+func (l LeadFormsCreateRequest) WithGroupId(l_group_id int) LeadFormsCreateRequest {
+	l["group_id"] = l_group_id
+	return l
+}
+
+func (l LeadFormsCreateRequest) WithName(l_name string) LeadFormsCreateRequest {
+	l["name"] = l_name
+	return l
+}
+
+func (l LeadFormsCreateRequest) WithTitle(l_title string) LeadFormsCreateRequest {
+	l["title"] = l_title
+	return l
+}
+
+func (l LeadFormsCreateRequest) WithDescription(l_description string) LeadFormsCreateRequest {
+	l["description"] = l_description
+	return l
+}
+
+func (l LeadFormsCreateRequest) WithQuestions(l_questions string) LeadFormsCreateRequest {
+	l["questions"] = l_questions
+	return l
+}
+
+func (l LeadFormsCreateRequest) WithPolicyLinkUrl(l_policy_link_url string) LeadFormsCreateRequest {
+	l["policy_link_url"] = l_policy_link_url
+	return l
+}
+
+func (l LeadFormsCreateRequest) WithPhoto(l_photo string) LeadFormsCreateRequest {
+	l["photo"] = l_photo
+	return l
+}
+
+func (l LeadFormsCreateRequest) WithConfirmation(l_confirmation string) LeadFormsCreateRequest {
+	l["confirmation"] = l_confirmation
+	return l
+}
+
+func (l LeadFormsCreateRequest) WithSiteLinkUrl(l_site_link_url string) LeadFormsCreateRequest {
+	l["site_link_url"] = l_site_link_url
+	return l
+}
+
+func (l LeadFormsCreateRequest) WithActive(l_active bool) LeadFormsCreateRequest {
+	l["active"] = l_active
+	return l
+}
+
+func (l LeadFormsCreateRequest) WithOncePerUser(l_once_per_user bool) LeadFormsCreateRequest {
+	l["once_per_user"] = l_once_per_user
+	return l
+}
+
+func (l LeadFormsCreateRequest) WithPixelCode(l_pixel_code string) LeadFormsCreateRequest {
+	l["pixel_code"] = l_pixel_code
+	return l
+}
+
+func (l LeadFormsCreateRequest) WithNotifyAdmins(l_notify_admins []int) LeadFormsCreateRequest {
+	l["notify_admins"] = l_notify_admins
+	return l
+}
+
+func (l LeadFormsCreateRequest) WithNotifyEmails(l_notify_emails []string) LeadFormsCreateRequest {
+	l["notify_emails"] = l_notify_emails
+	return l
+}
+
+func (l LeadFormsCreateRequest) Params() api.Params {
+	return api.Params(l)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/leadForms.create
+func (l *LeadForms) LeadFormsCreate(params ...api.MethodParams) (resp models.LeadFormsCreateResponse, err error) {
+	req := api.NewRequest[models.LeadFormsCreateResponse](l.api)
+
+	res, err := req.Execute("leadForms.create", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// LeadFormsDelete ...
+type LeadFormsDeleteRequest api.Params
+
+func NewLeadFormsDeleteRequest() LeadFormsDeleteRequest {
+	params := make(LeadFormsDeleteRequest, 3)
+	return params
+}
+
+func (l LeadFormsDeleteRequest) WithGroupId(l_group_id int) LeadFormsDeleteRequest {
+	l["group_id"] = l_group_id
+	return l
+}
+
+func (l LeadFormsDeleteRequest) WithFormId(l_form_id int) LeadFormsDeleteRequest {
+	l["form_id"] = l_form_id
+	return l
+}
+
+func (l LeadFormsDeleteRequest) Params() api.Params {
+	return api.Params(l)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_NotFound ]
+//
+// https://dev.vk.com/method/leadForms.delete
+func (l *LeadForms) LeadFormsDelete(params ...api.MethodParams) (resp models.LeadFormsDeleteResponse, err error) {
+	req := api.NewRequest[models.LeadFormsDeleteResponse](l.api)
+
+	res, err := req.Execute("leadForms.delete", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// LeadFormsGet ...
+type LeadFormsGetRequest api.Params
+
+func NewLeadFormsGetRequest() LeadFormsGetRequest {
+	params := make(LeadFormsGetRequest, 3)
+	return params
+}
+
+func (l LeadFormsGetRequest) WithGroupId(l_group_id int) LeadFormsGetRequest {
+	l["group_id"] = l_group_id
+	return l
+}
+
+func (l LeadFormsGetRequest) WithFormId(l_form_id int) LeadFormsGetRequest {
+	l["form_id"] = l_form_id
+	return l
+}
+
+func (l LeadFormsGetRequest) Params() api.Params {
+	return api.Params(l)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_NotFound ]
+//
+// https://dev.vk.com/method/leadForms.get
+func (l *LeadForms) LeadFormsGet(params ...api.MethodParams) (resp models.LeadFormsGetResponse, err error) {
+	req := api.NewRequest[models.LeadFormsGetResponse](l.api)
+
+	res, err := req.Execute("leadForms.get", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// LeadFormsGetLeads ...
+type LeadFormsGetLeadsRequest api.Params
+
+func NewLeadFormsGetLeadsRequest() LeadFormsGetLeadsRequest {
+	params := make(LeadFormsGetLeadsRequest, 5)
+	return params
+}
+
+func (l LeadFormsGetLeadsRequest) WithGroupId(l_group_id int) LeadFormsGetLeadsRequest {
+	l["group_id"] = l_group_id
+	return l
+}
+
+func (l LeadFormsGetLeadsRequest) WithFormId(l_form_id int) LeadFormsGetLeadsRequest {
+	l["form_id"] = l_form_id
+	return l
+}
+
+func (l LeadFormsGetLeadsRequest) WithLimit(l_limit int) LeadFormsGetLeadsRequest {
+	l["limit"] = l_limit
+	return l
+}
+
+func (l LeadFormsGetLeadsRequest) WithNextPageToken(l_next_page_token string) LeadFormsGetLeadsRequest {
+	l["next_page_token"] = l_next_page_token
+	return l
+}
+
+func (l LeadFormsGetLeadsRequest) Params() api.Params {
+	return api.Params(l)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_NotFound ]
+//
+// https://dev.vk.com/method/leadForms.getLeads
+func (l *LeadForms) LeadFormsGetLeads(params ...api.MethodParams) (resp models.LeadFormsGetLeadsResponse, err error) {
+	req := api.NewRequest[models.LeadFormsGetLeadsResponse](l.api)
+
+	res, err := req.Execute("leadForms.getLeads", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// LeadFormsGetUploadURL ...
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/leadForms.getUploadURL
+func (l *LeadForms) LeadFormsGetUploadURL(params ...api.MethodParams) (resp models.LeadFormsUploadUrlResponse, err error) {
+	req := api.NewRequest[models.LeadFormsUploadUrlResponse](l.api)
+
+	res, err := req.Execute("leadForms.getUploadURL", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// LeadFormsList ...
+type LeadFormsListRequest api.Params
+
+func NewLeadFormsListRequest() LeadFormsListRequest {
+	params := make(LeadFormsListRequest, 2)
+	return params
+}
+
+func (l LeadFormsListRequest) WithGroupId(l_group_id int) LeadFormsListRequest {
+	l["group_id"] = l_group_id
+	return l
+}
+
+func (l LeadFormsListRequest) Params() api.Params {
+	return api.Params(l)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/leadForms.list
+func (l *LeadForms) LeadFormsList(params ...api.MethodParams) (resp models.LeadFormsListResponse, err error) {
+	req := api.NewRequest[models.LeadFormsListResponse](l.api)
+
+	res, err := req.Execute("leadForms.list", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// LeadFormsUpdate ...
+type LeadFormsUpdateRequest api.Params
+
+func NewLeadFormsUpdateRequest() LeadFormsUpdateRequest {
+	params := make(LeadFormsUpdateRequest, 16)
+	return params
+}
+
+func (l LeadFormsUpdateRequest) WithGroupId(l_group_id int) LeadFormsUpdateRequest {
+	l["group_id"] = l_group_id
+	return l
+}
+
+func (l LeadFormsUpdateRequest) WithFormId(l_form_id int) LeadFormsUpdateRequest {
+	l["form_id"] = l_form_id
+	return l
+}
+
+func (l LeadFormsUpdateRequest) WithName(l_name string) LeadFormsUpdateRequest {
+	l["name"] = l_name
+	return l
+}
+
+func (l LeadFormsUpdateRequest) WithTitle(l_title string) LeadFormsUpdateRequest {
+	l["title"] = l_title
+	return l
+}
+
+func (l LeadFormsUpdateRequest) WithDescription(l_description string) LeadFormsUpdateRequest {
+	l["description"] = l_description
+	return l
+}
+
+func (l LeadFormsUpdateRequest) WithQuestions(l_questions string) LeadFormsUpdateRequest {
+	l["questions"] = l_questions
+	return l
+}
+
+func (l LeadFormsUpdateRequest) WithPolicyLinkUrl(l_policy_link_url string) LeadFormsUpdateRequest {
+	l["policy_link_url"] = l_policy_link_url
+	return l
+}
+
+func (l LeadFormsUpdateRequest) WithPhoto(l_photo string) LeadFormsUpdateRequest {
+	l["photo"] = l_photo
+	return l
+}
+
+func (l LeadFormsUpdateRequest) WithConfirmation(l_confirmation string) LeadFormsUpdateRequest {
+	l["confirmation"] = l_confirmation
+	return l
+}
+
+func (l LeadFormsUpdateRequest) WithSiteLinkUrl(l_site_link_url string) LeadFormsUpdateRequest {
+	l["site_link_url"] = l_site_link_url
+	return l
+}
+
+func (l LeadFormsUpdateRequest) WithActive(l_active bool) LeadFormsUpdateRequest {
+	l["active"] = l_active
+	return l
+}
+
+func (l LeadFormsUpdateRequest) WithOncePerUser(l_once_per_user bool) LeadFormsUpdateRequest {
+	l["once_per_user"] = l_once_per_user
+	return l
+}
+
+func (l LeadFormsUpdateRequest) WithPixelCode(l_pixel_code string) LeadFormsUpdateRequest {
+	l["pixel_code"] = l_pixel_code
+	return l
+}
+
+func (l LeadFormsUpdateRequest) WithNotifyAdmins(l_notify_admins []int) LeadFormsUpdateRequest {
+	l["notify_admins"] = l_notify_admins
+	return l
+}
+
+func (l LeadFormsUpdateRequest) WithNotifyEmails(l_notify_emails []string) LeadFormsUpdateRequest {
+	l["notify_emails"] = l_notify_emails
+	return l
+}
+
+func (l LeadFormsUpdateRequest) Params() api.Params {
+	return api.Params(l)
+}
+
+// May execute with listed access token types:
+//
+//	[ user ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_NotFound ]
+//
+// https://dev.vk.com/method/leadForms.update
+func (l *LeadForms) LeadFormsUpdate(params ...api.MethodParams) (resp models.LeadFormsCreateResponse, err error) {
+	req := api.NewRequest[models.LeadFormsCreateResponse](l.api)
+
+	res, err := req.Execute("leadForms.update", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}

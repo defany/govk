@@ -49,14 +49,14 @@ func writeFile(f io.Writer, addFields, addProvider, addImports []string) {
 
 	fmt.Fprint(f, "type VK struct {\n\tApi *apiModel.ApiProvider\n\tUpdates *updates.Updates\n}\n")
 	fmt.Fprint(f, "func NewVK(tokens ...string) (*VK, error) {\n\tapi, err := api.NewAPI(tokens...)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n")
-	fmt.Fprint(f, "\tapiProvider := &apiModel.ApiProvider{\n\t\tApi: api,\n")
+	fmt.Fprint(f, "\tapiModel := &apiModel.ApiProvider{\n\t\tApi: api,\n")
 	for _, addField := range addFields {
 		fmt.Fprint(f, fmt.Sprintf("\t\t%s", addField))
 	}
 	fmt.Fprint(f, "\t}")
-	fmt.Fprint(f, "\n\n\tupdates := updates.NewUpdates(apiProvider)\n\n\t")
-	fmt.Fprint(f, "return &VK{\n\t\tApi: apiProvider,\n\t\tUpdates: updates,\n\t}, nil\n}")
-	fmt.Fprint(f, "\ntype apiProvider struct {\n\t")
+	fmt.Fprint(f, "\n\n\tupdates := updates.NewUpdates(apiModel)\n\n\t")
+	fmt.Fprint(f, "return &VK{\n\t\tApi: apiModel,\n\t\tUpdates: updates,\n\t}, nil\n}")
+	fmt.Fprint(f, "\ntype apiModel struct {\n\t")
 	for _, provider := range addProvider {
 		fmt.Fprint(f, "\t"+provider+"\n")
 	}

@@ -3,19 +3,20 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/video"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyVideoAddRequest(r *requests.VideoAddRequest) {
-	r.WithTargetId(randInt())
-	r.WithVideoId(randInt())
-	r.WithOwnerId(randInt())
+	r.WithTargetId(random.RandInt())
+	r.WithVideoId(random.RandInt())
+	r.WithOwnerId(random.RandInt())
 }
 
 func TestVKVideoAddSuccess(t *testing.T) {
@@ -25,7 +26,7 @@ func TestVKVideoAddSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.add", params.Params(), expectedJSON))
@@ -35,10 +36,10 @@ func TestVKVideoAddSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoAddAlbumRequest(r *requests.VideoAddAlbumRequest) {
-	r.WithGroupId(randInt())
-	r.WithTitle(randString())
-	lPrivacy := randIntn(maxArrayLength + 1)
-	r.WithPrivacy(randStringArr(lPrivacy))
+	r.WithGroupId(random.RandInt())
+	r.WithTitle(random.RandString())
+	lPrivacy := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithPrivacy(random.RandStringArr(lPrivacy))
 }
 
 func TestVKVideoAddAlbumSuccess(t *testing.T) {
@@ -48,7 +49,7 @@ func TestVKVideoAddAlbumSuccess(t *testing.T) {
 	fillRandomlyVideoAddAlbumResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.addAlbum", params.Params(), expectedJSON))
@@ -58,12 +59,12 @@ func TestVKVideoAddAlbumSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoAddToAlbumRequest(r *requests.VideoAddToAlbumRequest) {
-	r.WithTargetId(randInt())
-	r.WithAlbumId(randInt())
-	lAlbumIds := randIntn(maxArrayLength + 1)
-	r.WithAlbumIds(randIntArr(lAlbumIds))
-	r.WithOwnerId(randInt())
-	r.WithVideoId(randInt())
+	r.WithTargetId(random.RandInt())
+	r.WithAlbumId(random.RandInt())
+	lAlbumIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAlbumIds(random.RandIntArr(lAlbumIds))
+	r.WithOwnerId(random.RandInt())
+	r.WithVideoId(random.RandInt())
 }
 
 func TestVKVideoAddToAlbumSuccess(t *testing.T) {
@@ -73,7 +74,7 @@ func TestVKVideoAddToAlbumSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.addToAlbum", params.Params(), expectedJSON))
@@ -83,15 +84,15 @@ func TestVKVideoAddToAlbumSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoCreateCommentRequest(r *requests.VideoCreateCommentRequest) {
-	r.WithOwnerId(randInt())
-	r.WithVideoId(randInt())
-	r.WithMessage(randString())
-	lAttachments := randIntn(maxArrayLength + 1)
-	r.WithAttachments(randStringArr(lAttachments))
-	r.WithFromGroup(randBool())
-	r.WithReplyToComment(randInt())
-	r.WithStickerId(randInt())
-	r.WithGuid(randString())
+	r.WithOwnerId(random.RandInt())
+	r.WithVideoId(random.RandInt())
+	r.WithMessage(random.RandString())
+	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAttachments(random.RandStringArr(lAttachments))
+	r.WithFromGroup(random.RandBool())
+	r.WithReplyToComment(random.RandInt())
+	r.WithStickerId(random.RandInt())
+	r.WithGuid(random.RandString())
 }
 
 func TestVKVideoCreateCommentSuccess(t *testing.T) {
@@ -101,7 +102,7 @@ func TestVKVideoCreateCommentSuccess(t *testing.T) {
 	fillRandomlyVideoCreateCommentResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.createComment", params.Params(), expectedJSON))
@@ -111,9 +112,9 @@ func TestVKVideoCreateCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoDeleteRequest(r *requests.VideoDeleteRequest) {
-	r.WithVideoId(randInt())
-	r.WithOwnerId(randInt())
-	r.WithTargetId(randInt())
+	r.WithVideoId(random.RandInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithTargetId(random.RandInt())
 }
 
 func TestVKVideoDeleteSuccess(t *testing.T) {
@@ -123,7 +124,7 @@ func TestVKVideoDeleteSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.delete", params.Params(), expectedJSON))
@@ -133,8 +134,8 @@ func TestVKVideoDeleteSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoDeleteAlbumRequest(r *requests.VideoDeleteAlbumRequest) {
-	r.WithGroupId(randInt())
-	r.WithAlbumId(randInt())
+	r.WithGroupId(random.RandInt())
+	r.WithAlbumId(random.RandInt())
 }
 
 func TestVKVideoDeleteAlbumSuccess(t *testing.T) {
@@ -144,7 +145,7 @@ func TestVKVideoDeleteAlbumSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.deleteAlbum", params.Params(), expectedJSON))
@@ -154,8 +155,8 @@ func TestVKVideoDeleteAlbumSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoDeleteCommentRequest(r *requests.VideoDeleteCommentRequest) {
-	r.WithOwnerId(randInt())
-	r.WithCommentId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithCommentId(random.RandInt())
 }
 
 func TestVKVideoDeleteCommentSuccess(t *testing.T) {
@@ -165,7 +166,7 @@ func TestVKVideoDeleteCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.deleteComment", params.Params(), expectedJSON))
@@ -175,16 +176,16 @@ func TestVKVideoDeleteCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoEditRequest(r *requests.VideoEditRequest) {
-	r.WithOwnerId(randInt())
-	r.WithVideoId(randInt())
-	r.WithName(randString())
-	r.WithDesc(randString())
-	lPrivacyView := randIntn(maxArrayLength + 1)
-	r.WithPrivacyView(randStringArr(lPrivacyView))
-	lPrivacyComment := randIntn(maxArrayLength + 1)
-	r.WithPrivacyComment(randStringArr(lPrivacyComment))
-	r.WithNoComments(randBool())
-	r.WithRepeat(randBool())
+	r.WithOwnerId(random.RandInt())
+	r.WithVideoId(random.RandInt())
+	r.WithName(random.RandString())
+	r.WithDesc(random.RandString())
+	lPrivacyView := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithPrivacyView(random.RandStringArr(lPrivacyView))
+	lPrivacyComment := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithPrivacyComment(random.RandStringArr(lPrivacyComment))
+	r.WithNoComments(random.RandBool())
+	r.WithRepeat(random.RandBool())
 }
 
 func TestVKVideoEditSuccess(t *testing.T) {
@@ -194,7 +195,7 @@ func TestVKVideoEditSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.edit", params.Params(), expectedJSON))
@@ -204,11 +205,11 @@ func TestVKVideoEditSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoEditAlbumRequest(r *requests.VideoEditAlbumRequest) {
-	r.WithGroupId(randInt())
-	r.WithAlbumId(randInt())
-	r.WithTitle(randString())
-	lPrivacy := randIntn(maxArrayLength + 1)
-	r.WithPrivacy(randStringArr(lPrivacy))
+	r.WithGroupId(random.RandInt())
+	r.WithAlbumId(random.RandInt())
+	r.WithTitle(random.RandString())
+	lPrivacy := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithPrivacy(random.RandStringArr(lPrivacy))
 }
 
 func TestVKVideoEditAlbumSuccess(t *testing.T) {
@@ -218,7 +219,7 @@ func TestVKVideoEditAlbumSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.editAlbum", params.Params(), expectedJSON))
@@ -228,11 +229,11 @@ func TestVKVideoEditAlbumSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoEditCommentRequest(r *requests.VideoEditCommentRequest) {
-	r.WithOwnerId(randInt())
-	r.WithCommentId(randInt())
-	r.WithMessage(randString())
-	lAttachments := randIntn(maxArrayLength + 1)
-	r.WithAttachments(randStringArr(lAttachments))
+	r.WithOwnerId(random.RandInt())
+	r.WithCommentId(random.RandInt())
+	r.WithMessage(random.RandString())
+	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAttachments(random.RandStringArr(lAttachments))
 }
 
 func TestVKVideoEditCommentSuccess(t *testing.T) {
@@ -242,7 +243,7 @@ func TestVKVideoEditCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.editComment", params.Params(), expectedJSON))
@@ -252,15 +253,15 @@ func TestVKVideoEditCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoGetRequest(r *requests.VideoGetRequest) {
-	r.WithOwnerId(randInt())
-	lVideos := randIntn(maxArrayLength + 1)
-	r.WithVideos(randStringArr(lVideos))
-	r.WithAlbumId(randInt())
-	r.WithCount(randInt())
-	r.WithOffset(randInt())
-	r.WithExtended(randBool())
-	lFields := randIntn(maxArrayLength + 1)
-	r.WithFields(randStringArr(lFields))
+	r.WithOwnerId(random.RandInt())
+	lVideos := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithVideos(random.RandStringArr(lVideos))
+	r.WithAlbumId(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithExtended(random.RandBool())
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithFields(random.RandStringArr(lFields))
 }
 
 func TestVKVideoGetSuccess(t *testing.T) {
@@ -270,7 +271,7 @@ func TestVKVideoGetSuccess(t *testing.T) {
 	fillRandomlyVideoGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.get", params.Params(), expectedJSON))
@@ -280,8 +281,8 @@ func TestVKVideoGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoGetAlbumByIdRequest(r *requests.VideoGetAlbumByIdRequest) {
-	r.WithOwnerId(randInt())
-	r.WithAlbumId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithAlbumId(random.RandInt())
 }
 
 func TestVKVideoGetAlbumByIdSuccess(t *testing.T) {
@@ -291,7 +292,7 @@ func TestVKVideoGetAlbumByIdSuccess(t *testing.T) {
 	fillRandomlyVideoGetAlbumByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.getAlbumById", params.Params(), expectedJSON))
@@ -301,11 +302,11 @@ func TestVKVideoGetAlbumByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoGetAlbumsRequest(r *requests.VideoGetAlbumsRequest) {
-	r.WithOwnerId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithExtended(randBool())
-	r.WithNeedSystem(randBool())
+	r.WithOwnerId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithExtended(random.RandBool())
+	r.WithNeedSystem(random.RandBool())
 }
 
 func TestVKVideoGetAlbumsSuccess(t *testing.T) {
@@ -316,7 +317,7 @@ func TestVKVideoGetAlbumsSuccess(t *testing.T) {
 	fillRandomlyVideoGetAlbumsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.getAlbums", params.Params(), expectedJSON))
@@ -333,7 +334,7 @@ func TestVKVideoGetAlbumsExtendedSuccess(t *testing.T) {
 	fillRandomlyVideoGetAlbumsExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.getAlbums", params.Params(), expectedJSON))
@@ -343,10 +344,10 @@ func TestVKVideoGetAlbumsExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoGetAlbumsByVideoRequest(r *requests.VideoGetAlbumsByVideoRequest) {
-	r.WithTargetId(randInt())
-	r.WithOwnerId(randInt())
-	r.WithVideoId(randInt())
-	r.WithExtended(randBool())
+	r.WithTargetId(random.RandInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithVideoId(random.RandInt())
+	r.WithExtended(random.RandBool())
 }
 
 func TestVKVideoGetAlbumsByVideoSuccess(t *testing.T) {
@@ -357,7 +358,7 @@ func TestVKVideoGetAlbumsByVideoSuccess(t *testing.T) {
 	fillRandomlyVideoGetAlbumsByVideoResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.getAlbumsByVideo", params.Params(), expectedJSON))
@@ -374,7 +375,7 @@ func TestVKVideoGetAlbumsByVideoExtendedSuccess(t *testing.T) {
 	fillRandomlyVideoGetAlbumsByVideoExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.getAlbumsByVideo", params.Params(), expectedJSON))
@@ -384,16 +385,16 @@ func TestVKVideoGetAlbumsByVideoExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoGetCommentsRequest(r *requests.VideoGetCommentsRequest) {
-	r.WithOwnerId(randInt())
-	r.WithVideoId(randInt())
-	r.WithNeedLikes(randBool())
-	r.WithStartCommentId(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithSort(randString())
-	r.WithExtended(randBool())
-	lFields := randIntn(maxArrayLength + 1)
-	r.WithFields(randStringArr(lFields))
+	r.WithOwnerId(random.RandInt())
+	r.WithVideoId(random.RandInt())
+	r.WithNeedLikes(random.RandBool())
+	r.WithStartCommentId(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithSort(random.RandString())
+	r.WithExtended(random.RandBool())
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithFields(random.RandStringArr(lFields))
 }
 
 func TestVKVideoGetCommentsSuccess(t *testing.T) {
@@ -404,7 +405,7 @@ func TestVKVideoGetCommentsSuccess(t *testing.T) {
 	fillRandomlyVideoGetCommentsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.getComments", params.Params(), expectedJSON))
@@ -421,7 +422,7 @@ func TestVKVideoGetCommentsExtendedSuccess(t *testing.T) {
 	fillRandomlyVideoGetCommentsExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.getComments", params.Params(), expectedJSON))
@@ -431,12 +432,12 @@ func TestVKVideoGetCommentsExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoRemoveFromAlbumRequest(r *requests.VideoRemoveFromAlbumRequest) {
-	r.WithTargetId(randInt())
-	r.WithAlbumId(randInt())
-	lAlbumIds := randIntn(maxArrayLength + 1)
-	r.WithAlbumIds(randIntArr(lAlbumIds))
-	r.WithOwnerId(randInt())
-	r.WithVideoId(randInt())
+	r.WithTargetId(random.RandInt())
+	r.WithAlbumId(random.RandInt())
+	lAlbumIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithAlbumIds(random.RandIntArr(lAlbumIds))
+	r.WithOwnerId(random.RandInt())
+	r.WithVideoId(random.RandInt())
 }
 
 func TestVKVideoRemoveFromAlbumSuccess(t *testing.T) {
@@ -446,7 +447,7 @@ func TestVKVideoRemoveFromAlbumSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.removeFromAlbum", params.Params(), expectedJSON))
@@ -456,10 +457,10 @@ func TestVKVideoRemoveFromAlbumSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoReorderAlbumsRequest(r *requests.VideoReorderAlbumsRequest) {
-	r.WithOwnerId(randInt())
-	r.WithAlbumId(randInt())
-	r.WithBefore(randInt())
-	r.WithAfter(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithAlbumId(random.RandInt())
+	r.WithBefore(random.RandInt())
+	r.WithAfter(random.RandInt())
 }
 
 func TestVKVideoReorderAlbumsSuccess(t *testing.T) {
@@ -469,7 +470,7 @@ func TestVKVideoReorderAlbumsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.reorderAlbums", params.Params(), expectedJSON))
@@ -479,14 +480,14 @@ func TestVKVideoReorderAlbumsSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoReorderVideosRequest(r *requests.VideoReorderVideosRequest) {
-	r.WithTargetId(randInt())
-	r.WithAlbumId(randInt())
-	r.WithOwnerId(randInt())
-	r.WithVideoId(randInt())
-	r.WithBeforeOwnerId(randInt())
-	r.WithBeforeVideoId(randInt())
-	r.WithAfterOwnerId(randInt())
-	r.WithAfterVideoId(randInt())
+	r.WithTargetId(random.RandInt())
+	r.WithAlbumId(random.RandInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithVideoId(random.RandInt())
+	r.WithBeforeOwnerId(random.RandInt())
+	r.WithBeforeVideoId(random.RandInt())
+	r.WithAfterOwnerId(random.RandInt())
+	r.WithAfterVideoId(random.RandInt())
 }
 
 func TestVKVideoReorderVideosSuccess(t *testing.T) {
@@ -496,7 +497,7 @@ func TestVKVideoReorderVideosSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.reorderVideos", params.Params(), expectedJSON))
@@ -506,11 +507,11 @@ func TestVKVideoReorderVideosSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoReportRequest(r *requests.VideoReportRequest) {
-	r.WithOwnerId(randInt())
-	r.WithVideoId(randInt())
-	r.WithReason(randInt())
-	r.WithComment(randString())
-	r.WithSearchQuery(randString())
+	r.WithOwnerId(random.RandInt())
+	r.WithVideoId(random.RandInt())
+	r.WithReason(random.RandInt())
+	r.WithComment(random.RandString())
+	r.WithSearchQuery(random.RandString())
 }
 
 func TestVKVideoReportSuccess(t *testing.T) {
@@ -520,7 +521,7 @@ func TestVKVideoReportSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.report", params.Params(), expectedJSON))
@@ -530,9 +531,9 @@ func TestVKVideoReportSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoReportCommentRequest(r *requests.VideoReportCommentRequest) {
-	r.WithOwnerId(randInt())
-	r.WithCommentId(randInt())
-	r.WithReason(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithCommentId(random.RandInt())
+	r.WithReason(random.RandInt())
 }
 
 func TestVKVideoReportCommentSuccess(t *testing.T) {
@@ -542,7 +543,7 @@ func TestVKVideoReportCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.reportComment", params.Params(), expectedJSON))
@@ -552,8 +553,8 @@ func TestVKVideoReportCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoRestoreRequest(r *requests.VideoRestoreRequest) {
-	r.WithVideoId(randInt())
-	r.WithOwnerId(randInt())
+	r.WithVideoId(random.RandInt())
+	r.WithOwnerId(random.RandInt())
 }
 
 func TestVKVideoRestoreSuccess(t *testing.T) {
@@ -563,7 +564,7 @@ func TestVKVideoRestoreSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.restore", params.Params(), expectedJSON))
@@ -573,8 +574,8 @@ func TestVKVideoRestoreSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoRestoreCommentRequest(r *requests.VideoRestoreCommentRequest) {
-	r.WithOwnerId(randInt())
-	r.WithCommentId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithCommentId(random.RandInt())
 }
 
 func TestVKVideoRestoreCommentSuccess(t *testing.T) {
@@ -584,7 +585,7 @@ func TestVKVideoRestoreCommentSuccess(t *testing.T) {
 	fillRandomlyVideoRestoreCommentResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.restoreComment", params.Params(), expectedJSON))
@@ -594,20 +595,20 @@ func TestVKVideoRestoreCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoSaveRequest(r *requests.VideoSaveRequest) {
-	r.WithName(randString())
-	r.WithDescription(randString())
-	r.WithIsPrivate(randBool())
-	r.WithWallpost(randBool())
-	r.WithLink(randString())
-	r.WithGroupId(randInt())
-	r.WithAlbumId(randInt())
-	lPrivacyView := randIntn(maxArrayLength + 1)
-	r.WithPrivacyView(randStringArr(lPrivacyView))
-	lPrivacyComment := randIntn(maxArrayLength + 1)
-	r.WithPrivacyComment(randStringArr(lPrivacyComment))
-	r.WithNoComments(randBool())
-	r.WithRepeat(randBool())
-	r.WithCompression(randBool())
+	r.WithName(random.RandString())
+	r.WithDescription(random.RandString())
+	r.WithIsPrivate(random.RandBool())
+	r.WithWallpost(random.RandBool())
+	r.WithLink(random.RandString())
+	r.WithGroupId(random.RandInt())
+	r.WithAlbumId(random.RandInt())
+	lPrivacyView := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithPrivacyView(random.RandStringArr(lPrivacyView))
+	lPrivacyComment := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithPrivacyComment(random.RandStringArr(lPrivacyComment))
+	r.WithNoComments(random.RandBool())
+	r.WithRepeat(random.RandBool())
+	r.WithCompression(random.RandBool())
 }
 
 func TestVKVideoSaveSuccess(t *testing.T) {
@@ -617,7 +618,7 @@ func TestVKVideoSaveSuccess(t *testing.T) {
 	fillRandomlyVideoSaveResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.save", params.Params(), expectedJSON))
@@ -627,19 +628,19 @@ func TestVKVideoSaveSuccess(t *testing.T) {
 }
 
 func fillRandomlyVideoSearchRequest(r *requests.VideoSearchRequest) {
-	r.WithQ(randString())
-	r.WithSort(randInt())
-	r.WithHd(randInt())
-	r.WithAdult(randBool())
-	r.WithLive(randBool())
-	lFilters := randIntn(maxArrayLength + 1)
-	r.WithFilters(randStringArr(lFilters))
-	r.WithSearchOwn(randBool())
-	r.WithOffset(randInt())
-	r.WithLonger(randInt())
-	r.WithShorter(randInt())
-	r.WithCount(randInt())
-	r.WithExtended(randBool())
+	r.WithQ(random.RandString())
+	r.WithSort(random.RandInt())
+	r.WithHd(random.RandInt())
+	r.WithAdult(random.RandBool())
+	r.WithLive(random.RandBool())
+	lFilters := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithFilters(random.RandStringArr(lFilters))
+	r.WithSearchOwn(random.RandBool())
+	r.WithOffset(random.RandInt())
+	r.WithLonger(random.RandInt())
+	r.WithShorter(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithExtended(random.RandBool())
 }
 
 func TestVKVideoSearchSuccess(t *testing.T) {
@@ -650,7 +651,7 @@ func TestVKVideoSearchSuccess(t *testing.T) {
 	fillRandomlyVideoSearchResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.search", params.Params(), expectedJSON))
@@ -667,7 +668,7 @@ func TestVKVideoSearchExtendedSuccess(t *testing.T) {
 	fillRandomlyVideoSearchExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "video.search", params.Params(), expectedJSON))
@@ -675,4 +676,3 @@ func TestVKVideoSearchExtendedSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

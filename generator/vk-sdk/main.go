@@ -60,15 +60,19 @@ func main() {
 }
 
 func genErrors(file string) {
-	defer goFmt(file)
-
-	e, err := os.Create(file)
-
+	dir := "api/gen/tests"
+	err := os.MkdirAll(dir, 0777)
 	if err != nil {
 		panic(err.Error())
 	}
-	defer e.Close()
-	generator.GenerateErrors(e, getRawFromAddr(errorsFile))
+	var f *os.File
+	if _, err := os.Stat("api/gen/tests/" + file); errors.Is(err, os.ErrNotExist) {
+		f, err = os.OpenFile("api/gen/tests/"+file, os.O_CREATE|os.O_APPEND, os.ModePerm)
+		if err != nil {
+			panic(err.Error())
+		}
+	}
+	generator.GenerateErrors(f, getRawFromAddr(errorsFile))
 }
 
 func genObjects(file string) {

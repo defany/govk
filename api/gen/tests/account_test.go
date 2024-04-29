@@ -3,17 +3,18 @@
 package tests
 
 import (
-	"github.com/defany/govk/api/gen/models"
+	"encoding/json"
 	"github.com/defany/govk/api/gen/account"
+	"github.com/defany/govk/api/gen/models"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyAccountBanRequest(r *requests.AccountBanRequest) {
-	r.WithOwnerId(randInt())
+	r.WithOwnerId(random.RandInt())
 }
 
 func TestVKAccountBanSuccess(t *testing.T) {
@@ -23,7 +24,7 @@ func TestVKAccountBanSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.ban", params.Params(), expectedJSON))
@@ -33,10 +34,10 @@ func TestVKAccountBanSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountChangePasswordRequest(r *requests.AccountChangePasswordRequest) {
-	r.WithRestoreSid(randString())
-	r.WithChangePasswordHash(randString())
-	r.WithOldPassword(randString())
-	r.WithNewPassword(randString())
+	r.WithRestoreSid(random.RandString())
+	r.WithChangePasswordHash(random.RandString())
+	r.WithOldPassword(random.RandString())
+	r.WithNewPassword(random.RandString())
 }
 
 func TestVKAccountChangePasswordSuccess(t *testing.T) {
@@ -46,7 +47,7 @@ func TestVKAccountChangePasswordSuccess(t *testing.T) {
 	fillRandomlyAccountChangePasswordResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.changePassword", params.Params(), expectedJSON))
@@ -56,8 +57,8 @@ func TestVKAccountChangePasswordSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountGetActiveOffersRequest(r *requests.AccountGetActiveOffersRequest) {
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKAccountGetActiveOffersSuccess(t *testing.T) {
@@ -67,7 +68,7 @@ func TestVKAccountGetActiveOffersSuccess(t *testing.T) {
 	fillRandomlyAccountGetActiveOffersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.getActiveOffers", params.Params(), expectedJSON))
@@ -77,7 +78,7 @@ func TestVKAccountGetActiveOffersSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountGetAppPermissionsRequest(r *requests.AccountGetAppPermissionsRequest) {
-	r.WithUserId(randInt())
+	r.WithUserId(random.RandInt())
 }
 
 func TestVKAccountGetAppPermissionsSuccess(t *testing.T) {
@@ -87,7 +88,7 @@ func TestVKAccountGetAppPermissionsSuccess(t *testing.T) {
 	fillRandomlyAccountGetAppPermissionsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.getAppPermissions", params.Params(), expectedJSON))
@@ -97,8 +98,8 @@ func TestVKAccountGetAppPermissionsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountGetBannedRequest(r *requests.AccountGetBannedRequest) {
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKAccountGetBannedSuccess(t *testing.T) {
@@ -108,7 +109,7 @@ func TestVKAccountGetBannedSuccess(t *testing.T) {
 	fillRandomlyAccountGetBannedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.getBanned", params.Params(), expectedJSON))
@@ -118,9 +119,9 @@ func TestVKAccountGetBannedSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountGetCountersRequest(r *requests.AccountGetCountersRequest) {
-	lFilter := randIntn(maxArrayLength + 1)
-	r.WithFilter(randStringArr(lFilter))
-	r.WithUserId(randInt())
+	lFilter := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithFilter(random.RandStringArr(lFilter))
+	r.WithUserId(random.RandInt())
 }
 
 func TestVKAccountGetCountersSuccess(t *testing.T) {
@@ -130,7 +131,7 @@ func TestVKAccountGetCountersSuccess(t *testing.T) {
 	fillRandomlyAccountGetCountersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.getCounters", params.Params(), expectedJSON))
@@ -140,8 +141,8 @@ func TestVKAccountGetCountersSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountGetInfoRequest(r *requests.AccountGetInfoRequest) {
-	lFields := randIntn(maxArrayLength + 1)
-	r.WithFields(randStringArr(lFields))
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithFields(random.RandStringArr(lFields))
 }
 
 func TestVKAccountGetInfoSuccess(t *testing.T) {
@@ -151,7 +152,7 @@ func TestVKAccountGetInfoSuccess(t *testing.T) {
 	fillRandomlyAccountGetInfoResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.getInfo", params.Params(), expectedJSON))
@@ -165,7 +166,7 @@ func TestVKAccountGetProfileInfoSuccess(t *testing.T) {
 	fillRandomlyAccountGetProfileInfoResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.getProfileInfo", nil, expectedJSON))
@@ -175,7 +176,7 @@ func TestVKAccountGetProfileInfoSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountGetPushSettingsRequest(r *requests.AccountGetPushSettingsRequest) {
-	r.WithDeviceId(randString())
+	r.WithDeviceId(random.RandString())
 }
 
 func TestVKAccountGetPushSettingsSuccess(t *testing.T) {
@@ -185,7 +186,7 @@ func TestVKAccountGetPushSettingsSuccess(t *testing.T) {
 	fillRandomlyAccountGetPushSettingsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.getPushSettings", params.Params(), expectedJSON))
@@ -195,13 +196,13 @@ func TestVKAccountGetPushSettingsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountRegisterDeviceRequest(r *requests.AccountRegisterDeviceRequest) {
-	r.WithToken(randString())
-	r.WithDeviceModel(randString())
-	r.WithDeviceYear(randInt())
-	r.WithDeviceId(randString())
-	r.WithSystemVersion(randString())
-	r.WithSettings(randString())
-	r.WithSandbox(randBool())
+	r.WithToken(random.RandString())
+	r.WithDeviceModel(random.RandString())
+	r.WithDeviceYear(random.RandInt())
+	r.WithDeviceId(random.RandString())
+	r.WithSystemVersion(random.RandString())
+	r.WithSettings(random.RandString())
+	r.WithSandbox(random.RandBool())
 }
 
 func TestVKAccountRegisterDeviceSuccess(t *testing.T) {
@@ -211,7 +212,7 @@ func TestVKAccountRegisterDeviceSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.registerDevice", params.Params(), expectedJSON))
@@ -221,20 +222,20 @@ func TestVKAccountRegisterDeviceSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountSaveProfileInfoRequest(r *requests.AccountSaveProfileInfoRequest) {
-	r.WithFirstName(randString())
-	r.WithLastName(randString())
-	r.WithMaidenName(randString())
-	r.WithScreenName(randString())
-	r.WithCancelRequestId(randInt())
-	r.WithSex(randInt())
-	r.WithRelation(randInt())
-	r.WithRelationPartnerId(randInt())
-	r.WithBdate(randString())
-	r.WithBdateVisibility(randInt())
-	r.WithHomeTown(randString())
-	r.WithCountryId(randInt())
-	r.WithCityId(randInt())
-	r.WithStatus(randString())
+	r.WithFirstName(random.RandString())
+	r.WithLastName(random.RandString())
+	r.WithMaidenName(random.RandString())
+	r.WithScreenName(random.RandString())
+	r.WithCancelRequestId(random.RandInt())
+	r.WithSex(random.RandInt())
+	r.WithRelation(random.RandInt())
+	r.WithRelationPartnerId(random.RandInt())
+	r.WithBdate(random.RandString())
+	r.WithBdateVisibility(random.RandInt())
+	r.WithHomeTown(random.RandString())
+	r.WithCountryId(random.RandInt())
+	r.WithCityId(random.RandInt())
+	r.WithStatus(random.RandString())
 }
 
 func TestVKAccountSaveProfileInfoSuccess(t *testing.T) {
@@ -244,7 +245,7 @@ func TestVKAccountSaveProfileInfoSuccess(t *testing.T) {
 	fillRandomlyAccountSaveProfileInfoResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.saveProfileInfo", params.Params(), expectedJSON))
@@ -254,8 +255,8 @@ func TestVKAccountSaveProfileInfoSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountSetInfoRequest(r *requests.AccountSetInfoRequest) {
-	r.WithName(randString())
-	r.WithValue(randString())
+	r.WithName(random.RandString())
+	r.WithValue(random.RandString())
 }
 
 func TestVKAccountSetInfoSuccess(t *testing.T) {
@@ -265,7 +266,7 @@ func TestVKAccountSetInfoSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.setInfo", params.Params(), expectedJSON))
@@ -279,7 +280,7 @@ func TestVKAccountSetOfflineSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.setOffline", nil, expectedJSON))
@@ -289,7 +290,7 @@ func TestVKAccountSetOfflineSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountSetOnlineRequest(r *requests.AccountSetOnlineRequest) {
-	r.WithVoip(randBool())
+	r.WithVoip(random.RandBool())
 }
 
 func TestVKAccountSetOnlineSuccess(t *testing.T) {
@@ -299,7 +300,7 @@ func TestVKAccountSetOnlineSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.setOnline", params.Params(), expectedJSON))
@@ -309,11 +310,11 @@ func TestVKAccountSetOnlineSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountSetPushSettingsRequest(r *requests.AccountSetPushSettingsRequest) {
-	r.WithDeviceId(randString())
-	r.WithSettings(randString())
-	r.WithKey(randString())
-	lValue := randIntn(maxArrayLength + 1)
-	r.WithValue(randStringArr(lValue))
+	r.WithDeviceId(random.RandString())
+	r.WithSettings(random.RandString())
+	r.WithKey(random.RandString())
+	lValue := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithValue(random.RandStringArr(lValue))
 }
 
 func TestVKAccountSetPushSettingsSuccess(t *testing.T) {
@@ -323,7 +324,7 @@ func TestVKAccountSetPushSettingsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.setPushSettings", params.Params(), expectedJSON))
@@ -333,10 +334,10 @@ func TestVKAccountSetPushSettingsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountSetSilenceModeRequest(r *requests.AccountSetSilenceModeRequest) {
-	r.WithDeviceId(randString())
-	r.WithTime(randInt())
-	r.WithPeerId(randInt())
-	r.WithSound(randInt())
+	r.WithDeviceId(random.RandString())
+	r.WithTime(random.RandInt())
+	r.WithPeerId(random.RandInt())
+	r.WithSound(random.RandInt())
 }
 
 func TestVKAccountSetSilenceModeSuccess(t *testing.T) {
@@ -346,7 +347,7 @@ func TestVKAccountSetSilenceModeSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.setSilenceMode", params.Params(), expectedJSON))
@@ -356,7 +357,7 @@ func TestVKAccountSetSilenceModeSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountUnbanRequest(r *requests.AccountUnbanRequest) {
-	r.WithOwnerId(randInt())
+	r.WithOwnerId(random.RandInt())
 }
 
 func TestVKAccountUnbanSuccess(t *testing.T) {
@@ -366,7 +367,7 @@ func TestVKAccountUnbanSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.unban", params.Params(), expectedJSON))
@@ -376,8 +377,8 @@ func TestVKAccountUnbanSuccess(t *testing.T) {
 }
 
 func fillRandomlyAccountUnregisterDeviceRequest(r *requests.AccountUnregisterDeviceRequest) {
-	r.WithDeviceId(randString())
-	r.WithSandbox(randBool())
+	r.WithDeviceId(random.RandString())
+	r.WithSandbox(random.RandBool())
 }
 
 func TestVKAccountUnregisterDeviceSuccess(t *testing.T) {
@@ -387,7 +388,7 @@ func TestVKAccountUnregisterDeviceSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "account.unregisterDevice", params.Params(), expectedJSON))
@@ -395,4 +396,3 @@ func TestVKAccountUnregisterDeviceSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-

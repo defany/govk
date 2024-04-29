@@ -3,20 +3,21 @@
 package tests
 
 import (
+	"encoding/json"
 	"github.com/defany/govk/api/gen/models"
 	"github.com/defany/govk/api/gen/newsfeed"
+	"github.com/defany/govk/pkg/random"
+	"github.com/defany/govk/vk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/defany/govk/vk"
 	"testing"
-	"encoding/json"
 )
 
 func fillRandomlyNewsfeedAddBanRequest(r *requests.NewsfeedAddBanRequest) {
-	lUserIds := randIntn(maxArrayLength + 1)
-	r.WithUserIds(randIntArr(lUserIds))
-	lGroupIds := randIntn(maxArrayLength + 1)
-	r.WithGroupIds(randIntArr(lGroupIds))
+	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithUserIds(random.RandIntArr(lUserIds))
+	lGroupIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithGroupIds(random.RandIntArr(lGroupIds))
 }
 
 func TestVKNewsfeedAddBanSuccess(t *testing.T) {
@@ -26,7 +27,7 @@ func TestVKNewsfeedAddBanSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.addBan", params.Params(), expectedJSON))
@@ -36,10 +37,10 @@ func TestVKNewsfeedAddBanSuccess(t *testing.T) {
 }
 
 func fillRandomlyNewsfeedDeleteBanRequest(r *requests.NewsfeedDeleteBanRequest) {
-	lUserIds := randIntn(maxArrayLength + 1)
-	r.WithUserIds(randIntArr(lUserIds))
-	lGroupIds := randIntn(maxArrayLength + 1)
-	r.WithGroupIds(randIntArr(lGroupIds))
+	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithUserIds(random.RandIntArr(lUserIds))
+	lGroupIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithGroupIds(random.RandIntArr(lGroupIds))
 }
 
 func TestVKNewsfeedDeleteBanSuccess(t *testing.T) {
@@ -49,7 +50,7 @@ func TestVKNewsfeedDeleteBanSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.deleteBan", params.Params(), expectedJSON))
@@ -59,7 +60,7 @@ func TestVKNewsfeedDeleteBanSuccess(t *testing.T) {
 }
 
 func fillRandomlyNewsfeedDeleteListRequest(r *requests.NewsfeedDeleteListRequest) {
-	r.WithListId(randInt())
+	r.WithListId(random.RandInt())
 }
 
 func TestVKNewsfeedDeleteListSuccess(t *testing.T) {
@@ -69,7 +70,7 @@ func TestVKNewsfeedDeleteListSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.deleteList", params.Params(), expectedJSON))
@@ -80,27 +81,27 @@ func TestVKNewsfeedDeleteListSuccess(t *testing.T) {
 
 func fillRandomlyNewsfeedGetRequest(r *requests.NewsfeedGetRequest) {
 	Filters := new([]models.NewsfeedNewsfeedItemType)
-	lFilters := randIntn(maxArrayLength + 1)
+	lFilters := random.RandIntn(random.MaxArrayLength + 1)
 	*Filters = make([]models.NewsfeedNewsfeedItemType, lFilters)
 	for i0 := 0; i0 < lFilters; i0++ {
 		fillRandomlyNewsfeedNewsfeedItemType(&(*Filters)[i0])
 	}
 	r.WithFilters(*Filters)
-	r.WithReturnBanned(randBool())
-	r.WithStartTime(randInt())
-	r.WithEndTime(randInt())
-	r.WithMaxPhotos(randInt())
-	r.WithSourceIds(randString())
-	r.WithStartFrom(randString())
-	r.WithCount(randInt())
+	r.WithReturnBanned(random.RandBool())
+	r.WithStartTime(random.RandInt())
+	r.WithEndTime(random.RandInt())
+	r.WithMaxPhotos(random.RandInt())
+	r.WithSourceIds(random.RandString())
+	r.WithStartFrom(random.RandString())
+	r.WithCount(random.RandInt())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithSection(randString())
+	r.WithSection(random.RandString())
 }
 
 func TestVKNewsfeedGetSuccess(t *testing.T) {
@@ -110,7 +111,7 @@ func TestVKNewsfeedGetSuccess(t *testing.T) {
 	fillRandomlyNewsfeedGenericResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.get", params.Params(), expectedJSON))
@@ -120,15 +121,15 @@ func TestVKNewsfeedGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyNewsfeedGetBannedRequest(r *requests.NewsfeedGetBannedRequest) {
-	r.WithExtended(randBool())
+	r.WithExtended(random.RandBool())
 	Fields := new([]models.UsersFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithNameCase(randString())
+	r.WithNameCase(random.RandString())
 }
 
 func TestVKNewsfeedGetBannedSuccess(t *testing.T) {
@@ -139,7 +140,7 @@ func TestVKNewsfeedGetBannedSuccess(t *testing.T) {
 	fillRandomlyNewsfeedGetBannedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.getBanned", params.Params(), expectedJSON))
@@ -156,7 +157,7 @@ func TestVKNewsfeedGetBannedExtendedSuccess(t *testing.T) {
 	fillRandomlyNewsfeedGetBannedExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.getBanned", params.Params(), expectedJSON))
@@ -166,21 +167,21 @@ func TestVKNewsfeedGetBannedExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyNewsfeedGetCommentsRequest(r *requests.NewsfeedGetCommentsRequest) {
-	r.WithCount(randInt())
+	r.WithCount(random.RandInt())
 	Filters := new([]models.NewsfeedCommentsFilters)
-	lFilters := randIntn(maxArrayLength + 1)
+	lFilters := random.RandIntn(random.MaxArrayLength + 1)
 	*Filters = make([]models.NewsfeedCommentsFilters, lFilters)
 	for i0 := 0; i0 < lFilters; i0++ {
 		fillRandomlyNewsfeedCommentsFilters(&(*Filters)[i0])
 	}
 	r.WithFilters(*Filters)
-	r.WithReposts(randString())
-	r.WithStartTime(randInt())
-	r.WithEndTime(randInt())
-	r.WithLastCommentsCount(randInt())
-	r.WithStartFrom(randString())
+	r.WithReposts(random.RandString())
+	r.WithStartTime(random.RandInt())
+	r.WithEndTime(random.RandInt())
+	r.WithLastCommentsCount(random.RandInt())
+	r.WithStartFrom(random.RandString())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -195,7 +196,7 @@ func TestVKNewsfeedGetCommentsSuccess(t *testing.T) {
 	fillRandomlyNewsfeedGetCommentsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.getComments", params.Params(), expectedJSON))
@@ -205,9 +206,9 @@ func TestVKNewsfeedGetCommentsSuccess(t *testing.T) {
 }
 
 func fillRandomlyNewsfeedGetListsRequest(r *requests.NewsfeedGetListsRequest) {
-	lListIds := randIntn(maxArrayLength + 1)
-	r.WithListIds(randIntArr(lListIds))
-	r.WithExtended(randBool())
+	lListIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithListIds(random.RandIntArr(lListIds))
+	r.WithExtended(random.RandBool())
 }
 
 func TestVKNewsfeedGetListsSuccess(t *testing.T) {
@@ -218,7 +219,7 @@ func TestVKNewsfeedGetListsSuccess(t *testing.T) {
 	fillRandomlyNewsfeedGetListsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.getLists", params.Params(), expectedJSON))
@@ -235,7 +236,7 @@ func TestVKNewsfeedGetListsExtendedSuccess(t *testing.T) {
 	fillRandomlyNewsfeedGetListsExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.getLists", params.Params(), expectedJSON))
@@ -245,11 +246,11 @@ func TestVKNewsfeedGetListsExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyNewsfeedGetMentionsRequest(r *requests.NewsfeedGetMentionsRequest) {
-	r.WithOwnerId(randInt())
-	r.WithStartTime(randInt())
-	r.WithEndTime(randInt())
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithStartTime(random.RandInt())
+	r.WithEndTime(random.RandInt())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
 }
 
 func TestVKNewsfeedGetMentionsSuccess(t *testing.T) {
@@ -259,7 +260,7 @@ func TestVKNewsfeedGetMentionsSuccess(t *testing.T) {
 	fillRandomlyNewsfeedGetMentionsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.getMentions", params.Params(), expectedJSON))
@@ -269,13 +270,13 @@ func TestVKNewsfeedGetMentionsSuccess(t *testing.T) {
 }
 
 func fillRandomlyNewsfeedGetRecommendedRequest(r *requests.NewsfeedGetRecommendedRequest) {
-	r.WithStartTime(randInt())
-	r.WithEndTime(randInt())
-	r.WithMaxPhotos(randInt())
-	r.WithStartFrom(randString())
-	r.WithCount(randInt())
+	r.WithStartTime(random.RandInt())
+	r.WithEndTime(random.RandInt())
+	r.WithMaxPhotos(random.RandInt())
+	r.WithStartFrom(random.RandString())
+	r.WithCount(random.RandInt())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -290,7 +291,7 @@ func TestVKNewsfeedGetRecommendedSuccess(t *testing.T) {
 	fillRandomlyNewsfeedGenericResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.getRecommended", params.Params(), expectedJSON))
@@ -300,11 +301,11 @@ func TestVKNewsfeedGetRecommendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyNewsfeedGetSuggestedSourcesRequest(r *requests.NewsfeedGetSuggestedSourcesRequest) {
-	r.WithOffset(randInt())
-	r.WithCount(randInt())
-	r.WithShuffle(randBool())
+	r.WithOffset(random.RandInt())
+	r.WithCount(random.RandInt())
+	r.WithShuffle(random.RandBool())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -319,7 +320,7 @@ func TestVKNewsfeedGetSuggestedSourcesSuccess(t *testing.T) {
 	fillRandomlyNewsfeedGetSuggestedSourcesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.getSuggestedSources", params.Params(), expectedJSON))
@@ -332,8 +333,8 @@ func fillRandomlyNewsfeedIgnoreItemRequest(r *requests.NewsfeedIgnoreItemRequest
 	Type := new(models.NewsfeedIgnoreItemType)
 	fillRandomlyNewsfeedIgnoreItemType(Type)
 	r.WithType(*Type)
-	r.WithOwnerId(randInt())
-	r.WithItemId(randInt())
+	r.WithOwnerId(random.RandInt())
+	r.WithItemId(random.RandInt())
 }
 
 func TestVKNewsfeedIgnoreItemSuccess(t *testing.T) {
@@ -343,7 +344,7 @@ func TestVKNewsfeedIgnoreItemSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.ignoreItem", params.Params(), expectedJSON))
@@ -353,11 +354,11 @@ func TestVKNewsfeedIgnoreItemSuccess(t *testing.T) {
 }
 
 func fillRandomlyNewsfeedSaveListRequest(r *requests.NewsfeedSaveListRequest) {
-	r.WithListId(randInt())
-	r.WithTitle(randString())
-	lSourceIds := randIntn(maxArrayLength + 1)
-	r.WithSourceIds(randIntArr(lSourceIds))
-	r.WithNoReposts(randBool())
+	r.WithListId(random.RandInt())
+	r.WithTitle(random.RandString())
+	lSourceIds := random.RandIntn(random.MaxArrayLength + 1)
+	r.WithSourceIds(random.RandIntArr(lSourceIds))
+	r.WithNoReposts(random.RandBool())
 }
 
 func TestVKNewsfeedSaveListSuccess(t *testing.T) {
@@ -367,7 +368,7 @@ func TestVKNewsfeedSaveListSuccess(t *testing.T) {
 	fillRandomlyNewsfeedSaveListResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.saveList", params.Params(), expectedJSON))
@@ -377,16 +378,16 @@ func TestVKNewsfeedSaveListSuccess(t *testing.T) {
 }
 
 func fillRandomlyNewsfeedSearchRequest(r *requests.NewsfeedSearchRequest) {
-	r.WithQ(randString())
-	r.WithExtended(randBool())
-	r.WithCount(randInt())
-	r.WithLatitude(randFloat())
-	r.WithLongitude(randFloat())
-	r.WithStartTime(randInt())
-	r.WithEndTime(randInt())
-	r.WithStartFrom(randString())
+	r.WithQ(random.RandString())
+	r.WithExtended(random.RandBool())
+	r.WithCount(random.RandInt())
+	r.WithLatitude(random.RandFloat())
+	r.WithLongitude(random.RandFloat())
+	r.WithStartTime(random.RandInt())
+	r.WithEndTime(random.RandInt())
+	r.WithStartFrom(random.RandString())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := randIntn(maxArrayLength + 1)
+	lFields := random.RandIntn(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
@@ -402,7 +403,7 @@ func TestVKNewsfeedSearchSuccess(t *testing.T) {
 	fillRandomlyNewsfeedSearchResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.search", params.Params(), expectedJSON))
@@ -419,7 +420,7 @@ func TestVKNewsfeedSearchExtendedSuccess(t *testing.T) {
 	fillRandomlyNewsfeedSearchExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.search", params.Params(), expectedJSON))
@@ -432,9 +433,9 @@ func fillRandomlyNewsfeedUnignoreItemRequest(r *requests.NewsfeedUnignoreItemReq
 	Type := new(models.NewsfeedIgnoreItemType)
 	fillRandomlyNewsfeedIgnoreItemType(Type)
 	r.WithType(*Type)
-	r.WithOwnerId(randInt())
-	r.WithItemId(randInt())
-	r.WithTrackCode(randString())
+	r.WithOwnerId(random.RandInt())
+	r.WithItemId(random.RandInt())
+	r.WithTrackCode(random.RandString())
 }
 
 func TestVKNewsfeedUnignoreItemSuccess(t *testing.T) {
@@ -444,7 +445,7 @@ func TestVKNewsfeedUnignoreItemSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.unignoreItem", params.Params(), expectedJSON))
@@ -454,9 +455,9 @@ func TestVKNewsfeedUnignoreItemSuccess(t *testing.T) {
 }
 
 func fillRandomlyNewsfeedUnsubscribeRequest(r *requests.NewsfeedUnsubscribeRequest) {
-	r.WithType(randString())
-	r.WithOwnerId(randInt())
-	r.WithItemId(randInt())
+	r.WithType(random.RandString())
+	r.WithOwnerId(random.RandInt())
+	r.WithItemId(random.RandInt())
 }
 
 func TestVKNewsfeedUnsubscribeSuccess(t *testing.T) {
@@ -466,7 +467,7 @@ func TestVKNewsfeedUnsubscribeSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := randString()
+	token := random.RandString()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "newsfeed.unsubscribe", params.Params(), expectedJSON))
@@ -474,4 +475,3 @@ func TestVKNewsfeedUnsubscribeSuccess(t *testing.T) {
 	assert.EqualValues(t, expected, resp)
 	assert.NoError(t, err)
 }
-
