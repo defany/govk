@@ -4,6 +4,7 @@ package requests
 
 import (
 	"github.com/defany/govk/api"
+	"github.com/defany/govk/api/gen/models"
 )
 
 type Secure struct {
@@ -16,3 +17,530 @@ func NewSecure(api *api.API) *Secure {
 	}
 }
 
+// SecureAddAppEvent Adds user activity information to an application
+type SecureAddAppEventRequest api.Params
+
+func NewSecureAddAppEventRequest() SecureAddAppEventRequest {
+	params := make(SecureAddAppEventRequest, 4)
+	return params
+}
+
+func (s SecureAddAppEventRequest) WithUserId(s_user_id int) SecureAddAppEventRequest {
+	s["user_id"] = s_user_id
+	return s
+}
+
+func (s SecureAddAppEventRequest) WithActivityId(s_activity_id int) SecureAddAppEventRequest {
+	s["activity_id"] = s_activity_id
+	return s
+}
+
+func (s SecureAddAppEventRequest) WithValue(s_value int) SecureAddAppEventRequest {
+	s["value"] = s_value
+	return s
+}
+
+func (s SecureAddAppEventRequest) Params() api.Params {
+	return api.Params(s)
+}
+
+// May execute with listed access token types:
+//
+//	[ service ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_AppsAlreadyUnlocked ]
+//
+// https://dev.vk.com/method/secure.addAppEvent
+func (s *Secure) SecureAddAppEvent(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](s.api)
+
+	res, err := req.Execute("secure.addAppEvent", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// SecureCheckToken Checks the user authentication in 'IFrame' and 'Flash' apps using the 'access_token' parameter.
+type SecureCheckTokenRequest api.Params
+
+func NewSecureCheckTokenRequest() SecureCheckTokenRequest {
+	params := make(SecureCheckTokenRequest, 3)
+	return params
+}
+
+func (s SecureCheckTokenRequest) WithToken(s_token string) SecureCheckTokenRequest {
+	s["token"] = s_token
+	return s
+}
+
+func (s SecureCheckTokenRequest) WithIp(s_ip string) SecureCheckTokenRequest {
+	s["ip"] = s_ip
+	return s
+}
+
+func (s SecureCheckTokenRequest) Params() api.Params {
+	return api.Params(s)
+}
+
+// May execute with listed access token types:
+//
+//	[ service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/secure.checkToken
+func (s *Secure) SecureCheckToken(params ...api.MethodParams) (resp models.SecureCheckTokenResponse, err error) {
+	req := api.NewRequest[models.SecureCheckTokenResponse](s.api)
+
+	res, err := req.Execute("secure.checkToken", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// SecureGetAppBalance Returns payment balance of the application in hundredth of a vote.
+// May execute with listed access token types:
+//
+//	[ service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/secure.getAppBalance
+func (s *Secure) SecureGetAppBalance(params ...api.MethodParams) (resp models.SecureGetAppBalanceResponse, err error) {
+	req := api.NewRequest[models.SecureGetAppBalanceResponse](s.api)
+
+	res, err := req.Execute("secure.getAppBalance", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// SecureGetSMSHistory Shows a list of SMS notifications sent by the application using [vk.com/dev/secure.sendSMSNotification|secure.sendSMSNotification] method.
+type SecureGetSMSHistoryRequest api.Params
+
+func NewSecureGetSMSHistoryRequest() SecureGetSMSHistoryRequest {
+	params := make(SecureGetSMSHistoryRequest, 5)
+	return params
+}
+
+func (s SecureGetSMSHistoryRequest) WithUserId(s_user_id int) SecureGetSMSHistoryRequest {
+	s["user_id"] = s_user_id
+	return s
+}
+
+func (s SecureGetSMSHistoryRequest) WithDateFrom(s_date_from int) SecureGetSMSHistoryRequest {
+	s["date_from"] = s_date_from
+	return s
+}
+
+func (s SecureGetSMSHistoryRequest) WithDateTo(s_date_to int) SecureGetSMSHistoryRequest {
+	s["date_to"] = s_date_to
+	return s
+}
+
+func (s SecureGetSMSHistoryRequest) WithLimit(s_limit int) SecureGetSMSHistoryRequest {
+	s["limit"] = s_limit
+	return s
+}
+
+func (s SecureGetSMSHistoryRequest) Params() api.Params {
+	return api.Params(s)
+}
+
+// May execute with listed access token types:
+//
+//	[ service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/secure.getSMSHistory
+func (s *Secure) SecureGetSMSHistory(params ...api.MethodParams) (resp models.SecureGetSMSHistoryResponse, err error) {
+	req := api.NewRequest[models.SecureGetSMSHistoryResponse](s.api)
+
+	res, err := req.Execute("secure.getSMSHistory", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// SecureGetTransactionsHistory Shows history of votes transaction between users and the application.
+type SecureGetTransactionsHistoryRequest api.Params
+
+func NewSecureGetTransactionsHistoryRequest() SecureGetTransactionsHistoryRequest {
+	params := make(SecureGetTransactionsHistoryRequest, 7)
+	return params
+}
+
+func (s SecureGetTransactionsHistoryRequest) WithType(s_type int) SecureGetTransactionsHistoryRequest {
+	s["type"] = s_type
+	return s
+}
+
+func (s SecureGetTransactionsHistoryRequest) WithUidFrom(s_uid_from int) SecureGetTransactionsHistoryRequest {
+	s["uid_from"] = s_uid_from
+	return s
+}
+
+func (s SecureGetTransactionsHistoryRequest) WithUidTo(s_uid_to int) SecureGetTransactionsHistoryRequest {
+	s["uid_to"] = s_uid_to
+	return s
+}
+
+func (s SecureGetTransactionsHistoryRequest) WithDateFrom(s_date_from int) SecureGetTransactionsHistoryRequest {
+	s["date_from"] = s_date_from
+	return s
+}
+
+func (s SecureGetTransactionsHistoryRequest) WithDateTo(s_date_to int) SecureGetTransactionsHistoryRequest {
+	s["date_to"] = s_date_to
+	return s
+}
+
+func (s SecureGetTransactionsHistoryRequest) WithLimit(s_limit int) SecureGetTransactionsHistoryRequest {
+	s["limit"] = s_limit
+	return s
+}
+
+func (s SecureGetTransactionsHistoryRequest) Params() api.Params {
+	return api.Params(s)
+}
+
+// May execute with listed access token types:
+//
+//	[ service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/secure.getTransactionsHistory
+func (s *Secure) SecureGetTransactionsHistory(params ...api.MethodParams) (resp models.SecureGetTransactionsHistoryResponse, err error) {
+	req := api.NewRequest[models.SecureGetTransactionsHistoryResponse](s.api)
+
+	res, err := req.Execute("secure.getTransactionsHistory", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// SecureGetUserLevel Returns one of the previously set game levels of one or more users in the application.
+type SecureGetUserLevelRequest api.Params
+
+func NewSecureGetUserLevelRequest() SecureGetUserLevelRequest {
+	params := make(SecureGetUserLevelRequest, 2)
+	return params
+}
+
+func (s SecureGetUserLevelRequest) WithUserIds(s_user_ids []int) SecureGetUserLevelRequest {
+	s["user_ids"] = s_user_ids
+	return s
+}
+
+func (s SecureGetUserLevelRequest) Params() api.Params {
+	return api.Params(s)
+}
+
+// May execute with listed access token types:
+//
+//	[ service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/secure.getUserLevel
+func (s *Secure) SecureGetUserLevel(params ...api.MethodParams) (resp models.SecureGetUserLevelResponse, err error) {
+	req := api.NewRequest[models.SecureGetUserLevelResponse](s.api)
+
+	res, err := req.Execute("secure.getUserLevel", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// SecureGiveEventSticker Opens the game achievement and gives the user a sticker
+type SecureGiveEventStickerRequest api.Params
+
+func NewSecureGiveEventStickerRequest() SecureGiveEventStickerRequest {
+	params := make(SecureGiveEventStickerRequest, 3)
+	return params
+}
+
+func (s SecureGiveEventStickerRequest) WithUserIds(s_user_ids []int) SecureGiveEventStickerRequest {
+	s["user_ids"] = s_user_ids
+	return s
+}
+
+func (s SecureGiveEventStickerRequest) WithAchievementId(s_achievement_id int) SecureGiveEventStickerRequest {
+	s["achievement_id"] = s_achievement_id
+	return s
+}
+
+func (s SecureGiveEventStickerRequest) Params() api.Params {
+	return api.Params(s)
+}
+
+// May execute with listed access token types:
+//
+//	[ service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/secure.giveEventSticker
+func (s *Secure) SecureGiveEventSticker(params ...api.MethodParams) (resp models.SecureGiveEventStickerResponse, err error) {
+	req := api.NewRequest[models.SecureGiveEventStickerResponse](s.api)
+
+	res, err := req.Execute("secure.giveEventSticker", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// SecureSendNotification Sends notification to the user.
+type SecureSendNotificationRequest api.Params
+
+func NewSecureSendNotificationRequest() SecureSendNotificationRequest {
+	params := make(SecureSendNotificationRequest, 4)
+	return params
+}
+
+func (s SecureSendNotificationRequest) WithUserIds(s_user_ids []int) SecureSendNotificationRequest {
+	s["user_ids"] = s_user_ids
+	return s
+}
+
+func (s SecureSendNotificationRequest) WithUserId(s_user_id int) SecureSendNotificationRequest {
+	s["user_id"] = s_user_id
+	return s
+}
+
+func (s SecureSendNotificationRequest) WithMessage(s_message string) SecureSendNotificationRequest {
+	s["message"] = s_message
+	return s
+}
+
+func (s SecureSendNotificationRequest) Params() api.Params {
+	return api.Params(s)
+}
+
+// May execute with listed access token types:
+//
+//	[ service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/secure.sendNotification
+func (s *Secure) SecureSendNotification(params ...api.MethodParams) (resp models.SecureSendNotificationResponse, err error) {
+	req := api.NewRequest[models.SecureSendNotificationResponse](s.api)
+
+	res, err := req.Execute("secure.sendNotification", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// SecureSendSMSNotification Sends 'SMS' notification to a user's mobile device.
+type SecureSendSMSNotificationRequest api.Params
+
+func NewSecureSendSMSNotificationRequest() SecureSendSMSNotificationRequest {
+	params := make(SecureSendSMSNotificationRequest, 3)
+	return params
+}
+
+func (s SecureSendSMSNotificationRequest) WithUserId(s_user_id int) SecureSendSMSNotificationRequest {
+	s["user_id"] = s_user_id
+	return s
+}
+
+func (s SecureSendSMSNotificationRequest) WithMessage(s_message string) SecureSendSMSNotificationRequest {
+	s["message"] = s_message
+	return s
+}
+
+func (s SecureSendSMSNotificationRequest) Params() api.Params {
+	return api.Params(s)
+}
+
+// May execute with listed access token types:
+//
+//	[ service ]
+//
+// When executing method, may return one of global or with listed codes API errors:
+//
+//	[ Error_InsufficientFunds, Error_MobileNotActivated ]
+//
+// https://dev.vk.com/method/secure.sendSMSNotification
+func (s *Secure) SecureSendSMSNotification(params ...api.MethodParams) (resp models.BaseOkResponse, err error) {
+	req := api.NewRequest[models.BaseOkResponse](s.api)
+
+	res, err := req.Execute("secure.sendSMSNotification", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// SecureSetCounter Sets a counter which is shown to the user in bold in the left menu.
+type SecureSetCounterRequest api.Params
+
+func NewSecureSetCounterRequest() SecureSetCounterRequest {
+	params := make(SecureSetCounterRequest, 5)
+	return params
+}
+
+func (s SecureSetCounterRequest) WithCounters(s_counters []string) SecureSetCounterRequest {
+	s["counters"] = s_counters
+	return s
+}
+
+func (s SecureSetCounterRequest) WithUserId(s_user_id int) SecureSetCounterRequest {
+	s["user_id"] = s_user_id
+	return s
+}
+
+func (s SecureSetCounterRequest) WithCounter(s_counter int) SecureSetCounterRequest {
+	s["counter"] = s_counter
+	return s
+}
+
+func (s SecureSetCounterRequest) WithIncrement(s_increment bool) SecureSetCounterRequest {
+	s["increment"] = s_increment
+	return s
+}
+
+func (s SecureSetCounterRequest) Params() api.Params {
+	return api.Params(s)
+}
+
+// May execute with listed access token types:
+//
+//	[ service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/secure.setCounter
+func (s *Secure) SecureSetCounter(params ...api.MethodParams) (resp models.BaseBoolResponse, err error) {
+	req := api.NewRequest[models.BaseBoolResponse](s.api)
+
+	res, err := req.Execute("secure.setCounter", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// SecureSetCounterCounters Sets a counter which is shown to the user in bold in the left menu.
+type SecureSetCounterCountersRequest api.Params
+
+func NewSecureSetCounterCountersRequest() SecureSetCounterCountersRequest {
+	params := make(SecureSetCounterCountersRequest, 5)
+	return params
+}
+
+func (s SecureSetCounterCountersRequest) WithCounters(s_counters []string) SecureSetCounterCountersRequest {
+	s["counters"] = s_counters
+	return s
+}
+
+func (s SecureSetCounterCountersRequest) WithUserId(s_user_id int) SecureSetCounterCountersRequest {
+	s["user_id"] = s_user_id
+	return s
+}
+
+func (s SecureSetCounterCountersRequest) WithCounter(s_counter int) SecureSetCounterCountersRequest {
+	s["counter"] = s_counter
+	return s
+}
+
+func (s SecureSetCounterCountersRequest) WithIncrement(s_increment bool) SecureSetCounterCountersRequest {
+	s["increment"] = s_increment
+	return s
+}
+
+func (s SecureSetCounterCountersRequest) Params() api.Params {
+	return api.Params(s)
+}
+
+// May execute with listed access token types:
+//
+//	[ service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/secure.setCounter
+func (s *Secure) SecureSetCounterCounters(params ...api.MethodParams) (resp models.SecureSetCounterArrayResponse, err error) {
+	req := api.NewRequest[models.SecureSetCounterArrayResponse](s.api)
+
+	res, err := req.Execute("secure.setCounter", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
+
+// SecureSetCounterNotSecure Sets a counter which is shown to the user in bold in the left menu.
+type SecureSetCounterNotSecureRequest api.Params
+
+func NewSecureSetCounterNotSecureRequest() SecureSetCounterNotSecureRequest {
+	params := make(SecureSetCounterNotSecureRequest, 5)
+	return params
+}
+
+func (s SecureSetCounterNotSecureRequest) WithCounters(s_counters []string) SecureSetCounterNotSecureRequest {
+	s["counters"] = s_counters
+	return s
+}
+
+func (s SecureSetCounterNotSecureRequest) WithUserId(s_user_id int) SecureSetCounterNotSecureRequest {
+	s["user_id"] = s_user_id
+	return s
+}
+
+func (s SecureSetCounterNotSecureRequest) WithCounter(s_counter int) SecureSetCounterNotSecureRequest {
+	s["counter"] = s_counter
+	return s
+}
+
+func (s SecureSetCounterNotSecureRequest) WithIncrement(s_increment bool) SecureSetCounterNotSecureRequest {
+	s["increment"] = s_increment
+	return s
+}
+
+func (s SecureSetCounterNotSecureRequest) Params() api.Params {
+	return api.Params(s)
+}
+
+// May execute with listed access token types:
+//
+//	[ service ]
+//
+// When executing method, may return one of global API errors.
+//
+// https://dev.vk.com/method/secure.setCounter
+func (s *Secure) SecureSetCounterNotSecure(params ...api.MethodParams) (resp models.BaseBoolResponse, err error) {
+	req := api.NewRequest[models.BaseBoolResponse](s.api)
+
+	res, err := req.Execute("setCounter", api.ParamsOrNil(params))
+	if err != nil {
+		return res, err
+	}
+
+	return res, nil
+}
