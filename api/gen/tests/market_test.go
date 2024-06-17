@@ -14,22 +14,22 @@ import (
 )
 
 func fillRandomlyMarketAddRequest(r *requests.MarketAddRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithName(random.RandString())
-	r.WithDescription(random.RandString())
-	r.WithCategoryId(random.RandInt())
-	r.WithPrice(random.RandFloat())
-	r.WithOldPrice(random.RandFloat())
-	r.WithDeleted(random.RandBool())
-	r.WithMainPhotoId(random.RandInt())
-	lPhotoIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithPhotoIds(random.RandIntArr(lPhotoIds))
-	r.WithUrl(random.RandString())
-	r.WithDimensionWidth(random.RandInt())
-	r.WithDimensionHeight(random.RandInt())
-	r.WithDimensionLength(random.RandInt())
-	r.WithWeight(random.RandInt())
-	r.WithSku(random.RandString())
+	r.WithOwnerId(random.Int())
+	r.WithName(random.String())
+	r.WithDescription(random.String())
+	r.WithCategoryId(random.Int())
+	r.WithPrice(random.MustFloat())
+	r.WithOldPrice(random.MustFloat())
+	r.WithDeleted(random.Bool())
+	r.WithMainPhotoId(random.Int())
+	lPhotoIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithPhotoIds(random.IntArr(lPhotoIds))
+	r.WithUrl(random.String())
+	r.WithDimensionWidth(random.Int())
+	r.WithDimensionHeight(random.Int())
+	r.WithDimensionLength(random.Int())
+	r.WithWeight(random.Int())
+	r.WithSku(random.String())
 }
 
 func TestVKMarketAddSuccess(t *testing.T) {
@@ -39,7 +39,7 @@ func TestVKMarketAddSuccess(t *testing.T) {
 	fillRandomlyMarketAddResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.add", params.Params(), expectedJSON))
@@ -49,11 +49,11 @@ func TestVKMarketAddSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketAddAlbumRequest(r *requests.MarketAddAlbumRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithTitle(random.RandString())
-	r.WithPhotoId(random.RandInt())
-	r.WithMainAlbum(random.RandBool())
-	r.WithIsHidden(random.RandBool())
+	r.WithOwnerId(random.Int())
+	r.WithTitle(random.String())
+	r.WithPhotoId(random.Int())
+	r.WithMainAlbum(random.Bool())
+	r.WithIsHidden(random.Bool())
 }
 
 func TestVKMarketAddAlbumSuccess(t *testing.T) {
@@ -63,7 +63,7 @@ func TestVKMarketAddAlbumSuccess(t *testing.T) {
 	fillRandomlyMarketAddAlbumResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.addAlbum", params.Params(), expectedJSON))
@@ -73,11 +73,11 @@ func TestVKMarketAddAlbumSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketAddToAlbumRequest(r *requests.MarketAddToAlbumRequest) {
-	r.WithOwnerId(random.RandInt())
-	lItemIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithItemIds(random.RandIntArr(lItemIds))
-	lAlbumIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithAlbumIds(random.RandIntArr(lAlbumIds))
+	r.WithOwnerId(random.Int())
+	lItemIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithItemIds(random.IntArr(lItemIds))
+	lAlbumIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithAlbumIds(random.IntArr(lAlbumIds))
 }
 
 func TestVKMarketAddToAlbumSuccess(t *testing.T) {
@@ -87,7 +87,7 @@ func TestVKMarketAddToAlbumSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.addToAlbum", params.Params(), expectedJSON))
@@ -97,15 +97,15 @@ func TestVKMarketAddToAlbumSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketCreateCommentRequest(r *requests.MarketCreateCommentRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithItemId(random.RandInt())
-	r.WithMessage(random.RandString())
-	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithAttachments(random.RandStringArr(lAttachments))
-	r.WithFromGroup(random.RandBool())
-	r.WithReplyToComment(random.RandInt())
-	r.WithStickerId(random.RandInt())
-	r.WithGuid(random.RandString())
+	r.WithOwnerId(random.Int())
+	r.WithItemId(random.Int())
+	r.WithMessage(random.String())
+	lAttachments := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithAttachments(random.StringArr(lAttachments))
+	r.WithFromGroup(random.Bool())
+	r.WithReplyToComment(random.Int())
+	r.WithStickerId(random.Int())
+	r.WithGuid(random.String())
 }
 
 func TestVKMarketCreateCommentSuccess(t *testing.T) {
@@ -115,7 +115,7 @@ func TestVKMarketCreateCommentSuccess(t *testing.T) {
 	fillRandomlyMarketCreateCommentResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.createComment", params.Params(), expectedJSON))
@@ -125,8 +125,8 @@ func TestVKMarketCreateCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketDeleteRequest(r *requests.MarketDeleteRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithItemId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithItemId(random.Int())
 }
 
 func TestVKMarketDeleteSuccess(t *testing.T) {
@@ -136,7 +136,7 @@ func TestVKMarketDeleteSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.delete", params.Params(), expectedJSON))
@@ -146,8 +146,8 @@ func TestVKMarketDeleteSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketDeleteAlbumRequest(r *requests.MarketDeleteAlbumRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithAlbumId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithAlbumId(random.Int())
 }
 
 func TestVKMarketDeleteAlbumSuccess(t *testing.T) {
@@ -157,7 +157,7 @@ func TestVKMarketDeleteAlbumSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.deleteAlbum", params.Params(), expectedJSON))
@@ -167,8 +167,8 @@ func TestVKMarketDeleteAlbumSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketDeleteCommentRequest(r *requests.MarketDeleteCommentRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithCommentId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithCommentId(random.Int())
 }
 
 func TestVKMarketDeleteCommentSuccess(t *testing.T) {
@@ -178,7 +178,7 @@ func TestVKMarketDeleteCommentSuccess(t *testing.T) {
 	fillRandomlyMarketDeleteCommentResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.deleteComment", params.Params(), expectedJSON))
@@ -188,23 +188,23 @@ func TestVKMarketDeleteCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketEditRequest(r *requests.MarketEditRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithItemId(random.RandInt())
-	r.WithName(random.RandString())
-	r.WithDescription(random.RandString())
-	r.WithCategoryId(random.RandInt())
-	r.WithPrice(random.RandFloat())
-	r.WithOldPrice(random.RandFloat())
-	r.WithDeleted(random.RandBool())
-	r.WithMainPhotoId(random.RandInt())
-	lPhotoIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithPhotoIds(random.RandIntArr(lPhotoIds))
-	r.WithUrl(random.RandString())
-	r.WithDimensionWidth(random.RandInt())
-	r.WithDimensionHeight(random.RandInt())
-	r.WithDimensionLength(random.RandInt())
-	r.WithWeight(random.RandInt())
-	r.WithSku(random.RandString())
+	r.WithOwnerId(random.Int())
+	r.WithItemId(random.Int())
+	r.WithName(random.String())
+	r.WithDescription(random.String())
+	r.WithCategoryId(random.Int())
+	r.WithPrice(random.MustFloat())
+	r.WithOldPrice(random.MustFloat())
+	r.WithDeleted(random.Bool())
+	r.WithMainPhotoId(random.Int())
+	lPhotoIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithPhotoIds(random.IntArr(lPhotoIds))
+	r.WithUrl(random.String())
+	r.WithDimensionWidth(random.Int())
+	r.WithDimensionHeight(random.Int())
+	r.WithDimensionLength(random.Int())
+	r.WithWeight(random.Int())
+	r.WithSku(random.String())
 }
 
 func TestVKMarketEditSuccess(t *testing.T) {
@@ -214,7 +214,7 @@ func TestVKMarketEditSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.edit", params.Params(), expectedJSON))
@@ -224,12 +224,12 @@ func TestVKMarketEditSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketEditAlbumRequest(r *requests.MarketEditAlbumRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithAlbumId(random.RandInt())
-	r.WithTitle(random.RandString())
-	r.WithPhotoId(random.RandInt())
-	r.WithMainAlbum(random.RandBool())
-	r.WithIsHidden(random.RandBool())
+	r.WithOwnerId(random.Int())
+	r.WithAlbumId(random.Int())
+	r.WithTitle(random.String())
+	r.WithPhotoId(random.Int())
+	r.WithMainAlbum(random.Bool())
+	r.WithIsHidden(random.Bool())
 }
 
 func TestVKMarketEditAlbumSuccess(t *testing.T) {
@@ -239,7 +239,7 @@ func TestVKMarketEditAlbumSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.editAlbum", params.Params(), expectedJSON))
@@ -249,11 +249,11 @@ func TestVKMarketEditAlbumSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketEditCommentRequest(r *requests.MarketEditCommentRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithCommentId(random.RandInt())
-	r.WithMessage(random.RandString())
-	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithAttachments(random.RandStringArr(lAttachments))
+	r.WithOwnerId(random.Int())
+	r.WithCommentId(random.Int())
+	r.WithMessage(random.String())
+	lAttachments := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithAttachments(random.StringArr(lAttachments))
 }
 
 func TestVKMarketEditCommentSuccess(t *testing.T) {
@@ -263,7 +263,7 @@ func TestVKMarketEditCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.editComment", params.Params(), expectedJSON))
@@ -273,17 +273,17 @@ func TestVKMarketEditCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketEditOrderRequest(r *requests.MarketEditOrderRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithOrderId(random.RandInt())
-	r.WithMerchantComment(random.RandString())
-	r.WithStatus(random.RandInt())
-	r.WithTrackNumber(random.RandString())
-	r.WithPaymentStatus(random.RandString())
-	r.WithDeliveryPrice(random.RandInt())
-	r.WithWidth(random.RandInt())
-	r.WithLength(random.RandInt())
-	r.WithHeight(random.RandInt())
-	r.WithWeight(random.RandInt())
+	r.WithUserId(random.Int())
+	r.WithOrderId(random.Int())
+	r.WithMerchantComment(random.String())
+	r.WithStatus(random.Int())
+	r.WithTrackNumber(random.String())
+	r.WithPaymentStatus(random.String())
+	r.WithDeliveryPrice(random.Int())
+	r.WithWidth(random.Int())
+	r.WithLength(random.Int())
+	r.WithHeight(random.Int())
+	r.WithWeight(random.Int())
 }
 
 func TestVKMarketEditOrderSuccess(t *testing.T) {
@@ -293,7 +293,7 @@ func TestVKMarketEditOrderSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.editOrder", params.Params(), expectedJSON))
@@ -303,15 +303,15 @@ func TestVKMarketEditOrderSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketGetRequest(r *requests.MarketGetRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithAlbumId(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithExtended(random.RandBool())
-	r.WithDateFrom(random.RandString())
-	r.WithDateTo(random.RandString())
-	r.WithNeedVariants(random.RandBool())
-	r.WithWithDisabled(random.RandBool())
+	r.WithOwnerId(random.Int())
+	r.WithAlbumId(random.Int())
+	r.WithCount(random.Int())
+	r.WithOffset(random.Int())
+	r.WithExtended(random.Bool())
+	r.WithDateFrom(random.String())
+	r.WithDateTo(random.String())
+	r.WithNeedVariants(random.Bool())
+	r.WithWithDisabled(random.Bool())
 }
 
 func TestVKMarketGetSuccess(t *testing.T) {
@@ -322,7 +322,7 @@ func TestVKMarketGetSuccess(t *testing.T) {
 	fillRandomlyMarketGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.get", params.Params(), expectedJSON))
@@ -339,7 +339,7 @@ func TestVKMarketGetExtendedSuccess(t *testing.T) {
 	fillRandomlyMarketGetExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.get", params.Params(), expectedJSON))
@@ -349,9 +349,9 @@ func TestVKMarketGetExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketGetAlbumByIdRequest(r *requests.MarketGetAlbumByIdRequest) {
-	r.WithOwnerId(random.RandInt())
-	lAlbumIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithAlbumIds(random.RandIntArr(lAlbumIds))
+	r.WithOwnerId(random.Int())
+	lAlbumIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithAlbumIds(random.IntArr(lAlbumIds))
 }
 
 func TestVKMarketGetAlbumByIdSuccess(t *testing.T) {
@@ -361,7 +361,7 @@ func TestVKMarketGetAlbumByIdSuccess(t *testing.T) {
 	fillRandomlyMarketGetAlbumByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.getAlbumById", params.Params(), expectedJSON))
@@ -371,9 +371,9 @@ func TestVKMarketGetAlbumByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketGetAlbumsRequest(r *requests.MarketGetAlbumsRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
 }
 
 func TestVKMarketGetAlbumsSuccess(t *testing.T) {
@@ -383,7 +383,7 @@ func TestVKMarketGetAlbumsSuccess(t *testing.T) {
 	fillRandomlyMarketGetAlbumsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.getAlbums", params.Params(), expectedJSON))
@@ -393,9 +393,9 @@ func TestVKMarketGetAlbumsSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketGetByIdRequest(r *requests.MarketGetByIdRequest) {
-	lItemIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithItemIds(random.RandStringArr(lItemIds))
-	r.WithExtended(random.RandBool())
+	lItemIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithItemIds(random.StringArr(lItemIds))
+	r.WithExtended(random.Bool())
 }
 
 func TestVKMarketGetByIdSuccess(t *testing.T) {
@@ -406,7 +406,7 @@ func TestVKMarketGetByIdSuccess(t *testing.T) {
 	fillRandomlyMarketGetByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.getById", params.Params(), expectedJSON))
@@ -423,7 +423,7 @@ func TestVKMarketGetByIdExtendedSuccess(t *testing.T) {
 	fillRandomlyMarketGetByIdExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.getById", params.Params(), expectedJSON))
@@ -433,8 +433,8 @@ func TestVKMarketGetByIdExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketGetCategoriesRequest(r *requests.MarketGetCategoriesRequest) {
-	r.WithCount(random.RandInt())
-	r.WithOffset(random.RandInt())
+	r.WithCount(random.Int())
+	r.WithOffset(random.Int())
 }
 
 func TestVKMarketGetCategoriesSuccess(t *testing.T) {
@@ -444,7 +444,7 @@ func TestVKMarketGetCategoriesSuccess(t *testing.T) {
 	fillRandomlyMarketGetCategoriesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.getCategories", params.Params(), expectedJSON))
@@ -454,16 +454,16 @@ func TestVKMarketGetCategoriesSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketGetCommentsRequest(r *requests.MarketGetCommentsRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithItemId(random.RandInt())
-	r.WithNeedLikes(random.RandBool())
-	r.WithStartCommentId(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithSort(random.RandString())
-	r.WithExtended(random.RandBool())
+	r.WithOwnerId(random.Int())
+	r.WithItemId(random.Int())
+	r.WithNeedLikes(random.Bool())
+	r.WithStartCommentId(random.Int())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
+	r.WithSort(random.String())
+	r.WithExtended(random.Bool())
 	Fields := new([]models.UsersFields)
-	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	lFields := random.IntDiapason(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
@@ -478,7 +478,7 @@ func TestVKMarketGetCommentsSuccess(t *testing.T) {
 	fillRandomlyMarketGetCommentsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.getComments", params.Params(), expectedJSON))
@@ -488,9 +488,9 @@ func TestVKMarketGetCommentsSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketGetGroupOrdersRequest(r *requests.MarketGetGroupOrdersRequest) {
-	r.WithGroupId(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
+	r.WithGroupId(random.Int())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
 }
 
 func TestVKMarketGetGroupOrdersSuccess(t *testing.T) {
@@ -500,7 +500,7 @@ func TestVKMarketGetGroupOrdersSuccess(t *testing.T) {
 	fillRandomlyMarketGetGroupOrdersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.getGroupOrders", params.Params(), expectedJSON))
@@ -510,9 +510,9 @@ func TestVKMarketGetGroupOrdersSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketGetOrderByIdRequest(r *requests.MarketGetOrderByIdRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithOrderId(random.RandInt())
-	r.WithExtended(random.RandBool())
+	r.WithUserId(random.Int())
+	r.WithOrderId(random.Int())
+	r.WithExtended(random.Bool())
 }
 
 func TestVKMarketGetOrderByIdSuccess(t *testing.T) {
@@ -522,7 +522,7 @@ func TestVKMarketGetOrderByIdSuccess(t *testing.T) {
 	fillRandomlyMarketGetOrderByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.getOrderById", params.Params(), expectedJSON))
@@ -532,10 +532,10 @@ func TestVKMarketGetOrderByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketGetOrderItemsRequest(r *requests.MarketGetOrderItemsRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithOrderId(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
+	r.WithUserId(random.Int())
+	r.WithOrderId(random.Int())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
 }
 
 func TestVKMarketGetOrderItemsSuccess(t *testing.T) {
@@ -545,7 +545,7 @@ func TestVKMarketGetOrderItemsSuccess(t *testing.T) {
 	fillRandomlyMarketGetOrderItemsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.getOrderItems", params.Params(), expectedJSON))
@@ -555,11 +555,11 @@ func TestVKMarketGetOrderItemsSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketGetOrdersRequest(r *requests.MarketGetOrdersRequest) {
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithExtended(random.RandBool())
-	r.WithDateFrom(random.RandString())
-	r.WithDateTo(random.RandString())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
+	r.WithExtended(random.Bool())
+	r.WithDateFrom(random.String())
+	r.WithDateTo(random.String())
 }
 
 func TestVKMarketGetOrdersSuccess(t *testing.T) {
@@ -570,7 +570,7 @@ func TestVKMarketGetOrdersSuccess(t *testing.T) {
 	fillRandomlyMarketGetOrdersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.getOrders", params.Params(), expectedJSON))
@@ -587,7 +587,7 @@ func TestVKMarketGetOrdersExtendedSuccess(t *testing.T) {
 	fillRandomlyMarketGetOrdersExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.getOrders", params.Params(), expectedJSON))
@@ -597,10 +597,10 @@ func TestVKMarketGetOrdersExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketRemoveFromAlbumRequest(r *requests.MarketRemoveFromAlbumRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithItemId(random.RandInt())
-	lAlbumIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithAlbumIds(random.RandIntArr(lAlbumIds))
+	r.WithOwnerId(random.Int())
+	r.WithItemId(random.Int())
+	lAlbumIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithAlbumIds(random.IntArr(lAlbumIds))
 }
 
 func TestVKMarketRemoveFromAlbumSuccess(t *testing.T) {
@@ -610,7 +610,7 @@ func TestVKMarketRemoveFromAlbumSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.removeFromAlbum", params.Params(), expectedJSON))
@@ -620,10 +620,10 @@ func TestVKMarketRemoveFromAlbumSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketReorderAlbumsRequest(r *requests.MarketReorderAlbumsRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithAlbumId(random.RandInt())
-	r.WithBefore(random.RandInt())
-	r.WithAfter(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithAlbumId(random.Int())
+	r.WithBefore(random.Int())
+	r.WithAfter(random.Int())
 }
 
 func TestVKMarketReorderAlbumsSuccess(t *testing.T) {
@@ -633,7 +633,7 @@ func TestVKMarketReorderAlbumsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.reorderAlbums", params.Params(), expectedJSON))
@@ -643,11 +643,11 @@ func TestVKMarketReorderAlbumsSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketReorderItemsRequest(r *requests.MarketReorderItemsRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithAlbumId(random.RandInt())
-	r.WithItemId(random.RandInt())
-	r.WithBefore(random.RandInt())
-	r.WithAfter(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithAlbumId(random.Int())
+	r.WithItemId(random.Int())
+	r.WithBefore(random.Int())
+	r.WithAfter(random.Int())
 }
 
 func TestVKMarketReorderItemsSuccess(t *testing.T) {
@@ -657,7 +657,7 @@ func TestVKMarketReorderItemsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.reorderItems", params.Params(), expectedJSON))
@@ -667,9 +667,9 @@ func TestVKMarketReorderItemsSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketReportRequest(r *requests.MarketReportRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithItemId(random.RandInt())
-	r.WithReason(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithItemId(random.Int())
+	r.WithReason(random.Int())
 }
 
 func TestVKMarketReportSuccess(t *testing.T) {
@@ -679,7 +679,7 @@ func TestVKMarketReportSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.report", params.Params(), expectedJSON))
@@ -689,9 +689,9 @@ func TestVKMarketReportSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketReportCommentRequest(r *requests.MarketReportCommentRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithCommentId(random.RandInt())
-	r.WithReason(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithCommentId(random.Int())
+	r.WithReason(random.Int())
 }
 
 func TestVKMarketReportCommentSuccess(t *testing.T) {
@@ -701,7 +701,7 @@ func TestVKMarketReportCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.reportComment", params.Params(), expectedJSON))
@@ -711,8 +711,8 @@ func TestVKMarketReportCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketRestoreRequest(r *requests.MarketRestoreRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithItemId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithItemId(random.Int())
 }
 
 func TestVKMarketRestoreSuccess(t *testing.T) {
@@ -722,7 +722,7 @@ func TestVKMarketRestoreSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.restore", params.Params(), expectedJSON))
@@ -732,8 +732,8 @@ func TestVKMarketRestoreSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketRestoreCommentRequest(r *requests.MarketRestoreCommentRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithCommentId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithCommentId(random.Int())
 }
 
 func TestVKMarketRestoreCommentSuccess(t *testing.T) {
@@ -743,7 +743,7 @@ func TestVKMarketRestoreCommentSuccess(t *testing.T) {
 	fillRandomlyMarketRestoreCommentResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.restoreComment", params.Params(), expectedJSON))
@@ -753,19 +753,19 @@ func TestVKMarketRestoreCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketSearchRequest(r *requests.MarketSearchRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithAlbumId(random.RandInt())
-	r.WithQ(random.RandString())
-	r.WithPriceFrom(random.RandInt())
-	r.WithPriceTo(random.RandInt())
-	r.WithSort(random.RandInt())
-	r.WithRev(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithExtended(random.RandBool())
-	lStatus := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithStatus(random.RandIntArr(lStatus))
-	r.WithNeedVariants(random.RandBool())
+	r.WithOwnerId(random.Int())
+	r.WithAlbumId(random.Int())
+	r.WithQ(random.String())
+	r.WithPriceFrom(random.Int())
+	r.WithPriceTo(random.Int())
+	r.WithSort(random.Int())
+	r.WithRev(random.Int())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
+	r.WithExtended(random.Bool())
+	lStatus := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithStatus(random.IntArr(lStatus))
+	r.WithNeedVariants(random.Bool())
 }
 
 func TestVKMarketSearchSuccess(t *testing.T) {
@@ -776,7 +776,7 @@ func TestVKMarketSearchSuccess(t *testing.T) {
 	fillRandomlyMarketSearchResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.search", params.Params(), expectedJSON))
@@ -793,7 +793,7 @@ func TestVKMarketSearchExtendedSuccess(t *testing.T) {
 	fillRandomlyMarketSearchExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.search", params.Params(), expectedJSON))
@@ -803,16 +803,16 @@ func TestVKMarketSearchExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyMarketSearchItemsRequest(r *requests.MarketSearchItemsRequest) {
-	r.WithQ(random.RandString())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithCategoryId(random.RandInt())
-	r.WithPriceFrom(random.RandInt())
-	r.WithPriceTo(random.RandInt())
-	r.WithSortBy(random.RandInt())
-	r.WithSortDirection(random.RandInt())
-	r.WithCountry(random.RandInt())
-	r.WithCity(random.RandInt())
+	r.WithQ(random.String())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
+	r.WithCategoryId(random.Int())
+	r.WithPriceFrom(random.Int())
+	r.WithPriceTo(random.Int())
+	r.WithSortBy(random.Int())
+	r.WithSortDirection(random.Int())
+	r.WithCountry(random.Int())
+	r.WithCity(random.Int())
 }
 
 func TestVKMarketSearchItemsSuccess(t *testing.T) {
@@ -822,7 +822,7 @@ func TestVKMarketSearchItemsSuccess(t *testing.T) {
 	fillRandomlyMarketSearchResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "market.searchItems", params.Params(), expectedJSON))

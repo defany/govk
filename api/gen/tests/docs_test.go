@@ -14,9 +14,9 @@ import (
 )
 
 func fillRandomlyDocsAddRequest(r *requests.DocsAddRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithDocId(random.RandInt())
-	r.WithAccessKey(random.RandString())
+	r.WithOwnerId(random.Int())
+	r.WithDocId(random.Int())
+	r.WithAccessKey(random.String())
 }
 
 func TestVKDocsAddSuccess(t *testing.T) {
@@ -26,7 +26,7 @@ func TestVKDocsAddSuccess(t *testing.T) {
 	fillRandomlyDocsAddResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "docs.add", params.Params(), expectedJSON))
@@ -36,8 +36,8 @@ func TestVKDocsAddSuccess(t *testing.T) {
 }
 
 func fillRandomlyDocsDeleteRequest(r *requests.DocsDeleteRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithDocId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithDocId(random.Int())
 }
 
 func TestVKDocsDeleteSuccess(t *testing.T) {
@@ -47,7 +47,7 @@ func TestVKDocsDeleteSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "docs.delete", params.Params(), expectedJSON))
@@ -57,11 +57,11 @@ func TestVKDocsDeleteSuccess(t *testing.T) {
 }
 
 func fillRandomlyDocsEditRequest(r *requests.DocsEditRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithDocId(random.RandInt())
-	r.WithTitle(random.RandString())
-	lTags := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithTags(random.RandStringArr(lTags))
+	r.WithOwnerId(random.Int())
+	r.WithDocId(random.Int())
+	r.WithTitle(random.String())
+	lTags := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithTags(random.StringArr(lTags))
 }
 
 func TestVKDocsEditSuccess(t *testing.T) {
@@ -71,7 +71,7 @@ func TestVKDocsEditSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "docs.edit", params.Params(), expectedJSON))
@@ -81,11 +81,11 @@ func TestVKDocsEditSuccess(t *testing.T) {
 }
 
 func fillRandomlyDocsGetRequest(r *requests.DocsGetRequest) {
-	r.WithCount(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithType(random.RandInt())
-	r.WithOwnerId(random.RandInt())
-	r.WithReturnTags(random.RandBool())
+	r.WithCount(random.Int())
+	r.WithOffset(random.Int())
+	r.WithType(random.Int())
+	r.WithOwnerId(random.Int())
+	r.WithReturnTags(random.Bool())
 }
 
 func TestVKDocsGetSuccess(t *testing.T) {
@@ -95,7 +95,7 @@ func TestVKDocsGetSuccess(t *testing.T) {
 	fillRandomlyDocsGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "docs.get", params.Params(), expectedJSON))
@@ -105,9 +105,9 @@ func TestVKDocsGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyDocsGetByIdRequest(r *requests.DocsGetByIdRequest) {
-	lDocs := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithDocs(random.RandStringArr(lDocs))
-	r.WithReturnTags(random.RandBool())
+	lDocs := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithDocs(random.StringArr(lDocs))
+	r.WithReturnTags(random.Bool())
 }
 
 func TestVKDocsGetByIdSuccess(t *testing.T) {
@@ -117,7 +117,7 @@ func TestVKDocsGetByIdSuccess(t *testing.T) {
 	fillRandomlyDocsGetByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "docs.getById", params.Params(), expectedJSON))
@@ -127,8 +127,8 @@ func TestVKDocsGetByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyDocsGetMessagesUploadServerRequest(r *requests.DocsGetMessagesUploadServerRequest) {
-	r.WithType(random.RandString())
-	r.WithPeerId(random.RandInt())
+	r.WithType(random.String())
+	r.WithPeerId(random.Int())
 }
 
 func TestVKDocsGetMessagesUploadServerSuccess(t *testing.T) {
@@ -138,7 +138,7 @@ func TestVKDocsGetMessagesUploadServerSuccess(t *testing.T) {
 	fillRandomlyDocsGetUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "docs.getMessagesUploadServer", params.Params(), expectedJSON))
@@ -148,7 +148,7 @@ func TestVKDocsGetMessagesUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyDocsGetTypesRequest(r *requests.DocsGetTypesRequest) {
-	r.WithOwnerId(random.RandInt())
+	r.WithOwnerId(random.Int())
 }
 
 func TestVKDocsGetTypesSuccess(t *testing.T) {
@@ -158,7 +158,7 @@ func TestVKDocsGetTypesSuccess(t *testing.T) {
 	fillRandomlyDocsGetTypesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "docs.getTypes", params.Params(), expectedJSON))
@@ -168,7 +168,7 @@ func TestVKDocsGetTypesSuccess(t *testing.T) {
 }
 
 func fillRandomlyDocsGetUploadServerRequest(r *requests.DocsGetUploadServerRequest) {
-	r.WithGroupId(random.RandInt())
+	r.WithGroupId(random.Int())
 }
 
 func TestVKDocsGetUploadServerSuccess(t *testing.T) {
@@ -178,7 +178,7 @@ func TestVKDocsGetUploadServerSuccess(t *testing.T) {
 	fillRandomlyDocsGetUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "docs.getUploadServer", params.Params(), expectedJSON))
@@ -188,7 +188,7 @@ func TestVKDocsGetUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyDocsGetWallUploadServerRequest(r *requests.DocsGetWallUploadServerRequest) {
-	r.WithGroupId(random.RandInt())
+	r.WithGroupId(random.Int())
 }
 
 func TestVKDocsGetWallUploadServerSuccess(t *testing.T) {
@@ -198,7 +198,7 @@ func TestVKDocsGetWallUploadServerSuccess(t *testing.T) {
 	fillRandomlyBaseGetUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "docs.getWallUploadServer", params.Params(), expectedJSON))
@@ -208,10 +208,10 @@ func TestVKDocsGetWallUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyDocsSaveRequest(r *requests.DocsSaveRequest) {
-	r.WithFile(random.RandString())
-	r.WithTitle(random.RandString())
-	r.WithTags(random.RandString())
-	r.WithReturnTags(random.RandBool())
+	r.WithFile(random.String())
+	r.WithTitle(random.String())
+	r.WithTags(random.String())
+	r.WithReturnTags(random.Bool())
 }
 
 func TestVKDocsSaveSuccess(t *testing.T) {
@@ -221,7 +221,7 @@ func TestVKDocsSaveSuccess(t *testing.T) {
 	fillRandomlyDocsSaveResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "docs.save", params.Params(), expectedJSON))
@@ -231,11 +231,11 @@ func TestVKDocsSaveSuccess(t *testing.T) {
 }
 
 func fillRandomlyDocsSearchRequest(r *requests.DocsSearchRequest) {
-	r.WithQ(random.RandString())
-	r.WithSearchOwn(random.RandBool())
-	r.WithCount(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithReturnTags(random.RandBool())
+	r.WithQ(random.String())
+	r.WithSearchOwn(random.Bool())
+	r.WithCount(random.Int())
+	r.WithOffset(random.Int())
+	r.WithReturnTags(random.Bool())
 }
 
 func TestVKDocsSearchSuccess(t *testing.T) {
@@ -245,7 +245,7 @@ func TestVKDocsSearchSuccess(t *testing.T) {
 	fillRandomlyDocsSearchResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "docs.search", params.Params(), expectedJSON))

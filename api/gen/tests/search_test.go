@@ -14,14 +14,14 @@ import (
 )
 
 func fillRandomlySearchGetHintsRequest(r *requests.SearchGetHintsRequest) {
-	r.WithQ(random.RandString())
-	r.WithOffset(random.RandInt())
-	r.WithLimit(random.RandInt())
-	lFilters := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithFilters(random.RandStringArr(lFilters))
-	lFields := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithFields(random.RandStringArr(lFields))
-	r.WithSearchGlobal(random.RandBool())
+	r.WithQ(random.String())
+	r.WithOffset(random.Int())
+	r.WithLimit(random.Int())
+	lFilters := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithFilters(random.StringArr(lFilters))
+	lFields := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithFields(random.StringArr(lFields))
+	r.WithSearchGlobal(random.Bool())
 }
 
 func TestVKSearchGetHintsSuccess(t *testing.T) {
@@ -31,7 +31,7 @@ func TestVKSearchGetHintsSuccess(t *testing.T) {
 	fillRandomlySearchGetHintsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "search.getHints", params.Params(), expectedJSON))

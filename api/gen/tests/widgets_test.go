@@ -14,19 +14,19 @@ import (
 )
 
 func fillRandomlyWidgetsGetCommentsRequest(r *requests.WidgetsGetCommentsRequest) {
-	r.WithWidgetApiId(random.RandInt())
-	r.WithUrl(random.RandString())
-	r.WithPageId(random.RandString())
-	r.WithOrder(random.RandString())
+	r.WithWidgetApiId(random.Int())
+	r.WithUrl(random.String())
+	r.WithPageId(random.String())
+	r.WithOrder(random.String())
 	Fields := new([]models.UsersFields)
-	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	lFields := random.IntDiapason(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
 }
 
 func TestVKWidgetsGetCommentsSuccess(t *testing.T) {
@@ -36,7 +36,7 @@ func TestVKWidgetsGetCommentsSuccess(t *testing.T) {
 	fillRandomlyWidgetsGetCommentsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "widgets.getComments", params.Params(), expectedJSON))
@@ -46,11 +46,11 @@ func TestVKWidgetsGetCommentsSuccess(t *testing.T) {
 }
 
 func fillRandomlyWidgetsGetPagesRequest(r *requests.WidgetsGetPagesRequest) {
-	r.WithWidgetApiId(random.RandInt())
-	r.WithOrder(random.RandString())
-	r.WithPeriod(random.RandString())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
+	r.WithWidgetApiId(random.Int())
+	r.WithOrder(random.String())
+	r.WithPeriod(random.String())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
 }
 
 func TestVKWidgetsGetPagesSuccess(t *testing.T) {
@@ -60,7 +60,7 @@ func TestVKWidgetsGetPagesSuccess(t *testing.T) {
 	fillRandomlyWidgetsGetPagesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "widgets.getPages", params.Params(), expectedJSON))

@@ -943,7 +943,7 @@ func (of OneOf) TestGen() (testGen string) {
 
 	testGen += fmt.Sprintf("func %s%s(o *models.%s) {\n", testMethodName, genName, genName)
 	testGen += fmt.Sprintf("\tvar rawJSON []byte\n")
-	testGen += fmt.Sprintf("\tswitch random.RandIntn(%d) {\n", len(of.Fields))
+	testGen += fmt.Sprintf("\tswitch random.IntDiapason(%d) {\n", len(of.Fields))
 
 	for i, f := range of.Fields {
 		testGen += fmt.Sprintf("\tcase %d:\n", i)
@@ -964,7 +964,7 @@ func (of OneOf) TestGen() (testGen string) {
 			continue
 		}
 
-		testGen += "\t\tl0 := random.RandIntn(random.MaxArrayLength + 1)\n"
+		testGen += "\t\tl0 := random.IntDiapason(random.MaxArrayLength + 1)\n"
 
 		testGen += fmt.Sprintf("\t\tr := make(%smodels.%s, l0)\n", getArrayBrackets(t.ArrayNestingLevel), fGenName)
 
@@ -977,7 +977,7 @@ func (of OneOf) TestGen() (testGen string) {
 				tabs, j, j, j, j)
 
 			if j+1 < t.ArrayNestingLevel {
-				testGen += fmt.Sprintf("\t\t%sl%d = random.RandIntn(random.MaxArrayLength + 1)\n", tabs, j+1)
+				testGen += fmt.Sprintf("\t\t%sl%d = random.IntDiapason(random.MaxArrayLength + 1)\n", tabs, j+1)
 
 				testGen += fmt.Sprintf("\t\t%s(*r)[i%d] = make(%s%s, l%d)\n",
 					tabs, j, getArrayBrackets(t.ArrayNestingLevel-j-1), fGenName, j+1)
@@ -1044,7 +1044,7 @@ func (of OneOf) nestedTestGen(objName, refName string, firstArray *bool) (testGe
 		*firstArray = false
 	}
 
-	testGen += fmt.Sprintf("\tl0 %s random.RandIntn(random.MaxArrayLength + 1)\n", equal)
+	testGen += fmt.Sprintf("\tl0 %s random.IntDiapason(random.MaxArrayLength + 1)\n", equal)
 
 	testGen += fmt.Sprintf("\t%s.%s = make(%smodels.%s, l0)\n", refName, genName, getArrayBrackets(of.ArrayNestingLevel), newStructType)
 
@@ -1057,7 +1057,7 @@ func (of OneOf) nestedTestGen(objName, refName string, firstArray *bool) (testGe
 			tabs, i, i, i, i)
 
 		if i+1 < of.ArrayNestingLevel {
-			testGen += fmt.Sprintf("\t%sl%d := random.RandIntn(random.MaxArrayLength + 1)\n", tabs, i+1)
+			testGen += fmt.Sprintf("\t%sl%d := random.IntDiapason(random.MaxArrayLength + 1)\n", tabs, i+1)
 
 			testGen += fmt.Sprintf("\t%s(*o)[i%d] = make(%s%s, l%d)\n",
 				tabs, i, getArrayBrackets(of.ArrayNestingLevel-i-1), newStructType, i+1)
@@ -1108,7 +1108,7 @@ func (t SimpleType) TestGen() (testGen string) {
 	}
 
 	for i := 0; i < t.ArrayNestingLevel; i++ {
-		testGen += fmt.Sprintf("\tl%d := random.RandIntn(random.MaxArrayLength + 1)\n", i)
+		testGen += fmt.Sprintf("\tl%d := random.IntDiapason(random.MaxArrayLength + 1)\n", i)
 	}
 
 	if isGoType(t.Type) {
@@ -1213,7 +1213,7 @@ func (t SimpleType) nestedTestGen(objName, refName string, firstArray *bool) (te
 		equal = ":="
 		*firstArray = false
 	}
-	testGen += fmt.Sprintf("\tl0 %s random.RandIntn(random.MaxArrayLength + 1)\n", equal)
+	testGen += fmt.Sprintf("\tl0 %s random.IntDiapason(random.MaxArrayLength + 1)\n", equal)
 
 	if isGoType(genType) {
 		testGen += fmt.Sprintf("\t%s%s.%s = make(%s%s, l0)\n", pointer, refName, genName, getArrayBrackets(t.ArrayNestingLevel), genType)
@@ -1230,7 +1230,7 @@ func (t SimpleType) nestedTestGen(objName, refName string, firstArray *bool) (te
 			tabs, i, i, i, i)
 
 		if i+1 < t.ArrayNestingLevel {
-			testGen += fmt.Sprintf("\t%sl%d := random.RandIntn(random.MaxArrayLength + 1)\n", tabs, i+1)
+			testGen += fmt.Sprintf("\t%sl%d := random.IntDiapason(random.MaxArrayLength + 1)\n", tabs, i+1)
 
 			if isGoType(genType) {
 				testGen += fmt.Sprintf("\t%s(%s%s.%s)[i%d] = make(%s%s, l%d)\n",
@@ -1281,7 +1281,7 @@ func (e Enum) TestGen() (testGen string) {
 		genName = getFullObjectName(e.Name)
 	}
 
-	testGen += fmt.Sprintf("func %s%s(o *models.%s) {\n\tswitch random.RandIntn(%d) {\n", testMethodName, genName, genName, len(e.EnumValues))
+	testGen += fmt.Sprintf("func %s%s(o *models.%s) {\n\tswitch random.IntDiapason(%d) {\n", testMethodName, genName, genName, len(e.EnumValues))
 
 	for i, v := range e.EnumValues {
 		var genV string
@@ -1336,7 +1336,7 @@ func (e Enum) nestedTestGen(objName, refName string, firstArray *bool) (testGen,
 		*firstArray = false
 	}
 
-	testGen += fmt.Sprintf("\tl0 %s random.RandIntn(random.MaxArrayLength + 1)\n", equal)
+	testGen += fmt.Sprintf("\tl0 %s random.IntDiapason(random.MaxArrayLength + 1)\n", equal)
 
 	testGen += fmt.Sprintf("\t%s%s.%s = make(%smodels.%s, l0)\n", pointer, refName, genName, getArrayBrackets(e.ArrayNestingLevel), newStructType)
 
@@ -1349,7 +1349,7 @@ func (e Enum) nestedTestGen(objName, refName string, firstArray *bool) (testGen,
 			tabs, i, i, i, i)
 
 		if i+1 < e.ArrayNestingLevel {
-			testGen += fmt.Sprintf("\t%sl%d = random.RandIntn(random.MaxArrayLength + 1)\n", tabs, i+1)
+			testGen += fmt.Sprintf("\t%sl%d = random.IntDiapason(random.MaxArrayLength + 1)\n", tabs, i+1)
 
 			testGen += fmt.Sprintf("\t%s(*o)[i%d] = make(%s%s, l%d)\n",
 				tabs, i, getArrayBrackets(e.ArrayNestingLevel-i-1), newStructType, i+1)
@@ -1376,17 +1376,17 @@ func (e Enum) nestedTestGen(objName, refName string, firstArray *bool) (testGen,
 func getRandSetter(t string) (s string) {
 	switch t {
 	case "string":
-		s += "random.RandString()"
+		s += "random.String()"
 	case "int":
-		s += "random.RandInt()"
+		s += "random.Int()"
 	case "float64":
-		s += "random.RandFloat()"
+		s += "random.MustFloat()"
 	case "bool":
-		s += "random.RandBool()"
+		s += "random.Bool()"
 	case "[]string":
-		s += "random.RandStringArr("
+		s += "random.StringArr("
 	case "[]int":
-		s += "random.RandIntArr("
+		s += "random.IntArr("
 	}
 
 	return

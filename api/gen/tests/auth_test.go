@@ -14,8 +14,8 @@ import (
 )
 
 func fillRandomlyAuthRestoreRequest(r *requests.AuthRestoreRequest) {
-	r.WithPhone(random.RandString())
-	r.WithLastName(random.RandString())
+	r.WithPhone(random.String())
+	r.WithLastName(random.String())
 }
 
 func TestVKAuthRestoreSuccess(t *testing.T) {
@@ -25,7 +25,7 @@ func TestVKAuthRestoreSuccess(t *testing.T) {
 	fillRandomlyAuthRestoreResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "auth.restore", params.Params(), expectedJSON))

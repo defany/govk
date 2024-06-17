@@ -14,10 +14,10 @@ import (
 )
 
 func fillRandomlyStorageGetRequest(r *requests.StorageGetRequest) {
-	r.WithKey(random.RandString())
-	lKeys := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithKeys(random.RandStringArr(lKeys))
-	r.WithUserId(random.RandInt())
+	r.WithKey(random.String())
+	lKeys := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithKeys(random.StringArr(lKeys))
+	r.WithUserId(random.Int())
 }
 
 func TestVKStorageGetSuccess(t *testing.T) {
@@ -27,7 +27,7 @@ func TestVKStorageGetSuccess(t *testing.T) {
 	fillRandomlyStorageGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "storage.get", params.Params(), expectedJSON))
@@ -37,9 +37,9 @@ func TestVKStorageGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyStorageGetKeysRequest(r *requests.StorageGetKeysRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
+	r.WithUserId(random.Int())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
 }
 
 func TestVKStorageGetKeysSuccess(t *testing.T) {
@@ -49,7 +49,7 @@ func TestVKStorageGetKeysSuccess(t *testing.T) {
 	fillRandomlyStorageGetKeysResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "storage.getKeys", params.Params(), expectedJSON))
@@ -59,9 +59,9 @@ func TestVKStorageGetKeysSuccess(t *testing.T) {
 }
 
 func fillRandomlyStorageSetRequest(r *requests.StorageSetRequest) {
-	r.WithKey(random.RandString())
-	r.WithValue(random.RandString())
-	r.WithUserId(random.RandInt())
+	r.WithKey(random.String())
+	r.WithValue(random.String())
+	r.WithUserId(random.Int())
 }
 
 func TestVKStorageSetSuccess(t *testing.T) {
@@ -71,7 +71,7 @@ func TestVKStorageSetSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "storage.set", params.Params(), expectedJSON))

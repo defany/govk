@@ -14,7 +14,7 @@ import (
 )
 
 func fillRandomlyDownloadedGamesGetPaidStatusRequest(r *requests.DownloadedGamesGetPaidStatusRequest) {
-	r.WithUserId(random.RandInt())
+	r.WithUserId(random.Int())
 }
 
 func TestVKDownloadedGamesGetPaidStatusSuccess(t *testing.T) {
@@ -24,7 +24,7 @@ func TestVKDownloadedGamesGetPaidStatusSuccess(t *testing.T) {
 	fillRandomlyDownloadedGamesPaidStatusResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "downloadedGames.getPaidStatus", params.Params(), expectedJSON))

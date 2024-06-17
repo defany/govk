@@ -17,9 +17,9 @@ func fillRandomlyLikesAddRequest(r *requests.LikesAddRequest) {
 	Type := new(models.LikesType)
 	fillRandomlyLikesType(Type)
 	r.WithType(*Type)
-	r.WithOwnerId(random.RandInt())
-	r.WithItemId(random.RandInt())
-	r.WithAccessKey(random.RandString())
+	r.WithOwnerId(random.Int())
+	r.WithItemId(random.Int())
+	r.WithAccessKey(random.String())
 }
 
 func TestVKLikesAddSuccess(t *testing.T) {
@@ -29,7 +29,7 @@ func TestVKLikesAddSuccess(t *testing.T) {
 	fillRandomlyLikesAddResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "likes.add", params.Params(), expectedJSON))
@@ -42,9 +42,9 @@ func fillRandomlyLikesDeleteRequest(r *requests.LikesDeleteRequest) {
 	Type := new(models.LikesType)
 	fillRandomlyLikesType(Type)
 	r.WithType(*Type)
-	r.WithOwnerId(random.RandInt())
-	r.WithItemId(random.RandInt())
-	r.WithAccessKey(random.RandString())
+	r.WithOwnerId(random.Int())
+	r.WithItemId(random.Int())
+	r.WithAccessKey(random.String())
 }
 
 func TestVKLikesDeleteSuccess(t *testing.T) {
@@ -54,7 +54,7 @@ func TestVKLikesDeleteSuccess(t *testing.T) {
 	fillRandomlyLikesDeleteResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "likes.delete", params.Params(), expectedJSON))
@@ -67,15 +67,15 @@ func fillRandomlyLikesGetListRequest(r *requests.LikesGetListRequest) {
 	Type := new(models.LikesType)
 	fillRandomlyLikesType(Type)
 	r.WithType(*Type)
-	r.WithOwnerId(random.RandInt())
-	r.WithItemId(random.RandInt())
-	r.WithPageUrl(random.RandString())
-	r.WithFilter(random.RandString())
-	r.WithFriendsOnly(random.RandInt())
-	r.WithExtended(random.RandBool())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithSkipOwn(random.RandBool())
+	r.WithOwnerId(random.Int())
+	r.WithItemId(random.Int())
+	r.WithPageUrl(random.String())
+	r.WithFilter(random.String())
+	r.WithFriendsOnly(random.Int())
+	r.WithExtended(random.Bool())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
+	r.WithSkipOwn(random.Bool())
 }
 
 func TestVKLikesGetListSuccess(t *testing.T) {
@@ -86,7 +86,7 @@ func TestVKLikesGetListSuccess(t *testing.T) {
 	fillRandomlyLikesGetListResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "likes.getList", params.Params(), expectedJSON))
@@ -103,7 +103,7 @@ func TestVKLikesGetListExtendedSuccess(t *testing.T) {
 	fillRandomlyLikesGetListExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "likes.getList", params.Params(), expectedJSON))
@@ -113,12 +113,12 @@ func TestVKLikesGetListExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyLikesIsLikedRequest(r *requests.LikesIsLikedRequest) {
-	r.WithUserId(random.RandInt())
+	r.WithUserId(random.Int())
 	Type := new(models.LikesType)
 	fillRandomlyLikesType(Type)
 	r.WithType(*Type)
-	r.WithOwnerId(random.RandInt())
-	r.WithItemId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithItemId(random.Int())
 }
 
 func TestVKLikesIsLikedSuccess(t *testing.T) {
@@ -128,7 +128,7 @@ func TestVKLikesIsLikedSuccess(t *testing.T) {
 	fillRandomlyLikesIsLikedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "likes.isLiked", params.Params(), expectedJSON))

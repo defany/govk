@@ -14,8 +14,8 @@ import (
 )
 
 func fillRandomlyStatusGetRequest(r *requests.StatusGetRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.Int())
+	r.WithGroupId(random.Int())
 }
 
 func TestVKStatusGetSuccess(t *testing.T) {
@@ -25,7 +25,7 @@ func TestVKStatusGetSuccess(t *testing.T) {
 	fillRandomlyStatusGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "status.get", params.Params(), expectedJSON))
@@ -35,8 +35,8 @@ func TestVKStatusGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyStatusSetRequest(r *requests.StatusSetRequest) {
-	r.WithText(random.RandString())
-	r.WithGroupId(random.RandInt())
+	r.WithText(random.String())
+	r.WithGroupId(random.Int())
 }
 
 func TestVKStatusSetSuccess(t *testing.T) {
@@ -46,7 +46,7 @@ func TestVKStatusSetSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "status.set", params.Params(), expectedJSON))

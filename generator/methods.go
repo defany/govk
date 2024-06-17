@@ -523,7 +523,7 @@ func (m Method) successTestGen() (testGen string) {
 		testGen += fmt.Sprintf("\texpectedJSON := []byte(%q)", "{}")
 	}
 
-	testGen += "\ttoken := random.RandString()\n"
+	testGen += "\ttoken := random.String()\n"
 	testGen += fmt.Sprintf("\tvk, err := govk.NewVK(token)\n")
 	testGen += "\tassert.NoError(t, err)\n"
 	if len(m.Params) > 0 {
@@ -597,7 +597,7 @@ func (m Method) testGenRequest() (testGen string) {
 			if pGenner.Param().ArrayNestingLevel < 1 {
 				fieldsGen += fmt.Sprintf("\tr.With%s(%s)\n", getFullName(pGenner.GetName()), getRandSetter(pGenner.Param().Type))
 			} else {
-				fieldsGen += fmt.Sprintf("\tl%s := random.RandIntn(random.MaxArrayLength + 1)\n", getFullName(pGenner.GetName()))
+				fieldsGen += fmt.Sprintf("\tl%s := random.IntDiapason(random.MaxArrayLength + 1)\n", getFullName(pGenner.GetName()))
 				fieldsGen += fmt.Sprintf("\tr.With%s(%sl%[1]s))\n", getFullName(pGenner.GetName()), getRandSetter(getArrayBrackets(pGenner.Param().ArrayNestingLevel)+pGenner.Param().Type))
 			}
 		} else {
@@ -607,7 +607,7 @@ func (m Method) testGenRequest() (testGen string) {
 				fieldsGen += fmt.Sprintf("\tr.With%s(*%[1]s)\n", getFullName(pGenner.GetName()))
 			} else {
 				fieldsGen += fmt.Sprintf("\t%s := new(%smodels.%s)\n", getFullName(pGenner.GetName()), getArrayBrackets(pGenner.Param().ArrayNestingLevel), pGenner.Param().Type)
-				fieldsGen += fmt.Sprintf("\tl%s := random.RandIntn(random.MaxArrayLength + 1)\n", getFullName(pGenner.GetName()))
+				fieldsGen += fmt.Sprintf("\tl%s := random.IntDiapason(random.MaxArrayLength + 1)\n", getFullName(pGenner.GetName()))
 				fieldsGen += fmt.Sprintf("\t*%s = make(%smodels.%s, l%[1]s)\n", getFullName(pGenner.GetName()), getArrayBrackets(pGenner.Param().ArrayNestingLevel), pGenner.Param().Type)
 				fieldsGen += fmt.Sprintf("\tfor i0 := 0; i0 < l%[2]s; i0++ {\n\t\tfillRandomly%[1]s(&(*%s)[i0])\n\t}\n", pGenner.Param().Type, getFullName(pGenner.GetName()))
 				fieldsGen += fmt.Sprintf("\tr.With%s(*%[1]s)\n", getFullName(pGenner.GetName()))

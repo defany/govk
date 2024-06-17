@@ -14,12 +14,12 @@ import (
 )
 
 func fillRandomlyNotesAddRequest(r *requests.NotesAddRequest) {
-	r.WithTitle(random.RandString())
-	r.WithText(random.RandString())
-	lPrivacyView := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithPrivacyView(random.RandStringArr(lPrivacyView))
-	lPrivacyComment := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithPrivacyComment(random.RandStringArr(lPrivacyComment))
+	r.WithTitle(random.String())
+	r.WithText(random.String())
+	lPrivacyView := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithPrivacyView(random.StringArr(lPrivacyView))
+	lPrivacyComment := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithPrivacyComment(random.StringArr(lPrivacyComment))
 }
 
 func TestVKNotesAddSuccess(t *testing.T) {
@@ -29,7 +29,7 @@ func TestVKNotesAddSuccess(t *testing.T) {
 	fillRandomlyNotesAddResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "notes.add", params.Params(), expectedJSON))
@@ -39,11 +39,11 @@ func TestVKNotesAddSuccess(t *testing.T) {
 }
 
 func fillRandomlyNotesCreateCommentRequest(r *requests.NotesCreateCommentRequest) {
-	r.WithNoteId(random.RandInt())
-	r.WithOwnerId(random.RandInt())
-	r.WithReplyTo(random.RandInt())
-	r.WithMessage(random.RandString())
-	r.WithGuid(random.RandString())
+	r.WithNoteId(random.Int())
+	r.WithOwnerId(random.Int())
+	r.WithReplyTo(random.Int())
+	r.WithMessage(random.String())
+	r.WithGuid(random.String())
 }
 
 func TestVKNotesCreateCommentSuccess(t *testing.T) {
@@ -53,7 +53,7 @@ func TestVKNotesCreateCommentSuccess(t *testing.T) {
 	fillRandomlyNotesCreateCommentResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "notes.createComment", params.Params(), expectedJSON))
@@ -63,7 +63,7 @@ func TestVKNotesCreateCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyNotesDeleteRequest(r *requests.NotesDeleteRequest) {
-	r.WithNoteId(random.RandInt())
+	r.WithNoteId(random.Int())
 }
 
 func TestVKNotesDeleteSuccess(t *testing.T) {
@@ -73,7 +73,7 @@ func TestVKNotesDeleteSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "notes.delete", params.Params(), expectedJSON))
@@ -83,8 +83,8 @@ func TestVKNotesDeleteSuccess(t *testing.T) {
 }
 
 func fillRandomlyNotesDeleteCommentRequest(r *requests.NotesDeleteCommentRequest) {
-	r.WithCommentId(random.RandInt())
-	r.WithOwnerId(random.RandInt())
+	r.WithCommentId(random.Int())
+	r.WithOwnerId(random.Int())
 }
 
 func TestVKNotesDeleteCommentSuccess(t *testing.T) {
@@ -94,7 +94,7 @@ func TestVKNotesDeleteCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "notes.deleteComment", params.Params(), expectedJSON))
@@ -104,13 +104,13 @@ func TestVKNotesDeleteCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyNotesEditRequest(r *requests.NotesEditRequest) {
-	r.WithNoteId(random.RandInt())
-	r.WithTitle(random.RandString())
-	r.WithText(random.RandString())
-	lPrivacyView := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithPrivacyView(random.RandStringArr(lPrivacyView))
-	lPrivacyComment := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithPrivacyComment(random.RandStringArr(lPrivacyComment))
+	r.WithNoteId(random.Int())
+	r.WithTitle(random.String())
+	r.WithText(random.String())
+	lPrivacyView := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithPrivacyView(random.StringArr(lPrivacyView))
+	lPrivacyComment := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithPrivacyComment(random.StringArr(lPrivacyComment))
 }
 
 func TestVKNotesEditSuccess(t *testing.T) {
@@ -120,7 +120,7 @@ func TestVKNotesEditSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "notes.edit", params.Params(), expectedJSON))
@@ -130,9 +130,9 @@ func TestVKNotesEditSuccess(t *testing.T) {
 }
 
 func fillRandomlyNotesEditCommentRequest(r *requests.NotesEditCommentRequest) {
-	r.WithCommentId(random.RandInt())
-	r.WithOwnerId(random.RandInt())
-	r.WithMessage(random.RandString())
+	r.WithCommentId(random.Int())
+	r.WithOwnerId(random.Int())
+	r.WithMessage(random.String())
 }
 
 func TestVKNotesEditCommentSuccess(t *testing.T) {
@@ -142,7 +142,7 @@ func TestVKNotesEditCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "notes.editComment", params.Params(), expectedJSON))
@@ -152,12 +152,12 @@ func TestVKNotesEditCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyNotesGetRequest(r *requests.NotesGetRequest) {
-	lNoteIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithNoteIds(random.RandIntArr(lNoteIds))
-	r.WithUserId(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithSort(random.RandInt())
+	lNoteIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithNoteIds(random.IntArr(lNoteIds))
+	r.WithUserId(random.Int())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
+	r.WithSort(random.Int())
 }
 
 func TestVKNotesGetSuccess(t *testing.T) {
@@ -167,7 +167,7 @@ func TestVKNotesGetSuccess(t *testing.T) {
 	fillRandomlyNotesGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "notes.get", params.Params(), expectedJSON))
@@ -177,9 +177,9 @@ func TestVKNotesGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyNotesGetByIdRequest(r *requests.NotesGetByIdRequest) {
-	r.WithNoteId(random.RandInt())
-	r.WithOwnerId(random.RandInt())
-	r.WithNeedWiki(random.RandBool())
+	r.WithNoteId(random.Int())
+	r.WithOwnerId(random.Int())
+	r.WithNeedWiki(random.Bool())
 }
 
 func TestVKNotesGetByIdSuccess(t *testing.T) {
@@ -189,7 +189,7 @@ func TestVKNotesGetByIdSuccess(t *testing.T) {
 	fillRandomlyNotesGetByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "notes.getById", params.Params(), expectedJSON))
@@ -199,11 +199,11 @@ func TestVKNotesGetByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyNotesGetCommentsRequest(r *requests.NotesGetCommentsRequest) {
-	r.WithNoteId(random.RandInt())
-	r.WithOwnerId(random.RandInt())
-	r.WithSort(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
+	r.WithNoteId(random.Int())
+	r.WithOwnerId(random.Int())
+	r.WithSort(random.Int())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
 }
 
 func TestVKNotesGetCommentsSuccess(t *testing.T) {
@@ -213,7 +213,7 @@ func TestVKNotesGetCommentsSuccess(t *testing.T) {
 	fillRandomlyNotesGetCommentsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "notes.getComments", params.Params(), expectedJSON))
@@ -223,8 +223,8 @@ func TestVKNotesGetCommentsSuccess(t *testing.T) {
 }
 
 func fillRandomlyNotesRestoreCommentRequest(r *requests.NotesRestoreCommentRequest) {
-	r.WithCommentId(random.RandInt())
-	r.WithOwnerId(random.RandInt())
+	r.WithCommentId(random.Int())
+	r.WithOwnerId(random.Int())
 }
 
 func TestVKNotesRestoreCommentSuccess(t *testing.T) {
@@ -234,7 +234,7 @@ func TestVKNotesRestoreCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "notes.restoreComment", params.Params(), expectedJSON))

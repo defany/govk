@@ -14,12 +14,12 @@ import (
 )
 
 func fillRandomlyNotificationsGetRequest(r *requests.NotificationsGetRequest) {
-	r.WithCount(random.RandInt())
-	r.WithStartFrom(random.RandString())
-	lFilters := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithFilters(random.RandStringArr(lFilters))
-	r.WithStartTime(random.RandInt())
-	r.WithEndTime(random.RandInt())
+	r.WithCount(random.Int())
+	r.WithStartFrom(random.String())
+	lFilters := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithFilters(random.StringArr(lFilters))
+	r.WithStartTime(random.Int())
+	r.WithEndTime(random.Int())
 }
 
 func TestVKNotificationsGetSuccess(t *testing.T) {
@@ -29,7 +29,7 @@ func TestVKNotificationsGetSuccess(t *testing.T) {
 	fillRandomlyNotificationsGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "notifications.get", params.Params(), expectedJSON))
@@ -43,7 +43,7 @@ func TestVKNotificationsMarkAsViewedSuccess(t *testing.T) {
 	fillRandomlyNotificationsMarkAsViewedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "notifications.markAsViewed", nil, expectedJSON))
@@ -53,13 +53,13 @@ func TestVKNotificationsMarkAsViewedSuccess(t *testing.T) {
 }
 
 func fillRandomlyNotificationsSendMessageRequest(r *requests.NotificationsSendMessageRequest) {
-	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithUserIds(random.RandIntArr(lUserIds))
-	r.WithMessage(random.RandString())
-	r.WithFragment(random.RandString())
-	r.WithGroupId(random.RandInt())
-	r.WithRandomId(random.RandInt())
-	r.WithSendingMode(random.RandString())
+	lUserIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithUserIds(random.IntArr(lUserIds))
+	r.WithMessage(random.String())
+	r.WithFragment(random.String())
+	r.WithGroupId(random.Int())
+	r.WithRandomId(random.Int())
+	r.WithSendingMode(random.String())
 }
 
 func TestVKNotificationsSendMessageSuccess(t *testing.T) {
@@ -69,7 +69,7 @@ func TestVKNotificationsSendMessageSuccess(t *testing.T) {
 	fillRandomlyNotificationsSendMessageResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "notifications.sendMessage", params.Params(), expectedJSON))

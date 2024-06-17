@@ -14,9 +14,9 @@ import (
 )
 
 func fillRandomlyGiftsGetRequest(r *requests.GiftsGetRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithOffset(random.RandInt())
+	r.WithUserId(random.Int())
+	r.WithCount(random.Int())
+	r.WithOffset(random.Int())
 }
 
 func TestVKGiftsGetSuccess(t *testing.T) {
@@ -26,7 +26,7 @@ func TestVKGiftsGetSuccess(t *testing.T) {
 	fillRandomlyGiftsGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "gifts.get", params.Params(), expectedJSON))

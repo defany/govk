@@ -14,9 +14,9 @@ import (
 )
 
 func fillRandomlyPodcastsSearchPodcastRequest(r *requests.PodcastsSearchPodcastRequest) {
-	r.WithSearchString(random.RandString())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
+	r.WithSearchString(random.String())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
 }
 
 func TestVKPodcastsSearchPodcastSuccess(t *testing.T) {
@@ -26,7 +26,7 @@ func TestVKPodcastsSearchPodcastSuccess(t *testing.T) {
 	fillRandomlyPodcastsSearchPodcastResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "podcasts.searchPodcast", params.Params(), expectedJSON))

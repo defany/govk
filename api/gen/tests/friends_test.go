@@ -14,9 +14,9 @@ import (
 )
 
 func fillRandomlyFriendsAddRequest(r *requests.FriendsAddRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithText(random.RandString())
-	r.WithFollow(random.RandBool())
+	r.WithUserId(random.Int())
+	r.WithText(random.String())
+	r.WithFollow(random.Bool())
 }
 
 func TestVKFriendsAddSuccess(t *testing.T) {
@@ -26,7 +26,7 @@ func TestVKFriendsAddSuccess(t *testing.T) {
 	fillRandomlyFriendsAddResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.add", params.Params(), expectedJSON))
@@ -36,9 +36,9 @@ func TestVKFriendsAddSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsAddListRequest(r *requests.FriendsAddListRequest) {
-	r.WithName(random.RandString())
-	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithUserIds(random.RandIntArr(lUserIds))
+	r.WithName(random.String())
+	lUserIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithUserIds(random.IntArr(lUserIds))
 }
 
 func TestVKFriendsAddListSuccess(t *testing.T) {
@@ -48,7 +48,7 @@ func TestVKFriendsAddListSuccess(t *testing.T) {
 	fillRandomlyFriendsAddListResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.addList", params.Params(), expectedJSON))
@@ -58,10 +58,10 @@ func TestVKFriendsAddListSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsAreFriendsRequest(r *requests.FriendsAreFriendsRequest) {
-	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithUserIds(random.RandIntArr(lUserIds))
-	r.WithNeedSign(random.RandBool())
-	r.WithExtended(random.RandBool())
+	lUserIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithUserIds(random.IntArr(lUserIds))
+	r.WithNeedSign(random.Bool())
+	r.WithExtended(random.Bool())
 }
 
 func TestVKFriendsAreFriendsSuccess(t *testing.T) {
@@ -72,7 +72,7 @@ func TestVKFriendsAreFriendsSuccess(t *testing.T) {
 	fillRandomlyFriendsAreFriendsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.areFriends", params.Params(), expectedJSON))
@@ -89,7 +89,7 @@ func TestVKFriendsAreFriendsExtendedSuccess(t *testing.T) {
 	fillRandomlyFriendsAreFriendsExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.areFriends", params.Params(), expectedJSON))
@@ -99,7 +99,7 @@ func TestVKFriendsAreFriendsExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsDeleteRequest(r *requests.FriendsDeleteRequest) {
-	r.WithUserId(random.RandInt())
+	r.WithUserId(random.Int())
 }
 
 func TestVKFriendsDeleteSuccess(t *testing.T) {
@@ -109,7 +109,7 @@ func TestVKFriendsDeleteSuccess(t *testing.T) {
 	fillRandomlyFriendsDeleteResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.delete", params.Params(), expectedJSON))
@@ -123,7 +123,7 @@ func TestVKFriendsDeleteAllRequestsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.deleteAllRequests", nil, expectedJSON))
@@ -133,7 +133,7 @@ func TestVKFriendsDeleteAllRequestsSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsDeleteListRequest(r *requests.FriendsDeleteListRequest) {
-	r.WithListId(random.RandInt())
+	r.WithListId(random.Int())
 }
 
 func TestVKFriendsDeleteListSuccess(t *testing.T) {
@@ -143,7 +143,7 @@ func TestVKFriendsDeleteListSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.deleteList", params.Params(), expectedJSON))
@@ -153,9 +153,9 @@ func TestVKFriendsDeleteListSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsEditRequest(r *requests.FriendsEditRequest) {
-	r.WithUserId(random.RandInt())
-	lListIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithListIds(random.RandIntArr(lListIds))
+	r.WithUserId(random.Int())
+	lListIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithListIds(random.IntArr(lListIds))
 }
 
 func TestVKFriendsEditSuccess(t *testing.T) {
@@ -165,7 +165,7 @@ func TestVKFriendsEditSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.edit", params.Params(), expectedJSON))
@@ -175,14 +175,14 @@ func TestVKFriendsEditSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsEditListRequest(r *requests.FriendsEditListRequest) {
-	r.WithName(random.RandString())
-	r.WithListId(random.RandInt())
-	lUserIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithUserIds(random.RandIntArr(lUserIds))
-	lAddUserIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithAddUserIds(random.RandIntArr(lAddUserIds))
-	lDeleteUserIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithDeleteUserIds(random.RandIntArr(lDeleteUserIds))
+	r.WithName(random.String())
+	r.WithListId(random.Int())
+	lUserIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithUserIds(random.IntArr(lUserIds))
+	lAddUserIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithAddUserIds(random.IntArr(lAddUserIds))
+	lDeleteUserIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithDeleteUserIds(random.IntArr(lDeleteUserIds))
 }
 
 func TestVKFriendsEditListSuccess(t *testing.T) {
@@ -192,7 +192,7 @@ func TestVKFriendsEditListSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.editList", params.Params(), expectedJSON))
@@ -202,20 +202,20 @@ func TestVKFriendsEditListSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsGetRequest(r *requests.FriendsGetRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithOrder(random.RandString())
-	r.WithListId(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithOffset(random.RandInt())
+	r.WithUserId(random.Int())
+	r.WithOrder(random.String())
+	r.WithListId(random.Int())
+	r.WithCount(random.Int())
+	r.WithOffset(random.Int())
 	Fields := new([]models.UsersFields)
-	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	lFields := random.IntDiapason(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithNameCase(random.RandString())
-	r.WithRef(random.RandString())
+	r.WithNameCase(random.String())
+	r.WithRef(random.String())
 }
 
 func TestVKFriendsGetSuccess(t *testing.T) {
@@ -225,7 +225,7 @@ func TestVKFriendsGetSuccess(t *testing.T) {
 	fillRandomlyFriendsGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.get", params.Params(), expectedJSON))
@@ -239,7 +239,7 @@ func TestVKFriendsGetAppUsersSuccess(t *testing.T) {
 	fillRandomlyFriendsGetAppUsersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.getAppUsers", nil, expectedJSON))
@@ -249,10 +249,10 @@ func TestVKFriendsGetAppUsersSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsGetByPhonesRequest(r *requests.FriendsGetByPhonesRequest) {
-	lPhones := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithPhones(random.RandStringArr(lPhones))
+	lPhones := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithPhones(random.StringArr(lPhones))
 	Fields := new([]models.UsersFields)
-	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	lFields := random.IntDiapason(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
@@ -267,7 +267,7 @@ func TestVKFriendsGetByPhonesSuccess(t *testing.T) {
 	fillRandomlyFriendsGetByPhonesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.getByPhones", params.Params(), expectedJSON))
@@ -277,8 +277,8 @@ func TestVKFriendsGetByPhonesSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsGetListsRequest(r *requests.FriendsGetListsRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithReturnSystem(random.RandBool())
+	r.WithUserId(random.Int())
+	r.WithReturnSystem(random.Bool())
 }
 
 func TestVKFriendsGetListsSuccess(t *testing.T) {
@@ -288,7 +288,7 @@ func TestVKFriendsGetListsSuccess(t *testing.T) {
 	fillRandomlyFriendsGetListsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.getLists", params.Params(), expectedJSON))
@@ -298,13 +298,13 @@ func TestVKFriendsGetListsSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsGetMutualRequest(r *requests.FriendsGetMutualRequest) {
-	r.WithSourceUid(random.RandInt())
-	r.WithTargetUid(random.RandInt())
-	lTargetUids := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithTargetUids(random.RandIntArr(lTargetUids))
-	r.WithOrder(random.RandString())
-	r.WithCount(random.RandInt())
-	r.WithOffset(random.RandInt())
+	r.WithSourceUid(random.Int())
+	r.WithTargetUid(random.Int())
+	lTargetUids := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithTargetUids(random.IntArr(lTargetUids))
+	r.WithOrder(random.String())
+	r.WithCount(random.Int())
+	r.WithOffset(random.Int())
 }
 
 func TestVKFriendsGetMutualSuccess(t *testing.T) {
@@ -314,7 +314,7 @@ func TestVKFriendsGetMutualSuccess(t *testing.T) {
 	fillRandomlyFriendsGetMutualResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.getMutual", params.Params(), expectedJSON))
@@ -324,13 +324,13 @@ func TestVKFriendsGetMutualSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsGetMutualTargetUIDsRequest(r *requests.FriendsGetMutualTargetUIDsRequest) {
-	r.WithSourceUid(random.RandInt())
-	r.WithTargetUid(random.RandInt())
-	lTargetUids := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithTargetUids(random.RandIntArr(lTargetUids))
-	r.WithOrder(random.RandString())
-	r.WithCount(random.RandInt())
-	r.WithOffset(random.RandInt())
+	r.WithSourceUid(random.Int())
+	r.WithTargetUid(random.Int())
+	lTargetUids := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithTargetUids(random.IntArr(lTargetUids))
+	r.WithOrder(random.String())
+	r.WithCount(random.Int())
+	r.WithOffset(random.Int())
 }
 
 func TestVKFriendsGetMutualTargetUIDsSuccess(t *testing.T) {
@@ -340,7 +340,7 @@ func TestVKFriendsGetMutualTargetUIDsSuccess(t *testing.T) {
 	fillRandomlyFriendsGetMutualTargetUidsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.getMutual", params.Params(), expectedJSON))
@@ -350,12 +350,12 @@ func TestVKFriendsGetMutualTargetUIDsSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsGetOnlineRequest(r *requests.FriendsGetOnlineRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithListId(random.RandInt())
-	r.WithOnlineMobile(random.RandBool())
-	r.WithOrder(random.RandString())
-	r.WithCount(random.RandInt())
-	r.WithOffset(random.RandInt())
+	r.WithUserId(random.Int())
+	r.WithListId(random.Int())
+	r.WithOnlineMobile(random.Bool())
+	r.WithOrder(random.String())
+	r.WithCount(random.Int())
+	r.WithOffset(random.Int())
 }
 
 func TestVKFriendsGetOnlineSuccess(t *testing.T) {
@@ -366,7 +366,7 @@ func TestVKFriendsGetOnlineSuccess(t *testing.T) {
 	fillRandomlyFriendsGetOnlineResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.getOnline", params.Params(), expectedJSON))
@@ -383,7 +383,7 @@ func TestVKFriendsGetOnlineOnlineMobileSuccess(t *testing.T) {
 	fillRandomlyFriendsGetOnlineOnlineMobileResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.getOnline", params.Params(), expectedJSON))
@@ -393,7 +393,7 @@ func TestVKFriendsGetOnlineOnlineMobileSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsGetRecentRequest(r *requests.FriendsGetRecentRequest) {
-	r.WithCount(random.RandInt())
+	r.WithCount(random.Int())
 }
 
 func TestVKFriendsGetRecentSuccess(t *testing.T) {
@@ -403,7 +403,7 @@ func TestVKFriendsGetRecentSuccess(t *testing.T) {
 	fillRandomlyFriendsGetRecentResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.getRecent", params.Params(), expectedJSON))
@@ -413,17 +413,17 @@ func TestVKFriendsGetRecentSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsGetRequestsRequest(r *requests.FriendsGetRequestsRequest) {
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithExtended(random.RandBool())
-	r.WithNeedMutual(random.RandBool())
-	r.WithOut(random.RandBool())
-	r.WithSort(random.RandInt())
-	r.WithNeedViewed(random.RandBool())
-	r.WithSuggested(random.RandBool())
-	r.WithRef(random.RandString())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
+	r.WithExtended(random.Bool())
+	r.WithNeedMutual(random.Bool())
+	r.WithOut(random.Bool())
+	r.WithSort(random.Int())
+	r.WithNeedViewed(random.Bool())
+	r.WithSuggested(random.Bool())
+	r.WithRef(random.String())
 	Fields := new([]models.UsersFields)
-	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	lFields := random.IntDiapason(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
@@ -439,7 +439,7 @@ func TestVKFriendsGetRequestsSuccess(t *testing.T) {
 	fillRandomlyFriendsGetRequestsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.getRequests", params.Params(), expectedJSON))
@@ -456,7 +456,7 @@ func TestVKFriendsGetRequestsExtendedSuccess(t *testing.T) {
 	fillRandomlyFriendsGetRequestsExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.getRequests", params.Params(), expectedJSON))
@@ -466,18 +466,18 @@ func TestVKFriendsGetRequestsExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsGetSuggestionsRequest(r *requests.FriendsGetSuggestionsRequest) {
-	lFilter := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithFilter(random.RandStringArr(lFilter))
-	r.WithCount(random.RandInt())
-	r.WithOffset(random.RandInt())
+	lFilter := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithFilter(random.StringArr(lFilter))
+	r.WithCount(random.Int())
+	r.WithOffset(random.Int())
 	Fields := new([]models.UsersFields)
-	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	lFields := random.IntDiapason(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithNameCase(random.RandString())
+	r.WithNameCase(random.String())
 }
 
 func TestVKFriendsGetSuggestionsSuccess(t *testing.T) {
@@ -487,7 +487,7 @@ func TestVKFriendsGetSuggestionsSuccess(t *testing.T) {
 	fillRandomlyFriendsGetSuggestionsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.getSuggestions", params.Params(), expectedJSON))
@@ -497,18 +497,18 @@ func TestVKFriendsGetSuggestionsSuccess(t *testing.T) {
 }
 
 func fillRandomlyFriendsSearchRequest(r *requests.FriendsSearchRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithQ(random.RandString())
+	r.WithUserId(random.Int())
+	r.WithQ(random.String())
 	Fields := new([]models.UsersFields)
-	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	lFields := random.IntDiapason(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithNameCase(random.RandString())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
+	r.WithNameCase(random.String())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
 }
 
 func TestVKFriendsSearchSuccess(t *testing.T) {
@@ -518,7 +518,7 @@ func TestVKFriendsSearchSuccess(t *testing.T) {
 	fillRandomlyFriendsSearchResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "friends.search", params.Params(), expectedJSON))

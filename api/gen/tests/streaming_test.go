@@ -18,7 +18,7 @@ func TestVKStreamingGetServerUrlSuccess(t *testing.T) {
 	fillRandomlyStreamingGetServerUrlResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "streaming.getServerUrl", nil, expectedJSON))
@@ -28,7 +28,7 @@ func TestVKStreamingGetServerUrlSuccess(t *testing.T) {
 }
 
 func fillRandomlyStreamingSetSettingsRequest(r *requests.StreamingSetSettingsRequest) {
-	r.WithMonthlyTier(random.RandString())
+	r.WithMonthlyTier(random.String())
 }
 
 func TestVKStreamingSetSettingsSuccess(t *testing.T) {
@@ -38,7 +38,7 @@ func TestVKStreamingSetSettingsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "streaming.setSettings", params.Params(), expectedJSON))

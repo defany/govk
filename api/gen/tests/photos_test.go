@@ -14,9 +14,9 @@ import (
 )
 
 func fillRandomlyPhotosConfirmTagRequest(r *requests.PhotosConfirmTagRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithPhotoId(random.RandString())
-	r.WithTagId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithPhotoId(random.String())
+	r.WithTagId(random.Int())
 }
 
 func TestVKPhotosConfirmTagSuccess(t *testing.T) {
@@ -26,7 +26,7 @@ func TestVKPhotosConfirmTagSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.confirmTag", params.Params(), expectedJSON))
@@ -36,9 +36,9 @@ func TestVKPhotosConfirmTagSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosCopyRequest(r *requests.PhotosCopyRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithPhotoId(random.RandInt())
-	r.WithAccessKey(random.RandString())
+	r.WithOwnerId(random.Int())
+	r.WithPhotoId(random.Int())
+	r.WithAccessKey(random.String())
 }
 
 func TestVKPhotosCopySuccess(t *testing.T) {
@@ -48,7 +48,7 @@ func TestVKPhotosCopySuccess(t *testing.T) {
 	fillRandomlyPhotosCopyResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.copy", params.Params(), expectedJSON))
@@ -58,15 +58,15 @@ func TestVKPhotosCopySuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosCreateAlbumRequest(r *requests.PhotosCreateAlbumRequest) {
-	r.WithTitle(random.RandString())
-	r.WithGroupId(random.RandInt())
-	r.WithDescription(random.RandString())
-	lPrivacyView := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithPrivacyView(random.RandStringArr(lPrivacyView))
-	lPrivacyComment := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithPrivacyComment(random.RandStringArr(lPrivacyComment))
-	r.WithUploadByAdminsOnly(random.RandBool())
-	r.WithCommentsDisabled(random.RandBool())
+	r.WithTitle(random.String())
+	r.WithGroupId(random.Int())
+	r.WithDescription(random.String())
+	lPrivacyView := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithPrivacyView(random.StringArr(lPrivacyView))
+	lPrivacyComment := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithPrivacyComment(random.StringArr(lPrivacyComment))
+	r.WithUploadByAdminsOnly(random.Bool())
+	r.WithCommentsDisabled(random.Bool())
 }
 
 func TestVKPhotosCreateAlbumSuccess(t *testing.T) {
@@ -76,7 +76,7 @@ func TestVKPhotosCreateAlbumSuccess(t *testing.T) {
 	fillRandomlyPhotosCreateAlbumResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.createAlbum", params.Params(), expectedJSON))
@@ -86,16 +86,16 @@ func TestVKPhotosCreateAlbumSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosCreateCommentRequest(r *requests.PhotosCreateCommentRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithPhotoId(random.RandInt())
-	r.WithMessage(random.RandString())
-	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithAttachments(random.RandStringArr(lAttachments))
-	r.WithFromGroup(random.RandBool())
-	r.WithReplyToComment(random.RandInt())
-	r.WithStickerId(random.RandInt())
-	r.WithAccessKey(random.RandString())
-	r.WithGuid(random.RandString())
+	r.WithOwnerId(random.Int())
+	r.WithPhotoId(random.Int())
+	r.WithMessage(random.String())
+	lAttachments := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithAttachments(random.StringArr(lAttachments))
+	r.WithFromGroup(random.Bool())
+	r.WithReplyToComment(random.Int())
+	r.WithStickerId(random.Int())
+	r.WithAccessKey(random.String())
+	r.WithGuid(random.String())
 }
 
 func TestVKPhotosCreateCommentSuccess(t *testing.T) {
@@ -105,7 +105,7 @@ func TestVKPhotosCreateCommentSuccess(t *testing.T) {
 	fillRandomlyPhotosCreateCommentResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.createComment", params.Params(), expectedJSON))
@@ -115,8 +115,8 @@ func TestVKPhotosCreateCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosDeleteRequest(r *requests.PhotosDeleteRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithPhotoId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithPhotoId(random.Int())
 }
 
 func TestVKPhotosDeleteSuccess(t *testing.T) {
@@ -126,7 +126,7 @@ func TestVKPhotosDeleteSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.delete", params.Params(), expectedJSON))
@@ -136,8 +136,8 @@ func TestVKPhotosDeleteSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosDeleteAlbumRequest(r *requests.PhotosDeleteAlbumRequest) {
-	r.WithAlbumId(random.RandInt())
-	r.WithGroupId(random.RandInt())
+	r.WithAlbumId(random.Int())
+	r.WithGroupId(random.Int())
 }
 
 func TestVKPhotosDeleteAlbumSuccess(t *testing.T) {
@@ -147,7 +147,7 @@ func TestVKPhotosDeleteAlbumSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.deleteAlbum", params.Params(), expectedJSON))
@@ -157,8 +157,8 @@ func TestVKPhotosDeleteAlbumSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosDeleteCommentRequest(r *requests.PhotosDeleteCommentRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithCommentId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithCommentId(random.Int())
 }
 
 func TestVKPhotosDeleteCommentSuccess(t *testing.T) {
@@ -168,7 +168,7 @@ func TestVKPhotosDeleteCommentSuccess(t *testing.T) {
 	fillRandomlyPhotosDeleteCommentResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.deleteComment", params.Params(), expectedJSON))
@@ -178,14 +178,14 @@ func TestVKPhotosDeleteCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosEditRequest(r *requests.PhotosEditRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithPhotoId(random.RandInt())
-	r.WithCaption(random.RandString())
-	r.WithLatitude(random.RandFloat())
-	r.WithLongitude(random.RandFloat())
-	r.WithPlaceStr(random.RandString())
-	r.WithFoursquareId(random.RandString())
-	r.WithDeletePlace(random.RandBool())
+	r.WithOwnerId(random.Int())
+	r.WithPhotoId(random.Int())
+	r.WithCaption(random.String())
+	r.WithLatitude(random.MustFloat())
+	r.WithLongitude(random.MustFloat())
+	r.WithPlaceStr(random.String())
+	r.WithFoursquareId(random.String())
+	r.WithDeletePlace(random.Bool())
 }
 
 func TestVKPhotosEditSuccess(t *testing.T) {
@@ -195,7 +195,7 @@ func TestVKPhotosEditSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.edit", params.Params(), expectedJSON))
@@ -205,16 +205,16 @@ func TestVKPhotosEditSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosEditAlbumRequest(r *requests.PhotosEditAlbumRequest) {
-	r.WithAlbumId(random.RandInt())
-	r.WithTitle(random.RandString())
-	r.WithDescription(random.RandString())
-	r.WithOwnerId(random.RandInt())
-	lPrivacyView := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithPrivacyView(random.RandStringArr(lPrivacyView))
-	lPrivacyComment := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithPrivacyComment(random.RandStringArr(lPrivacyComment))
-	r.WithUploadByAdminsOnly(random.RandBool())
-	r.WithCommentsDisabled(random.RandBool())
+	r.WithAlbumId(random.Int())
+	r.WithTitle(random.String())
+	r.WithDescription(random.String())
+	r.WithOwnerId(random.Int())
+	lPrivacyView := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithPrivacyView(random.StringArr(lPrivacyView))
+	lPrivacyComment := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithPrivacyComment(random.StringArr(lPrivacyComment))
+	r.WithUploadByAdminsOnly(random.Bool())
+	r.WithCommentsDisabled(random.Bool())
 }
 
 func TestVKPhotosEditAlbumSuccess(t *testing.T) {
@@ -224,7 +224,7 @@ func TestVKPhotosEditAlbumSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.editAlbum", params.Params(), expectedJSON))
@@ -234,11 +234,11 @@ func TestVKPhotosEditAlbumSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosEditCommentRequest(r *requests.PhotosEditCommentRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithCommentId(random.RandInt())
-	r.WithMessage(random.RandString())
-	lAttachments := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithAttachments(random.RandStringArr(lAttachments))
+	r.WithOwnerId(random.Int())
+	r.WithCommentId(random.Int())
+	r.WithMessage(random.String())
+	lAttachments := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithAttachments(random.StringArr(lAttachments))
 }
 
 func TestVKPhotosEditCommentSuccess(t *testing.T) {
@@ -248,7 +248,7 @@ func TestVKPhotosEditCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.editComment", params.Params(), expectedJSON))
@@ -258,17 +258,17 @@ func TestVKPhotosEditCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetRequest(r *requests.PhotosGetRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithAlbumId(random.RandString())
-	lPhotoIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithPhotoIds(random.RandStringArr(lPhotoIds))
-	r.WithRev(random.RandBool())
-	r.WithExtended(random.RandBool())
-	r.WithFeedType(random.RandString())
-	r.WithFeed(random.RandInt())
-	r.WithPhotoSizes(random.RandBool())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithAlbumId(random.String())
+	lPhotoIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithPhotoIds(random.StringArr(lPhotoIds))
+	r.WithRev(random.Bool())
+	r.WithExtended(random.Bool())
+	r.WithFeedType(random.String())
+	r.WithFeed(random.Int())
+	r.WithPhotoSizes(random.Bool())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
 }
 
 func TestVKPhotosGetSuccess(t *testing.T) {
@@ -278,7 +278,7 @@ func TestVKPhotosGetSuccess(t *testing.T) {
 	fillRandomlyPhotosGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.get", params.Params(), expectedJSON))
@@ -288,14 +288,14 @@ func TestVKPhotosGetSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetAlbumsRequest(r *requests.PhotosGetAlbumsRequest) {
-	r.WithOwnerId(random.RandInt())
-	lAlbumIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithAlbumIds(random.RandIntArr(lAlbumIds))
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithNeedSystem(random.RandBool())
-	r.WithNeedCovers(random.RandBool())
-	r.WithPhotoSizes(random.RandBool())
+	r.WithOwnerId(random.Int())
+	lAlbumIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithAlbumIds(random.IntArr(lAlbumIds))
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
+	r.WithNeedSystem(random.Bool())
+	r.WithNeedCovers(random.Bool())
+	r.WithPhotoSizes(random.Bool())
 }
 
 func TestVKPhotosGetAlbumsSuccess(t *testing.T) {
@@ -305,7 +305,7 @@ func TestVKPhotosGetAlbumsSuccess(t *testing.T) {
 	fillRandomlyPhotosGetAlbumsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getAlbums", params.Params(), expectedJSON))
@@ -315,8 +315,8 @@ func TestVKPhotosGetAlbumsSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetAlbumsCountRequest(r *requests.PhotosGetAlbumsCountRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.Int())
+	r.WithGroupId(random.Int())
 }
 
 func TestVKPhotosGetAlbumsCountSuccess(t *testing.T) {
@@ -326,7 +326,7 @@ func TestVKPhotosGetAlbumsCountSuccess(t *testing.T) {
 	fillRandomlyPhotosGetAlbumsCountResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getAlbumsCount", params.Params(), expectedJSON))
@@ -336,14 +336,14 @@ func TestVKPhotosGetAlbumsCountSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetAllRequest(r *requests.PhotosGetAllRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithExtended(random.RandBool())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithPhotoSizes(random.RandBool())
-	r.WithNoServiceAlbums(random.RandBool())
-	r.WithNeedHidden(random.RandBool())
-	r.WithSkipHidden(random.RandBool())
+	r.WithOwnerId(random.Int())
+	r.WithExtended(random.Bool())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
+	r.WithPhotoSizes(random.Bool())
+	r.WithNoServiceAlbums(random.Bool())
+	r.WithNeedHidden(random.Bool())
+	r.WithSkipHidden(random.Bool())
 }
 
 func TestVKPhotosGetAllSuccess(t *testing.T) {
@@ -354,7 +354,7 @@ func TestVKPhotosGetAllSuccess(t *testing.T) {
 	fillRandomlyPhotosGetAllResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getAll", params.Params(), expectedJSON))
@@ -371,7 +371,7 @@ func TestVKPhotosGetAllExtendedSuccess(t *testing.T) {
 	fillRandomlyPhotosGetAllExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getAll", params.Params(), expectedJSON))
@@ -381,11 +381,11 @@ func TestVKPhotosGetAllExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetAllCommentsRequest(r *requests.PhotosGetAllCommentsRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithAlbumId(random.RandInt())
-	r.WithNeedLikes(random.RandBool())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithAlbumId(random.Int())
+	r.WithNeedLikes(random.Bool())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
 }
 
 func TestVKPhotosGetAllCommentsSuccess(t *testing.T) {
@@ -395,7 +395,7 @@ func TestVKPhotosGetAllCommentsSuccess(t *testing.T) {
 	fillRandomlyPhotosGetAllCommentsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getAllComments", params.Params(), expectedJSON))
@@ -405,10 +405,10 @@ func TestVKPhotosGetAllCommentsSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetByIdRequest(r *requests.PhotosGetByIdRequest) {
-	lPhotos := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithPhotos(random.RandStringArr(lPhotos))
-	r.WithExtended(random.RandBool())
-	r.WithPhotoSizes(random.RandBool())
+	lPhotos := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithPhotos(random.StringArr(lPhotos))
+	r.WithExtended(random.Bool())
+	r.WithPhotoSizes(random.Bool())
 }
 
 func TestVKPhotosGetByIdSuccess(t *testing.T) {
@@ -418,7 +418,7 @@ func TestVKPhotosGetByIdSuccess(t *testing.T) {
 	fillRandomlyPhotosGetByIdResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getById", params.Params(), expectedJSON))
@@ -428,10 +428,10 @@ func TestVKPhotosGetByIdSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetChatUploadServerRequest(r *requests.PhotosGetChatUploadServerRequest) {
-	r.WithChatId(random.RandInt())
-	r.WithCropX(random.RandInt())
-	r.WithCropY(random.RandInt())
-	r.WithCropWidth(random.RandInt())
+	r.WithChatId(random.Int())
+	r.WithCropX(random.Int())
+	r.WithCropY(random.Int())
+	r.WithCropWidth(random.Int())
 }
 
 func TestVKPhotosGetChatUploadServerSuccess(t *testing.T) {
@@ -441,7 +441,7 @@ func TestVKPhotosGetChatUploadServerSuccess(t *testing.T) {
 	fillRandomlyBaseGetUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getChatUploadServer", params.Params(), expectedJSON))
@@ -451,17 +451,17 @@ func TestVKPhotosGetChatUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetCommentsRequest(r *requests.PhotosGetCommentsRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithPhotoId(random.RandInt())
-	r.WithNeedLikes(random.RandBool())
-	r.WithStartCommentId(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithSort(random.RandString())
-	r.WithAccessKey(random.RandString())
-	r.WithExtended(random.RandBool())
+	r.WithOwnerId(random.Int())
+	r.WithPhotoId(random.Int())
+	r.WithNeedLikes(random.Bool())
+	r.WithStartCommentId(random.Int())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
+	r.WithSort(random.String())
+	r.WithAccessKey(random.String())
+	r.WithExtended(random.Bool())
 	Fields := new([]models.UsersFields)
-	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	lFields := random.IntDiapason(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
@@ -477,7 +477,7 @@ func TestVKPhotosGetCommentsSuccess(t *testing.T) {
 	fillRandomlyPhotosGetCommentsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getComments", params.Params(), expectedJSON))
@@ -494,7 +494,7 @@ func TestVKPhotosGetCommentsExtendedSuccess(t *testing.T) {
 	fillRandomlyPhotosGetCommentsExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getComments", params.Params(), expectedJSON))
@@ -504,7 +504,7 @@ func TestVKPhotosGetCommentsExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetMarketAlbumUploadServerRequest(r *requests.PhotosGetMarketAlbumUploadServerRequest) {
-	r.WithGroupId(random.RandInt())
+	r.WithGroupId(random.Int())
 }
 
 func TestVKPhotosGetMarketAlbumUploadServerSuccess(t *testing.T) {
@@ -514,7 +514,7 @@ func TestVKPhotosGetMarketAlbumUploadServerSuccess(t *testing.T) {
 	fillRandomlyBaseGetUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getMarketAlbumUploadServer", params.Params(), expectedJSON))
@@ -524,11 +524,11 @@ func TestVKPhotosGetMarketAlbumUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetMarketUploadServerRequest(r *requests.PhotosGetMarketUploadServerRequest) {
-	r.WithGroupId(random.RandInt())
-	r.WithMainPhoto(random.RandBool())
-	r.WithCropX(random.RandInt())
-	r.WithCropY(random.RandInt())
-	r.WithCropWidth(random.RandInt())
+	r.WithGroupId(random.Int())
+	r.WithMainPhoto(random.Bool())
+	r.WithCropX(random.Int())
+	r.WithCropY(random.Int())
+	r.WithCropWidth(random.Int())
 }
 
 func TestVKPhotosGetMarketUploadServerSuccess(t *testing.T) {
@@ -538,7 +538,7 @@ func TestVKPhotosGetMarketUploadServerSuccess(t *testing.T) {
 	fillRandomlyPhotosGetMarketUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getMarketUploadServer", params.Params(), expectedJSON))
@@ -548,7 +548,7 @@ func TestVKPhotosGetMarketUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetMessagesUploadServerRequest(r *requests.PhotosGetMessagesUploadServerRequest) {
-	r.WithPeerId(random.RandInt())
+	r.WithPeerId(random.Int())
 }
 
 func TestVKPhotosGetMessagesUploadServerSuccess(t *testing.T) {
@@ -558,7 +558,7 @@ func TestVKPhotosGetMessagesUploadServerSuccess(t *testing.T) {
 	fillRandomlyPhotosGetMessagesUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getMessagesUploadServer", params.Params(), expectedJSON))
@@ -568,8 +568,8 @@ func TestVKPhotosGetMessagesUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetNewTagsRequest(r *requests.PhotosGetNewTagsRequest) {
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
 }
 
 func TestVKPhotosGetNewTagsSuccess(t *testing.T) {
@@ -579,7 +579,7 @@ func TestVKPhotosGetNewTagsSuccess(t *testing.T) {
 	fillRandomlyPhotosGetNewTagsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getNewTags", params.Params(), expectedJSON))
@@ -589,11 +589,11 @@ func TestVKPhotosGetNewTagsSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetOwnerCoverPhotoUploadServerRequest(r *requests.PhotosGetOwnerCoverPhotoUploadServerRequest) {
-	r.WithGroupId(random.RandInt())
-	r.WithCropX(random.RandInt())
-	r.WithCropY(random.RandInt())
-	r.WithCropX2(random.RandInt())
-	r.WithCropY2(random.RandInt())
+	r.WithGroupId(random.Int())
+	r.WithCropX(random.Int())
+	r.WithCropY(random.Int())
+	r.WithCropX2(random.Int())
+	r.WithCropY2(random.Int())
 }
 
 func TestVKPhotosGetOwnerCoverPhotoUploadServerSuccess(t *testing.T) {
@@ -603,7 +603,7 @@ func TestVKPhotosGetOwnerCoverPhotoUploadServerSuccess(t *testing.T) {
 	fillRandomlyBaseGetUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getOwnerCoverPhotoUploadServer", params.Params(), expectedJSON))
@@ -613,7 +613,7 @@ func TestVKPhotosGetOwnerCoverPhotoUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetOwnerPhotoUploadServerRequest(r *requests.PhotosGetOwnerPhotoUploadServerRequest) {
-	r.WithOwnerId(random.RandInt())
+	r.WithOwnerId(random.Int())
 }
 
 func TestVKPhotosGetOwnerPhotoUploadServerSuccess(t *testing.T) {
@@ -623,7 +623,7 @@ func TestVKPhotosGetOwnerPhotoUploadServerSuccess(t *testing.T) {
 	fillRandomlyBaseGetUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getOwnerPhotoUploadServer", params.Params(), expectedJSON))
@@ -633,9 +633,9 @@ func TestVKPhotosGetOwnerPhotoUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetTagsRequest(r *requests.PhotosGetTagsRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithPhotoId(random.RandInt())
-	r.WithAccessKey(random.RandString())
+	r.WithOwnerId(random.Int())
+	r.WithPhotoId(random.Int())
+	r.WithAccessKey(random.String())
 }
 
 func TestVKPhotosGetTagsSuccess(t *testing.T) {
@@ -645,7 +645,7 @@ func TestVKPhotosGetTagsSuccess(t *testing.T) {
 	fillRandomlyPhotosGetTagsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getTags", params.Params(), expectedJSON))
@@ -655,8 +655,8 @@ func TestVKPhotosGetTagsSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetUploadServerRequest(r *requests.PhotosGetUploadServerRequest) {
-	r.WithAlbumId(random.RandInt())
-	r.WithGroupId(random.RandInt())
+	r.WithAlbumId(random.Int())
+	r.WithGroupId(random.Int())
 }
 
 func TestVKPhotosGetUploadServerSuccess(t *testing.T) {
@@ -666,7 +666,7 @@ func TestVKPhotosGetUploadServerSuccess(t *testing.T) {
 	fillRandomlyPhotosGetUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getUploadServer", params.Params(), expectedJSON))
@@ -676,11 +676,11 @@ func TestVKPhotosGetUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetUserPhotosRequest(r *requests.PhotosGetUserPhotosRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithExtended(random.RandBool())
-	r.WithSort(random.RandString())
+	r.WithUserId(random.Int())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
+	r.WithExtended(random.Bool())
+	r.WithSort(random.String())
 }
 
 func TestVKPhotosGetUserPhotosSuccess(t *testing.T) {
@@ -690,7 +690,7 @@ func TestVKPhotosGetUserPhotosSuccess(t *testing.T) {
 	fillRandomlyPhotosGetUserPhotosResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getUserPhotos", params.Params(), expectedJSON))
@@ -700,7 +700,7 @@ func TestVKPhotosGetUserPhotosSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosGetWallUploadServerRequest(r *requests.PhotosGetWallUploadServerRequest) {
-	r.WithGroupId(random.RandInt())
+	r.WithGroupId(random.Int())
 }
 
 func TestVKPhotosGetWallUploadServerSuccess(t *testing.T) {
@@ -710,7 +710,7 @@ func TestVKPhotosGetWallUploadServerSuccess(t *testing.T) {
 	fillRandomlyPhotosGetWallUploadServerResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.getWallUploadServer", params.Params(), expectedJSON))
@@ -720,9 +720,9 @@ func TestVKPhotosGetWallUploadServerSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosMakeCoverRequest(r *requests.PhotosMakeCoverRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithPhotoId(random.RandInt())
-	r.WithAlbumId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithPhotoId(random.Int())
+	r.WithAlbumId(random.Int())
 }
 
 func TestVKPhotosMakeCoverSuccess(t *testing.T) {
@@ -732,7 +732,7 @@ func TestVKPhotosMakeCoverSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.makeCover", params.Params(), expectedJSON))
@@ -742,9 +742,9 @@ func TestVKPhotosMakeCoverSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosMoveRequest(r *requests.PhotosMoveRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithTargetAlbumId(random.RandInt())
-	r.WithPhotoIds(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithTargetAlbumId(random.Int())
+	r.WithPhotoIds(random.Int())
 }
 
 func TestVKPhotosMoveSuccess(t *testing.T) {
@@ -754,7 +754,7 @@ func TestVKPhotosMoveSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.move", params.Params(), expectedJSON))
@@ -764,13 +764,13 @@ func TestVKPhotosMoveSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosPutTagRequest(r *requests.PhotosPutTagRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithPhotoId(random.RandInt())
-	r.WithUserId(random.RandInt())
-	r.WithX(random.RandFloat())
-	r.WithY(random.RandFloat())
-	r.WithX2(random.RandFloat())
-	r.WithY2(random.RandFloat())
+	r.WithOwnerId(random.Int())
+	r.WithPhotoId(random.Int())
+	r.WithUserId(random.Int())
+	r.WithX(random.MustFloat())
+	r.WithY(random.MustFloat())
+	r.WithX2(random.MustFloat())
+	r.WithY2(random.MustFloat())
 }
 
 func TestVKPhotosPutTagSuccess(t *testing.T) {
@@ -780,7 +780,7 @@ func TestVKPhotosPutTagSuccess(t *testing.T) {
 	fillRandomlyPhotosPutTagResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.putTag", params.Params(), expectedJSON))
@@ -790,9 +790,9 @@ func TestVKPhotosPutTagSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosRemoveTagRequest(r *requests.PhotosRemoveTagRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithPhotoId(random.RandInt())
-	r.WithTagId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithPhotoId(random.Int())
+	r.WithTagId(random.Int())
 }
 
 func TestVKPhotosRemoveTagSuccess(t *testing.T) {
@@ -802,7 +802,7 @@ func TestVKPhotosRemoveTagSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.removeTag", params.Params(), expectedJSON))
@@ -812,10 +812,10 @@ func TestVKPhotosRemoveTagSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosReorderAlbumsRequest(r *requests.PhotosReorderAlbumsRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithAlbumId(random.RandInt())
-	r.WithBefore(random.RandInt())
-	r.WithAfter(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithAlbumId(random.Int())
+	r.WithBefore(random.Int())
+	r.WithAfter(random.Int())
 }
 
 func TestVKPhotosReorderAlbumsSuccess(t *testing.T) {
@@ -825,7 +825,7 @@ func TestVKPhotosReorderAlbumsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.reorderAlbums", params.Params(), expectedJSON))
@@ -835,10 +835,10 @@ func TestVKPhotosReorderAlbumsSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosReorderPhotosRequest(r *requests.PhotosReorderPhotosRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithPhotoId(random.RandInt())
-	r.WithBefore(random.RandInt())
-	r.WithAfter(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithPhotoId(random.Int())
+	r.WithBefore(random.Int())
+	r.WithAfter(random.Int())
 }
 
 func TestVKPhotosReorderPhotosSuccess(t *testing.T) {
@@ -848,7 +848,7 @@ func TestVKPhotosReorderPhotosSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.reorderPhotos", params.Params(), expectedJSON))
@@ -858,9 +858,9 @@ func TestVKPhotosReorderPhotosSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosReportRequest(r *requests.PhotosReportRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithPhotoId(random.RandInt())
-	r.WithReason(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithPhotoId(random.Int())
+	r.WithReason(random.Int())
 }
 
 func TestVKPhotosReportSuccess(t *testing.T) {
@@ -870,7 +870,7 @@ func TestVKPhotosReportSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.report", params.Params(), expectedJSON))
@@ -880,9 +880,9 @@ func TestVKPhotosReportSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosReportCommentRequest(r *requests.PhotosReportCommentRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithCommentId(random.RandInt())
-	r.WithReason(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithCommentId(random.Int())
+	r.WithReason(random.Int())
 }
 
 func TestVKPhotosReportCommentSuccess(t *testing.T) {
@@ -892,7 +892,7 @@ func TestVKPhotosReportCommentSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.reportComment", params.Params(), expectedJSON))
@@ -902,8 +902,8 @@ func TestVKPhotosReportCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosRestoreRequest(r *requests.PhotosRestoreRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithPhotoId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithPhotoId(random.Int())
 }
 
 func TestVKPhotosRestoreSuccess(t *testing.T) {
@@ -913,7 +913,7 @@ func TestVKPhotosRestoreSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.restore", params.Params(), expectedJSON))
@@ -923,8 +923,8 @@ func TestVKPhotosRestoreSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosRestoreCommentRequest(r *requests.PhotosRestoreCommentRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithCommentId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithCommentId(random.Int())
 }
 
 func TestVKPhotosRestoreCommentSuccess(t *testing.T) {
@@ -934,7 +934,7 @@ func TestVKPhotosRestoreCommentSuccess(t *testing.T) {
 	fillRandomlyPhotosRestoreCommentResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.restoreComment", params.Params(), expectedJSON))
@@ -944,14 +944,14 @@ func TestVKPhotosRestoreCommentSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosSaveRequest(r *requests.PhotosSaveRequest) {
-	r.WithAlbumId(random.RandInt())
-	r.WithGroupId(random.RandInt())
-	r.WithServer(random.RandInt())
-	r.WithPhotosList(random.RandString())
-	r.WithHash(random.RandString())
-	r.WithLatitude(random.RandFloat())
-	r.WithLongitude(random.RandFloat())
-	r.WithCaption(random.RandString())
+	r.WithAlbumId(random.Int())
+	r.WithGroupId(random.Int())
+	r.WithServer(random.Int())
+	r.WithPhotosList(random.String())
+	r.WithHash(random.String())
+	r.WithLatitude(random.MustFloat())
+	r.WithLongitude(random.MustFloat())
+	r.WithCaption(random.String())
 }
 
 func TestVKPhotosSaveSuccess(t *testing.T) {
@@ -961,7 +961,7 @@ func TestVKPhotosSaveSuccess(t *testing.T) {
 	fillRandomlyPhotosSaveResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.save", params.Params(), expectedJSON))
@@ -971,10 +971,10 @@ func TestVKPhotosSaveSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosSaveMarketAlbumPhotoRequest(r *requests.PhotosSaveMarketAlbumPhotoRequest) {
-	r.WithGroupId(random.RandInt())
-	r.WithPhoto(random.RandString())
-	r.WithServer(random.RandInt())
-	r.WithHash(random.RandString())
+	r.WithGroupId(random.Int())
+	r.WithPhoto(random.String())
+	r.WithServer(random.Int())
+	r.WithHash(random.String())
 }
 
 func TestVKPhotosSaveMarketAlbumPhotoSuccess(t *testing.T) {
@@ -984,7 +984,7 @@ func TestVKPhotosSaveMarketAlbumPhotoSuccess(t *testing.T) {
 	fillRandomlyPhotosSaveMarketAlbumPhotoResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.saveMarketAlbumPhoto", params.Params(), expectedJSON))
@@ -994,12 +994,12 @@ func TestVKPhotosSaveMarketAlbumPhotoSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosSaveMarketPhotoRequest(r *requests.PhotosSaveMarketPhotoRequest) {
-	r.WithGroupId(random.RandInt())
-	r.WithPhoto(random.RandString())
-	r.WithServer(random.RandInt())
-	r.WithHash(random.RandString())
-	r.WithCropData(random.RandString())
-	r.WithCropHash(random.RandString())
+	r.WithGroupId(random.Int())
+	r.WithPhoto(random.String())
+	r.WithServer(random.Int())
+	r.WithHash(random.String())
+	r.WithCropData(random.String())
+	r.WithCropHash(random.String())
 }
 
 func TestVKPhotosSaveMarketPhotoSuccess(t *testing.T) {
@@ -1009,7 +1009,7 @@ func TestVKPhotosSaveMarketPhotoSuccess(t *testing.T) {
 	fillRandomlyPhotosSaveMarketPhotoResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.saveMarketPhoto", params.Params(), expectedJSON))
@@ -1019,9 +1019,9 @@ func TestVKPhotosSaveMarketPhotoSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosSaveMessagesPhotoRequest(r *requests.PhotosSaveMessagesPhotoRequest) {
-	r.WithPhoto(random.RandString())
-	r.WithServer(random.RandInt())
-	r.WithHash(random.RandString())
+	r.WithPhoto(random.String())
+	r.WithServer(random.Int())
+	r.WithHash(random.String())
 }
 
 func TestVKPhotosSaveMessagesPhotoSuccess(t *testing.T) {
@@ -1031,7 +1031,7 @@ func TestVKPhotosSaveMessagesPhotoSuccess(t *testing.T) {
 	fillRandomlyPhotosSaveMessagesPhotoResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.saveMessagesPhoto", params.Params(), expectedJSON))
@@ -1041,8 +1041,8 @@ func TestVKPhotosSaveMessagesPhotoSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosSaveOwnerCoverPhotoRequest(r *requests.PhotosSaveOwnerCoverPhotoRequest) {
-	r.WithHash(random.RandString())
-	r.WithPhoto(random.RandString())
+	r.WithHash(random.String())
+	r.WithPhoto(random.String())
 }
 
 func TestVKPhotosSaveOwnerCoverPhotoSuccess(t *testing.T) {
@@ -1052,7 +1052,7 @@ func TestVKPhotosSaveOwnerCoverPhotoSuccess(t *testing.T) {
 	fillRandomlyPhotosSaveOwnerCoverPhotoResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.saveOwnerCoverPhoto", params.Params(), expectedJSON))
@@ -1062,9 +1062,9 @@ func TestVKPhotosSaveOwnerCoverPhotoSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosSaveOwnerPhotoRequest(r *requests.PhotosSaveOwnerPhotoRequest) {
-	r.WithServer(random.RandString())
-	r.WithHash(random.RandString())
-	r.WithPhoto(random.RandString())
+	r.WithServer(random.String())
+	r.WithHash(random.String())
+	r.WithPhoto(random.String())
 }
 
 func TestVKPhotosSaveOwnerPhotoSuccess(t *testing.T) {
@@ -1074,7 +1074,7 @@ func TestVKPhotosSaveOwnerPhotoSuccess(t *testing.T) {
 	fillRandomlyPhotosSaveOwnerPhotoResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.saveOwnerPhoto", params.Params(), expectedJSON))
@@ -1084,14 +1084,14 @@ func TestVKPhotosSaveOwnerPhotoSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosSaveWallPhotoRequest(r *requests.PhotosSaveWallPhotoRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithGroupId(random.RandInt())
-	r.WithPhoto(random.RandString())
-	r.WithServer(random.RandInt())
-	r.WithHash(random.RandString())
-	r.WithLatitude(random.RandFloat())
-	r.WithLongitude(random.RandFloat())
-	r.WithCaption(random.RandString())
+	r.WithUserId(random.Int())
+	r.WithGroupId(random.Int())
+	r.WithPhoto(random.String())
+	r.WithServer(random.Int())
+	r.WithHash(random.String())
+	r.WithLatitude(random.MustFloat())
+	r.WithLongitude(random.MustFloat())
+	r.WithCaption(random.String())
 }
 
 func TestVKPhotosSaveWallPhotoSuccess(t *testing.T) {
@@ -1101,7 +1101,7 @@ func TestVKPhotosSaveWallPhotoSuccess(t *testing.T) {
 	fillRandomlyPhotosSaveWallPhotoResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.saveWallPhoto", params.Params(), expectedJSON))
@@ -1111,15 +1111,15 @@ func TestVKPhotosSaveWallPhotoSuccess(t *testing.T) {
 }
 
 func fillRandomlyPhotosSearchRequest(r *requests.PhotosSearchRequest) {
-	r.WithQ(random.RandString())
-	r.WithLat(random.RandFloat())
-	r.WithLong(random.RandFloat())
-	r.WithStartTime(random.RandInt())
-	r.WithEndTime(random.RandInt())
-	r.WithSort(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithRadius(random.RandInt())
+	r.WithQ(random.String())
+	r.WithLat(random.MustFloat())
+	r.WithLong(random.MustFloat())
+	r.WithStartTime(random.Int())
+	r.WithEndTime(random.Int())
+	r.WithSort(random.Int())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
+	r.WithRadius(random.Int())
 }
 
 func TestVKPhotosSearchSuccess(t *testing.T) {
@@ -1129,7 +1129,7 @@ func TestVKPhotosSearchSuccess(t *testing.T) {
 	fillRandomlyPhotosSearchResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "photos.search", params.Params(), expectedJSON))

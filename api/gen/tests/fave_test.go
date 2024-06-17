@@ -14,7 +14,7 @@ import (
 )
 
 func fillRandomlyFaveAddArticleRequest(r *requests.FaveAddArticleRequest) {
-	r.WithUrl(random.RandString())
+	r.WithUrl(random.String())
 }
 
 func TestVKFaveAddArticleSuccess(t *testing.T) {
@@ -24,7 +24,7 @@ func TestVKFaveAddArticleSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.addArticle", params.Params(), expectedJSON))
@@ -34,7 +34,7 @@ func TestVKFaveAddArticleSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveAddLinkRequest(r *requests.FaveAddLinkRequest) {
-	r.WithLink(random.RandString())
+	r.WithLink(random.String())
 }
 
 func TestVKFaveAddLinkSuccess(t *testing.T) {
@@ -44,7 +44,7 @@ func TestVKFaveAddLinkSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.addLink", params.Params(), expectedJSON))
@@ -54,8 +54,8 @@ func TestVKFaveAddLinkSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveAddPageRequest(r *requests.FaveAddPageRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.Int())
+	r.WithGroupId(random.Int())
 }
 
 func TestVKFaveAddPageSuccess(t *testing.T) {
@@ -65,7 +65,7 @@ func TestVKFaveAddPageSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.addPage", params.Params(), expectedJSON))
@@ -75,9 +75,9 @@ func TestVKFaveAddPageSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveAddPostRequest(r *requests.FaveAddPostRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithId(random.RandInt())
-	r.WithAccessKey(random.RandString())
+	r.WithOwnerId(random.Int())
+	r.WithId(random.Int())
+	r.WithAccessKey(random.String())
 }
 
 func TestVKFaveAddPostSuccess(t *testing.T) {
@@ -87,7 +87,7 @@ func TestVKFaveAddPostSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.addPost", params.Params(), expectedJSON))
@@ -97,9 +97,9 @@ func TestVKFaveAddPostSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveAddProductRequest(r *requests.FaveAddProductRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithId(random.RandInt())
-	r.WithAccessKey(random.RandString())
+	r.WithOwnerId(random.Int())
+	r.WithId(random.Int())
+	r.WithAccessKey(random.String())
 }
 
 func TestVKFaveAddProductSuccess(t *testing.T) {
@@ -109,7 +109,7 @@ func TestVKFaveAddProductSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.addProduct", params.Params(), expectedJSON))
@@ -119,8 +119,8 @@ func TestVKFaveAddProductSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveAddTagRequest(r *requests.FaveAddTagRequest) {
-	r.WithName(random.RandString())
-	r.WithPosition(random.RandString())
+	r.WithName(random.String())
+	r.WithPosition(random.String())
 }
 
 func TestVKFaveAddTagSuccess(t *testing.T) {
@@ -130,7 +130,7 @@ func TestVKFaveAddTagSuccess(t *testing.T) {
 	fillRandomlyFaveAddTagResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.addTag", params.Params(), expectedJSON))
@@ -140,9 +140,9 @@ func TestVKFaveAddTagSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveAddVideoRequest(r *requests.FaveAddVideoRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithId(random.RandInt())
-	r.WithAccessKey(random.RandString())
+	r.WithOwnerId(random.Int())
+	r.WithId(random.Int())
+	r.WithAccessKey(random.String())
 }
 
 func TestVKFaveAddVideoSuccess(t *testing.T) {
@@ -152,7 +152,7 @@ func TestVKFaveAddVideoSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.addVideo", params.Params(), expectedJSON))
@@ -162,8 +162,8 @@ func TestVKFaveAddVideoSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveEditTagRequest(r *requests.FaveEditTagRequest) {
-	r.WithId(random.RandInt())
-	r.WithName(random.RandString())
+	r.WithId(random.Int())
+	r.WithName(random.String())
 }
 
 func TestVKFaveEditTagSuccess(t *testing.T) {
@@ -173,7 +173,7 @@ func TestVKFaveEditTagSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.editTag", params.Params(), expectedJSON))
@@ -183,19 +183,19 @@ func TestVKFaveEditTagSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveGetRequest(r *requests.FaveGetRequest) {
-	r.WithExtended(random.RandBool())
-	r.WithItemType(random.RandString())
-	r.WithTagId(random.RandInt())
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
+	r.WithExtended(random.Bool())
+	r.WithItemType(random.String())
+	r.WithTagId(random.Int())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
 	Fields := new([]models.UsersFields)
-	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	lFields := random.IntDiapason(random.MaxArrayLength + 1)
 	*Fields = make([]models.UsersFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyUsersFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithIsFromSnackbar(random.RandBool())
+	r.WithIsFromSnackbar(random.Bool())
 }
 
 func TestVKFaveGetSuccess(t *testing.T) {
@@ -206,7 +206,7 @@ func TestVKFaveGetSuccess(t *testing.T) {
 	fillRandomlyFaveGetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.get", params.Params(), expectedJSON))
@@ -223,7 +223,7 @@ func TestVKFaveGetExtendedSuccess(t *testing.T) {
 	fillRandomlyFaveGetExtendedResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.get", params.Params(), expectedJSON))
@@ -233,17 +233,17 @@ func TestVKFaveGetExtendedSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveGetPagesRequest(r *requests.FaveGetPagesRequest) {
-	r.WithOffset(random.RandInt())
-	r.WithCount(random.RandInt())
-	r.WithType(random.RandString())
+	r.WithOffset(random.Int())
+	r.WithCount(random.Int())
+	r.WithType(random.String())
 	Fields := new([]models.BaseUserGroupFields)
-	lFields := random.RandIntn(random.MaxArrayLength + 1)
+	lFields := random.IntDiapason(random.MaxArrayLength + 1)
 	*Fields = make([]models.BaseUserGroupFields, lFields)
 	for i0 := 0; i0 < lFields; i0++ {
 		fillRandomlyBaseUserGroupFields(&(*Fields)[i0])
 	}
 	r.WithFields(*Fields)
-	r.WithTagId(random.RandInt())
+	r.WithTagId(random.Int())
 }
 
 func TestVKFaveGetPagesSuccess(t *testing.T) {
@@ -253,7 +253,7 @@ func TestVKFaveGetPagesSuccess(t *testing.T) {
 	fillRandomlyFaveGetPagesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.getPages", params.Params(), expectedJSON))
@@ -267,7 +267,7 @@ func TestVKFaveGetTagsSuccess(t *testing.T) {
 	fillRandomlyFaveGetTagsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.getTags", nil, expectedJSON))
@@ -281,7 +281,7 @@ func TestVKFaveMarkSeenSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.markSeen", nil, expectedJSON))
@@ -291,8 +291,8 @@ func TestVKFaveMarkSeenSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveRemoveArticleRequest(r *requests.FaveRemoveArticleRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithArticleId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithArticleId(random.Int())
 }
 
 func TestVKFaveRemoveArticleSuccess(t *testing.T) {
@@ -302,7 +302,7 @@ func TestVKFaveRemoveArticleSuccess(t *testing.T) {
 	fillRandomlyBaseBoolResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.removeArticle", params.Params(), expectedJSON))
@@ -312,8 +312,8 @@ func TestVKFaveRemoveArticleSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveRemoveLinkRequest(r *requests.FaveRemoveLinkRequest) {
-	r.WithLinkId(random.RandString())
-	r.WithLink(random.RandString())
+	r.WithLinkId(random.String())
+	r.WithLink(random.String())
 }
 
 func TestVKFaveRemoveLinkSuccess(t *testing.T) {
@@ -323,7 +323,7 @@ func TestVKFaveRemoveLinkSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.removeLink", params.Params(), expectedJSON))
@@ -333,8 +333,8 @@ func TestVKFaveRemoveLinkSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveRemovePageRequest(r *requests.FaveRemovePageRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.Int())
+	r.WithGroupId(random.Int())
 }
 
 func TestVKFaveRemovePageSuccess(t *testing.T) {
@@ -344,7 +344,7 @@ func TestVKFaveRemovePageSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.removePage", params.Params(), expectedJSON))
@@ -354,8 +354,8 @@ func TestVKFaveRemovePageSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveRemovePostRequest(r *requests.FaveRemovePostRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithId(random.Int())
 }
 
 func TestVKFaveRemovePostSuccess(t *testing.T) {
@@ -365,7 +365,7 @@ func TestVKFaveRemovePostSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.removePost", params.Params(), expectedJSON))
@@ -375,8 +375,8 @@ func TestVKFaveRemovePostSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveRemoveProductRequest(r *requests.FaveRemoveProductRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithId(random.Int())
 }
 
 func TestVKFaveRemoveProductSuccess(t *testing.T) {
@@ -386,7 +386,7 @@ func TestVKFaveRemoveProductSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.removeProduct", params.Params(), expectedJSON))
@@ -396,7 +396,7 @@ func TestVKFaveRemoveProductSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveRemoveTagRequest(r *requests.FaveRemoveTagRequest) {
-	r.WithId(random.RandInt())
+	r.WithId(random.Int())
 }
 
 func TestVKFaveRemoveTagSuccess(t *testing.T) {
@@ -406,7 +406,7 @@ func TestVKFaveRemoveTagSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.removeTag", params.Params(), expectedJSON))
@@ -416,8 +416,8 @@ func TestVKFaveRemoveTagSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveRemoveVideoRequest(r *requests.FaveRemoveVideoRequest) {
-	r.WithOwnerId(random.RandInt())
-	r.WithId(random.RandInt())
+	r.WithOwnerId(random.Int())
+	r.WithId(random.Int())
 }
 
 func TestVKFaveRemoveVideoSuccess(t *testing.T) {
@@ -427,7 +427,7 @@ func TestVKFaveRemoveVideoSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.removeVideo", params.Params(), expectedJSON))
@@ -437,8 +437,8 @@ func TestVKFaveRemoveVideoSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveReorderTagsRequest(r *requests.FaveReorderTagsRequest) {
-	lIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithIds(random.RandIntArr(lIds))
+	lIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithIds(random.IntArr(lIds))
 }
 
 func TestVKFaveReorderTagsSuccess(t *testing.T) {
@@ -448,7 +448,7 @@ func TestVKFaveReorderTagsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.reorderTags", params.Params(), expectedJSON))
@@ -458,10 +458,10 @@ func TestVKFaveReorderTagsSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveSetPageTagsRequest(r *requests.FaveSetPageTagsRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithGroupId(random.RandInt())
-	lTagIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithTagIds(random.RandIntArr(lTagIds))
+	r.WithUserId(random.Int())
+	r.WithGroupId(random.Int())
+	lTagIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithTagIds(random.IntArr(lTagIds))
 }
 
 func TestVKFaveSetPageTagsSuccess(t *testing.T) {
@@ -471,7 +471,7 @@ func TestVKFaveSetPageTagsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.setPageTags", params.Params(), expectedJSON))
@@ -481,13 +481,13 @@ func TestVKFaveSetPageTagsSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveSetTagsRequest(r *requests.FaveSetTagsRequest) {
-	r.WithItemType(random.RandString())
-	r.WithItemOwnerId(random.RandInt())
-	r.WithItemId(random.RandInt())
-	lTagIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithTagIds(random.RandIntArr(lTagIds))
-	r.WithLinkId(random.RandString())
-	r.WithLinkUrl(random.RandString())
+	r.WithItemType(random.String())
+	r.WithItemOwnerId(random.Int())
+	r.WithItemId(random.Int())
+	lTagIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithTagIds(random.IntArr(lTagIds))
+	r.WithLinkId(random.String())
+	r.WithLinkUrl(random.String())
 }
 
 func TestVKFaveSetTagsSuccess(t *testing.T) {
@@ -497,7 +497,7 @@ func TestVKFaveSetTagsSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.setTags", params.Params(), expectedJSON))
@@ -507,8 +507,8 @@ func TestVKFaveSetTagsSuccess(t *testing.T) {
 }
 
 func fillRandomlyFaveTrackPageInteractionRequest(r *requests.FaveTrackPageInteractionRequest) {
-	r.WithUserId(random.RandInt())
-	r.WithGroupId(random.RandInt())
+	r.WithUserId(random.Int())
+	r.WithGroupId(random.Int())
 }
 
 func TestVKFaveTrackPageInteractionSuccess(t *testing.T) {
@@ -518,7 +518,7 @@ func TestVKFaveTrackPageInteractionSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "fave.trackPageInteraction", params.Params(), expectedJSON))

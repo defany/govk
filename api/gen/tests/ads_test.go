@@ -14,9 +14,9 @@ import (
 )
 
 func fillRandomlyAdsAddOfficeUsersRequest(r *requests.AdsAddOfficeUsersRequest) {
-	r.WithAccountId(random.RandInt())
+	r.WithAccountId(random.Int())
 	Data := new([]models.AdsUserSpecificationCutted)
-	lData := random.RandIntn(random.MaxArrayLength + 1)
+	lData := random.IntDiapason(random.MaxArrayLength + 1)
 	*Data = make([]models.AdsUserSpecificationCutted, lData)
 	for i0 := 0; i0 < lData; i0++ {
 		fillRandomlyAdsUserSpecificationCutted(&(*Data)[i0])
@@ -31,7 +31,7 @@ func TestVKAdsAddOfficeUsersSuccess(t *testing.T) {
 	fillRandomlyAdsAddOfficeUsersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.addOfficeUsers", params.Params(), expectedJSON))
@@ -41,10 +41,10 @@ func TestVKAdsAddOfficeUsersSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsCheckLinkRequest(r *requests.AdsCheckLinkRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithLinkType(random.RandString())
-	r.WithLinkUrl(random.RandString())
-	r.WithCampaignId(random.RandInt())
+	r.WithAccountId(random.Int())
+	r.WithLinkType(random.String())
+	r.WithLinkUrl(random.String())
+	r.WithCampaignId(random.Int())
 }
 
 func TestVKAdsCheckLinkSuccess(t *testing.T) {
@@ -54,7 +54,7 @@ func TestVKAdsCheckLinkSuccess(t *testing.T) {
 	fillRandomlyAdsCheckLinkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.checkLink", params.Params(), expectedJSON))
@@ -64,8 +64,8 @@ func TestVKAdsCheckLinkSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsCreateAdsRequest(r *requests.AdsCreateAdsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithData(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithData(random.String())
 }
 
 func TestVKAdsCreateAdsSuccess(t *testing.T) {
@@ -75,7 +75,7 @@ func TestVKAdsCreateAdsSuccess(t *testing.T) {
 	fillRandomlyAdsCreateAdsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.createAds", params.Params(), expectedJSON))
@@ -85,8 +85,8 @@ func TestVKAdsCreateAdsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsCreateCampaignsRequest(r *requests.AdsCreateCampaignsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithData(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithData(random.String())
 }
 
 func TestVKAdsCreateCampaignsSuccess(t *testing.T) {
@@ -96,7 +96,7 @@ func TestVKAdsCreateCampaignsSuccess(t *testing.T) {
 	fillRandomlyAdsCreateCampaignsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.createCampaigns", params.Params(), expectedJSON))
@@ -106,8 +106,8 @@ func TestVKAdsCreateCampaignsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsCreateClientsRequest(r *requests.AdsCreateClientsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithData(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithData(random.String())
 }
 
 func TestVKAdsCreateClientsSuccess(t *testing.T) {
@@ -117,7 +117,7 @@ func TestVKAdsCreateClientsSuccess(t *testing.T) {
 	fillRandomlyAdsCreateClientsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.createClients", params.Params(), expectedJSON))
@@ -127,12 +127,12 @@ func TestVKAdsCreateClientsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsCreateTargetGroupRequest(r *requests.AdsCreateTargetGroupRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithClientId(random.RandInt())
-	r.WithName(random.RandString())
-	r.WithLifetime(random.RandInt())
-	r.WithTargetPixelId(random.RandInt())
-	r.WithTargetPixelRules(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithClientId(random.Int())
+	r.WithName(random.String())
+	r.WithLifetime(random.Int())
+	r.WithTargetPixelId(random.Int())
+	r.WithTargetPixelRules(random.String())
 }
 
 func TestVKAdsCreateTargetGroupSuccess(t *testing.T) {
@@ -142,7 +142,7 @@ func TestVKAdsCreateTargetGroupSuccess(t *testing.T) {
 	fillRandomlyAdsCreateTargetGroupResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.createTargetGroup", params.Params(), expectedJSON))
@@ -152,8 +152,8 @@ func TestVKAdsCreateTargetGroupSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsDeleteAdsRequest(r *requests.AdsDeleteAdsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithIds(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithIds(random.String())
 }
 
 func TestVKAdsDeleteAdsSuccess(t *testing.T) {
@@ -163,7 +163,7 @@ func TestVKAdsDeleteAdsSuccess(t *testing.T) {
 	fillRandomlyAdsDeleteAdsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.deleteAds", params.Params(), expectedJSON))
@@ -173,8 +173,8 @@ func TestVKAdsDeleteAdsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsDeleteCampaignsRequest(r *requests.AdsDeleteCampaignsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithIds(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithIds(random.String())
 }
 
 func TestVKAdsDeleteCampaignsSuccess(t *testing.T) {
@@ -184,7 +184,7 @@ func TestVKAdsDeleteCampaignsSuccess(t *testing.T) {
 	fillRandomlyAdsDeleteCampaignsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.deleteCampaigns", params.Params(), expectedJSON))
@@ -194,8 +194,8 @@ func TestVKAdsDeleteCampaignsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsDeleteClientsRequest(r *requests.AdsDeleteClientsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithIds(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithIds(random.String())
 }
 
 func TestVKAdsDeleteClientsSuccess(t *testing.T) {
@@ -205,7 +205,7 @@ func TestVKAdsDeleteClientsSuccess(t *testing.T) {
 	fillRandomlyAdsDeleteClientsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.deleteClients", params.Params(), expectedJSON))
@@ -215,9 +215,9 @@ func TestVKAdsDeleteClientsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsDeleteTargetGroupRequest(r *requests.AdsDeleteTargetGroupRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithClientId(random.RandInt())
-	r.WithTargetGroupId(random.RandInt())
+	r.WithAccountId(random.Int())
+	r.WithClientId(random.Int())
+	r.WithTargetGroupId(random.Int())
 }
 
 func TestVKAdsDeleteTargetGroupSuccess(t *testing.T) {
@@ -227,7 +227,7 @@ func TestVKAdsDeleteTargetGroupSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.deleteTargetGroup", params.Params(), expectedJSON))
@@ -241,7 +241,7 @@ func TestVKAdsGetAccountsSuccess(t *testing.T) {
 	fillRandomlyAdsGetAccountsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getAccounts", nil, expectedJSON))
@@ -251,14 +251,14 @@ func TestVKAdsGetAccountsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetAdsRequest(r *requests.AdsGetAdsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithAdIds(random.RandString())
-	r.WithCampaignIds(random.RandString())
-	r.WithClientId(random.RandInt())
-	r.WithIncludeDeleted(random.RandBool())
-	r.WithOnlyDeleted(random.RandBool())
-	r.WithLimit(random.RandInt())
-	r.WithOffset(random.RandInt())
+	r.WithAccountId(random.Int())
+	r.WithAdIds(random.String())
+	r.WithCampaignIds(random.String())
+	r.WithClientId(random.Int())
+	r.WithIncludeDeleted(random.Bool())
+	r.WithOnlyDeleted(random.Bool())
+	r.WithLimit(random.Int())
+	r.WithOffset(random.Int())
 }
 
 func TestVKAdsGetAdsSuccess(t *testing.T) {
@@ -268,7 +268,7 @@ func TestVKAdsGetAdsSuccess(t *testing.T) {
 	fillRandomlyAdsGetAdsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getAds", params.Params(), expectedJSON))
@@ -278,14 +278,14 @@ func TestVKAdsGetAdsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetAdsLayoutRequest(r *requests.AdsGetAdsLayoutRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithClientId(random.RandInt())
-	r.WithIncludeDeleted(random.RandBool())
-	r.WithOnlyDeleted(random.RandBool())
-	r.WithCampaignIds(random.RandString())
-	r.WithAdIds(random.RandString())
-	r.WithLimit(random.RandInt())
-	r.WithOffset(random.RandInt())
+	r.WithAccountId(random.Int())
+	r.WithClientId(random.Int())
+	r.WithIncludeDeleted(random.Bool())
+	r.WithOnlyDeleted(random.Bool())
+	r.WithCampaignIds(random.String())
+	r.WithAdIds(random.String())
+	r.WithLimit(random.Int())
+	r.WithOffset(random.Int())
 }
 
 func TestVKAdsGetAdsLayoutSuccess(t *testing.T) {
@@ -295,7 +295,7 @@ func TestVKAdsGetAdsLayoutSuccess(t *testing.T) {
 	fillRandomlyAdsGetAdsLayoutResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getAdsLayout", params.Params(), expectedJSON))
@@ -305,13 +305,13 @@ func TestVKAdsGetAdsLayoutSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetAdsTargetingRequest(r *requests.AdsGetAdsTargetingRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithAdIds(random.RandString())
-	r.WithCampaignIds(random.RandString())
-	r.WithClientId(random.RandInt())
-	r.WithIncludeDeleted(random.RandBool())
-	r.WithLimit(random.RandInt())
-	r.WithOffset(random.RandInt())
+	r.WithAccountId(random.Int())
+	r.WithAdIds(random.String())
+	r.WithCampaignIds(random.String())
+	r.WithClientId(random.Int())
+	r.WithIncludeDeleted(random.Bool())
+	r.WithLimit(random.Int())
+	r.WithOffset(random.Int())
 }
 
 func TestVKAdsGetAdsTargetingSuccess(t *testing.T) {
@@ -321,7 +321,7 @@ func TestVKAdsGetAdsTargetingSuccess(t *testing.T) {
 	fillRandomlyAdsGetAdsTargetingResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getAdsTargeting", params.Params(), expectedJSON))
@@ -331,7 +331,7 @@ func TestVKAdsGetAdsTargetingSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetBudgetRequest(r *requests.AdsGetBudgetRequest) {
-	r.WithAccountId(random.RandInt())
+	r.WithAccountId(random.Int())
 }
 
 func TestVKAdsGetBudgetSuccess(t *testing.T) {
@@ -341,7 +341,7 @@ func TestVKAdsGetBudgetSuccess(t *testing.T) {
 	fillRandomlyAdsGetBudgetResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getBudget", params.Params(), expectedJSON))
@@ -351,12 +351,12 @@ func TestVKAdsGetBudgetSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetCampaignsRequest(r *requests.AdsGetCampaignsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithClientId(random.RandInt())
-	r.WithIncludeDeleted(random.RandBool())
-	r.WithCampaignIds(random.RandString())
-	lFields := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithFields(random.RandStringArr(lFields))
+	r.WithAccountId(random.Int())
+	r.WithClientId(random.Int())
+	r.WithIncludeDeleted(random.Bool())
+	r.WithCampaignIds(random.String())
+	lFields := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithFields(random.StringArr(lFields))
 }
 
 func TestVKAdsGetCampaignsSuccess(t *testing.T) {
@@ -366,7 +366,7 @@ func TestVKAdsGetCampaignsSuccess(t *testing.T) {
 	fillRandomlyAdsGetCampaignsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getCampaigns", params.Params(), expectedJSON))
@@ -376,7 +376,7 @@ func TestVKAdsGetCampaignsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetCategoriesRequest(r *requests.AdsGetCategoriesRequest) {
-	r.WithLang(random.RandString())
+	r.WithLang(random.String())
 }
 
 func TestVKAdsGetCategoriesSuccess(t *testing.T) {
@@ -386,7 +386,7 @@ func TestVKAdsGetCategoriesSuccess(t *testing.T) {
 	fillRandomlyAdsGetCategoriesResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getCategories", params.Params(), expectedJSON))
@@ -396,7 +396,7 @@ func TestVKAdsGetCategoriesSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetClientsRequest(r *requests.AdsGetClientsRequest) {
-	r.WithAccountId(random.RandInt())
+	r.WithAccountId(random.Int())
 }
 
 func TestVKAdsGetClientsSuccess(t *testing.T) {
@@ -406,7 +406,7 @@ func TestVKAdsGetClientsSuccess(t *testing.T) {
 	fillRandomlyAdsGetClientsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getClients", params.Params(), expectedJSON))
@@ -416,12 +416,12 @@ func TestVKAdsGetClientsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetDemographicsRequest(r *requests.AdsGetDemographicsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithIdsType(random.RandString())
-	r.WithIds(random.RandString())
-	r.WithPeriod(random.RandString())
-	r.WithDateFrom(random.RandString())
-	r.WithDateTo(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithIdsType(random.String())
+	r.WithIds(random.String())
+	r.WithPeriod(random.String())
+	r.WithDateFrom(random.String())
+	r.WithDateTo(random.String())
 }
 
 func TestVKAdsGetDemographicsSuccess(t *testing.T) {
@@ -431,7 +431,7 @@ func TestVKAdsGetDemographicsSuccess(t *testing.T) {
 	fillRandomlyAdsGetDemographicsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getDemographics", params.Params(), expectedJSON))
@@ -441,7 +441,7 @@ func TestVKAdsGetDemographicsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetFloodStatsRequest(r *requests.AdsGetFloodStatsRequest) {
-	r.WithAccountId(random.RandInt())
+	r.WithAccountId(random.Int())
 }
 
 func TestVKAdsGetFloodStatsSuccess(t *testing.T) {
@@ -451,7 +451,7 @@ func TestVKAdsGetFloodStatsSuccess(t *testing.T) {
 	fillRandomlyAdsGetFloodStatsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getFloodStats", params.Params(), expectedJSON))
@@ -461,12 +461,12 @@ func TestVKAdsGetFloodStatsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetLookalikeRequestsRequest(r *requests.AdsGetLookalikeRequestsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithClientId(random.RandInt())
-	r.WithRequestsIds(random.RandString())
-	r.WithOffset(random.RandInt())
-	r.WithLimit(random.RandInt())
-	r.WithSortBy(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithClientId(random.Int())
+	r.WithRequestsIds(random.String())
+	r.WithOffset(random.Int())
+	r.WithLimit(random.Int())
+	r.WithSortBy(random.String())
 }
 
 func TestVKAdsGetLookalikeRequestsSuccess(t *testing.T) {
@@ -476,7 +476,7 @@ func TestVKAdsGetLookalikeRequestsSuccess(t *testing.T) {
 	fillRandomlyAdsGetLookalikeRequestsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getLookalikeRequests", params.Params(), expectedJSON))
@@ -486,7 +486,7 @@ func TestVKAdsGetLookalikeRequestsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetMusiciansRequest(r *requests.AdsGetMusiciansRequest) {
-	r.WithArtistName(random.RandString())
+	r.WithArtistName(random.String())
 }
 
 func TestVKAdsGetMusiciansSuccess(t *testing.T) {
@@ -496,7 +496,7 @@ func TestVKAdsGetMusiciansSuccess(t *testing.T) {
 	fillRandomlyAdsGetMusiciansResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getMusicians", params.Params(), expectedJSON))
@@ -506,8 +506,8 @@ func TestVKAdsGetMusiciansSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetMusiciansByIdsRequest(r *requests.AdsGetMusiciansByIdsRequest) {
-	lIds := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithIds(random.RandIntArr(lIds))
+	lIds := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithIds(random.IntArr(lIds))
 }
 
 func TestVKAdsGetMusiciansByIdsSuccess(t *testing.T) {
@@ -517,7 +517,7 @@ func TestVKAdsGetMusiciansByIdsSuccess(t *testing.T) {
 	fillRandomlyAdsGetMusiciansResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getMusiciansByIds", params.Params(), expectedJSON))
@@ -527,7 +527,7 @@ func TestVKAdsGetMusiciansByIdsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetOfficeUsersRequest(r *requests.AdsGetOfficeUsersRequest) {
-	r.WithAccountId(random.RandInt())
+	r.WithAccountId(random.Int())
 }
 
 func TestVKAdsGetOfficeUsersSuccess(t *testing.T) {
@@ -537,7 +537,7 @@ func TestVKAdsGetOfficeUsersSuccess(t *testing.T) {
 	fillRandomlyAdsGetOfficeUsersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getOfficeUsers", params.Params(), expectedJSON))
@@ -547,9 +547,9 @@ func TestVKAdsGetOfficeUsersSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetPostsReachRequest(r *requests.AdsGetPostsReachRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithIdsType(random.RandString())
-	r.WithIds(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithIdsType(random.String())
+	r.WithIds(random.String())
 }
 
 func TestVKAdsGetPostsReachSuccess(t *testing.T) {
@@ -559,7 +559,7 @@ func TestVKAdsGetPostsReachSuccess(t *testing.T) {
 	fillRandomlyAdsGetPostsReachResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getPostsReach", params.Params(), expectedJSON))
@@ -569,8 +569,8 @@ func TestVKAdsGetPostsReachSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetRejectionReasonRequest(r *requests.AdsGetRejectionReasonRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithAdId(random.RandInt())
+	r.WithAccountId(random.Int())
+	r.WithAdId(random.Int())
 }
 
 func TestVKAdsGetRejectionReasonSuccess(t *testing.T) {
@@ -580,7 +580,7 @@ func TestVKAdsGetRejectionReasonSuccess(t *testing.T) {
 	fillRandomlyAdsGetRejectionReasonResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getRejectionReason", params.Params(), expectedJSON))
@@ -590,14 +590,14 @@ func TestVKAdsGetRejectionReasonSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetStatisticsRequest(r *requests.AdsGetStatisticsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithIdsType(random.RandString())
-	r.WithIds(random.RandString())
-	r.WithPeriod(random.RandString())
-	r.WithDateFrom(random.RandString())
-	r.WithDateTo(random.RandString())
-	lStatsFields := random.RandIntn(random.MaxArrayLength + 1)
-	r.WithStatsFields(random.RandStringArr(lStatsFields))
+	r.WithAccountId(random.Int())
+	r.WithIdsType(random.String())
+	r.WithIds(random.String())
+	r.WithPeriod(random.String())
+	r.WithDateFrom(random.String())
+	r.WithDateTo(random.String())
+	lStatsFields := random.IntDiapason(random.MaxArrayLength + 1)
+	r.WithStatsFields(random.StringArr(lStatsFields))
 }
 
 func TestVKAdsGetStatisticsSuccess(t *testing.T) {
@@ -607,7 +607,7 @@ func TestVKAdsGetStatisticsSuccess(t *testing.T) {
 	fillRandomlyAdsGetStatisticsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getStatistics", params.Params(), expectedJSON))
@@ -617,12 +617,12 @@ func TestVKAdsGetStatisticsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetSuggestionsRequest(r *requests.AdsGetSuggestionsRequest) {
-	r.WithSection(random.RandString())
-	r.WithIds(random.RandString())
-	r.WithQ(random.RandString())
-	r.WithCountry(random.RandInt())
-	r.WithCities(random.RandString())
-	r.WithLang(random.RandString())
+	r.WithSection(random.String())
+	r.WithIds(random.String())
+	r.WithQ(random.String())
+	r.WithCountry(random.Int())
+	r.WithCities(random.String())
+	r.WithLang(random.String())
 }
 
 func TestVKAdsGetSuggestionsSuccess(t *testing.T) {
@@ -632,7 +632,7 @@ func TestVKAdsGetSuggestionsSuccess(t *testing.T) {
 	fillRandomlyAdsGetSuggestionsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getSuggestions", params.Params(), expectedJSON))
@@ -642,9 +642,9 @@ func TestVKAdsGetSuggestionsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetTargetGroupsRequest(r *requests.AdsGetTargetGroupsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithClientId(random.RandInt())
-	r.WithExtended(random.RandBool())
+	r.WithAccountId(random.Int())
+	r.WithClientId(random.Int())
+	r.WithExtended(random.Bool())
 }
 
 func TestVKAdsGetTargetGroupsSuccess(t *testing.T) {
@@ -654,7 +654,7 @@ func TestVKAdsGetTargetGroupsSuccess(t *testing.T) {
 	fillRandomlyAdsGetTargetGroupsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getTargetGroups", params.Params(), expectedJSON))
@@ -664,19 +664,19 @@ func TestVKAdsGetTargetGroupsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetTargetingStatsRequest(r *requests.AdsGetTargetingStatsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithClientId(random.RandInt())
-	r.WithCriteria(random.RandString())
-	r.WithAdId(random.RandInt())
-	r.WithAdFormat(random.RandInt())
-	r.WithAdPlatform(random.RandString())
-	r.WithAdPlatformNoWall(random.RandString())
-	r.WithAdPlatformNoAdNetwork(random.RandString())
-	r.WithPublisherPlatforms(random.RandString())
-	r.WithLinkUrl(random.RandString())
-	r.WithLinkDomain(random.RandString())
-	r.WithNeedPrecise(random.RandBool())
-	r.WithImpressionsLimitPeriod(random.RandInt())
+	r.WithAccountId(random.Int())
+	r.WithClientId(random.Int())
+	r.WithCriteria(random.String())
+	r.WithAdId(random.Int())
+	r.WithAdFormat(random.Int())
+	r.WithAdPlatform(random.String())
+	r.WithAdPlatformNoWall(random.String())
+	r.WithAdPlatformNoAdNetwork(random.String())
+	r.WithPublisherPlatforms(random.String())
+	r.WithLinkUrl(random.String())
+	r.WithLinkDomain(random.String())
+	r.WithNeedPrecise(random.Bool())
+	r.WithImpressionsLimitPeriod(random.Int())
 }
 
 func TestVKAdsGetTargetingStatsSuccess(t *testing.T) {
@@ -686,7 +686,7 @@ func TestVKAdsGetTargetingStatsSuccess(t *testing.T) {
 	fillRandomlyAdsGetTargetingStatsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getTargetingStats", params.Params(), expectedJSON))
@@ -696,8 +696,8 @@ func TestVKAdsGetTargetingStatsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsGetUploadURLRequest(r *requests.AdsGetUploadURLRequest) {
-	r.WithAdFormat(random.RandInt())
-	r.WithIcon(random.RandInt())
+	r.WithAdFormat(random.Int())
+	r.WithIcon(random.Int())
 }
 
 func TestVKAdsGetUploadURLSuccess(t *testing.T) {
@@ -707,7 +707,7 @@ func TestVKAdsGetUploadURLSuccess(t *testing.T) {
 	fillRandomlyAdsGetUploadURLResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getUploadURL", params.Params(), expectedJSON))
@@ -721,7 +721,7 @@ func TestVKAdsGetVideoUploadURLSuccess(t *testing.T) {
 	fillRandomlyAdsGetVideoUploadURLResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.getVideoUploadURL", nil, expectedJSON))
@@ -731,10 +731,10 @@ func TestVKAdsGetVideoUploadURLSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsImportTargetContactsRequest(r *requests.AdsImportTargetContactsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithClientId(random.RandInt())
-	r.WithTargetGroupId(random.RandInt())
-	r.WithContacts(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithClientId(random.Int())
+	r.WithTargetGroupId(random.Int())
+	r.WithContacts(random.String())
 }
 
 func TestVKAdsImportTargetContactsSuccess(t *testing.T) {
@@ -744,7 +744,7 @@ func TestVKAdsImportTargetContactsSuccess(t *testing.T) {
 	fillRandomlyAdsImportTargetContactsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.importTargetContacts", params.Params(), expectedJSON))
@@ -754,8 +754,8 @@ func TestVKAdsImportTargetContactsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsRemoveOfficeUsersRequest(r *requests.AdsRemoveOfficeUsersRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithIds(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithIds(random.String())
 }
 
 func TestVKAdsRemoveOfficeUsersSuccess(t *testing.T) {
@@ -765,7 +765,7 @@ func TestVKAdsRemoveOfficeUsersSuccess(t *testing.T) {
 	fillRandomlyAdsRemoveOfficeUsersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.removeOfficeUsers", params.Params(), expectedJSON))
@@ -775,8 +775,8 @@ func TestVKAdsRemoveOfficeUsersSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsUpdateAdsRequest(r *requests.AdsUpdateAdsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithData(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithData(random.String())
 }
 
 func TestVKAdsUpdateAdsSuccess(t *testing.T) {
@@ -786,7 +786,7 @@ func TestVKAdsUpdateAdsSuccess(t *testing.T) {
 	fillRandomlyAdsUpdateAdsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.updateAds", params.Params(), expectedJSON))
@@ -796,8 +796,8 @@ func TestVKAdsUpdateAdsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsUpdateCampaignsRequest(r *requests.AdsUpdateCampaignsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithData(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithData(random.String())
 }
 
 func TestVKAdsUpdateCampaignsSuccess(t *testing.T) {
@@ -807,7 +807,7 @@ func TestVKAdsUpdateCampaignsSuccess(t *testing.T) {
 	fillRandomlyAdsUpdateCampaignsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.updateCampaigns", params.Params(), expectedJSON))
@@ -817,8 +817,8 @@ func TestVKAdsUpdateCampaignsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsUpdateClientsRequest(r *requests.AdsUpdateClientsRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithData(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithData(random.String())
 }
 
 func TestVKAdsUpdateClientsSuccess(t *testing.T) {
@@ -828,7 +828,7 @@ func TestVKAdsUpdateClientsSuccess(t *testing.T) {
 	fillRandomlyAdsUpdateClientsResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.updateClients", params.Params(), expectedJSON))
@@ -838,9 +838,9 @@ func TestVKAdsUpdateClientsSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsUpdateOfficeUsersRequest(r *requests.AdsUpdateOfficeUsersRequest) {
-	r.WithAccountId(random.RandInt())
+	r.WithAccountId(random.Int())
 	Data := new([]models.AdsUserSpecification)
-	lData := random.RandIntn(random.MaxArrayLength + 1)
+	lData := random.IntDiapason(random.MaxArrayLength + 1)
 	*Data = make([]models.AdsUserSpecification, lData)
 	for i0 := 0; i0 < lData; i0++ {
 		fillRandomlyAdsUserSpecification(&(*Data)[i0])
@@ -855,7 +855,7 @@ func TestVKAdsUpdateOfficeUsersSuccess(t *testing.T) {
 	fillRandomlyAdsUpdateOfficeUsersResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.updateOfficeUsers", params.Params(), expectedJSON))
@@ -865,14 +865,14 @@ func TestVKAdsUpdateOfficeUsersSuccess(t *testing.T) {
 }
 
 func fillRandomlyAdsUpdateTargetGroupRequest(r *requests.AdsUpdateTargetGroupRequest) {
-	r.WithAccountId(random.RandInt())
-	r.WithClientId(random.RandInt())
-	r.WithTargetGroupId(random.RandInt())
-	r.WithName(random.RandString())
-	r.WithDomain(random.RandString())
-	r.WithLifetime(random.RandInt())
-	r.WithTargetPixelId(random.RandInt())
-	r.WithTargetPixelRules(random.RandString())
+	r.WithAccountId(random.Int())
+	r.WithClientId(random.Int())
+	r.WithTargetGroupId(random.Int())
+	r.WithName(random.String())
+	r.WithDomain(random.String())
+	r.WithLifetime(random.Int())
+	r.WithTargetPixelId(random.Int())
+	r.WithTargetPixelRules(random.String())
 }
 
 func TestVKAdsUpdateTargetGroupSuccess(t *testing.T) {
@@ -882,7 +882,7 @@ func TestVKAdsUpdateTargetGroupSuccess(t *testing.T) {
 	fillRandomlyBaseOkResponse(&expected)
 	expectedJSON, err := json.Marshal(expected)
 	require.NoError(t, err)
-	token := random.RandString()
+	token := random.String()
 	vk, err := govk.NewVK(token)
 	assert.NoError(t, err)
 	vk.Api.WithHTTP(NewTestClient(t, "ads.updateTargetGroup", params.Params(), expectedJSON))
