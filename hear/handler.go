@@ -23,7 +23,6 @@ type Handler[Event HandlerEvent] struct {
 	matchRules []Matcher[Event]
 }
 
-<<<<<<< HEAD
 func NewHandler[Event HandlerEvent]() *Handler[Event] {
 	return &Handler[Event]{}
 }
@@ -37,16 +36,6 @@ func (h *Handler[Event]) WithCallback(callback callback[Event]) *Handler[Event] 
 func (h *Handler[Event]) Group(children ...*Handler[Event]) *Handler[Event] {
 	if len(h.children) == 0 {
 		h.children = make([]*Handler[Event], 0, len(children))
-||||||| 06ea378
-// NewHandler for handling commands from user by payload or text word
-func NewHandler[Event HandlerEvent](handler callback[Event]) *Handler[Event] {
-	return &Handler[Event]{
-		handler: handler,
-=======
-func newHandler[Event HandlerEvent](handler callback[Event]) *Handler[Event] {
-	return &Handler[Event]{
-		handler: handler,
->>>>>>> ec6cd9b5c35171d69d867df2d0a7cfd6f45a4d12
 	}
 
 	h.children = append(h.children, children...)

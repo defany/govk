@@ -72,7 +72,6 @@ func (h *Manager) Middleware(ctx context.Context, event msgmodel.MessagesNew) bo
 		}
 		handler.callback(ctx, event)
 
-<<<<<<< HEAD
 		return false
 	}
 
@@ -88,27 +87,11 @@ func (h *Manager) Middleware(ctx context.Context, event msgmodel.MessagesNew) bo
 
 			return false
 		}
-||||||| 06ea378
-		return true
-=======
-		return false
-	}
-
-	for _, command := range h.commands {
-		if command.IsMatch(event) {
-			h.inCache(matchWord, command)
-
-			command.handler(ctx, event)
-
-			return false
-		}
->>>>>>> ec6cd9b5c35171d69d867df2d0a7cfd6f45a4d12
 	}
 
 	return true
 }
 
-<<<<<<< HEAD
 func (h *EventManager) Middleware(ctx context.Context, event msgmodel.MessagesEvent) bool {
 	var matchWord string
 
@@ -145,42 +128,8 @@ func (h *EventManager) Middleware(ctx context.Context, event msgmodel.MessagesEv
 	}
 
 	return true
-||||||| 06ea378
-func (h *Manager) processMessagesNewPayload(ctx context.Context, event msgmodel.MessagesNew) bool {
-	return false
-=======
-func (h *EventManager) Middleware(ctx context.Context, event msgmodel.MessagesEvent) bool {
-	var matchWord string
-
-	payload, err := jsonparser.GetString(event.Payload, "command")
-	if err != nil {
-		return true
-	}
-
-	matchWord = payload
-
-	handler, ok := h.fromCache(matchWord)
-	if ok {
-		handler.handler(ctx, event)
-
-		return false
-	}
-
-	for _, command := range h.commands {
-		if command.IsMatch(event) {
-			h.inCache(matchWord, command)
-
-			command.handler(ctx, event)
-
-			return false
-		}
-	}
-
-	return true
->>>>>>> ec6cd9b5c35171d69d867df2d0a7cfd6f45a4d12
 }
 
-<<<<<<< HEAD
 func (h *Manager) AddHandlers(handlers ...*Handler[msgmodel.MessagesNew]) {
 	for _, handler := range handlers {
 		h.commands = append(h.commands, handler)
@@ -196,20 +145,8 @@ func (h *Manager) AddHandlers(handlers ...*Handler[msgmodel.MessagesNew]) {
 		}
 	}
 	return
-||||||| 06ea378
-func (h *Manager) processMessagesNewText(ctx context.Context, event msgmodel.MessagesNew) bool {
-	return false
-=======
-func (h *Manager) NewHandler(callback callback[msgmodel.MessagesNew]) *Handler[msgmodel.MessagesNew] {
-	handler := newHandler(callback)
-
-	h.commands = append(h.commands, handler)
-
-	return handler
->>>>>>> ec6cd9b5c35171d69d867df2d0a7cfd6f45a4d12
 }
 
-<<<<<<< HEAD
 func (h *EventManager) AddHandlers(handlers ...*Handler[msgmodel.MessagesEvent]) {
 	for _, handler := range handlers {
 		h.commands = append(h.commands, handler)
@@ -228,19 +165,6 @@ func (h *EventManager) AddHandlers(handlers ...*Handler[msgmodel.MessagesEvent])
 }
 
 func (h *Manager) fromCache(matchWord string) (*Handler[msgmodel.MessagesNew], bool) {
-||||||| 06ea378
-func (h *Manager) fromCache(matchWord string) (Handler[msgmodel.MessagesNew], bool) {
-=======
-func (h *EventManager) NewHandler(callback callback[msgmodel.MessagesEvent]) *Handler[msgmodel.MessagesEvent] {
-	handler := newHandler(callback)
-
-	h.commands = append(h.commands, handler)
-
-	return handler
-}
-
-func (h *Manager) fromCache(matchWord string) (*Handler[msgmodel.MessagesNew], bool) {
->>>>>>> ec6cd9b5c35171d69d867df2d0a7cfd6f45a4d12
 	return h.cache.Get(matchWord)
 }
 

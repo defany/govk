@@ -29,24 +29,11 @@ type callback[T any] func(ctx context.Context, data T)
 type middleware[T any] func(ctx context.Context, data T) bool
 
 type Updates struct {
-<<<<<<< HEAD
 	callbacks   map[string][]callback[json.RawMessage]
 	middlewares map[string][]middleware[json.RawMessage]
 	longPoll    *longPoll
 	api         *apiModel.ApiProvider
 	client      *http.Client
-||||||| 06ea378
-	callbacks map[string][]func(data any)
-	longPoll  *longPoll
-	api       *apiModel.ApiProvider
-	client    *fasthttp.Client
-=======
-	callbacks   map[string][]callback[json.RawMessage]
-	middlewares map[string][]middleware[json.RawMessage]
-	longPoll    *longPoll
-	api         *apiModel.ApiProvider
-	client      *fasthttp.Client
->>>>>>> ec6cd9b5c35171d69d867df2d0a7cfd6f45a4d12
 }
 
 func NewUpdates(api *apiModel.ApiProvider) *Updates {
@@ -71,7 +58,6 @@ func (u *Updates) RunWithContext(ctx context.Context) error {
 	return u.run(ctx)
 }
 
-<<<<<<< HEAD
 // WithFixedServerURL method should be used to fix the URL of the longpoll server.
 // Keep in mind, that this URL will be used all time
 func (u *Updates) WithFixedServerURL(serverUrl string) error {
@@ -84,24 +70,6 @@ func (u *Updates) WithFixedServerURL(serverUrl string) error {
 	u.longPoll.isFixed = true
 	return nil
 }
-||||||| 06ea378
-// TODO: Add check for new updates
-=======
-// WithFixedServerURL method should be used to fix the URL of the longpoll server.
-// Keep in mind, that this URL will be used all time
-func (u *Updates) WithFixedServerURL(serverUrl string) error {
-	url, err := url.ParseRequestURI(serverUrl)
-	if err != nil {
-		return err
-	}
-
-	u.longPoll.Server = url.String()
-	u.longPoll.isFixed = true
-	return nil
-}
-
-// TODO: Add check for new updates
->>>>>>> ec6cd9b5c35171d69d867df2d0a7cfd6f45a4d12
 
 func (u *Updates) run(ctx context.Context) error {
 	if err := u.refreshLongPollParams(true); err != nil {
@@ -164,38 +132,10 @@ func (u *Updates) check() (response model.Response, err error) {
 
 	uri.RawQuery = params.Encode()
 
-<<<<<<< HEAD
 	req, err := http.NewRequest(http.MethodGet, uri.String(), strings.NewReader(uri.RawQuery))
 
 	res, err := u.client.Do(req)
-||||||| 06ea378
-	req := fasthttp.AcquireRequest()
 
-	defer fasthttp.ReleaseRequest(req)
-
-	req.SetRequestURI(uri.String())
-	req.Header.SetMethod(fasthttp.MethodGet)
-
-	res := fasthttp.AcquireResponse()
-	defer fasthttp.ReleaseResponse(res)
-
-	res.StreamBody = true
-
-	err = u.client.Do(req, res)
-=======
-	req := fasthttp.AcquireRequest()
-	defer fasthttp.ReleaseRequest(req)
-
-	req.SetRequestURI(uri.String())
-	req.Header.SetMethod(fasthttp.MethodGet)
-
-	res := fasthttp.AcquireResponse()
-	defer fasthttp.ReleaseResponse(res)
-
-	res.StreamBody = true
-
-	err = u.client.Do(req, res)
->>>>>>> ec6cd9b5c35171d69d867df2d0a7cfd6f45a4d12
 	if err != nil {
 		return response, err
 	}
@@ -217,13 +157,8 @@ func (u *Updates) check() (response model.Response, err error) {
 }
 
 func (u *Updates) refreshLongPollParams(isUpdateTs bool) error {
-<<<<<<< HEAD
 	groupID, err := u.api.Groups.GroupsGetById()
-||||||| 06ea378
-	groupID, err := u.api.Groups.GetByID(nil)
-=======
-	groupID, err := u.api.Groups.GetByID()
->>>>>>> ec6cd9b5c35171d69d867df2d0a7cfd6f45a4d12
+
 	if err != nil {
 		return err
 	}
