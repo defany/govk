@@ -62,7 +62,6 @@ func (r *Request[Res]) Execute(method string, params MethodParams) (Res, error) 
 			params.Params()[versionParam] = Version
 		}
 	}
-<<<<<<< HEAD
 	reqBody, err := r.buildBody(params.Params())
 	if err != nil {
 		return r.response.Body, err
@@ -73,10 +72,6 @@ func (r *Request[Res]) Execute(method string, params MethodParams) (Res, error) 
 		return r.response.Body, err
 	}
 
-||||||| 06ea378
-=======
-
->>>>>>> ec6cd9b5c35171d69d867df2d0a7cfd6f45a4d12
 	r.setHeaders(req, token)
 
 	res, err := r.api.http.Do(req)

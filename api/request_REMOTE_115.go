@@ -1,11 +1,9 @@
 package api
 
 import (
-	"bytes"
+	gripDecoder "compress/gzip"
 	"github.com/goccy/go-json"
 	"github.com/valyala/fasthttp"
-	"io"
-	"net/http"
 )
 
 type Response[Res any] struct {
@@ -41,6 +39,9 @@ func (r *Request[Res]) Execute(method string, params MethodParams) (Res, error) 
 	r.api.mu.Lock()
 	defer r.api.mu.Unlock()
 
+	req := fasthttp.AcquireRequest()
+	defer fasthttp.ReleaseRequest(req)
+
 	var token string
 	if params == nil {
 		params = Params{}
@@ -62,36 +63,35 @@ func (r *Request[Res]) Execute(method string, params MethodParams) (Res, error) 
 			params.Params()[versionParam] = Version
 		}
 	}
-<<<<<<< HEAD
-	reqBody, err := r.buildBody(params.Params())
-	if err != nil {
-		return r.response.Body, err
-	}
 
-	req, err := http.NewRequest(http.MethodPost, r.buildUrl(method), reqBody)
-	if err != nil {
-		return r.response.Body, err
-	}
-
-||||||| 06ea378
-=======
-
->>>>>>> ec6cd9b5c35171d69d867df2d0a7cfd6f45a4d12
 	r.setHeaders(req, token)
 
-	res, err := r.api.http.Do(req)
+	r.buildUrl(method, req)
+
+	if err := r.buildBody(req, params.Params()); err != nil {
+		return r.response.Body, err
+	}
+
+	res := fasthttp.AcquireResponse()
+	defer fasthttp.ReleaseResponse(res)
+
+	res.StreamBody = true
+
+	err := r.api.http.Do(req, res)
 	if err != nil {
 		return r.response.Body, err
 	}
-	defer res.Body.Close()
+
 	// TODO: parse by media type
-	respBody, err := io.ReadAll(res.Body)
+	body := res.BodyStream()
 
+	reader, err := gripDecoder.NewReader(body)
 	if err != nil {
 		return r.response.Body, err
 	}
+	defer reader.Close()
 
-	err = json.Unmarshal(respBody, &r.response.Body)
+	err = json.NewDecoder(reader).Decode(&r.response)
 	if err != nil {
 		return r.response.Body, err
 	}
@@ -109,7 +109,9 @@ func (r *Request[Res]) Execute(method string, params MethodParams) (Res, error) 
 	}
 }
 
-func (r *Request[Res]) setHeaders(req *http.Request, token string) {
+func (r *Request[Res]) setHeaders(req *fasthttp.Request, token string) {
+	req.Header.SetMethod(fasthttp.MethodPost)
+
 	req.Header.Set(fasthttp.HeaderAuthorization, "Bearer "+token)
 
 	req.Header.Set("User-Agent", UserAgent)
@@ -118,17 +120,17 @@ func (r *Request[Res]) setHeaders(req *http.Request, token string) {
 	req.Header.Set("Accept-Encoding", gzip)
 }
 
-func (r *Request[Res]) buildUrl(method string) string {
-	return r.api.apiURL + method
+func (r *Request[Res]) buildUrl(method string, req *fasthttp.Request) {
+	req.URI().Update(r.api.apiURL + method)
 }
 
-func (r *Request[Res]) buildBody(params Params) (io.Reader, error) {
+func (r *Request[Res]) buildBody(req *fasthttp.Request, params Params) error {
 	values, err := params.Build()
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	reqBody := bytes.NewBufferString(values.Encode())
+	req.SetBodyString(values.Encode())
 
-	return reqBody, nil
+	return nil
 }
