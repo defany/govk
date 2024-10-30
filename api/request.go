@@ -1,9 +1,11 @@
 package api
 
 import (
-	gripDecoder "compress/gzip"
+	"bytes"
 	"github.com/goccy/go-json"
 	"github.com/valyala/fasthttp"
+	"io"
+	"net/http"
 )
 
 type Response[Res any] struct {
@@ -39,9 +41,6 @@ func (r *Request[Res]) Execute(method string, params MethodParams) (Res, error) 
 	r.api.mu.Lock()
 	defer r.api.mu.Unlock()
 
-	req := fasthttp.AcquireRequest()
-	defer fasthttp.ReleaseRequest(req)
-
 	var token string
 	if params == nil {
 		params = Params{}
@@ -64,34 +63,31 @@ func (r *Request[Res]) Execute(method string, params MethodParams) (Res, error) 
 		}
 	}
 
+	reqBody, err := r.buildBody(params.Params())
+	if err != nil {
+		return r.response.Body, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, r.buildUrl(method), reqBody)
+	if err != nil {
+		return r.response.Body, err
+	}
+
 	r.setHeaders(req, token)
 
-	r.buildUrl(method, req)
-
-	if err := r.buildBody(req, params.Params()); err != nil {
-		return r.response.Body, err
-	}
-
-	res := fasthttp.AcquireResponse()
-	defer fasthttp.ReleaseResponse(res)
-
-	res.StreamBody = true
-
-	err := r.api.http.Do(req, res)
+	res, err := r.api.http.Do(req)
 	if err != nil {
 		return r.response.Body, err
 	}
-
+	defer res.Body.Close()
 	// TODO: parse by media type
-	body := res.BodyStream()
+	respBody, err := io.ReadAll(res.Body)
 
-	reader, err := gripDecoder.NewReader(body)
 	if err != nil {
 		return r.response.Body, err
 	}
-	defer reader.Close()
 
-	err = json.NewDecoder(reader).Decode(&r.response)
+	err = json.Unmarshal(respBody, &r.response.Body)
 	if err != nil {
 		return r.response.Body, err
 	}
@@ -109,9 +105,7 @@ func (r *Request[Res]) Execute(method string, params MethodParams) (Res, error) 
 	}
 }
 
-func (r *Request[Res]) setHeaders(req *fasthttp.Request, token string) {
-	req.Header.SetMethod(fasthttp.MethodPost)
-
+func (r *Request[Res]) setHeaders(req *http.Request, token string) {
 	req.Header.Set(fasthttp.HeaderAuthorization, "Bearer "+token)
 
 	req.Header.Set("User-Agent", UserAgent)
@@ -120,17 +114,17 @@ func (r *Request[Res]) setHeaders(req *fasthttp.Request, token string) {
 	req.Header.Set("Accept-Encoding", gzip)
 }
 
-func (r *Request[Res]) buildUrl(method string, req *fasthttp.Request) {
-	req.URI().Update(r.api.apiURL + method)
+func (r *Request[Res]) buildUrl(method string) string {
+	return r.api.apiURL + method
 }
 
-func (r *Request[Res]) buildBody(req *fasthttp.Request, params Params) error {
+func (r *Request[Res]) buildBody(params Params) (io.Reader, error) {
 	values, err := params.Build()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	req.SetBodyString(values.Encode())
+	reqBody := bytes.NewBufferString(values.Encode())
 
-	return nil
+	return reqBody, nil
 }

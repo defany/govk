@@ -67,7 +67,10 @@ func (h *Manager) Middleware(ctx context.Context, event msgmodel.MessagesNew) bo
 
 	handler, ok := h.fromCache(matchWord)
 	if ok {
-		handler.handler(ctx, event)
+		if handler.callback == nil {
+			return true
+		}
+		handler.callback(ctx, event)
 
 		return false
 	}
@@ -76,7 +79,11 @@ func (h *Manager) Middleware(ctx context.Context, event msgmodel.MessagesNew) bo
 		if command.IsMatch(event) {
 			h.inCache(matchWord, command)
 
-			command.handler(ctx, event)
+			if command.callback == nil {
+				return true
+			}
+
+			command.callback(ctx, event)
 
 			return false
 		}
@@ -97,7 +104,11 @@ func (h *EventManager) Middleware(ctx context.Context, event msgmodel.MessagesEv
 
 	handler, ok := h.fromCache(matchWord)
 	if ok {
-		handler.handler(ctx, event)
+		if handler.callback == nil {
+			return true
+		}
+
+		handler.callback(ctx, event)
 
 		return false
 	}
@@ -106,7 +117,11 @@ func (h *EventManager) Middleware(ctx context.Context, event msgmodel.MessagesEv
 		if command.IsMatch(event) {
 			h.inCache(matchWord, command)
 
-			command.handler(ctx, event)
+			if command.callback == nil {
+				return true
+			}
+
+			command.callback(ctx, event)
 
 			return false
 		}
@@ -115,20 +130,38 @@ func (h *EventManager) Middleware(ctx context.Context, event msgmodel.MessagesEv
 	return true
 }
 
-func (h *Manager) NewHandler(callback callback[msgmodel.MessagesNew]) *Handler[msgmodel.MessagesNew] {
-	handler := newHandler(callback)
+func (h *Manager) AddHandlers(handlers ...*Handler[msgmodel.MessagesNew]) {
+	for _, handler := range handlers {
+		h.commands = append(h.commands, handler)
+		for _, child := range handler.children {
+			matchRules := make([]Matcher[msgmodel.MessagesNew], 0, len(handler.matchRules)+len(child.matchRules))
 
-	h.commands = append(h.commands, handler)
+			matchRules = append(matchRules, append(handler.matchRules, child.matchRules...)...)
 
-	return handler
+			child.matchRules = []Matcher[msgmodel.MessagesNew]{}
+			child.WithMatchRules(And(matchRules...))
+
+			h.commands = append(h.commands, child)
+		}
+	}
+	return
 }
 
-func (h *EventManager) NewHandler(callback callback[msgmodel.MessagesEvent]) *Handler[msgmodel.MessagesEvent] {
-	handler := newHandler(callback)
+func (h *EventManager) AddHandlers(handlers ...*Handler[msgmodel.MessagesEvent]) {
+	for _, handler := range handlers {
+		h.commands = append(h.commands, handler)
+		for _, child := range handler.children {
+			matchRules := make([]Matcher[msgmodel.MessagesEvent], 0, len(handler.matchRules)+len(child.matchRules))
 
-	h.commands = append(h.commands, handler)
+			matchRules = append(matchRules, append(handler.matchRules, child.matchRules...)...)
 
-	return handler
+			child.matchRules = []Matcher[msgmodel.MessagesEvent]{}
+			child.WithMatchRules(And(matchRules...))
+
+			h.commands = append(h.commands, child)
+		}
+	}
+	return
 }
 
 func (h *Manager) fromCache(matchWord string) (*Handler[msgmodel.MessagesNew], bool) {

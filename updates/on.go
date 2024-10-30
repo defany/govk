@@ -42,7 +42,6 @@ func On[T any](updates *Updates, event string, callbacks ...callback[T]) {
 			if err := json.Unmarshal(data, &marshaled); err != nil {
 				panic(fmt.Sprintf("failed to unmarshal incoming type %s to %s", reflect.TypeOf(data), typ))
 			}
-
 			callback(ctx, marshaled)
 		})
 	}

@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/valyala/fasthttp"
+	"net/http"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -22,7 +22,7 @@ type API struct {
 	tokenUsedAt time.Time
 	rps         uint
 
-	http *fasthttp.Client
+	http *http.Client
 }
 
 func NewAPI(tokens ...string) (*API, error) {
@@ -36,7 +36,7 @@ func NewAPI(tokens ...string) (*API, error) {
 		apiVersion: Version,
 		apiURL:     Url,
 		tokens:     tokens,
-		http:       &fasthttp.Client{},
+		http:       &http.Client{},
 	}
 
 	return api, nil
@@ -69,6 +69,12 @@ func (a *API) WithLimit(limit uint) *API {
 // Если установить 0, то после первого же запроса будет возвращен результат.
 func (a *API) WithMaxRetries(retries uint) *API {
 	a.retries = retries
+
+	return a
+}
+
+func (a *API) WithHTTP(client *http.Client) *API {
+	a.http = client
 
 	return a
 }

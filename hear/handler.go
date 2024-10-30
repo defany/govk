@@ -16,15 +16,31 @@ type HandlerEvent interface {
 type callback[Event HandlerEvent] func(ctx context.Context, event Event)
 
 type Handler[Event HandlerEvent] struct {
-	handler callback[Event]
+	callback callback[Event]
+
+	children []*Handler[Event]
 
 	matchRules []Matcher[Event]
 }
 
-func newHandler[Event HandlerEvent](handler callback[Event]) *Handler[Event] {
-	return &Handler[Event]{
-		handler: handler,
+func NewHandler[Event HandlerEvent]() *Handler[Event] {
+	return &Handler[Event]{}
+}
+
+func (h *Handler[Event]) WithCallback(callback callback[Event]) *Handler[Event] {
+	h.callback = callback
+
+	return h
+}
+
+func (h *Handler[Event]) Group(children ...*Handler[Event]) *Handler[Event] {
+	if len(h.children) == 0 {
+		h.children = make([]*Handler[Event], 0, len(children))
 	}
+
+	h.children = append(h.children, children...)
+
+	return h
 }
 
 // WithMatchRules provides a way to add rules to ignore some event with pre-validation

@@ -130,10 +130,9 @@ func (s SendParams) Params() api.Params {
 }
 
 type MessagesSendResponse struct {
-	PeerID                int       `json:"peer_id"`
-	MessageID             int       `json:"message_id"`
-	ConversationMessageID int       `json:"conversation_message_id"`
-	Error                 api.Error `json:"error"`
+	PeerID                int `json:"peer_id"`
+	MessageID             int `json:"message_id"`
+	ConversationMessageID int `json:"conversation_message_id"`
 }
 
 // Send - sending message to vk

@@ -62,6 +62,18 @@ func WithEqualPayloadTo[Event HandlerEvent](payload string, commandName ...strin
 	}
 }
 
+// And is true if all the matchers are true
+func And[Event HandlerEvent](matchers ...Matcher[Event]) Matcher[Event] {
+	return func(event Event) bool {
+		for _, p := range matchers {
+			if !p(event) {
+				return false
+			}
+		}
+		return true
+	}
+}
+
 func marshal[Event HandlerEvent](event Event) []byte {
 	m, _ := json.Marshal(event)
 

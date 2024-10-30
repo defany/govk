@@ -2,7 +2,6 @@ package msgmodel
 
 import (
 	"github.com/defany/govk/api/types"
-	"github.com/defany/govk/pkg/cond"
 	"github.com/goccy/go-json"
 )
 
@@ -153,11 +152,17 @@ func (k *MessageKeyboard) AddOpenLinkButton(link, label string, payload string) 
 }
 
 func (k *MessageKeyboard) AddCallbackButton(label string, color string, payload ...string) *MessageKeyboard {
+	var p string
+
+	if len(payload) > 0 {
+		p = payload[0]
+	}
+
 	return k.AddButton(MessageKeyboardButton{
 		Action: MessageKeyboardButtonAction{
 			Type:    ButtonCallback,
 			Label:   label,
-			Payload: cond.Ternary(len(payload) > 0, payload[0], ""),
+			Payload: p,
 		},
 		Color: color,
 	})
